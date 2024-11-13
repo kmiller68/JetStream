@@ -23,23 +23,18 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-const isInBrowser = false;
-console = {
-    log: () => { }
-}
+testList = [
+  "HashSet-wasm",
+  "tsf-wasm",
+  "quicksort-wasm",
+  "gcc-loops-wasm",
+  "richards-wasm",
+  "tfjs-wasm",
+  "tfjs-wasm-simd",
+  "argon2-wasm",
+  "argon2-wasm-simd",
+  "8bitbench-wasm",
+];
 
-testList = ["HashSet-wasm", "tsf-wasm", "quicksort-wasm", "gcc-loops-wasm", "richards-wasm", "tfjs-wasm", "argon2-wasm", "argon2-wasm-simd"];
-
-RAMification = false;
-
-load("./JetStreamDriver.js");
-
-async function runJetStream() {
-    try {
-        await JetStream.initialize();
-        JetStream.start();
-    } catch (e) {
-        throw e;
-    }
-}
-runJetStream();
+// Re-use the full CLI runner, just with the subset of Wasm line items above.
+load("./cli.js");
