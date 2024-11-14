@@ -2,7 +2,7 @@
 
 This is a Wasm (shell-only) build of SQLite's official `speedtest1.c` benchmark program.
 Quoting from https://sqlite.org/cpu.html:
-"This program strives to exercise the SQLite library in a way that is typical of real-world applications. Of course, every application is different, and so no test program can exactly mirror the behavior of all applications. The speedtest1.c program is updated from time to time as the SQLite developers' understanding of what constitutes "typical" usage evolves."
+> This program strives to exercise the SQLite library in a way that is typical of real-world applications. Of course, every application is different, and so no test program can exactly mirror the behavior of all applications. The speedtest1.c program is updated from time to time as the SQLite developers' understanding of what constitutes "typical" usage evolves.
 
 ## Build Instructions
 
@@ -20,8 +20,8 @@ See under "Alternative Source Code Formats" or search for "Snapshot of the compl
 
 ## Running in JS shells
 
-The SQLite developers only maintain compatibility of the Wasm build for running inside browsers, so `shell-runner.js` contains some polyfills and dirty hacks to make it run in `d8`/`jshell`/`jsc` as well.
-Ideally it should run just via `$shell shell-runner.js` from the current directory.
+The SQLite developers only maintain compatibility of the Wasm build for running inside browsers, so `shell-runner.js` contains some polyfills and hacks to run it JavaScript shells (such as `d8` (V8), `js` (SpiderMonkey), and `jsc` (JavaScriptCore)).
+Ideally, it should run just via `$shell shell-runner.js` from the current directory.
 
 Note that because there is no OPFS (Origin Private File System) available in some shells, this uses an in-memory file system that might run slower compared to browsers.
 
