@@ -1,45 +1,39 @@
 #!/bin/bash
 
 set -e
+set -o pipefail
 
 # Cleanup old files.
-rm -rf src/ build/
+# rm -rf src/
+rm -rf build/
 
 BUILD_LOG="$(realpath build.log)"
+echo -e "Built on $(date --rfc-3339=seconds)\n" | tee "$BUILD_LOG"
 
-echo "Built on" > "$BUILD_LOG"
-date --rfc-3339=seconds >> "$BUILD_LOG"
-echo "" >> "$BUILD_LOG"
+echo "Toolchain versions" | tee -a "$BUILD_LOG"
+emcc --version | head -n1 | tee -a "$BUILD_LOG"
+echo -e "wasm-strip $(wasm-strip --version)\n" | tee -a "$BUILD_LOG"
 
-echo "Toolchain versions" >> "$BUILD_LOG"
-emcc --version | head -n1 >> "$BUILD_LOG"
-echo -n "wasm-strip " >> "$BUILD_LOG"
-wasm-strip --version >> "$BUILD_LOG"
-echo "" >> "$BUILD_LOG"
-
-echo "Getting sources from" >> "$BUILD_LOG"
 SQLITE_SRC_URL="https://sqlite.org/2024/sqlite-src-3470000.zip"
-echo "$SQLITE_SRC_URL" >> "$BUILD_LOG"
+echo -e "Getting sources from $SQLITE_SRC_URL\n" | tee -a "$BUILD_LOG"
 SQLITE_SRC_FILE="$(basename $SQLITE_SRC_URL)"
-curl -o "$SQLITE_SRC_FILE" $SQLITE_SRC_URL
-unzip "$SQLITE_SRC_FILE"
-mv sqlite-src*/ src/
-echo "" >> "$BUILD_LOG"
+# curl -o "$SQLITE_SRC_FILE" $SQLITE_SRC_URL
+# unzip "$SQLITE_SRC_FILE"
+# mv sqlite-src*/ src/
 
-echo "Building" >> "$BUILD_LOG"
+# Paths and information in make output could be sensitive, so don't save in log.
+echo "Building..." | tee -a "$BUILD_LOG"
 pushd src
 ./configure
 cd ext/wasm
-# FIXME(dlehmann): Paths in logfile could be sensitive.
-make dist #|& tee -a "$BUILD_LOG"
+make dist
 popd
 
-mkdir -p build/{common,jswasm}
-cp src/ext/wasm/jswasm/speedtest1.{js,wasm} build/jswasm/
+echo "Copying files from src/ext/wasm/ into build/" | tee -a "$BUILD_LOG"
+mkdir -p build/{common,jswasm} | tee -a "$BUILD_LOG"
+cp src/ext/wasm/jswasm/speedtest1.{js,wasm} build/jswasm/ | tee -a "$BUILD_LOG"
 # The next ones are just needed for the browser build.
-# cp src/ext/wasm/speedtest1.html build/
-# cp src/ext/wasm/common/{emscripten.css,SqliteTestUtil.js,testing.css} build/common/
+# cp src/ext/wasm/speedtest1.html build/ | tee -a "$BUILD_LOG"
+# cp src/ext/wasm/common/{emscripten.css,SqliteTestUtil.js,testing.css} build/common/ | tee -a "$BUILD_LOG"
 
-# TODO(dlehmann): Patch sources to lower iteration counts / speed up benchmark.
-
-echo "Done" >> "$BUILD_LOG"
+echo "Build success" | tee -a "$BUILD_LOG"
