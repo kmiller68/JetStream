@@ -50,7 +50,7 @@ var self = this;
 // Exports `sqlite3InitModule()` and contains the main code.
 load("build/jswasm/speedtest1.js");
 
-// Load Wasm binary with d8 function from disk.
+// Load Wasm binary from disk.
 var Module = { wasmBinary: read("build/jswasm/speedtest1.wasm", "binary") };
 
 // Heavily simplified from inline JavaScript in `speedtest1.html`.
@@ -60,14 +60,13 @@ function runTests(sqlite3Module) {
   wasm.scopedAllocPush();
   // This should match the browser version at `speedtest1.html`.
   let argv = [
-    "speedtest1",
     "--singlethread",
     //"--nomutex",
     //"--nosync",
     //"--memdb", // note that memdb trumps the filename arg
     "--nomemstat",
     "--big-transactions" /*important for tests 410 and 510!*/,
-    "speedtest1.db",
+    "--size", "20", // To speedup, default is 100 (and takes about 4s).
   ];
   console.log("Calling main with argv:\n ", argv);
   wasm.xCall("wasm_main", argv.length, wasm.scopedAllocMainArgv(argv));
