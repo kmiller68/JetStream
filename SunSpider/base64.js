@@ -116,31 +116,22 @@ function base64ToString(data) {
     return result;
 }
 
-function run() {
-    var str = "";
+var str = "";
 
-    for ( var i = 0; i < 8192; i++ )
-            str += String.fromCharCode( (25 * Math.random()) + 97 );
+for ( var i = 0; i < 8192; i++ )
+        str += String.fromCharCode( (25 * Math.random()) + 97 );
 
-    for ( var i = 8192; i <= 16384; i *= 2 ) {
+for ( var i = 8192; i <= 16384; i *= 2 ) {
 
-        var base64;
+    var base64;
 
-        base64 = toBase64(str);
-        var encoded = base64ToString(base64);
-        if (encoded != str)
-            throw "ERROR: bad result: expected " + str + " but got " + encoded;
+    base64 = toBase64(str);
+    var encoded = base64ToString(base64);
+    if (encoded != str)
+        throw "ERROR: bad result: expected " + str + " but got " + encoded;
 
-        // Double the string
-        str += str;
-    }
+    // Double the string
+    str += str;
 }
 
-
-class Benchmark {
-    runIteration() {
-        for (let i = 0; i < 8; ++i)
-            run();
-    }
-}
-
+toBinaryTable = null;

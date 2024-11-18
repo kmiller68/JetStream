@@ -202,9 +202,7 @@ function binb2b64(binarray)
 }
 
 
-function run() {
-    var plainText =
-"Two households, both alike in dignity,\n\
+var plainText = "Two households, both alike in dignity,\n\
 In fair Verona, where we lay our scene,\n\
 From ancient grudge break to new mutiny,\n\
 Where civil blood makes civil hands unclean.\n\
@@ -219,21 +217,12 @@ Is now the two hours' traffic of our stage;\n\
 The which if you with patient ears attend,\n\
 What here shall miss, our toil shall strive to mend.";
 
-    for (var i = 0; i <4; i++) {
-        plainText += plainText;
-    }
-
-    var sha1Output = hex_sha1(plainText);
-
-    var expected = "2524d264def74cce2498bf112bedf00e6c0b796d";
-    if (sha1Output != expected)
-        throw "ERROR: bad result: expected " + expected + " but got " + sha1Output;
+for (var i = 0; i <4; i++) {
+    plainText += plainText;
 }
 
+var sha1Output = hex_sha1(plainText);
 
-class Benchmark {
-    runIteration() {
-        for (let i = 0; i < 25; ++i)
-            run();
-    }
-}
+var expected = "2524d264def74cce2498bf112bedf00e6c0b796d";
+if (sha1Output != expected)
+    throw "ERROR: bad result: expected " + expected + " but got " + sha1Output;

@@ -4,7 +4,6 @@
 // contributed by Jesse Millikan
 // Base on the Ruby version by jose fco. gonzalez
 
-function run() {
 var l;
 var dnaInput = ">ONE Homo sapiens alu\n\
 GGCCGGGCGCGGTGGCTCACGCCTGTAATCCCAGCACTTTGGGAGGCCGAGGCGGGCGGA\n\
@@ -1720,12 +1719,3 @@ if (dnaOutputString != expectedDNAOutputString)
 
 if (dnaInput != expectedDNAInput)
     throw "ERROR: bad result: expected " + JSON.stringify(expectedDNAInput) + " but got " + JSON.stringify(dnaInput);
-}
-
-
-class Benchmark {
-    runIteration() {
-        for (let i = 0; i < 2; ++i)
-            run();
-    }
-}

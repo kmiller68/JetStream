@@ -1,3 +1,5 @@
+//@ runDefault
+
 /*
  *  Licensed to the Apache Software Foundation (ASF) under one or more
  *  contributor license agreements.  See the NOTICE below for additional
@@ -571,38 +573,30 @@ var HashMap = (function() {
     return HashMap;
 })();
 
-function run() {
-    var map = new HashMap();
-    var COUNT = 90000;
+var map = new HashMap();
+var COUNT = 500000;
 
+for (var i = 0; i < COUNT; ++i)
+    map.put(i, 42);
+
+var result = 0;
+for (var j = 0; j < 5; ++j) {
     for (var i = 0; i < COUNT; ++i)
-        map.put(i, 42);
-
-    var result = 0;
-    for (var j = 0; j < 5; ++j) {
-        for (var i = 0; i < COUNT; ++i)
-            result += map.get(i);
-    }
-
-    var keySum = 0;
-    var valueSum = 0;
-    for (var iterator = map.entrySet().iterator(); iterator.hasNext();) {
-        var entry = iterator.next();
-        keySum += entry.key;
-        valueSum += entry.value;
-    }
-
-    if (result !== 42 * COUNT * 5)
-        throw "Error: result = " + result;
-    if (keySum !== ((COUNT * (COUNT + 1) / 2) - COUNT))
-        throw "Error: keySum = " + keySum;
-    if (valueSum !== 42 * COUNT)
-        throw "Error: valueSum = " + valueSum;
+        result += map.get(i);
 }
 
-class Benchmark {
-    runIteration() {
-        run();
-    }
+var keySum = 0;
+var valueSum = 0;
+for (var iterator = map.entrySet().iterator(); iterator.hasNext();) {
+    var entry = iterator.next();
+    keySum += entry.key;
+    valueSum += entry.value;
 }
+
+if (result != 105000000)
+    throw "Error: result = " + result;
+if (keySum != 124999750000)
+    throw "Error: keySum = " + keySum;
+if (valueSum != 21000000)
+    throw "Error: valueSum = " + valueSum;
 

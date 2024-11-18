@@ -151,33 +151,24 @@ NBodySystem.prototype.energy = function(){
    return e;
 }
 
-function run() {
-    var ret = 0;
+var ret = 0;
 
-    for ( var n = 3; n <= 24; n *= 2 ) {
-        (function(){
-            var bodies = new NBodySystem( Array(
-               Sun(),Jupiter(),Saturn(),Uranus(),Neptune()
-            ));
-            var max = n * 100;
-            
-            ret += bodies.energy();
-            for (var i=0; i<max; i++){
-                bodies.advance(0.01);
-            }
-            ret += bodies.energy();
-        })();
-    }
-
-    var expected = -1.3524862408537381;
-    if (ret != expected)
-        throw "ERROR: bad result: expected " + expected + " but got " + ret;
+for ( var n = 3; n <= 24; n *= 2 ) {
+    (function(){
+        var bodies = new NBodySystem( Array(
+           Sun(),Jupiter(),Saturn(),Uranus(),Neptune()
+        ));
+        var max = n * 100;
+        
+        ret += bodies.energy();
+        for (var i=0; i<max; i++){
+            bodies.advance(0.01);
+        }
+        ret += bodies.energy();
+    })();
 }
 
+var expected = -1.3524862408537381;
+if (ret != expected)
+    throw "ERROR: bad result: expected " + expected + " but got " + ret;
 
-class Benchmark {
-    runIteration() {
-        for (let i = 0; i < 8; ++i)
-            run();
-    }
-}

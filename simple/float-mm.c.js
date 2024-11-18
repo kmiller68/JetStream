@@ -13,8 +13,6 @@
 // after the generated code, you will need to define   var Module = {};
 // before the code. Then that object will be used in the code, and you
 // can continue to use Module afterwards as well.
-function run() {
-
 var Module;
 if (!Module) Module = eval('(function() { try { return Module || {} } catch(e) { return {} } })()');
 
@@ -4647,16 +4645,20 @@ if (Module['noInitialRun']) {
   shouldRunNow = false;
 }
 
+
 run();
 
-}
+// {{POST_RUN_ADDITIONS}}
 
-let console = {
-    log() { }
-}
 
-class Benchmark { 
-    runIteration() {
-        run();
-    }
-}
+
+
+
+
+// {{MODULE_ADDITIONS}}
+
+
+
+
+
+

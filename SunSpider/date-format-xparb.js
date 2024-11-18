@@ -408,23 +408,13 @@ Date.patterns = {
     UniversalSortableDateTimePattern: "Y-m-d H:i:sO",
     YearMonthPattern: "F, Y"};
 
-function run() {
-    var date = new Date("1/1/2007 1:11:11");
+var date = new Date("1/1/2007 1:11:11");
 
-    for (i = 0; i < 4000; ++i) {
-        var shortFormat = date.dateFormat("Y-m-d");
-        var longFormat = date.dateFormat("l, F d, Y g:i:s A");
-        date.setTime(date.getTime() + 84266956);
-    }
-
-    // FIXME: Find a way to validate this test.
-    // https://bugs.webkit.org/show_bug.cgi?id=114849
+for (i = 0; i < 4000; ++i) {
+    var shortFormat = date.dateFormat("Y-m-d");
+    var longFormat = date.dateFormat("l, F d, Y g:i:s A");
+    date.setTime(date.getTime() + 84266956);
 }
 
-
-class Benchmark {
-    runIteration() {
-        for (let i = 0; i < 8; ++i)
-            run();
-    }
-}
+// FIXME: Find a way to validate this test.
+// https://bugs.webkit.org/show_bug.cgi?id=114849

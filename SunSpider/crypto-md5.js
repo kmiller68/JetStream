@@ -255,9 +255,7 @@ function binl2b64(binarray)
   return str;
 }
 
-function run() {
-    var plainText =
-"Rebellious subjects, enemies to peace,\n\
+var plainText = "Rebellious subjects, enemies to peace,\n\
 Profaners of this neighbour-stained steel,--\n\
 Will they not hear? What, ho! you men, you beasts,\n\
 That quench the fire of your pernicious rage\n\
@@ -279,25 +277,16 @@ You Capulet; shall go along with me:\n\
 And, Montague, come you this afternoon,\n\
 To know our further pleasure in this case,\n\
 To old Free-town, our common judgment-place.\n\
-Once more, on pain of death, all men depart.";
+Once more, on pain of death, all men depart."
 
-    for (var i = 0; i <4; i++) {
-        plainText += plainText;
-    }
-
-    var md5Output = hex_md5(plainText);
-
-    var expected = "a831e91e0f70eddcb70dc61c6f82f6cd";
-
-    if (md5Output != expected)
-        throw "ERROR: bad result: expected " + expected + " but got " + md5Output;
-
+for (var i = 0; i <4; i++) {
+    plainText += plainText;
 }
 
+var md5Output = hex_md5(plainText);
 
-class Benchmark {
-    runIteration() {
-        for (let i = 0; i < 22; ++i)
-            run();
-    }
-}
+var expected = "a831e91e0f70eddcb70dc61c6f82f6cd";
+
+if (md5Output != expected)
+    throw "ERROR: bad result: expected " + expected + " but got " + md5Output;
+

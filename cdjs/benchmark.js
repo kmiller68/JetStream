@@ -28,6 +28,7 @@ function benchmarkImpl(configuration) {
     var numAircraft = configuration.numAircraft;
     var numFrames = configuration.numFrames;
     var expectedCollisions = configuration.expectedCollisions;
+    var percentile = configuration.percentile;
     var exclude = configuration.exclude;
 
     var simulator = new Simulator(numAircraft);
@@ -71,22 +72,48 @@ function benchmarkImpl(configuration) {
     for (var i = 0; i < results.length; ++i)
         actualCollisions += results[i].numCollisions;
     if (actualCollisions != expectedCollisions) {
-        throw new Error("Bad number of collisions: " + actualCollisions + " (expected " + expectedCollisions + ")");
+        throw new Error("Bad number of collisions: " + actualCollisions + " (expected " +
+                        expectedCollisions + ")");
     }
+
+    // Find the worst 5% 
+    var times = [];
+    for (var i = 0; i < results.length; ++i)
+        times.push(results[i].time);
+    
+    return averageAbovePercentile(times, percentile);
 }
 
 function benchmark() {
     return benchmarkImpl({
         verbosity: 0,
         numAircraft: 1000,
-        numFrames: 18,
-        expectedCollisions: 1336,
+        numFrames: 200,
+        expectedCollisions: 14484,
+        percentile: 95,
         exclude: 0
     });
 }
 
-class Benchmark {
-    runIteration() {
-        benchmark();
-    }
+function longBenchmark() {
+    return benchmarkImpl({
+        verbosity: 0,
+        numAircraft: 1000,
+        numFrames: 20000,
+        expectedCollisions: 697299,
+        percentile: 99.5,
+        exclude: 0
+    });
 }
+
+function largeBenchmark() {
+    return benchmarkImpl({
+        verbosity: 1,
+        numAircraft: 20000,
+        numFrames: 110,
+        expectedCollisions: 7316,
+        percentile: 97,
+        exclude: 10
+    });
+}
+
