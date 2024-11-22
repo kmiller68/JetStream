@@ -689,7 +689,7 @@ class Benchmark {
 
     async doLoadBlob(resource) {
         let response;
-        const tries = 3;
+        let tries = 3;
         while (tries--) {
             let hasError = false;
             try {
@@ -711,7 +711,7 @@ class Benchmark {
     }
 
     async loadBlob(type, prop, resource, incrementRefCount = true) {
-        const blobData = JetStream.blobDataCache[resource];
+        let blobData = JetStream.blobDataCache[resource];
         if (!blobData) {
             blobData = {
                 type: type,
@@ -727,7 +727,7 @@ class Benchmark {
         if (incrementRefCount)
             blobData.refCount++;
 
-        const promise = JetStream.loadCache[resource];
+        let promise = JetStream.loadCache[resource];
         if (promise)
             return promise;
 
