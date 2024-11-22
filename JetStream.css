@@ -296,10 +296,13 @@ a.button {
 
 }
 
-.benchmark h3, .benchmark h4, .benchmark .result, .benchmark label {
+ .benchmark h4, .benchmark .result, .benchmark label {
     color: transparent;
     background: linear-gradient(160deg, rgba(249,249,249,1) 0%, rgba(238,238,238,1) 100%);
     border-radius: 3px;
+}
+.benchmark h3 {
+    color:  rgb(183, 183, 183);
 }
 
 .benchmark-running h4, .benchmark-running .result, .benchmark-running label {
