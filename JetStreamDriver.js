@@ -1252,24 +1252,24 @@ class WasmBenchmark extends Benchmark {
 };
 
 const TAGS = new Set([
-"ARES",
-"CDJS",
-"CodeLoad",
-"LuaJSFight",
-"Octane",
-"RexBench",
-"SeaMonster",
-"Simple",
-"SunSpider",
-"BigIntNoble",
-"BigIntMisc",
-"Proxy",
-"ClassFields",
-"Generators",
-"Wasm",
-"WorkerTests",
-"WSL",
-"WTB"
+    "ARES",
+    "CDJS",
+    "CodeLoad",
+    "LuaJSFight",
+    "Octane",
+    "RexBench",
+    "SeaMonster",
+    "Simple",
+    "SunSpider",
+    "BigIntNoble",
+    "BigIntMisc",
+    "Proxy",
+    "ClassFields",
+    "Generators",
+    "Wasm",
+    "WorkerTests",
+    "WSL",
+    "WTB"
 ]);
 
 let BENCHMARKS = [
