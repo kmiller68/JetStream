@@ -467,7 +467,7 @@ class Driver {
                 // If we've failed to prefetch resources even after a sequential 1 by 1 retry,
                 // then fail out early rather than letting subtests fail with a hang.
                 window.allIsGood = false;
-                throw new Error("Fetch failed");
+                throw new Error("Fetch failed"); 
             }
         }
 
@@ -556,7 +556,6 @@ class Benchmark {
     {
         this.plan = plan;
         this.iterations = getIterationCount(plan);
-        console.log({name:this.name, iterations:this.iterations})
         this.isAsync = !!plan.isAsync;
 
         this.scripts = null;
@@ -835,7 +834,7 @@ class Benchmark {
 
         if (!blobData.blob) {
             window.allIsGood = false;
-            throw new Error("Fetch failed");
+            throw new Error("Fetch failed"); 
         }
 
         return !counter.failedPreloadResources && counter.loadedResources == counter.totalResources;
@@ -889,10 +888,11 @@ class Benchmark {
     scoreIdentifiers() { throw new Error("Must be implemented by subclasses"); }
 
     updateUIBeforeRun() {
-        if (!dumpJSONResults)
-            console.log(`Running ${this.name}:`);
-        if (!isInBrowser)
+        if (!isInBrowser) {
+            if (!dumpJSONResults)
+                console.log(`Running ${this.name}:`);
             return;
+        }
 
         let containerUI = document.getElementById("results");
         let resultsBenchmarkUI = document.getElementById(`benchmark-${this.name}`);
@@ -977,6 +977,7 @@ class DefaultBenchmark extends Benchmark {
             document.getElementById(worst4ID(this)).innerHTML = uiFriendlyNumber(this.worst4);
             document.getElementById(avgID(this)).innerHTML = uiFriendlyNumber(this.average);
             document.getElementById(scoreID(this)).innerHTML = uiFriendlyNumber(this.score);
+            return;
         }
 
         if (dumpJSONResults)
@@ -1074,6 +1075,7 @@ class WSLBenchmark extends Benchmark {
             document.getElementById("wsl-stdlib-score").innerHTML = uiFriendlyNumber(this.stdlib);
             document.getElementById("wsl-tests-score").innerHTML = uiFriendlyNumber(this.mainRun);
             document.getElementById("wsl-score-score").innerHTML = uiFriendlyNumber(this.score);
+            return;
         }
 
         if (dumpJSONResults)
@@ -1254,6 +1256,7 @@ class WasmBenchmark extends Benchmark {
             document.getElementById(this.startupID).innerHTML = uiFriendlyNumber(this.startupTime);
             document.getElementById(this.runID).innerHTML = uiFriendlyNumber(this.runTime);
             document.getElementById(this.scoreID).innerHTML = uiFriendlyNumber(this.score);
+            return;
         }
 
         if (dumpJSONResults)
