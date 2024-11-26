@@ -35,6 +35,8 @@ const isSpiderMonkey = typeof newGlobal !== "undefined";
 if (isSpiderMonkey)
     globalThis.readFile = readRelativeToScript;
 
+if (typeof arguments !== "undefined" && arguments.length > 0)
+    testList = arguments.slice();
 if (typeof testList === "undefined")
     testList = undefined;
 
