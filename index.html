@@ -36,7 +36,7 @@
     const isInBrowser = true;
     const isD8 = false;
     const isSpiderMonkey = false;
-    var allIsGood = true;
+    globalThis.allIsGood = true;
     window.onerror = function(e) {
         if (e == "Script error.") {
             // This is a workaround for Firefox on iOS which has an uncaught exception from
@@ -44,19 +44,19 @@
             // if it can otherwise run.
             return;
         }
-        allIsGood = false;
+        globalThis.allIsGood = false;
     }
 
     async function initialize() {
-        if (allIsGood) {
+        if (globalThis.allIsGood) {
             try {
                 await JetStream.initialize();
             } catch (e) {
-                allIsGood = false;
+                globalThis.allIsGood = false;
                 console.error(e);
             }
         }
-        if (!allIsGood) {
+        if (!globalThis.allIsGood) {
             let statusElement = document.getElementById("status");
             statusElement.classList.remove('loading');
             statusElement.classList.add('error');
