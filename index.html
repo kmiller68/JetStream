@@ -53,6 +53,7 @@
                 await JetStream.initialize();
             } catch (e) {
                 allIsGood = false;
+                console.error(e);
             }
         }
         if (!allIsGood) {
