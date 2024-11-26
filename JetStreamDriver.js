@@ -374,6 +374,7 @@ class Driver {
         var magicFrame = magic.contentDocument.getElementById("magicframe");
         magicFrame.contentDocument.open();
         magicFrame.contentDocument.write("<!DOCTYPE html><head><title>benchmark payload</title></head><body>\n" + string + "</body></html>");
+
         return magicFrame;
     }
 
