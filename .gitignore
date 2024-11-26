@@ -1,0 +1,6 @@
+.DS_Store
+.directory
+
+# Ignore auto-generated files by VS & VSCode.
+/.vs/
+/.vscode/
