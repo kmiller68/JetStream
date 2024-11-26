@@ -84,7 +84,7 @@ function getWorstCaseCount(plan) {
 
 if (isInBrowser) {
     document.onkeydown = (keyboardEvent) => {
-        let key = keyboardEvent.key;
+        const key = keyboardEvent.key;
         if (key === "d" || key === "D") {
             showScoreDetails = true;
 
@@ -155,10 +155,10 @@ function uiFriendlyNumber(num) {
 
 function uiFriendlyDuration(time)
 {
-    let minutes = time.getMinutes();
-    let seconds = time.getSeconds();
-    let milliSeconds = time.getMilliseconds();
-    let result = "" + minutes + ":";
+    const minutes = time.getMinutes();
+    const seconds = time.getSeconds();
+    const milliSeconds = time.getMilliseconds();
+    const result = "" + minutes + ":";
 
     result = result + (seconds < 10 ? "0" : "") + seconds + ".";
     result = result + (milliSeconds < 10 ? "00" : (milliSeconds < 100 ? "0" : "")) + milliSeconds;
@@ -177,7 +177,7 @@ const fileLoader = (function() {
                 return Promise.resolve(readFile(url));
 
             let response;
-            let tries = 3;
+            const tries = 3;
             while (tries--) {
                 let hasError = false;
                 try {
@@ -189,7 +189,7 @@ const fileLoader = (function() {
                     break;
                 if (tries)
                     continue;
-                window.allIsGood = false;
+                globalThis.allIsGood = false;
                 throw new Error("Fetch failed");
             }
             if (url.indexOf(".js") !== -1)
@@ -204,7 +204,7 @@ const fileLoader = (function() {
             if (this.requests.has(url))
                 return this.requests.get(url);
 
-            let promise = this._loadInternal(url);
+            const promise = this._loadInternal(url);
             this.requests.set(url, promise);
             return promise;
         }
@@ -239,8 +239,8 @@ class Driver {
 
         await updateUI();
 
-        let start = performance.now();
-        for (let benchmark of this.benchmarks) {
+        const start = performance.now();
+        for (const benchmark of this.benchmarks) {
             benchmark.updateUIBeforeRun();
 
             await updateUI();
@@ -255,9 +255,9 @@ class Driver {
             benchmark.updateUIAfterRun();
 
             if (isInBrowser) {
-                let cache = JetStream.blobDataCache;
-                for (let file of benchmark.plan.files) {
-                    let blobData = cache[file];
+                const cache = JetStream.blobDataCache;
+                for (const file of benchmark.plan.files) {
+                    const blobData = cache[file];
                     blobData.refCount--;
                     if (!blobData.refCount)
                         cache[file] = undefined;
@@ -265,7 +265,7 @@ class Driver {
             }
         }
 
-        let totalTime = performance.now() - start;
+        const totalTime = performance.now() - start;
         if (measureTotalTimeAsSubtest) {
             if (isInBrowser)
                 document.getElementById("benchmark-total-time-score").innerHTML = uiFriendlyNumber(totalTime);
@@ -274,19 +274,19 @@ class Driver {
             allScores.push(totalTime);
         }
 
-        let allScores = [];
+        const allScores = [];
         for (let benchmark of this.benchmarks)
             allScores.push(benchmark.score);
 
         categoryScores = new Map;
-        for (let benchmark of this.benchmarks) {
+        for (const benchmark of this.benchmarks) {
             for (let category of Object.keys(benchmark.subTimes()))
                 categoryScores.set(category, []);
         }
 
-        for (let benchmark of this.benchmarks) {
+        for (const benchmark of this.benchmarks) {
             for (let [category, value] of Object.entries(benchmark.subTimes())) {
-                let arr = categoryScores.get(category);
+                const arr = categoryScores.get(category);
                 arr.push(value);
             }
         }
@@ -313,7 +313,7 @@ class Driver {
     runCode(string)
     {
         if (!isInBrowser) {
-            let scripts = string;
+            const scripts = string;
             let globalObject;
             let realm;
             if (isD8) {
@@ -338,17 +338,17 @@ class Driver {
             };
 
             globalObject.performance ??= performance;
-            for (let script of scripts)
+            for (const script of scripts)
                 globalObject.loadString(script);
 
             return isD8 ? realm : globalObject;
         }
 
-        var magic = document.getElementById("magic");
+        const magic = document.getElementById("magic");
         magic.contentDocument.body.textContent = "";
         magic.contentDocument.body.innerHTML = "<iframe id=\"magicframe\" frameborder=\"0\">";
 
-        var magicFrame = magic.contentDocument.getElementById("magicframe");
+        const magicFrame = magic.contentDocument.getElementById("magicframe");
         magicFrame.contentDocument.open();
         magicFrame.contentDocument.write("<!DOCTYPE html><head><title>benchmark payload</title></head><body>\n" + string + "</body></html>");
 
@@ -361,13 +361,13 @@ class Driver {
 
         let text = "";
         let newBenchmarks = [];
-        for (let benchmark of this.benchmarks) {
-            let id = JSON.stringify(benchmark.constructor.scoreDescription());
-            let description = JSON.parse(id);
+        for (const benchmark of this.benchmarks) {
+            const id = JSON.stringify(benchmark.constructor.scoreDescription());
+            const description = JSON.parse(id);
 
             newBenchmarks.push(benchmark);
-            let scoreIds = benchmark.scoreIdentifiers()
-            let overallScoreId = scoreIds.pop();
+            const scoreIds = benchmark.scoreIdentifiers()
+            const overallScoreId = scoreIds.pop();
 
             if (isInBrowser) {
                 text +=
@@ -375,9 +375,9 @@ class Driver {
                     <h3 class="benchmark-name"><a href="in-depth.html#${benchmark.name}">${benchmark.name}</a></h3>
                     <h4 class="score" id="${overallScoreId}">___</h4><p>`;
                 for (let i = 0; i < scoreIds.length; i++) {
-                    let id = scoreIds[i];
-                    let label = description[i];
-                    text += `<span class="result"><span id="${id}">___</span><label>${label}</label></span>`
+                    const scoreId = scoreIds[i];
+                    const label = description[i];
+                    text += `<span class="result"><span id="${scoreId}">___</span><label>${label}</label></span>`
                 }
                 text += `</p></div>`;
             }
@@ -389,9 +389,9 @@ class Driver {
         for (let f = 0; f < 5; f++)
             text += `<div class="benchmark fill"></div>`;
 
-        let timestamp = performance.now();
+        const timestamp = performance.now();
         document.getElementById('jetstreams').style.backgroundImage = `url('jetstreams.svg?${timestamp}')`;
-        let resultsTable = document.getElementById("results");
+        const resultsTable = document.getElementById("results");
         resultsTable.innerHTML = text;
 
         document.getElementById("magic").textContent = "";
@@ -406,7 +406,7 @@ class Driver {
         if (!isInBrowser)
             return;
 
-        for (let id of benchmark.scoreIdentifiers())
+        for (const id of benchmark.scoreIdentifiers())
             document.getElementById(id).innerHTML = "error";
     }
 
@@ -423,16 +423,16 @@ class Driver {
         if (!isInBrowser)
             return;
 
-        var promises = [];
-        for (let benchmark of this.benchmarks)
+        const promises = [];
+        for (const benchmark of this.benchmarks)
             promises.push(benchmark.prefetchResourcesForBrowser());
 
         await Promise.all(promises);
 
-        let counter = JetStream.counter;
+        const counter = JetStream.counter;
         if (counter.failedPreloadResources || counter.loadedResources != counter.totalResources) {
-            for (let benchmark of this.benchmarks) {
-                let allFilesLoaded = await benchmark.retryPrefetchResourcesForBrowser(counter);
+            for (const benchmark of this.benchmarks) {
+                const allFilesLoaded = await benchmark.retryPrefetchResourcesForBrowser(counter);
                 if (allFilesLoaded)
                     break;
             }
@@ -440,8 +440,8 @@ class Driver {
             if (counter.failedPreloadResources || counter.loadedResources != counter.totalResources) {
                 // If we've failed to prefetch resources even after a sequential 1 by 1 retry,
                 // then fail out early rather than letting subtests fail with a hang.
-                window.allIsGood = false;
-                throw new Error("Fetch failed"); 
+                globalThis.allIsGood = false;
+                throw new Error("Fetch failed");
             }
         }
 
@@ -449,15 +449,15 @@ class Driver {
     }
 
     async fetchResources() {
-        var promises = [];
-        for (let benchmark of this.benchmarks)
+        const promises = [];
+        for (const benchmark of this.benchmarks)
             promises.push(benchmark.fetchResources());
         await Promise.all(promises);
 
         if (!isInBrowser)
             return;
 
-        let statusElement = document.getElementById("status");
+        const statusElement = document.getElementById("status");
         statusElement.classList.remove('loading');
         statusElement.innerHTML = `<a href="javascript:JetStream.start()" class="button">Start Test</a>`;
         statusElement.onclick = () => {
@@ -469,8 +469,8 @@ class Driver {
 
     resultsJSON()
     {
-        let results = {};
-        for (let benchmark of this.benchmarks) {
+        const results = {};
+        for (const benchmark of this.benchmarks) {
             const subResults = {}
             const subTimes = benchmark.subTimes();
             for (const name in subTimes) {
@@ -579,14 +579,14 @@ class Benchmark {
         else
             code = [];
 
-        let addScript = (text) => {
+        const addScript = (text) => {
             if (isInBrowser)
                 code += `<script>${text}</script>`;
             else
                 code.push(text);
         };
 
-        let addScriptWithURL = (url) => {
+        const addScriptWithURL = (url) => {
             if (isInBrowser)
                 code += `<script src="${url}"></script>`;
             else
@@ -629,22 +629,22 @@ class Benchmark {
             addScript(str);
         }
 
-        let prerunCode = this.prerunCode;
+        const prerunCode = this.prerunCode;
         if (prerunCode)
             addScript(prerunCode);
 
         if (!isInBrowser) {
             assert(this.scripts && this.scripts.length === this.plan.files.length);
 
-            for (let text of this.scripts)
+            for (const text of this.scripts)
                 addScript(text);
         } else {
-            let cache = JetStream.blobDataCache;
-            for (let file of this.plan.files)
+            const cache = JetStream.blobDataCache;
+            for (const file of this.plan.files)
                 addScriptWithURL(cache[file].blobURL);
         }
 
-        let promise = new Promise((resolve, reject) => {
+        const promise = new Promise((resolve, reject) => {
             currentResolve = resolve;
             currentReject = reject;
         });
@@ -670,12 +670,12 @@ class Benchmark {
             console.log(e.stack)
             throw e;
         }
-        let results = await promise;
+        const results = await promise;
 
         this.endTime = new Date();
 
         if (RAMification) {
-            let memoryFootprint = MemoryFootprint();
+            const memoryFootprint = MemoryFootprint();
             this.currentFootprint = memoryFootprint.current;
             this.peakFootprint = memoryFootprint.peak;
         }
@@ -703,15 +703,15 @@ class Benchmark {
                 continue;
             throw new Error("Fetch failed");
         }
-        let blob = await response.blob();
-        var blobData = JetStream.blobDataCache[resource];
+        const blob = await response.blob();
+        const blobData = JetStream.blobDataCache[resource];
         blobData.blob = blob;
         blobData.blobURL = URL.createObjectURL(blob);
         return blobData;
     }
 
     async loadBlob(type, prop, resource, incrementRefCount = true) {
-        var blobData = JetStream.blobDataCache[resource];
+        let blobData = JetStream.blobDataCache[resource];
         if (!blobData) {
             blobData = {
                 type: type,
@@ -737,7 +737,7 @@ class Benchmark {
     }
 
     updateCounter() {
-        let counter = JetStream.counter;
+        const counter = JetStream.counter;
         ++counter.loadedResources;
         var statusElement = document.getElementById("status");
         statusElement.innerHTML = `Loading ${counter.loadedResources} of ${counter.totalResources} ...`;
@@ -746,8 +746,8 @@ class Benchmark {
     prefetchResourcesForBrowser() {
         if (!isInBrowser)
             return;
-        let promises = this.plan.files.map((file) => this.loadBlob("file", null, file).then((blobData) => {
-                if (!window.allIsGood)
+        const promises = this.plan.files.map((file) => this.loadBlob("file", null, file).then((blobData) => {
+                if (!globalThis.allIsGood)
                     return;
                 this.updateCounter();
             }).catch((error) => {
@@ -758,7 +758,7 @@ class Benchmark {
             this.preloads = [];
             for (let prop of Object.getOwnPropertyNames(this.plan.preload)) {
                 promises.push(this.loadBlob("preload", prop, this.plan.preload[prop]).then((blobData) => {
-                    if (!window.allIsGood)
+                    if (!globalThis.allIsGood)
                         return;
                     this.preloads.push([ blobData.prop, blobData.blobURL ]);
                     this.updateCounter();
@@ -777,8 +777,8 @@ class Benchmark {
     }
 
     async retryPrefetchResource(type, prop, file) {
-        let counter = JetStream.counter;
-        var blobData = JetStream.blobDataCache[file];
+        const counter = JetStream.counter;
+        const blobData = JetStream.blobDataCache[file];
         if (blobData.blob) {
             // The same preload blob may be used by multiple subtests. Though the blob is already loaded,
             // we still need to check if this subtest failed to load it before. If so, handle accordingly.
@@ -795,7 +795,7 @@ class Benchmark {
         // Retry fetching the resource.
         JetStream.loadCache[file] = null;
         await this.loadBlob(type, prop, file, false).then((blobData) => {
-            if (!window.allIsGood)
+            if (!globalThis.allIsGood)
                 return;
             if (blobData.type == "preload")
                 this.preloads.push([ blobData.prop, blobData.blobURL ]);
@@ -803,8 +803,8 @@ class Benchmark {
         });
 
         if (!blobData.blob) {
-            window.allIsGood = false;
-            throw new Error("Fetch failed"); 
+            globalThis.allIsGood = false;
+            throw new Error("Fetch failed");
         }
 
         return !counter.failedPreloadResources && counter.loadedResources == counter.totalResources;
@@ -814,17 +814,17 @@ class Benchmark {
         if (!isInBrowser)
             return;
 
-        let counter = JetStream.counter;
-        for (let resource of this.plan.files) {
-            let allDone = await this.retryPrefetchResource("file", null, resource);
+        const counter = JetStream.counter;
+        for (const resource of this.plan.files) {
+            const allDone = await this.retryPrefetchResource("file", null, resource);
             if (allDone)
                 return true; // All resources loaded, nothing more to do.
         }
 
         if (this.plan.preload) {
-            for (let prop of Object.getOwnPropertyNames(this.plan.preload)) {
-                let resource = this.plan.preload[prop];
-                let allDone = await this.retryPrefetchResource("preload", prop, resource);
+            for (const prop of Object.getOwnPropertyNames(this.plan.preload)) {
+                const resource = this.plan.preload[prop];
+                const allDone = await this.retryPrefetchResource("preload", prop, resource);
                 if (allDone)
                     return true; // All resources loaded, nothing more to do.
             }
@@ -836,14 +836,14 @@ class Benchmark {
         if (this._resourcesPromise)
             return this._resourcesPromise;
 
-        let filePromises = !isInBrowser ? this.plan.files.map((file) => fileLoader.load(file)) : [];
+        const filePromises = !isInBrowser ? this.plan.files.map((file) => fileLoader.load(file)) : [];
 
-        let promise = Promise.all(filePromises).then((texts) => {
+        const promise = Promise.all(filePromises).then((texts) => {
             if (isInBrowser)
                 return;
             this.scripts = [];
             assert(texts.length === this.plan.files.length);
-            for (let text of texts)
+            for (const text of texts)
                 this.scripts.push(text);
         });
 
@@ -864,12 +864,12 @@ class Benchmark {
             return;
         }
 
-        let containerUI = document.getElementById("results");
-        let resultsBenchmarkUI = document.getElementById(`benchmark-${this.name}`);
+        const containerUI = document.getElementById("results");
+        const resultsBenchmarkUI = document.getElementById(`benchmark-${this.name}`);
         containerUI.insertBefore(resultsBenchmarkUI, containerUI.firstChild);
         resultsBenchmarkUI.classList.add("benchmark-running");
 
-        for (let id of this.scoreIdentifiers())
+        for (const id of this.scoreIdentifiers())
             document.getElementById(id).innerHTML = "...";
     }
 
@@ -877,7 +877,7 @@ class Benchmark {
         if (!isInBrowser)
             return;
 
-        let benchmarkResultsUI = document.getElementById(`benchmark-${this.name}`);
+        const benchmarkResultsUI = document.getElementById(`benchmark-${this.name}`);
         benchmarkResultsUI.classList.remove("benchmark-running");
         benchmarkResultsUI.classList.add("benchmark-done");
 
@@ -898,7 +898,7 @@ class DefaultBenchmark extends Benchmark {
 
     processResults(results) {
         function copyArray(a) {
-            let result = [];
+            const result = [];
             for (let x of a)
                 result.push(x);
             return result;
@@ -912,7 +912,7 @@ class DefaultBenchmark extends Benchmark {
         for (let i = 0; i + 1 < results.length; ++i)
             assert(results[i] >= results[i + 1]);
 
-        let worstCase = [];
+        const worstCase = [];
         for (let i = 0; i < this.worstCaseCount; ++i)
             worstCase.push(results[i]);
         this.worst4 = toScore(mean(worstCase));
@@ -1080,7 +1080,7 @@ class WasmBenchmark extends Benchmark {
     }
 
     get prerunCode() {
-        let str = `
+        const str = `
             let verbose = false;
 
             let compileTime = null;
@@ -1173,7 +1173,7 @@ class WasmBenchmark extends Benchmark {
 
         str += "}";
 
-        let keys = Object.keys(this.plan.preload);
+        const keys = Object.keys(this.plan.preload);
         for (let i = 0; i < keys.length; ++i) {
             str += `loadBlob("${keys[i]}", "${this.plan.preload[keys[i]]}", () => {\n`;
         }
@@ -1262,7 +1262,7 @@ const WSLGroup = Symbol.for("WSL");
 const WTBGroup = Symbol.for("WTB");
 
 
-let testPlans = [
+const testPlans = [
     // ARES
     {
         name: "Air",
@@ -1967,13 +1967,13 @@ let testPlans = [
 ];
 
 // LuaJSFight tests
-let luaJSFightTests = [
+const luaJSFightTests = [
     "hello_world"
     , "list_search"
     , "lists"
     , "string_lists"
 ];
-for (let test of luaJSFightTests) {
+for (const test of luaJSFightTests) {
     testPlans.push({
         name: `${test}-LJF`,
         files: [
@@ -1984,7 +1984,7 @@ for (let test of luaJSFightTests) {
 }
 
 // SunSpider tests
-let sunSpiderTests = [
+const sunSpiderTests = [
     "3d-cube"
     , "3d-raytrace"
     , "base64"
@@ -1998,7 +1998,7 @@ let sunSpiderTests = [
     , "string-unpack-code"
     , "tagcloud"
 ];
-for (let test of sunSpiderTests) {
+for (const test of sunSpiderTests) {
     testPlans.push({
         name: `${test}-SP`,
         files: [
@@ -2009,7 +2009,7 @@ for (let test of sunSpiderTests) {
 }
 
 // WTB (Web Tooling Benchmark) tests
-let WTBTests = [
+const WTBTests = [
     "acorn"
     , "babylon"
     , "chai"
@@ -2020,7 +2020,7 @@ let WTBTests = [
     , "prepack"
     , "uglify-js"
 ];
-for (let name of WTBTests) {
+for (const name of WTBTests) {
     testPlans.push({
         name: `${name}-wtb`,
         files: [
@@ -2034,18 +2034,18 @@ for (let name of WTBTests) {
 }
 
 
-let testsByName = new Map();
-let testsByGroup = new Map();
+const testsByName = new Map();
+const testsByGroup = new Map();
 
-for (let plan of testPlans) {
-    let testName = plan.name;
+for (const plan of testPlans) {
+    const testName = plan.name;
 
     if (testsByName.has(plan.name))
         throw "Duplicate test plan with name \"" + testName + "\"";
     else
         testsByName.set(testName, plan);
 
-    let group = plan.testGroup;
+        const group = plan.testGroup;
 
     if (testsByGroup.has(group))
         testsByGroup.get(group).push(testName);
@@ -2085,11 +2085,11 @@ function processTestList(testList)
     else
         tests = testList.split(/[\s,]/);
 
-    for (let testName of tests) {
-        let groupTest = testsByGroup.get(Symbol.for(testName));
+    for (const testName of tests) {
+        const groupTest = testsByGroup.get(Symbol.for(testName));
 
         if (groupTest) {
-            for (let testName of groupTest)
+            for (const testName of groupTest)
                 addTestByName(testName);
         } else
             addTestByName(testName);
