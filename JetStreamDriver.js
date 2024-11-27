@@ -1,7 +1,7 @@
 "use strict";
 
 /*
- * Copyright (C) 2018-2022 Apple Inc. All rights reserved.
+ * Copyright (C) 2018-2024 Apple Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -330,7 +330,7 @@ class Driver {
             } else
                 globalObject = runString("");
 
-            globalObject.console = { log: globalObject.print, warn: (e) => { print("Warn: " + e); /*$vm.abort();*/ } }
+            globalObject.console = { log: globalObject.print, warn: (e) => { print("Warn: " + e); /*$vm.abort();*/ }, error: (e) => { print("Error: " + e); /*$vm.abort();*/ } }
             globalObject.self = globalObject;
             globalObject.top = {
                 currentResolve,
@@ -543,10 +543,11 @@ class Benchmark {
                 if (__benchmark.prepareForNextIteration)
                     __benchmark.prepareForNextIteration();
 
-                ${this.preiterationCode}
+                ${this.preIterationCode}
                 let start = performance.now();
                 __benchmark.runIteration();
                 let end = performance.now();
+                ${this.postIterationCode}
 
                 results.push(Math.max(1, end - start));
             }
@@ -565,11 +566,24 @@ class Benchmark {
 
     get prerunCode() { return null; }
 
-    get preiterationCode() {
+    get preIterationCode() {
+        let code = "";
         if (this.plan.deterministicRandom)
-            return `Math.random.__resetSeed();`;
+            code += `Math.random.__resetSeed();`;
 
-        return "";
+        if (globalThis.customPreIterationCode)
+            code += customPreIterationCode;
+
+        return code;
+    }
+
+    get postIterationCode() {
+        let code = "";
+
+        if (globalThis.customPostIterationCode)
+            code += customPostIterationCode;
+
+        return code;
     }
 
     async run() {
@@ -972,10 +986,11 @@ class AsyncBenchmark extends DefaultBenchmark {
             let __benchmark = new Benchmark();
             let results = [];
             for (let i = 0; i < ${this.iterations}; i++) {
-                ${this.preiterationCode}
+                ${this.preIterationCode}
                 let start = performance.now();
                 await __benchmark.runIteration();
                 let end = performance.now();
+                ${this.postIterationCode}
                 results.push(Math.max(1, end - start));
             }
             if (__benchmark.validate)
@@ -983,6 +998,96 @@ class AsyncBenchmark extends DefaultBenchmark {
             top.currentResolve(results);
         }
         doRun().catch((error) => { top.currentReject(error); });`
+    }
+};
+
+class WasmBenchmark extends AsyncBenchmark {
+    get prerunCode() {
+        let str = `
+            let verbose = true;
+
+            let globalObject = this;
+
+            abort = quit = function() {
+                if (verbose)
+                    console.log('Intercepted quit/abort');
+            };
+
+            oldPrint = globalObject.print;
+            globalObject.print = globalObject.printErr = (...args) => {
+                if (verbose)
+                    console.log('Intercepted print: ', ...args);
+            };
+
+            let instanceReady;
+            let instancePromise = new Promise((resolve) => {
+                instanceReady = resolve;
+            });
+
+            let Module = {
+                preRun: [],
+                postRun: [],
+                print: function() { },
+                printErr: function() { },
+                setStatus: function(text) {
+                },
+                totalDependencies: 0,
+                monitorRunDependencies: function(left) {
+                    this.totalDependencies = Math.max(this.totalDependencies, left);
+                    Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+                },
+            };
+            globalObject.Module = Module;
+            `;
+        return str;
+    }
+
+    get runnerCode() {
+        let str = `function loadBlob(key, path, andThen) {`;
+
+        if (isInBrowser) {
+            str += `
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', path, true);
+                xhr.responseType = 'arraybuffer';
+                xhr.onload = function() {
+                    Module[key] = new Int8Array(xhr.response);
+                    andThen();
+                };
+                xhr.send(null);
+            `;
+        } else {
+            str += `
+            Module[key] = new Int8Array(read(path, "binary"));
+
+            Module.setStatus = null;
+            Module.monitorRunDependencies = null;
+
+            Promise.resolve(42).then(() => {
+                try {
+                    andThen();
+                } catch(e) {
+                    console.log("error running wasm:", e);
+                    console.log(e.stack);
+                    throw e;
+                }
+            })
+            `;
+        }
+
+        str += "}";
+
+        let keys = Object.keys(this.plan.preload);
+        for (let i = 0; i < keys.length; ++i) {
+            str += `loadBlob("${keys[i]}", "${this.plan.preload[keys[i]]}", () => {\n`;
+        }
+        str += super.runnerCode;
+        for (let i = 0; i < keys.length; ++i) {
+            str += `})`;
+        }
+        str += `;`;
+
+        return str;
     }
 };
 
@@ -1062,7 +1167,7 @@ class WSLBenchmark extends Benchmark {
     }
 };
 
-class WasmBenchmark extends Benchmark {
+class WasmLegacyBenchmark extends Benchmark {
     constructor(...args) {
         super(...args);
 
@@ -1776,16 +1881,16 @@ const testPlans = [
         preload: {
             wasmBinary: "./wasm/HashSet.wasm"
         },
-        benchmarkClass: WasmBenchmark,
+        benchmarkClass: WasmLegacyBenchmark,
         testGroup: WasmGroup
     },
     {
         name: "tsf-wasm",
         files: [
-            "./wasm/tsf.js"
+            "./wasm/TSF/tsf.js"
         ],
         preload: {
-            wasmBinary: "./wasm/tsf.wasm"
+            wasmBinary: "./wasm/TSF/tsf.wasm"
         },
         benchmarkClass: WasmBenchmark,
         testGroup: WasmGroup
@@ -1798,7 +1903,7 @@ const testPlans = [
         preload: {
             wasmBinary: "./wasm/quicksort.wasm"
         },
-        benchmarkClass: WasmBenchmark,
+        benchmarkClass: WasmLegacyBenchmark,
         testGroup: WasmGroup
     },
     {
@@ -1809,7 +1914,7 @@ const testPlans = [
         preload: {
             wasmBinary: "./wasm/gcc-loops.wasm"
         },
-        benchmarkClass: WasmBenchmark,
+        benchmarkClass: WasmLegacyBenchmark,
         testGroup: WasmGroup
     },
     {
@@ -1820,7 +1925,7 @@ const testPlans = [
         preload: {
             wasmBinary: "./wasm/richards.wasm"
         },
-        benchmarkClass: WasmBenchmark,
+        benchmarkClass: WasmLegacyBenchmark,
         testGroup: WasmGroup
     },
     {
@@ -1852,7 +1957,7 @@ const testPlans = [
         preload: {
             tfjsBackendWasmBlob: "./wasm/tfjs-backend-wasm.wasm",
         },
-        benchmarkClass: WasmBenchmark,
+        benchmarkClass: WasmLegacyBenchmark,
         async: true,
         deterministicRandom: true,
         testGroup: WasmGroup
@@ -1873,7 +1978,7 @@ const testPlans = [
         preload: {
             tfjsBackendWasmSimdBlob: "./wasm/tfjs-backend-wasm-simd.wasm",
         },
-        benchmarkClass: WasmBenchmark,
+        benchmarkClass: WasmLegacyBenchmark,
         async: true,
         deterministicRandom: true,
         testGroup: WasmGroup
@@ -1888,7 +1993,7 @@ const testPlans = [
         preload: {
             argon2WasmBlob: "./wasm/argon2.wasm",
         },
-        benchmarkClass: WasmBenchmark,
+        benchmarkClass: WasmLegacyBenchmark,
         testGroup: WasmGroup
     },
     {
@@ -1901,7 +2006,7 @@ const testPlans = [
         preload: {
             argon2WasmSimdBlob: "./wasm/argon2-simd.wasm",
         },
-        benchmarkClass: WasmBenchmark,
+        benchmarkClass: WasmLegacyBenchmark,
         testGroup: WasmGroup
     },
     // WorkerTests
@@ -1975,7 +2080,7 @@ const testPlans = [
             romBinary: "./8bitbench/assets/program.bin"
         },
         async: true,
-        benchmarkClass: WasmBenchmark,
+        benchmarkClass: WasmLegacyBenchmark,
         testGroup: WasmGroup
     }
 ];
