@@ -1117,8 +1117,8 @@ class WasmBenchmark extends Benchmark {
             let Module = {
                 preRun: [],
                 postRun: [],
-                print: function() { },
-                printErr: function() { },
+                print: globalObject.print,
+                printErr: globalObject.print,
                 setStatus: function(text) {
                 },
                 totalDependencies: 0,
@@ -1818,6 +1818,19 @@ const testPlans = [
         ],
         preload: {
             wasmBinary: "./wasm/richards.wasm"
+        },
+        benchmarkClass: WasmBenchmark,
+        testGroup: WasmGroup
+    },
+    {
+        name: "sqlite3-wasm",
+        files: [
+            "./sqlite3/polyfills.js",
+            "./sqlite3/build/jswasm/speedtest1.js",
+            "./sqlite3/runner.js",
+        ],
+        preload: {
+            wasmBinary: "./sqlite3/build/jswasm/speedtest1.wasm"
         },
         benchmarkClass: WasmBenchmark,
         testGroup: WasmGroup
