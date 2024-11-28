@@ -2,9 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// Crude polyfills for missing browser APIs in JavaScript shells.
-
-globalThis.console.debug = globalThis.console.warn = globalThis.console.error = globalThis.console.log;
+// Polyfills for missing browser APIs in JavaScript shells.
 
 // `TextEncoder` and `TextDecoder`. These are called only a few times with short
 // ASCII strings, so this is sufficient and not performance-critical.

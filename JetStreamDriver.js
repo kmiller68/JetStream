@@ -1109,9 +1109,10 @@ class WasmBenchmark extends Benchmark {
             };
 
             oldPrint = globalObject.print;
+            oldConsoleLog = globalObject.console.log;
             globalObject.print = globalObject.printErr = (...args) => {
                 if (verbose)
-                    console.log('Intercepted print: ', ...args);
+                oldConsoleLog('Intercepted print: ', ...args);
             };
 
             let Module = {

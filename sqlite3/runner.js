@@ -3,7 +3,10 @@
 // found in the LICENSE file.
 
 const inJetStreamRunner = typeof globalThis.benchmarkTime !== "undefined";
-if (!inJetStreamRunner) {
+if (inJetStreamRunner) {
+  // Use JetStream interception of `print()`, see `WasmBenchmark.prerunCode()`.
+  globalThis.console.debug = globalThis.console.warn = globalThis.console.error = globalThis.console.log = print;
+} else {
   load("polyfills.js");
 
   // Exports `sqlite3InitModule()` and contains the main code.
@@ -35,7 +38,6 @@ function runTests(sqlite3Module) {
 
 async function doRun() {
   let start = benchmarkTime();
-  // FIXME: Why is the OPFS warning not intercepted by the JetStream runner?
   const sqliteModule = await sqlite3InitModule(Module);
   reportCompileTime(benchmarkTime() - start);
 
