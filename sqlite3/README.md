@@ -20,14 +20,16 @@ See under "Alternative Source Code Formats" or search for "Snapshot of the compl
 
 ## Running in JS shells
 
-The SQLite developers only maintain compatibility of the Wasm build for running inside browsers, so `shell-runner.js` contains some polyfills and hacks to run it JavaScript shells (such as `d8` (V8), `js` (SpiderMonkey), and `jsc` (JavaScriptCore)).
-Ideally, it should run just via `$shell shell-runner.js` from the current directory.
+The SQLite developers only maintain compatibility of the Wasm build for running inside browsers, so `runner.js` contains some polyfills to run it JavaScript shells (such as `d8` (V8), `js` (SpiderMonkey), and `jsc` (JavaScriptCore)).
+Ideally, it should run just via `$shell runner.js` from the current directory.
 
-Note that because there is no OPFS (Origin Private File System) available in some shells, this uses an in-memory file system that might run slower compared to browsers.
+To keep the shell runner and browser results consistent, the benchmark is configured to never use OPFS (Origin Private File System) as the underlying storage layer ("VFS" in SQLite), since that is not available in shells.
+It might thus show slightly different performance characteristics compared to the upstream `speedtest1.html` running with OPFS.
 
-## Running in the Browser
+## Running the upstream version of the benchmark (in browsers)
 
-Start a webserver in `build/` that serves with the correct headers set for Wasm execution, e.g., this simple Python server will do:
+Start a webserver in `build/` that serves with the correct headers (CORS/COOP/COEP) set for Wasm execution.
+E.g., this simple Python server will do:
 ```
 #!/usr/bin/env python3
 from http.server import HTTPServer, SimpleHTTPRequestHandler, test
@@ -44,4 +46,6 @@ if __name__ == '__main__':
     test(CORSRequestHandler, HTTPServer, port=int(sys.argv[1]) if len(sys.argv) > 1 else 8083)
 ```
 
-Then just browse to http://localhost:8083/speedtest1.html. Because the computation happens on the main thread, it may hang for a little while but should show the console output afterwards.
+Then browse to http://localhost:8083/speedtest1.html.
+(Note that, e.g., Chrome requires `localhost`, not an IP!)
+Because the computation happens on the main thread, it may hang for a little while but should show the console output afterwards.
