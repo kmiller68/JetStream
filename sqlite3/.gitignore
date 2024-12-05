@@ -1,2 +1,2 @@
-/src/
-/sqlite-src*.zip
+/sqlite-src-*/
+/sqlite-src-*.zip

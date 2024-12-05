@@ -26,9 +26,9 @@
 /*
 ** This code was built from sqlite3 version...
 **
-** SQLITE_VERSION "3.47.0"
-** SQLITE_VERSION_NUMBER 3047000
-** SQLITE_SOURCE_ID "2024-10-21 16:30:22 03a9703e27c44437c39363d0baf82db4ebc94538a0f28411c85dda156f82636e"
+** SQLITE_VERSION "3.47.1"
+** SQLITE_VERSION_NUMBER 3047001
+** SQLITE_SOURCE_ID "2024-11-25 12:07:48 b95d11e958643b969c47a8e5857f3793b9e69700b8f1469371386369a26e577e"
 **
 ** Using the Emscripten SDK version 3.1.71.
 */
@@ -73,7 +73,7 @@ var ENVIRONMENT_IS_SHELL = false;
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: /usr/local/google/home/dlehmann/JetStream/sqlite3/src/ext/wasm/bld/pre-js.speedtest1-vanilla.js
+// include: /usr/local/google/home/dlehmann/JetStream/sqlite3/sqlite-src-3470100/ext/wasm/bld/pre-js.speedtest1-vanilla.js
 /**
    BEGIN FILE: api/pre-js.js
 
@@ -132,7 +132,7 @@ Module['locateFile'] = function(path, prefix) {
 /* END FILE: api/pre-js.js, noting that the build process may add a
    line after this one to change the above .uri to a build-specific
    one. */
-// end include: /usr/local/google/home/dlehmann/JetStream/sqlite3/src/ext/wasm/bld/pre-js.speedtest1-vanilla.js
+// end include: /usr/local/google/home/dlehmann/JetStream/sqlite3/sqlite-src-3470100/ext/wasm/bld/pre-js.speedtest1-vanilla.js
 
 
 // Sometimes an existing Module object exists with properties
@@ -4400,7 +4400,7 @@ run();
 
 // end include: postamble.js
 
-// include: /usr/local/google/home/dlehmann/JetStream/sqlite3/src/ext/wasm/bld/post-js.speedtest1-vanilla.js
+// include: /usr/local/google/home/dlehmann/JetStream/sqlite3/sqlite-src-3470100/ext/wasm/bld/post-js.speedtest1-vanilla.js
 /* BEGIN FILE: api/post-js-header.js */
 /**
    post-js-header.js is to be prepended to other code to create
@@ -4461,9 +4461,9 @@ Module.postRun.push(function(Module/*the Emscripten-style module object*/){
 /*
 ** This code was built from sqlite3 version...
 **
-** SQLITE_VERSION "3.47.0"
-** SQLITE_VERSION_NUMBER 3047000
-** SQLITE_SOURCE_ID "2024-10-21 16:30:22 03a9703e27c44437c39363d0baf82db4ebc94538a0f28411c85dda156f82636e"
+** SQLITE_VERSION "3.47.1"
+** SQLITE_VERSION_NUMBER 3047001
+** SQLITE_SOURCE_ID "2024-11-25 12:07:48 b95d11e958643b969c47a8e5857f3793b9e69700b8f1469371386369a26e577e"
 **
 ** Using the Emscripten SDK version 3.1.71.
 */
@@ -11561,7 +11561,7 @@ globalThis.sqlite3ApiBootstrap.initializers.push(function(sqlite3){
 /* END FILE: api/sqlite3-api-glue.c-pp.js */
 /* BEGIN FILE: ./bld/sqlite3-api-build-version.js */
 globalThis.sqlite3ApiBootstrap.initializers.push(function(sqlite3){
-  sqlite3.version = {"libVersion": "3.47.0", "libVersionNumber": 3047000, "sourceId": "2024-10-21 16:30:22 03a9703e27c44437c39363d0baf82db4ebc94538a0f28411c85dda156f82636e","downloadVersion": 3470000};
+  sqlite3.version = {"libVersion": "3.47.1", "libVersionNumber": 3047001, "sourceId": "2024-11-25 12:07:48 b95d11e958643b969c47a8e5857f3793b9e69700b8f1469371386369a26e577e","downloadVersion": 3470100};
 });
 /* END FILE: ./bld/sqlite3-api-build-version.js */
 /* BEGIN FILE: api/sqlite3-api-oo1.c-pp.js */
@@ -17606,7 +17606,7 @@ if('undefined' !== typeof Module){ // presumably an Emscripten build
    scope. */
 })/*postRun.push(...)*/;
 /* END FILE: api/post-js-footer.js */
-// end include: /usr/local/google/home/dlehmann/JetStream/sqlite3/src/ext/wasm/bld/post-js.speedtest1-vanilla.js
+// end include: /usr/local/google/home/dlehmann/JetStream/sqlite3/sqlite-src-3470100/ext/wasm/bld/post-js.speedtest1-vanilla.js
 
 // include: postamble_modularize.js
 // In MODULARIZE mode we wrap the generated code in a factory function
