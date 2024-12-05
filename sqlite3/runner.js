@@ -1,11 +1,15 @@
-// Copyright 2023 the V8 project authors. All rights reserved.
+// Copyright 2024 the V8 project authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
 const inJetStreamRunner = typeof globalThis.benchmarkTime !== "undefined";
 if (inJetStreamRunner) {
   // Use JetStream interception of `print()`, see `WasmBenchmark.prerunCode()`.
-  globalThis.console.debug = globalThis.console.warn = globalThis.console.error = globalThis.console.log = print;
+  globalThis.console.debug =
+    globalThis.console.warn =
+    globalThis.console.error =
+    globalThis.console.log =
+      print;
 } else {
   load("polyfills.js");
 
@@ -13,16 +17,38 @@ if (inJetStreamRunner) {
   load("build/jswasm/speedtest1.js");
 
   // Load Wasm binary from disk.
-  globalThis.Module = { wasmBinary: read("build/jswasm/speedtest1.wasm", "binary") };
+  globalThis.Module = {
+    wasmBinary: read("build/jswasm/speedtest1.wasm", "binary"),
+  };
 }
 
-// Heavily simplified from inline JavaScript in `speedtest1.html`.
+// Make sure we never initialize OPFS by removing one of it's APIs (see
+// `installOpfsVfs` in the generated JavaScript code of sqlite).
+// We never want to use it anyway (see VFS config below) and this way we don't
+// waste cycles on the browser runner to initialize it.
+delete globalThis.FileSystemHandle;
+
+// Simplified from inline JavaScript in `speedtest1.html`.
 function runTests(sqlite3Module) {
-  const wasm = sqlite3Module.wasm;
-  // Required for `scopedAllocMainArgv()`.
-  wasm.scopedAllocPush();
-  // This should match the browser version at `speedtest1.html`.
+  // Configure the VFS to use.
+  // Don't use OPFS, WASMFS (which is on top of OPFS), or kvvfs, since they all
+  // use persistent browser storage (localStorage or OPFS), which is not
+  // available in JavaScript shells.
+  // Also don't use memfs, since that crashes with a NULL function pointer.
+  // Instead, make the default VFS explicit.
+  const capi = sqlite3Module.capi
+  console.log("Available SQLite VFS:", capi.sqlite3_js_vfs_list());
+  const vfs = "unix";
+  console.log("Using VFS:", vfs);
+  const pVfs = capi.sqlite3_vfs_find(vfs);
+  if (!pVfs) {
+    console.error("Error: Unknown VFS:", vfs);
+    return;
+  }
+
+  // These arguments should match the upstream browser runner `speedtest1.html`.
   let argv = [
+    "speedtest1",
     "--singlethread",
     //"--nomutex",
     //"--nosync",
@@ -30,8 +56,12 @@ function runTests(sqlite3Module) {
     "--nomemstat",
     "--big-transactions" /*important for tests 410 and 510!*/,
     "--size", "20", // To speedup, default is 100 (and takes about 4s).
+    "--vfs", vfs, // See VFS comment above.
   ];
-  print("Calling main with argv:\n ", argv);
+
+  console.log("Calling main with argv:", argv);
+  const wasm = sqlite3Module.wasm;
+  wasm.scopedAllocPush();  // Required for `scopedAllocMainArgv()`.
   wasm.xCall("wasm_main", argv.length, wasm.scopedAllocMainArgv(argv));
   wasm.scopedAllocPop();
 }
@@ -43,7 +73,7 @@ async function doRun() {
 
   start = benchmarkTime();
   runTests(sqliteModule);
-  reportRunTime(benchmarkTime() - start)
+  reportRunTime(benchmarkTime() - start);
 }
 if (!inJetStreamRunner) {
   sqlite3InitModule(Module).then(runTests);
