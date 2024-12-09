@@ -296,7 +296,7 @@ a.button {
 
 }
 
- .benchmark h4, .benchmark .result, .benchmark label {
+.benchmark h4, .benchmark .result, .benchmark label {
     color: transparent;
     background: linear-gradient(160deg, rgba(249,249,249,1) 0%, rgba(238,238,238,1) 100%);
     border-radius: 3px;
