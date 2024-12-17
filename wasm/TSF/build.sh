@@ -3,7 +3,7 @@
 set -euo pipefail
 
 emcc \
-    -o tsf.js -O2 -s WASM=1 -s TOTAL_MEMORY=52428800 -g1 --emit-symbol-map -s EXPORTED_FUNCTIONS=_main,_runIteration \
+    -o tsf.js -O2 -s MODULARIZE=1 -s EXPORT_NAME=setupModule -s WASM=1 -s TOTAL_MEMORY=52428800 -g1 --emit-symbol-map -s EXPORTED_FUNCTIONS=_main,_runIteration \
     -I. -DTSF_BUILD_SYSTEM=1 \
     tsf_asprintf.c\
     tsf_buffer.c\
@@ -56,23 +56,3 @@ emcc \
     tsf_ir_different.c\
     tsf_ir_speed.c
 
-TEMPFILE=`mktemp /tmp/tsf.XXXXXX`
-
-(echo 'function setup(Module) {'; cat tsf.js; echo '}
-
-class Benchmark {
-    async runIteration() {
-        if (!Module["_main"]) {
-            let runtimeInitializedCallback;
-            let runtimeInitialized = new Promise((success) => runtimeInitializedCallback = success);
-            Module.onRuntimeInitialized = function() {
-                runtimeInitializedCallback();
-            }
-            setup(Module);
-            await runtimeInitialized;
-        }
-
-        Module["_runIteration"]();
-    }
-}') > $TEMPFILE
-mv $TEMPFILE tsf.js

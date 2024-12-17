@@ -1,4 +1,11 @@
-function setup(Module) {
+
+var setupModule = (() => {
+  var _scriptName = typeof document != 'undefined' ? document.currentScript?.src : undefined;
+  if (typeof __filename != 'undefined') _scriptName = _scriptName || __filename;
+  return (
+function(moduleArg = {}) {
+  var moduleRtn;
+
 // include: shell.js
 // The Module object: Our interface to the outside world. We import
 // and export values on it. There are various ways Module can be used:
@@ -13,14 +20,22 @@ function setup(Module) {
 // after the generated code, you will need to define   var Module = {};
 // before the code. Then that object will be used in the code, and you
 // can continue to use Module afterwards as well.
-var Module = typeof Module != "undefined" ? Module : {};
+var Module = moduleArg;
+
+// Set up the promise that indicates the Module is initialized
+var readyPromiseResolve, readyPromiseReject;
+
+var readyPromise = new Promise((resolve, reject) => {
+  readyPromiseResolve = resolve;
+  readyPromiseReject = reject;
+});
 
 // Determine the runtime environment we are in. You can customize this by
 // setting the ENVIRONMENT setting at compile time (see settings.js).
 // Attempt to auto-detect the environment
 var ENVIRONMENT_IS_WEB = typeof window == "object";
 
-var ENVIRONMENT_IS_WORKER = typeof importScripts == "function";
+var ENVIRONMENT_IS_WORKER = typeof WorkerGlobalScope != "undefined";
 
 // N.b. Electron.js environment is simultaneously a NODE-environment, but
 // also a web environment.
@@ -86,9 +101,7 @@ if (ENVIRONMENT_IS_NODE) {
     thisProgram = process.argv[1].replace(/\\/g, "/");
   }
   arguments_ = process.argv.slice(2);
-  if (typeof module != "undefined") {
-    module["exports"] = Module;
-  }
+  // MODULARIZE will export the module in the proper place outside, we don't need to export here
   quit_ = (status, toThrow) => {
     process.exitCode = status;
     throw toThrow;
@@ -103,6 +116,11 @@ if (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER) {
   } else if (typeof document != "undefined" && document.currentScript) {
     // web
     scriptDirectory = document.currentScript.src;
+  }
+  // When MODULARIZE, this JS may be executed later, after document.currentScript
+  // is gone, so we saved it, and we use it here instead of any other info.
+  if (_scriptName) {
+    scriptDirectory = _scriptName;
   }
   // blob urls look like blob:http://site.com/etc/etc and we cannot infer anything from them.
   // otherwise, slice off the final part of the url to find the script directory.
@@ -242,10 +260,11 @@ var __ATPOSTRUN__ = [];
 var runtimeInitialized = false;
 
 function preRun() {
-  var preRuns = Module["preRun"];
-  if (preRuns) {
-    if (typeof preRuns == "function") preRuns = [ preRuns ];
-    preRuns.forEach(addOnPreRun);
+  if (Module["preRun"]) {
+    if (typeof Module["preRun"] == "function") Module["preRun"] = [ Module["preRun"] ];
+    while (Module["preRun"].length) {
+      addOnPreRun(Module["preRun"].shift());
+    }
   }
   callRuntimeCallbacks(__ATPRERUN__);
 }
@@ -263,10 +282,11 @@ function preMain() {
 }
 
 function postRun() {
-  var postRuns = Module["postRun"];
-  if (postRuns) {
-    if (typeof postRuns == "function") postRuns = [ postRuns ];
-    postRuns.forEach(addOnPostRun);
+  if (Module["postRun"]) {
+    if (typeof Module["postRun"] == "function") Module["postRun"] = [ Module["postRun"] ];
+    while (Module["postRun"].length) {
+      addOnPostRun(Module["postRun"].shift());
+    }
   }
   callRuntimeCallbacks(__ATPOSTRUN__);
 }
@@ -349,6 +369,7 @@ function removeRunDependency(id) {
   // though it can.
   // TODO(https://github.com/google/closure-compiler/pull/3913): Remove if/when upstream closure gets fixed.
   /** @suppress {checkTypes} */ var e = new WebAssembly.RuntimeError(what);
+  readyPromiseReject(e);
   // Throw the error whether or not MODULARIZE is set because abort is used
   // in code paths apart from instantiation where an exception is expected
   // to be thrown when abort is called.
@@ -451,7 +472,6 @@ function getWasmImports() {
 // Create the wasm instance.
 // Receives the wasm imports, returns the exports.
 function createWasm() {
-  var info = getWasmImports();
   // Load the wasm module and create an instance of using native support in the JS engine.
   // handle a generated wasm instance, receiving its exports and
   // performing other necessary setup
@@ -473,6 +493,7 @@ function createWasm() {
     // When the regression is fixed, can restore the above PTHREADS-enabled path.
     receiveInstance(result["instance"]);
   }
+  var info = getWasmImports();
   // User shell pages can write their own Module.instantiateWasm = function(imports, successCallback) callback
   // to manually instantiate the Wasm module themselves. This allows pages to
   // run the instantiation parallel to any other async startup actions they are
@@ -484,11 +505,13 @@ function createWasm() {
       return Module["instantiateWasm"](info, receiveInstance);
     } catch (e) {
       err(`Module.instantiateWasm callback failed with error: ${e}`);
-      return false;
+      // If instantiation fails, reject the module ready promise.
+      readyPromiseReject(e);
     }
   }
   wasmBinaryFile ??= findWasmBinary();
-  instantiateAsync(wasmBinary, wasmBinaryFile, info, receiveInstantiationResult);
+  // If instantiation fails, reject the module ready promise.
+  instantiateAsync(wasmBinary, wasmBinaryFile, info, receiveInstantiationResult).catch(readyPromiseReject);
   return {};
 }
 
@@ -501,25 +524,29 @@ var tempI64;
 // end include: runtime_debug.js
 // === Body ===
 // end include: preamble.js
-/** @constructor */ function ExitStatus(status) {
-  this.name = "ExitStatus";
-  this.message = `Program terminated with exit(${status})`;
-  this.status = status;
+class ExitStatus {
+  name="ExitStatus";
+  constructor(status) {
+    this.message = `Program terminated with exit(${status})`;
+    this.status = status;
+  }
 }
 
 var callRuntimeCallbacks = callbacks => {
-  // Pass the module as the first argument.
-  callbacks.forEach(f => f(Module));
+  while (callbacks.length > 0) {
+    // Pass the module as the first argument.
+    callbacks.shift()(Module);
+  }
 };
 
 var noExitRuntime = Module["noExitRuntime"] || true;
 
-/** @suppress {duplicate } */ function syscallGetVarargI() {
+/** @suppress {duplicate } */ var syscallGetVarargI = () => {
   // the `+` prepended here is necessary to convince the JSCompiler that varargs is indeed a number.
   var ret = HEAP32[((+SYSCALLS.varargs) >> 2)];
   SYSCALLS.varargs += 4;
   return ret;
-}
+};
 
 var syscallGetVarargP = syscallGetVarargI;
 
@@ -993,7 +1020,7 @@ var mmapAlloc = size => {
 var MEMFS = {
   ops_table: null,
   mount(mount) {
-    return MEMFS.createNode(null, "/", 16384 | 511, /* 0777 */ 0);
+    return MEMFS.createNode(null, "/", 16895, 0);
   },
   createNode(parent, name, mode, dev) {
     if (FS.isBlkdev(mode) || FS.isFIFO(mode)) {
@@ -1157,7 +1184,7 @@ var MEMFS = {
       }
     },
     lookup(parent, name) {
-      throw FS.genericErrors[44];
+      throw MEMFS.doesNotExistError;
     },
     mknod(parent, name, mode, dev) {
       return MEMFS.createNode(parent, name, mode, dev);
@@ -1202,7 +1229,7 @@ var MEMFS = {
       return entries;
     },
     symlink(parent, newname, oldpath) {
-      var node = MEMFS.createNode(parent, newname, 511 | /* 0777 */ 40960, 0);
+      var node = MEMFS.createNode(parent, newname, 511 | 40960, 0);
       node.link = oldpath;
       return node;
     },
@@ -1422,6 +1449,7 @@ var FS = {
   initialized: false,
   ignorePermissions: true,
   ErrnoError: class {
+    name="ErrnoError";
     // We set the `name` property to be able to identify `FS.ErrnoError`
     // - the `name` is a standard ECMA-262 property of error objects. Kind of good to have it anyway.
     // - when using PROXYFS, an error can come from an underlying FS
@@ -1429,22 +1457,14 @@ var FS = {
     // the test `err instanceof FS.ErrnoError` won't detect an error coming from another filesystem, causing bugs.
     // we'll use the reliable test `err.name == "ErrnoError"` instead
     constructor(errno) {
-      // TODO(sbc): Use the inline member declaration syntax once we
-      // support it in acorn and closure.
-      this.name = "ErrnoError";
       this.errno = errno;
     }
   },
-  genericErrors: {},
   filesystems: null,
   syncFSRequests: 0,
   readFiles: {},
   FSStream: class {
-    constructor() {
-      // TODO(https://github.com/emscripten-core/emscripten/issues/21414):
-      // Use inline field declarations.
-      this.shared = {};
-    }
+    shared={};
     get object() {
       return this.node;
     }
@@ -1474,6 +1494,11 @@ var FS = {
     }
   },
   FSNode: class {
+    node_ops={};
+    stream_ops={};
+    readMode=292 | 73;
+    writeMode=146;
+    mounted=null;
     constructor(parent, name, mode, rdev) {
       if (!parent) {
         parent = this;
@@ -1481,15 +1506,10 @@ var FS = {
       // root node sets parent to itself
       this.parent = parent;
       this.mount = parent.mount;
-      this.mounted = null;
       this.id = FS.nextInode++;
       this.name = name;
       this.mode = mode;
-      this.node_ops = {};
-      this.stream_ops = {};
       this.rdev = rdev;
-      this.readMode = 292 | 73;
-      this.writeMode = 146;
     }
     get read() {
       return (this.mode & this.readMode) === this.readMode;
@@ -1922,15 +1942,36 @@ var FS = {
     }
     return parent.node_ops.mknod(parent, name, mode, dev);
   },
-  create(path, mode) {
-    mode = mode !== undefined ? mode : 438;
-    /* 0666 */ mode &= 4095;
+  statfs(path) {
+    // NOTE: None of the defaults here are true. We're just returning safe and
+    //       sane values.
+    var rtn = {
+      bsize: 4096,
+      frsize: 4096,
+      blocks: 1e6,
+      bfree: 5e5,
+      bavail: 5e5,
+      files: FS.nextInode,
+      ffree: FS.nextInode - 1,
+      fsid: 42,
+      flags: 2,
+      namelen: 255
+    };
+    var parent = FS.lookupPath(path, {
+      follow: true
+    }).node;
+    if (parent?.node_ops.statfs) {
+      Object.assign(rtn, parent.node_ops.statfs(parent.mount.opts.root));
+    }
+    return rtn;
+  },
+  create(path, mode = 438) {
+    mode &= 4095;
     mode |= 32768;
     return FS.mknod(path, mode, 0);
   },
-  mkdir(path, mode) {
-    mode = mode !== undefined ? mode : 511;
-    /* 0777 */ mode &= 511 | 512;
+  mkdir(path, mode = 511) {
+    mode &= 511 | 512;
     mode |= 16384;
     return FS.mknod(path, mode, 0);
   },
@@ -1952,7 +1993,7 @@ var FS = {
       dev = mode;
       mode = 438;
     }
-    /* 0666 */ mode |= 8192;
+    mode |= 8192;
     return FS.mknod(path, mode, dev);
   },
   symlink(oldpath, newpath) {
@@ -2048,7 +2089,7 @@ var FS = {
     // do the underlying fs rename
     try {
       old_dir.node_ops.rename(old_node, new_dir, new_name);
-      // update old node (we do this here to avoid each backend 
+      // update old node (we do this here to avoid each backend
       // needing to)
       old_node.parent = new_dir;
     } catch (e) {
@@ -2124,7 +2165,7 @@ var FS = {
     if (!link.node_ops.readlink) {
       throw new FS.ErrnoError(28);
     }
-    return PATH_FS.resolve(FS.getPath(link.parent), link.node_ops.readlink(link));
+    return link.node_ops.readlink(link);
   },
   stat(path, dontFollow) {
     var lookup = FS.lookupPath(path, {
@@ -2239,13 +2280,12 @@ var FS = {
       timestamp: Math.max(atime, mtime)
     });
   },
-  open(path, flags, mode) {
+  open(path, flags, mode = 438) {
     if (path === "") {
       throw new FS.ErrnoError(44);
     }
     flags = typeof flags == "string" ? FS_modeStringToFlags(flags) : flags;
     if ((flags & 64)) {
-      mode = typeof mode == "undefined" ? 438 : /* 0666 */ mode;
       mode = (mode & 4095) | 32768;
     } else {
       mode = 0;
@@ -2529,7 +2569,8 @@ var FS = {
     // setup /dev/null
     FS.registerDevice(FS.makedev(1, 3), {
       read: () => 0,
-      write: (stream, buffer, offset, length, pos) => length
+      write: (stream, buffer, offset, length, pos) => length,
+      llseek: () => 0
     });
     FS.mkdev("/dev/null", FS.makedev(1, 3));
     // setup /dev/tty and /dev/tty1
@@ -2563,7 +2604,7 @@ var FS = {
     FS.mkdir("/proc/self/fd");
     FS.mount({
       mount() {
-        var node = FS.createNode(proc_self, "fd", 16384 | 511, /* 0777 */ 73);
+        var node = FS.createNode(proc_self, "fd", 16895, 73);
         node.node_ops = {
           lookup(parent, name) {
             var fd = +name;
@@ -2615,11 +2656,6 @@ var FS = {
     var stderr = FS.open("/dev/stderr", 1);
   },
   staticInit() {
-    // Some errors may happen quite a bit, to avoid overhead we reuse them (and suffer a lack of stack info)
-    [ 44 ].forEach(code => {
-      FS.genericErrors[code] = new FS.ErrnoError(code);
-      FS.genericErrors[code].stack = "<generic error, no stack>";
-    });
     FS.nameTable = new Array(4096);
     FS.mount(MEMFS, {}, "/");
     FS.createDefaultDirectories();
@@ -2810,10 +2846,8 @@ var FS = {
     // Lazy chunked Uint8Array (implements get and length from Uint8Array).
     // Actual getting is abstracted away for eventual reuse.
     class LazyUint8Array {
-      constructor() {
-        this.lengthKnown = false;
-        this.chunks = [];
-      }
+      lengthKnown=false;
+      chunks=[];
       // Loaded chunks. Index is the chunk number
       get(idx) {
         if (idx > this.length - 1 || idx < 0) {
@@ -3280,9 +3314,7 @@ function ___syscall_unlinkat(dirfd, path, flags) {
   }
 }
 
-var __abort_js = () => {
-  abort("");
-};
+var __abort_js = () => abort("");
 
 var __emscripten_memcpy_js = (dest, src, num) => HEAPU8.copyWithin(dest, src, src + num);
 
@@ -3500,6 +3532,12 @@ FS.createPreloadedFile = FS_createPreloadedFile;
 
 FS.staticInit();
 
+// This error may happen quite a bit. To avoid overhead we reuse it (and
+// suffer a lack of stack info).
+MEMFS.doesNotExistError = new FS.ErrnoError(44);
+
+/** @suppress {checkTypes} */ MEMFS.doesNotExistError.stack = "<generic error, no stack>";
+
 var wasmImports = {
   /** @export */ __syscall_fcntl64: ___syscall_fcntl64,
   /** @export */ __syscall_ioctl: ___syscall_ioctl,
@@ -3538,8 +3576,6 @@ var dynCall_jiji = Module["dynCall_jiji"] = (a0, a1, a2, a3, a4) => (dynCall_jij
 // === Auto-generated postamble setup entry stuff ===
 var calledRun;
 
-var calledPrerun;
-
 dependenciesFulfilled = function runCaller() {
   // If run has never been called, and we should call run (INVOKE_RUN is true, and Module.noInitialRun is not false)
   if (!calledRun) run();
@@ -3572,23 +3608,21 @@ function run(args = arguments_) {
   if (runDependencies > 0) {
     return;
   }
-  if (!calledPrerun) {
-    calledPrerun = 1;
-    preRun();
-    // a preRun added a dependency, run will be called later
-    if (runDependencies > 0) {
-      return;
-    }
+  preRun();
+  // a preRun added a dependency, run will be called later
+  if (runDependencies > 0) {
+    return;
   }
   function doRun() {
     // run may have just been called through dependencies being fulfilled just in this very frame,
     // or while the async setStatus time below was happening
     if (calledRun) return;
-    calledRun = 1;
-    Module["calledRun"] = 1;
+    calledRun = true;
+    Module["calledRun"] = true;
     if (ABORT) return;
     initRuntime();
     preMain();
+    readyPromiseResolve(Module);
     Module["onRuntimeInitialized"]?.();
     if (shouldRunNow) callMain(args);
     postRun();
@@ -3617,20 +3651,21 @@ var shouldRunNow = true;
 if (Module["noInitialRun"]) shouldRunNow = false;
 
 run();
-}
 
-class Benchmark {
-    async runIteration() {
-        if (!Module["_main"]) {
-            let runtimeInitializedCallback;
-            let runtimeInitialized = new Promise((success) => runtimeInitializedCallback = success);
-            Module.onRuntimeInitialized = function() {
-                runtimeInitializedCallback();
-            }
-            setup(Module);
-            await runtimeInitialized;
-        }
+// end include: postamble.js
+// include: postamble_modularize.js
+// In MODULARIZE mode we wrap the generated code in a factory function
+// and return either the Module itself, or a promise of the module.
+// We assign to the `moduleRtn` global here and configure closure to see
+// this as and extern so it won't get minified.
+moduleRtn = readyPromise;
 
-        Module["_runIteration"]();
-    }
+
+  return moduleRtn;
 }
+);
+})();
+if (typeof exports === 'object' && typeof module === 'object')
+  module.exports = setupModule;
+else if (typeof define === 'function' && define['amd'])
+  define([], () => setupModule);

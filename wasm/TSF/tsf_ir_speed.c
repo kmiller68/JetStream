@@ -369,7 +369,7 @@ int runIteration() {
     static const char *filename = "tsf_ir_speed_test_file.tsf";
     static const char *zipFilename = "tsf_ir_speed_test_zip_file.tsf";
 
-    unsigned count = 100;
+    unsigned count = 150;
 
     TIMEIT(writeTest(filename, 100, count, TSF_ZIP_NONE));
     TIMEIT(readTest(filename, count));

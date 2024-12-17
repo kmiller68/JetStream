@@ -36,11 +36,17 @@ globalThis.dumpJSONResults ??= false;
 globalThis.customTestList ??= [];
 
 let shouldReport = false;
+let startDelay;
 if (typeof(URLSearchParams) !== "undefined") {
     const urlParameters = new URLSearchParams(window.location.search);
     shouldReport = urlParameters.has('report') && urlParameters.get('report').toLowerCase() == 'true';
+    if (shouldReport)
+        startDelay = 4000;
+    if (urlParameters.has('startDelay'))
+        startDelay = urlParameters.get('startDelay');
     if (urlParameters.has('test'))
         customTestList = urlParameters.getAll("test");
+
 }
 
 // Used for the promise representing the current benchmark run.
@@ -414,8 +420,8 @@ class Driver {
         await this.prefetchResourcesForBrowser();
         await this.fetchResources();
         this.prepareToRun();
-        if (isInBrowser && shouldReport) {
-            setTimeout(() => this.start(), 4000);
+        if (isInBrowser && startDelay !== undefined) {
+            setTimeout(() => this.start(), startDelay);
         }
     }
 
@@ -991,6 +997,7 @@ class AsyncBenchmark extends DefaultBenchmark {
                 await __benchmark.runIteration();
                 let end = performance.now();
                 ${this.postIterationCode}
+                console.log("iteration i: " + (end - start));
                 results.push(Math.max(1, end - start));
             }
             if (__benchmark.validate)
@@ -1001,7 +1008,10 @@ class AsyncBenchmark extends DefaultBenchmark {
     }
 };
 
-class WasmBenchmark extends AsyncBenchmark {
+// Meant for wasm benchmarks that are directly compiled with an emcc script and not part of a larger project's build system.
+// Requires the following flags to emcc `-s MODULARIZE=1 -s EXPORT_NAME=setupModule -s EXPORTED_FUNCTIONS=_runIteration`
+// in addition to any other benchmark specific flags.
+class WasmEMCCBenchmark extends AsyncBenchmark {
     get prerunCode() {
         let str = `
             let verbose = true;
@@ -1018,11 +1028,6 @@ class WasmBenchmark extends AsyncBenchmark {
                 if (verbose)
                     console.log('Intercepted print: ', ...args);
             };
-
-            let instanceReady;
-            let instancePromise = new Promise((resolve) => {
-                instanceReady = resolve;
-            });
 
             let Module = {
                 preRun: [],
@@ -1081,6 +1086,17 @@ class WasmBenchmark extends AsyncBenchmark {
         for (let i = 0; i < keys.length; ++i) {
             str += `loadBlob("${keys[i]}", "${this.plan.preload[keys[i]]}", () => {\n`;
         }
+        str += `
+        class Benchmark {
+            async runIteration() {
+                if (!Module["_runIteration"])
+                    await setupModule(Module);
+
+                Module["_runIteration"]();
+            }
+        };
+        `
+
         str += super.runnerCode;
         for (let i = 0; i < keys.length; ++i) {
             str += `})`;
@@ -1892,7 +1908,7 @@ const testPlans = [
         preload: {
             wasmBinary: "./wasm/TSF/tsf.wasm"
         },
-        benchmarkClass: WasmBenchmark,
+        benchmarkClass: WasmEMCCBenchmark,
         testGroup: WasmGroup
     },
     {
