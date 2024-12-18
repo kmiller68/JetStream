@@ -164,7 +164,7 @@ function uiFriendlyDuration(time)
     const minutes = time.getMinutes();
     const seconds = time.getSeconds();
     const milliSeconds = time.getMilliseconds();
-    const result = "" + minutes + ":";
+    let result = "" + minutes + ":";
 
     result = result + (seconds < 10 ? "0" : "") + seconds + ".";
     result = result + (milliSeconds < 10 ? "00" : (milliSeconds < 100 ? "0" : "")) + milliSeconds;
@@ -997,7 +997,6 @@ class AsyncBenchmark extends DefaultBenchmark {
                 await __benchmark.runIteration();
                 let end = performance.now();
                 ${this.postIterationCode}
-                console.log("iteration i: " + (end - start));
                 results.push(Math.max(1, end - start));
             }
             if (__benchmark.validate)
@@ -1008,9 +1007,8 @@ class AsyncBenchmark extends DefaultBenchmark {
     }
 };
 
-// Meant for wasm benchmarks that are directly compiled with an emcc script and not part of a larger project's build system.
-// Requires the following flags to emcc `-s MODULARIZE=1 -s EXPORT_NAME=setupModule -s EXPORTED_FUNCTIONS=_runIteration`
-// in addition to any other benchmark specific flags.
+// Meant for wasm benchmarks that are directly compiled with an emcc build script. It might not work for benchmarks built as
+// part of a larger project's build system or a wasm benchmark compiled from a language that doesn't compile with emcc.
 class WasmEMCCBenchmark extends AsyncBenchmark {
     get prerunCode() {
         let str = `
@@ -1084,18 +1082,8 @@ class WasmEMCCBenchmark extends AsyncBenchmark {
 
         let keys = Object.keys(this.plan.preload);
         for (let i = 0; i < keys.length; ++i) {
-            str += `loadBlob("${keys[i]}", "${this.plan.preload[keys[i]]}", () => {\n`;
+            str += `loadBlob("${keys[i]}", "${this.plan.preload[keys[i]]}", async () => {\n`;
         }
-        str += `
-        class Benchmark {
-            async runIteration() {
-                if (!Module["_runIteration"])
-                    await setupModule(Module);
-
-                Module["_runIteration"]();
-            }
-        };
-        `
 
         str += super.runnerCode;
         for (let i = 0; i < keys.length; ++i) {
@@ -1903,7 +1891,8 @@ const testPlans = [
     {
         name: "tsf-wasm",
         files: [
-            "./wasm/TSF/tsf.js"
+            "./wasm/TSF/tsf.js",
+            "./wasm/TSF/benchmark.js",
         ],
         preload: {
             wasmBinary: "./wasm/TSF/tsf.wasm"

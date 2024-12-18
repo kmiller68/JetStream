@@ -250,9 +250,6 @@ var __ATPRERUN__ = [];
 // functions called before the runtime is initialized
 var __ATINIT__ = [];
 
-// functions called during startup
-var __ATMAIN__ = [];
-
 // functions called during shutdown
 var __ATPOSTRUN__ = [];
 
@@ -275,10 +272,6 @@ function initRuntime() {
   FS.ignorePermissions = false;
   TTY.init();
   callRuntimeCallbacks(__ATINIT__);
-}
-
-function preMain() {
-  callRuntimeCallbacks(__ATMAIN__);
 }
 
 function postRun() {
@@ -3505,29 +3498,6 @@ function _fd_write(fd, iov, iovcnt, pnum) {
   }
 }
 
-var handleException = e => {
-  // Certain exception types we do not treat as errors since they are used for
-  // internal control flow.
-  // 1. ExitStatus, which is thrown by exit()
-  // 2. "unwind", which is thrown by emscripten_unwind_to_js_event_loop() and others
-  //    that wish to return to JS event loop.
-  if (e instanceof ExitStatus || e == "unwind") {
-    return EXITSTATUS;
-  }
-  quit_(1, e);
-};
-
-var stringToUTF8 = (str, outPtr, maxBytesToWrite) => stringToUTF8Array(str, HEAPU8, outPtr, maxBytesToWrite);
-
-var stackAlloc = sz => __emscripten_stack_alloc(sz);
-
-var stringToUTF8OnStack = str => {
-  var size = lengthBytesUTF8(str) + 1;
-  var ret = stackAlloc(size);
-  stringToUTF8(str, ret, size);
-  return ret;
-};
-
 FS.createPreloadedFile = FS_createPreloadedFile;
 
 FS.staticInit();
@@ -3560,9 +3530,7 @@ var wasmExports = createWasm();
 
 var ___wasm_call_ctors = () => (___wasm_call_ctors = wasmExports["__wasm_call_ctors"])();
 
-var _main = Module["_main"] = (a0, a1) => (_main = Module["_main"] = wasmExports["__main_argc_argv"])(a0, a1);
-
-var _runIteration = Module["_runIteration"] = () => (_runIteration = Module["_runIteration"] = wasmExports["runIteration"])();
+var _runIteration = Module["_runIteration"] = a0 => (_runIteration = Module["_runIteration"] = wasmExports["runIteration"])(a0);
 
 var __emscripten_stack_restore = a0 => (__emscripten_stack_restore = wasmExports["_emscripten_stack_restore"])(a0);
 
@@ -3583,28 +3551,7 @@ dependenciesFulfilled = function runCaller() {
 };
 
 // try this again later, after new deps are fulfilled
-function callMain(args = []) {
-  var entryFunction = _main;
-  args.unshift(thisProgram);
-  var argc = args.length;
-  var argv = stackAlloc((argc + 1) * 4);
-  var argv_ptr = argv;
-  args.forEach(arg => {
-    HEAPU32[((argv_ptr) >> 2)] = stringToUTF8OnStack(arg);
-    argv_ptr += 4;
-  });
-  HEAPU32[((argv_ptr) >> 2)] = 0;
-  try {
-    var ret = entryFunction(argc, argv);
-    // if we're not running an evented main loop, it's time to exit
-    exitJS(ret, /* implicit = */ true);
-    return ret;
-  } catch (e) {
-    return handleException(e);
-  }
-}
-
-function run(args = arguments_) {
+function run() {
   if (runDependencies > 0) {
     return;
   }
@@ -3621,10 +3568,8 @@ function run(args = arguments_) {
     Module["calledRun"] = true;
     if (ABORT) return;
     initRuntime();
-    preMain();
     readyPromiseResolve(Module);
     Module["onRuntimeInitialized"]?.();
-    if (shouldRunNow) callMain(args);
     postRun();
   }
   if (Module["setStatus"]) {
@@ -3644,11 +3589,6 @@ if (Module["preInit"]) {
     Module["preInit"].pop()();
   }
 }
-
-// shouldRunNow refers to calling main(), not run().
-var shouldRunNow = true;
-
-if (Module["noInitialRun"]) shouldRunNow = false;
 
 run();
 

@@ -321,55 +321,9 @@ static void readConvertTest(const char *filename, unsigned numPrograms) {
     tsf_stream_file_input_close(in);
 }
 
-int main(int c, char **v) {
-    // static const char *filename = "tsf_ir_speed_test_file.tsf";
-    // static const char *zipFilename = "tsf_ir_speed_test_zip_file.tsf";
-    
-    // unsigned count;
-    
-    // switch (c) {
-    // case 1:
-    //     /* Use a small problem size suitable for regression testing. */
-    //     count = 1000;
-    //     break;
-        
-    // case 2:
-    //     if (sscanf(v[1], "%u", &count) != 1) {
-    //         usage();
-    //     }
-    //     break;
-        
-    // default:
-    //     usage();
-    //     return 1;
-    // }
-
-    // printf("Writing %u programs.\n", count);
-    // if (count != 10000)
-    //     printf("WARNING: If you are benchmarking, please use count = 10000.\n");
-    
-    // TIMEIT(writeTest(filename, 100, count, TSF_ZIP_NONE));
-    // TIMEIT(readTest(filename, count));
-    // TIMEIT(readMallocTest(filename, count));
-    // TIMEIT(readConvertTest(filename, count));
-    
-    // if (tsf_zlib_supported()) {
-    //     TIMEIT(writeTest(zipFilename, 100, count, TSF_ZIP_ZLIB));
-    //     TIMEIT(readTest(zipFilename, count));
-    //     TIMEIT(readMallocTest(filename, count));
-    //     TIMEIT(readConvertTest(zipFilename, count));
-    // }
-
-    /* We don't benchmark bzip2 because it's just too slow to be interesting. */
-
-    return 0;
-}
-
-int runIteration() {
+int runIteration(unsigned count) {
     static const char *filename = "tsf_ir_speed_test_file.tsf";
     static const char *zipFilename = "tsf_ir_speed_test_zip_file.tsf";
-
-    unsigned count = 150;
 
     TIMEIT(writeTest(filename, 100, count, TSF_ZIP_NONE));
     TIMEIT(readTest(filename, count));

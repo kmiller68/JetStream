@@ -3,7 +3,7 @@
 set -euo pipefail
 
 emcc \
-    -o tsf.js -O2 -s MODULARIZE=1 -s EXPORT_NAME=setupModule -s WASM=1 -s TOTAL_MEMORY=52428800 -g1 --emit-symbol-map -s EXPORTED_FUNCTIONS=_main,_runIteration \
+    -o tsf.js -O2 -s MODULARIZE=1 -s EXPORT_NAME=setupModule -s WASM=1 -s TOTAL_MEMORY=52428800 -g1 --emit-symbol-map -s EXPORTED_FUNCTIONS=_runIteration \
     -I. -DTSF_BUILD_SYSTEM=1 \
     tsf_asprintf.c\
     tsf_buffer.c\
