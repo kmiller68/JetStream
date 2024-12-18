@@ -2026,7 +2026,7 @@ for (const name of WTB_TESTS) {
 
 
 const benchmarksByName = new Map();
-const benchmarksByGroup = new Map();
+const benchmarksByTag = new Map();
 
 for (const benchmark of BENCHMARKS) {
     const name = benchmark.name;
@@ -2038,9 +2038,9 @@ for (const benchmark of BENCHMARKS) {
 
     for (const tag of benchmark.tags) {
         if (benchmarksByTag.has(tag))
-            benchmarksByTag.get(tag).push(testName);
+            benchmarksByTag.get(tag).push(name);
         else
-            benchmarksByTag.set(tag, [testName]);
+            benchmarksByTag.set(tag, [name]);
     }
 }
 
