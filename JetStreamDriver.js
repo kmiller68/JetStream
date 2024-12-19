@@ -158,7 +158,7 @@ function uiFriendlyDuration(time)
     const minutes = time.getMinutes();
     const seconds = time.getSeconds();
     const milliSeconds = time.getMilliseconds();
-    const result = "" + minutes + ":";
+    let result = "" + minutes + ":";
 
     result = result + (seconds < 10 ? "0" : "") + seconds + ".";
     result = result + (milliSeconds < 10 ? "00" : (milliSeconds < 100 ? "0" : "")) + milliSeconds;
@@ -1542,15 +1542,6 @@ const testPlans = [
         testGroup: RexBenchGroup
     },
     // Simple
-    {
-        name: "float-mm.c",
-        files: [
-            "./simple/float-mm.c.js"
-        ],
-        iterations: 15,
-        worstCaseCount: 2,
-        testGroup: SimpleGroup
-    },
     {
         name: "hash-map",
         files: [
