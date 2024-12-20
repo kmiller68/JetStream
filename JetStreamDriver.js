@@ -336,7 +336,13 @@ class Driver {
             } else
                 globalObject = runString("");
 
-            globalObject.console = { log: globalObject.print, warn: (e) => { print("Warn: " + e); /*$vm.abort();*/ }, error: (e) => { print("Error: " + e); /*$vm.abort();*/ } }
+            globalObject.console = {
+                log: globalObject.print,
+                warn: (e) => { print("Warn: " + e); },
+                error: (e) => { print("Error: " + e); },
+                debug: (e) => { print("Debug: " + e); },
+            };
+
             globalObject.self = globalObject;
             globalObject.top = {
                 currentResolve,
@@ -1012,7 +1018,7 @@ class AsyncBenchmark extends DefaultBenchmark {
 class WasmEMCCBenchmark extends AsyncBenchmark {
     get prerunCode() {
         let str = `
-            let verbose = true;
+            let verbose = false;
 
             let globalObject = this;
 
@@ -1030,8 +1036,8 @@ class WasmEMCCBenchmark extends AsyncBenchmark {
             let Module = {
                 preRun: [],
                 postRun: [],
-                print: function() { },
-                printErr: function() { },
+                print: print,
+                printErr: printErr,
                 setStatus: function(text) {
                 },
                 totalDependencies: 0,
@@ -1891,13 +1897,15 @@ const testPlans = [
     {
         name: "tsf-wasm",
         files: [
-            "./wasm/TSF/tsf.js",
+            "./wasm/TSF/build/tsf.js",
             "./wasm/TSF/benchmark.js",
         ],
         preload: {
-            wasmBinary: "./wasm/TSF/tsf.wasm"
+            wasmBinary: "./wasm/TSF/build/tsf.wasm"
         },
         benchmarkClass: WasmEMCCBenchmark,
+        iterations: 15,
+        worstCaseCount: 2,
         testGroup: WasmGroup
     },
     {
@@ -1943,7 +1951,7 @@ const testPlans = [
         preload: {
             wasmBinary: "./sqlite3/build/jswasm/speedtest1.wasm"
         },
-        benchmarkClass: WasmBenchmark,
+        benchmarkClass: WasmLegacyBenchmark,
         testGroup: WasmGroup
     },
     {

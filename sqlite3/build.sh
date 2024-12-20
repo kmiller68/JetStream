@@ -8,8 +8,9 @@ rm sqlite-src-*.zip
 rm -rf sqlite-src-*/
 rm -rf build/
 
+touch build.log
 BUILD_LOG="$(realpath build.log)"
-echo -e "Built on $(date --rfc-3339=seconds)\n" | tee "$BUILD_LOG"
+echo -e "Built on $(date -u '+%Y-%m-%dT%H:%M:%SZ')\n" | tee "$BUILD_LOG"
 
 echo "Toolchain versions" | tee -a "$BUILD_LOG"
 emcc --version | head -n1 | tee -a "$BUILD_LOG"

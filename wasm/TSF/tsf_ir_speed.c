@@ -330,13 +330,7 @@ int runIteration(unsigned count) {
     TIMEIT(readMallocTest(filename, count));
     TIMEIT(readConvertTest(filename, count));
 
-    // TODO: tsf_zlib_supported is false so we should just remove this?
-    if (tsf_zlib_supported()) {
-        TIMEIT(writeTest(zipFilename, 100, count, TSF_ZIP_ZLIB));
-        TIMEIT(readTest(zipFilename, count));
-        TIMEIT(readMallocTest(filename, count));
-        TIMEIT(readConvertTest(zipFilename, count));
-    }
+    /* We don't benchmark zlib because it's not supported in JetStream */
 
     /* We don't benchmark bzip2 because it's just too slow to be interesting. */
 
