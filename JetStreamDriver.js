@@ -1109,16 +1109,17 @@ class WasmBenchmark extends Benchmark {
             };
 
             oldPrint = globalObject.print;
+            oldConsoleLog = globalObject.console.log;
             globalObject.print = globalObject.printErr = (...args) => {
                 if (verbose)
-                    console.log('Intercepted print: ', ...args);
+                    oldConsoleLog('Intercepted print: ', ...args);
             };
 
             let Module = {
                 preRun: [],
                 postRun: [],
-                print: function() { },
-                printErr: function() { },
+                print: globalObject.print,
+                printErr: globalObject.print,
                 setStatus: function(text) {
                 },
                 totalDependencies: 0,
@@ -1818,6 +1819,19 @@ const testPlans = [
         ],
         preload: {
             wasmBinary: "./wasm/richards.wasm"
+        },
+        benchmarkClass: WasmBenchmark,
+        testGroup: WasmGroup
+    },
+    {
+        name: "sqlite3-wasm",
+        files: [
+            "./sqlite3/polyfills.js",
+            "./sqlite3/build/jswasm/speedtest1.js",
+            "./sqlite3/benchmark.js",
+        ],
+        preload: {
+            wasmBinary: "./sqlite3/build/jswasm/speedtest1.wasm"
         },
         benchmarkClass: WasmBenchmark,
         testGroup: WasmGroup
