@@ -3,14 +3,7 @@
 // found in the LICENSE file.
 
 const inJetStreamRunner = typeof globalThis.benchmarkTime !== "undefined";
-if (inJetStreamRunner) {
-  // Use JetStream interception of `print()`, see `WasmBenchmark.prerunCode()`.
-  globalThis.console.debug =
-    globalThis.console.warn =
-    globalThis.console.error =
-    globalThis.console.log =
-      print;
-} else {
+if (!inJetStreamRunner) {
   load("polyfills.js");
 
   // Exports `sqlite3InitModule()` and contains the main code.

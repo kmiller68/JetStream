@@ -39,3 +39,10 @@ globalThis.URLSearchParams = Map;
 
 // `self` global object.
 globalThis.self = this;
+
+globalThis.console = {
+  log: print,
+  debug: print,
+  warn: print,
+  error: print,
+};

@@ -20,8 +20,8 @@ See under "Alternative Source Code Formats" or search for "Snapshot of the compl
 
 ## Running in JS shells
 
-The SQLite developers only maintain compatibility of the Wasm build for running inside browsers, so `runner.js` contains some polyfills to run it JavaScript shells (such as `d8` (V8), `js` (SpiderMonkey), and `jsc` (JavaScriptCore)).
-Ideally, it should run just via `$shell runner.js` from the current directory.
+The SQLite developers only maintain compatibility of the Wasm build for running inside browsers, so `benchmark.js` contains some polyfills to run it JavaScript shells (such as `d8` (V8), `js` (SpiderMonkey), and `jsc` (JavaScriptCore)).
+Ideally, it should run just via `$shell benchmark.js` from the current directory.
 
 To keep the shell runner and browser results consistent, the benchmark is configured to never use OPFS (Origin Private File System) as the underlying storage layer ("VFS" in SQLite), since that is not available in shells.
 It might thus show slightly different performance characteristics compared to the upstream `speedtest1.html` running with OPFS.

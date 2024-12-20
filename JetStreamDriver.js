@@ -1112,7 +1112,7 @@ class WasmBenchmark extends Benchmark {
             oldConsoleLog = globalObject.console.log;
             globalObject.print = globalObject.printErr = (...args) => {
                 if (verbose)
-                oldConsoleLog('Intercepted print: ', ...args);
+                    oldConsoleLog('Intercepted print: ', ...args);
             };
 
             let Module = {
@@ -1828,7 +1828,7 @@ const testPlans = [
         files: [
             "./sqlite3/polyfills.js",
             "./sqlite3/build/jswasm/speedtest1.js",
-            "./sqlite3/runner.js",
+            "./sqlite3/benchmark.js",
         ],
         preload: {
             wasmBinary: "./sqlite3/build/jswasm/speedtest1.wasm"
