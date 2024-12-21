@@ -1,6 +1,18 @@
 #!/bin/sh
+
+set -euo pipefail
+
+touch build.log
+BUILD_LOG="$(realpath build.log)"
+echo "Built on $(date -u '+%Y-%m-%dT%H:%M:%SZ')\n" | tee "$BUILD_LOG"
+
+echo "Toolchain versions" | tee -a "$BUILD_LOG"
+emcc --version | head -n1 | tee -a "$BUILD_LOG"
+
+echo "Building..." | tee -a "$BUILD_LOG"
+mkdir -p build
 emcc \
-    -o tsf.html -o tsf.js -O2 -s WASM=1 -s TOTAL_MEMORY=52428800 -g1 \
+    -o build/tsf.js -O2 -s MODULARIZE=1 -s EXPORT_NAME=setupModule -s WASM=1 -s TOTAL_MEMORY=52428800 -g1 --emit-symbol-map -s EXPORTED_FUNCTIONS=_runIteration \
     -I. -DTSF_BUILD_SYSTEM=1 \
     tsf_asprintf.c\
     tsf_buffer.c\
@@ -53,3 +65,4 @@ emcc \
     tsf_ir_different.c\
     tsf_ir_speed.c
 
+echo "Building done" | tee -a "$BUILD_LOG"
