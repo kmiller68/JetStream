@@ -1659,15 +1659,6 @@ const testPlans = [
     },
     // Simple
     {
-        name: "float-mm.c",
-        files: [
-            "./simple/float-mm.c.js"
-        ],
-        iterations: 15,
-        worstCaseCount: 2,
-        testGroup: SimpleGroup
-    },
-    {
         name: "hash-map",
         files: [
             "./simple/hash-map.js"
