@@ -159,10 +159,10 @@ void example9 (unsigned *ret) {
 
 
 /* feature: support data-types of different sizes.
-   Currently only a single vector-size per target is supported; 
-   it can accommodate n elements such that n = vector-size/element-size 
-   (e.g, 4 ints, 8 shorts, or 16 chars for a vector of size 16 bytes). 
-   A combination of data-types of different sizes in the same loop 
+   Currently only a single vector-size per target is supported;
+   it can accommodate n elements such that n = vector-size/element-size
+   (e.g, 4 ints, 8 shorts, or 16 chars for a vector of size 16 bytes).
+   A combination of data-types of different sizes in the same loop
    requires special handling. This support is now present in mainline,
    and also includes support for type conversions.  */
 __attribute__((noinline))
@@ -316,7 +316,7 @@ public:
     us = End.tv_usec - Start.tv_usec;
     mtime = (s*1000 + us/1000.0)+0.5;
     if (Print)
-      std::cout<<Title<<", "<<mtime<<", msec\n";
+      std::cout<<Title<<", "<<std::dec<<mtime<<", msec\n";
   }
 
 private:
@@ -369,10 +369,12 @@ int main(int argc,char* argv[]){
   BENCH("Example1",   example1(), Mi*10, digest_memory(&a[0], &a[256]));
   BENCH("Example2a",  example2a(N, 2), Mi*4, digest_memory(&b[0], &b[N]));
   BENCH("Example2b",  example2b(N, 2), Mi*2, digest_memory(&a[0], &a[N]));
-  BENCH("Example3",   example3(N, ia, ib), Mi*2, digest_memory(&ia[0], &ia[N]));
-  BENCH("Example4a",  example4a(N, ia, ib), Mi*2, digest_memory(&ia[0], &ia[N]));
-  BENCH("Example4b",  example4b(N-10, ia, ib), Mi*2, digest_memory(&ia[0], &ia[N]));
-  BENCH("Example4c",  example4c(N, ia, ib), Mi*2, digest_memory(&ib[0], &ib[N]));
+  // dlehmann: Disable the following four examples, since Emscripten warns:
+  // gcc-loops.cpp:373:35: warning: passing 4-byte aligned argument to 16-byte aligned parameter 2 of 'example3' may result in an unaligned pointer access [-Walign-mismatch]
+  // BENCH("Example3",   example3(N, ia, ib), Mi*2, digest_memory(&ia[0], &ia[N]));
+  // BENCH("Example4a",  example4a(N, ia, ib), Mi*2, digest_memory(&ia[0], &ia[N]));
+  // BENCH("Example4b",  example4b(N-10, ia, ib), Mi*2, digest_memory(&ia[0], &ia[N]));
+  // BENCH("Example4c",  example4c(N, ia, ib), Mi*2, digest_memory(&ib[0], &ib[N]));
   BENCH("Example7",   example7(4), Mi*4, digest_memory(&a[0], &a[N]));
   BENCH("Example8",   example8(8), Mi/4, digest_memory(&G[0][0], &G[0][N]));
   BENCH("Example9",   example9(&dummy), Mi*2, dummy);
@@ -380,7 +382,7 @@ int main(int argc,char* argv[]){
   BENCH("Example10b", example10b(sa,sb,sc,ia,ib,ic), Mi*4, digest_memory(&ia[0], &ia[N]));
   BENCH("Example11",  example11(), Mi*2, digest_memory(&d[0], &d[N]));
   BENCH("Example12",  example12(), Mi*4, digest_memory(&a[0], &a[N]));
-  //BENCH("Example21",  example21(ia, N), Mi*4, digest_memory(&ia[0], &ia[N]));
+  BENCH("Example21",  example21(ia, N), Mi*4, digest_memory(&ia[0], &ia[N]));
   BENCH("Example23",  example23(usa,ua), Mi*8, digest_memory(&usa[0], &usa[256]));
   BENCH("Example24",  example24(2,4), Mi*2, 0);
   BENCH("Example25",  example25(), Mi*2, digest_memory(&dj[0], &dj[N]));
@@ -394,6 +396,3 @@ int main(int argc,char* argv[]){
 
   return 0;
 }
-
-
-
