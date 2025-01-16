@@ -1993,7 +1993,8 @@ const testPlans = [
             tfjsBackendWasmSimdBlob: "./wasm/tfjs/tfjs-backend-wasm-simd.wasm",
         },
         benchmarkClass: WasmEMCCBenchmark,
-        iterations: 80,
+        iterations: 40,
+        worstCaseCount: 3,
         deterministicRandom: true,
         testGroup: WasmGroup
     },
