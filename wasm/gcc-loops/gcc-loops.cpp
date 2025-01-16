@@ -369,12 +369,13 @@ int main(int argc,char* argv[]){
   BENCH("Example1",   example1(), Mi*10, digest_memory(&a[0], &a[256]));
   BENCH("Example2a",  example2a(N, 2), Mi*4, digest_memory(&b[0], &b[N]));
   BENCH("Example2b",  example2b(N, 2), Mi*2, digest_memory(&a[0], &a[N]));
-  // dlehmann: Disable the following four examples, since Emscripten warns:
-  // gcc-loops.cpp:373:35: warning: passing 4-byte aligned argument to 16-byte aligned parameter 2 of 'example3' may result in an unaligned pointer access [-Walign-mismatch]
-  // BENCH("Example3",   example3(N, ia, ib), Mi*2, digest_memory(&ia[0], &ia[N]));
-  // BENCH("Example4a",  example4a(N, ia, ib), Mi*2, digest_memory(&ia[0], &ia[N]));
-  // BENCH("Example4b",  example4b(N-10, ia, ib), Mi*2, digest_memory(&ia[0], &ia[N]));
-  // BENCH("Example4c",  example4c(N, ia, ib), Mi*2, digest_memory(&ib[0], &ib[N]));
+  // dlehmann: Emscripten 3.1.73 warns for the following four examples:
+  // gcc-loops.cpp:375:35: warning: passing 4-byte aligned argument to 16-byte aligned parameter 2 of 'example3' may result in an unaligned pointer access [-Walign-mismatch]
+  // This is a false positive, since `__alignof__(ia) == 16`.
+  BENCH("Example3",   example3(N, ia, ib), Mi*2, digest_memory(&ia[0], &ia[N]));
+  BENCH("Example4a",  example4a(N, ia, ib), Mi*2, digest_memory(&ia[0], &ia[N]));
+  BENCH("Example4b",  example4b(N-10, ia, ib), Mi*2, digest_memory(&ia[0], &ia[N]));
+  BENCH("Example4c",  example4c(N, ia, ib), Mi*2, digest_memory(&ib[0], &ib[N]));
   BENCH("Example7",   example7(4), Mi*4, digest_memory(&a[0], &a[N]));
   BENCH("Example8",   example8(8), Mi/4, digest_memory(&G[0][0], &G[0][N]));
   BENCH("Example9",   example9(&dummy), Mi*2, dummy);
