@@ -1924,12 +1924,14 @@ const testPlans = [
     {
         name: "richards-wasm",
         files: [
-            "./wasm/richards.js"
+            "./wasm/richards/build/richards.js",
+            "./wasm/richards/benchmark.js"
         ],
         preload: {
-            wasmBinary: "./wasm/richards.wasm"
+            wasmBinary: "./wasm/richards/build/richards.wasm"
         },
-        benchmarkClass: WasmLegacyBenchmark,
+        benchmarkClass: WasmEMCCBenchmark,
+        iterations: 30,
         testGroup: WasmGroup
     },
     {
