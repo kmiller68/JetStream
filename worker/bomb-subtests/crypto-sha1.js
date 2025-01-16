@@ -127,9 +127,7 @@ function core_hmac_sha1(key, data)
  */
 function safe_add(x, y)
 {
-  var lsw = (x & 0xFFFF) + (y & 0xFFFF);
-  var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
-  return (msw << 16) | (lsw & 0xFFFF);
+  return ((x & 0xffffffff) + (y & 0xffffffff)) & 0xffffffff
 }
 
 /*
