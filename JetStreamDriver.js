@@ -1948,42 +1948,44 @@ const testPlans = [
     {
         name: "tfjs-wasm",
         files: [
-            "./wasm/tfjs-model-helpers.js",
-            "./wasm/tfjs-model-mobilenet-v3.js",
-            "./wasm/tfjs-model-mobilenet-v1.js",
-            "./wasm/tfjs-model-coco-ssd.js",
-            "./wasm/tfjs-model-use.js",
-            "./wasm/tfjs-model-use-vocab.js",
-            "./wasm/tfjs-bundle.js",
-            "./wasm/tfjs.js",
-            "./wasm/tfjs-benchmark.js"
+            "./wasm/tfjs/tfjs-model-helpers.js",
+            "./wasm/tfjs/tfjs-model-mobilenet-v3.js",
+            "./wasm/tfjs/tfjs-model-mobilenet-v1.js",
+            "./wasm/tfjs/tfjs-model-coco-ssd.js",
+            "./wasm/tfjs/tfjs-model-use.js",
+            "./wasm/tfjs/tfjs-model-use-vocab.js",
+            "./wasm/tfjs/tfjs-bundle.js",
+            "./wasm/tfjs/tfjs.js",
+            "./wasm/tfjs/benchmark.js"
         ],
         preload: {
-            tfjsBackendWasmBlob: "./wasm/tfjs-backend-wasm.wasm",
+            tfjsBackendWasmBlob: "./wasm/tfjs/tfjs-backend-wasm.wasm",
         },
-        benchmarkClass: WasmLegacyBenchmark,
-        async: true,
+        benchmarkClass: WasmEMCCBenchmark,
+        iterations: 15,
+        worstCaseCount: 2,
         deterministicRandom: true,
         testGroup: WasmGroup
     },
     {
         name: "tfjs-wasm-simd",
         files: [
-            "./wasm/tfjs-model-helpers.js",
-            "./wasm/tfjs-model-mobilenet-v3.js",
-            "./wasm/tfjs-model-mobilenet-v1.js",
-            "./wasm/tfjs-model-coco-ssd.js",
-            "./wasm/tfjs-model-use.js",
-            "./wasm/tfjs-model-use-vocab.js",
-            "./wasm/tfjs-bundle.js",
-            "./wasm/tfjs.js",
-            "./wasm/tfjs-benchmark.js"
+            "./wasm/tfjs/tfjs-model-helpers.js",
+            "./wasm/tfjs/tfjs-model-mobilenet-v3.js",
+            "./wasm/tfjs/tfjs-model-mobilenet-v1.js",
+            "./wasm/tfjs/tfjs-model-coco-ssd.js",
+            "./wasm/tfjs/tfjs-model-use.js",
+            "./wasm/tfjs/tfjs-model-use-vocab.js",
+            "./wasm/tfjs/tfjs-bundle.js",
+            "./wasm/tfjs/tfjs.js",
+            "./wasm/tfjs/benchmark.js"
         ],
         preload: {
-            tfjsBackendWasmSimdBlob: "./wasm/tfjs-backend-wasm-simd.wasm",
+            tfjsBackendWasmSimdBlob: "./wasm/tfjs/tfjs-backend-wasm-simd.wasm",
         },
-        benchmarkClass: WasmLegacyBenchmark,
-        async: true,
+        benchmarkClass: WasmEMCCBenchmark,
+        iterations: 40,
+        worstCaseCount: 3,
         deterministicRandom: true,
         testGroup: WasmGroup
     },
