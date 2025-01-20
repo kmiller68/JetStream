@@ -1931,7 +1931,8 @@ const testPlans = [
             wasmBinary: "./wasm/richards/build/richards.wasm"
         },
         benchmarkClass: WasmEMCCBenchmark,
-        iterations: 30,
+        iterations: 20,
+        worstCaseCount: 2,
         testGroup: WasmGroup
     },
     {

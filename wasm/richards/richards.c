@@ -1,4 +1,4 @@
-// $ emcc -o richards.html -O2 -s TOTAL_MEMORY=83886080 -g1 -s "EXPORTED_FUNCTIONS=[_setup, _getHoldcount, _scheduleIter, _getQpktcount, _main]" ./richards.c
+// $ emcc -o richards.html -O2 -s TOTAL_MEMORY=83886080 -g1 -s "EXPORTED_FUNCTIONS=[_setup, _scheduleIter, _validate]" ./richards.c
 
 #include <emscripten.h>
 
@@ -370,20 +370,7 @@ void setup()
     layout = 0;
 }
 
-int getQpktcount()
+int validate()
 {
-    return  qpktcount;
+    return qpktcount == Qpktcountval && holdcount == Holdcountval;
 }
-
-int getHoldcount()
-{
-    return holdcount;
-}
-
-int main()
-{
-    EM_ASM( runRichards() );
-
-    return 0;
-}
-

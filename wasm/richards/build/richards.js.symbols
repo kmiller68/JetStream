@@ -6,10 +6,9 @@
 5:handlerfn
 6:devfn
 7:setup
-8:getQpktcount
-9:getHoldcount
-10:emscripten_builtin_malloc
-11:sbrk
-12:_emscripten_stack_restore
-13:_emscripten_stack_alloc
-14:emscripten_stack_get_current
+8:validate
+9:emscripten_builtin_malloc
+10:sbrk
+11:_emscripten_stack_restore
+12:_emscripten_stack_alloc
+13:emscripten_stack_get_current

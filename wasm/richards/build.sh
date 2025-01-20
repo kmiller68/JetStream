@@ -15,7 +15,7 @@ emcc -o build/richards.js \
     -s WASM=1 -O2 -s TOTAL_MEMORY=83886080 \
     -g1 --emit-symbol-map \
     -s MODULARIZE=1 \
-    -s EXPORT_NAME=setupModule -s EXPORTED_FUNCTIONS=_setup,_getHoldcount,_scheduleIter,_getQpktcount \
+    -s EXPORT_NAME=setupModule -s EXPORTED_FUNCTIONS=_setup,_scheduleIter,_validate \
     richards.c | tee -a "$BUILD_LOG"
 
 echo "Building done" | tee -a "$BUILD_LOG"
