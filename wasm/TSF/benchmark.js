@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Apple Inc. All rights reserved.
+ * Copyright (C) 2024 Apple Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -23,42 +23,11 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-const isInBrowser = false;
-console = {
-    log: print
-}
+class Benchmark {
+    async runIteration() {
+        if (!Module._runIteration)
+            await setupModule(Module);
 
-const isD8 = typeof Realm !== "undefined";
-if (isD8)
-    globalThis.readFile = read;
-const isSpiderMonkey = typeof newGlobal !== "undefined";
-if (isSpiderMonkey) {
-    globalThis.readFile = readRelativeToScript;
-    globalThis.arguments = scriptArgs;
-}
-
-if (typeof arguments !== "undefined" && arguments.length > 0)
-    testList = arguments.slice();
-if (typeof testList === "undefined")
-    testList = undefined;
-
-if (typeof testIterationCount === "undefined")
-    testIterationCount = undefined;
-
-if (typeof runMode !== "undefined" && runMode == "RAMification")
-    RAMification = true;
-else
-    RAMification = false;
-
-load("./JetStreamDriver.js");
-
-async function runJetStream() {
-    try {
-        await JetStream.initialize();
-        await JetStream.start();
-    } catch (e) {
-        console.log("JetStream3 failed: " + e);
-        console.log(e.stack);
+        Module._runIteration(150);
     }
-}
-runJetStream();
+};

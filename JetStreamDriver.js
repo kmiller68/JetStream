@@ -1,7 +1,7 @@
 "use strict";
 
 /*
- * Copyright (C) 2018-2022 Apple Inc. All rights reserved.
+ * Copyright (C) 2018-2024 Apple Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -36,11 +36,17 @@ globalThis.dumpJSONResults ??= false;
 globalThis.customTestList ??= [];
 
 let shouldReport = false;
+let startDelay;
 if (typeof(URLSearchParams) !== "undefined") {
     const urlParameters = new URLSearchParams(window.location.search);
     shouldReport = urlParameters.has('report') && urlParameters.get('report').toLowerCase() == 'true';
+    if (shouldReport)
+        startDelay = 4000;
+    if (urlParameters.has('startDelay'))
+        startDelay = urlParameters.get('startDelay');
     if (urlParameters.has('test'))
         customTestList = urlParameters.getAll("test");
+
 }
 
 // Used for the promise representing the current benchmark run.
@@ -158,7 +164,7 @@ function uiFriendlyDuration(time)
     const minutes = time.getMinutes();
     const seconds = time.getSeconds();
     const milliSeconds = time.getMilliseconds();
-    const result = "" + minutes + ":";
+    let result = "" + minutes + ":";
 
     result = result + (seconds < 10 ? "0" : "") + seconds + ".";
     result = result + (milliSeconds < 10 ? "00" : (milliSeconds < 100 ? "0" : "")) + milliSeconds;
@@ -331,7 +337,13 @@ class Driver {
             } else
                 globalObject = runString("");
 
-            globalObject.console = { log: globalObject.print, warn: (e) => { print("Warn: " + e); /*$vm.abort();*/ } }
+            globalObject.console = {
+                log: globalObject.print,
+                warn: (e) => { print("Warn: " + e); },
+                error: (e) => { print("Error: " + e); },
+                debug: (e) => { print("Debug: " + e); },
+            };
+
             globalObject.self = globalObject;
             globalObject.top = {
                 currentResolve,
@@ -415,8 +427,8 @@ class Driver {
         await this.prefetchResourcesForBrowser();
         await this.fetchResources();
         this.prepareToRun();
-        if (isInBrowser && shouldReport) {
-            setTimeout(() => this.start(), 4000);
+        if (isInBrowser && startDelay !== undefined) {
+            setTimeout(() => this.start(), startDelay);
         }
     }
 
@@ -545,10 +557,11 @@ class Benchmark {
                 if (__benchmark.prepareForNextIteration)
                     __benchmark.prepareForNextIteration();
 
-                ${this.preiterationCode}
+                ${this.preIterationCode}
                 let start = performance.now();
                 __benchmark.runIteration();
                 let end = performance.now();
+                ${this.postIterationCode}
 
                 results.push(Math.max(1, end - start));
             }
@@ -567,11 +580,24 @@ class Benchmark {
 
     get prerunCode() { return null; }
 
-    get preiterationCode() {
+    get preIterationCode() {
+        let code = "";
         if (this.plan.deterministicRandom)
-            return `Math.random.__resetSeed();`;
+            code += `Math.random.__resetSeed();`;
 
-        return "";
+        if (globalThis.customPreIterationCode)
+            code += customPreIterationCode;
+
+        return code;
+    }
+
+    get postIterationCode() {
+        let code = "";
+
+        if (globalThis.customPostIterationCode)
+            code += customPostIterationCode;
+
+        return code;
     }
 
     async run() {
@@ -691,7 +717,7 @@ class Benchmark {
 
     async doLoadBlob(resource) {
         let response;
-        const tries = 3;
+        let tries = 3;
         while (tries--) {
             let hasError = false;
             try {
@@ -974,10 +1000,11 @@ class AsyncBenchmark extends DefaultBenchmark {
             let __benchmark = new Benchmark();
             let results = [];
             for (let i = 0; i < ${this.iterations}; i++) {
-                ${this.preiterationCode}
+                ${this.preIterationCode}
                 let start = performance.now();
                 await __benchmark.runIteration();
                 let end = performance.now();
+                ${this.postIterationCode}
                 results.push(Math.max(1, end - start));
             }
             if (__benchmark.validate)
@@ -985,6 +1012,95 @@ class AsyncBenchmark extends DefaultBenchmark {
             top.currentResolve(results);
         }
         doRun().catch((error) => { top.currentReject(error); });`
+    }
+};
+
+// Meant for wasm benchmarks that are directly compiled with an emcc build script. It might not work for benchmarks built as
+// part of a larger project's build system or a wasm benchmark compiled from a language that doesn't compile with emcc.
+class WasmEMCCBenchmark extends AsyncBenchmark {
+    get prerunCode() {
+        let str = `
+            let verbose = false;
+
+            let globalObject = this;
+
+            abort = quit = function() {
+                if (verbose)
+                    console.log('Intercepted quit/abort');
+            };
+
+            oldPrint = globalObject.print;
+            globalObject.print = globalObject.printErr = (...args) => {
+                if (verbose)
+                    console.log('Intercepted print: ', ...args);
+            };
+
+            let Module = {
+                preRun: [],
+                postRun: [],
+                noInitialRun: true,
+                print: print,
+                printErr: printErr,
+                setStatus: function(text) {
+                },
+                totalDependencies: 0,
+                monitorRunDependencies: function(left) {
+                    this.totalDependencies = Math.max(this.totalDependencies, left);
+                    Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+                },
+            };
+            globalObject.Module = Module;
+            `;
+        return str;
+    }
+
+    get runnerCode() {
+        let str = `function loadBlob(key, path, andThen) {`;
+
+        if (isInBrowser) {
+            str += `
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', path, true);
+                xhr.responseType = 'arraybuffer';
+                xhr.onload = function() {
+                    Module[key] = new Int8Array(xhr.response);
+                    andThen();
+                };
+                xhr.send(null);
+            `;
+        } else {
+            str += `
+            Module[key] = new Int8Array(read(path, "binary"));
+
+            Module.setStatus = null;
+            Module.monitorRunDependencies = null;
+
+            Promise.resolve(42).then(() => {
+                try {
+                    andThen();
+                } catch(e) {
+                    console.log("error running wasm:", e);
+                    console.log(e.stack);
+                    throw e;
+                }
+            })
+            `;
+        }
+
+        str += "}";
+
+        let keys = Object.keys(this.plan.preload);
+        for (let i = 0; i < keys.length; ++i) {
+            str += `loadBlob("${keys[i]}", "${this.plan.preload[keys[i]]}", async () => {\n`;
+        }
+
+        str += super.runnerCode;
+        for (let i = 0; i < keys.length; ++i) {
+            str += `})`;
+        }
+        str += `;`;
+
+        return str;
     }
 };
 
@@ -1064,7 +1180,7 @@ class WSLBenchmark extends Benchmark {
     }
 };
 
-class WasmBenchmark extends Benchmark {
+class WasmLegacyBenchmark extends Benchmark {
     constructor(...args) {
         super(...args);
 
@@ -1111,16 +1227,17 @@ class WasmBenchmark extends Benchmark {
             };
 
             oldPrint = globalObject.print;
+            oldConsoleLog = globalObject.console.log;
             globalObject.print = globalObject.printErr = (...args) => {
                 if (verbose)
-                    console.log('Intercepted print: ', ...args);
+                    oldConsoleLog('Intercepted print: ', ...args);
             };
 
             let Module = {
                 preRun: [],
                 postRun: [],
-                print: function() { },
-                printErr: function() { },
+                print: globalObject.print,
+                printErr: globalObject.print,
                 setStatus: function(text) {
                 },
                 totalDependencies: 0,
@@ -1236,11 +1353,12 @@ class WasmBenchmark extends Benchmark {
 
         console.log("    Startup:", uiFriendlyNumber(this.startupTime));
         console.log("    Run time:", uiFriendlyNumber(this.runTime));
+        console.log("    Score:", uiFriendlyNumber(this.score));
         if (RAMification) {
             console.log("    Current Footprint:", uiFriendlyNumber(this.currentFootprint));
             console.log("    Peak Footprint:", uiFriendlyNumber(this.peakFootprint));
         }
-        console.log("    Score:", uiFriendlyNumber(this.score));
+        console.log("    Wall time:", uiFriendlyDuration(new Date(this.endTime - this.startTime)));
     }
 };
 
@@ -1544,15 +1662,6 @@ const BENCHMARKS = [
     }),
     // Simple
     new DefaultBenchmark({
-        name: "float-mm.c",
-        files: [
-            "./simple/float-mm.c.js"
-        ],
-        iterations: 15,
-        worstCaseCount: 2,
-        testGroup: SimpleGroup
-    }),
-    new DefaultBenchmark({
         name: "hash-map",
         files: [
             "./simple/hash-map.js"
@@ -1762,7 +1871,7 @@ const BENCHMARKS = [
         testGroup: GeneratorsGroup,
     }),
     // Wasm
-    new WasmBenchmark({
+    new WasmLegacyBenchmark({
         name: "HashSet-wasm",
         files: [
             "./wasm/HashSet.js"
@@ -1772,17 +1881,20 @@ const BENCHMARKS = [
         },
         testGroup: WasmGroup
     }),
-    new WasmBenchmark({
+    new WasmEMCCBenchmark({
         name: "tsf-wasm",
         files: [
-            "./wasm/tsf.js"
+            "./wasm/TSF/build/tsf.js",
+            "./wasm/TSF/benchmark.js",
         ],
         preload: {
-            wasmBinary: "./wasm/tsf.wasm"
+            wasmBinary: "./wasm/TSF/build/tsf.wasm"
         },
+        iterations: 15,
+        worstCaseCount: 2,
         testGroup: WasmGroup
     }),
-    new WasmBenchmark({
+    new WasmLegacyBenchmark({
         name: "quicksort-wasm",
         files: [
             "./wasm/quicksort.js"
@@ -1792,17 +1904,19 @@ const BENCHMARKS = [
         },
         testGroup: WasmGroup
     }),
-    new WasmBenchmark({
+    new WasmEMCCBenchmark({
         name: "gcc-loops-wasm",
         files: [
-            "./wasm/gcc-loops.js"
+            "./wasm/gcc-loops/build/gcc-loops.js",
+            "./wasm/gcc-loops/benchmark.js",
         ],
         preload: {
-            wasmBinary: "./wasm/gcc-loops.wasm"
+            wasmBinary: "./wasm/gcc-loops/build/gcc-loops.wasm"
         },
+        iterations: 50,
         testGroup: WasmGroup
     }),
-    new WasmBenchmark({
+    new WasmLegacyBenchmark({
         name: "richards-wasm",
         files: [
             "./wasm/richards.js"
@@ -1812,47 +1926,62 @@ const BENCHMARKS = [
         },
         testGroup: WasmGroup
     }),
-    new WasmBenchmark({
+    new WasmLegacyBenchmark({
+        name: "sqlite3-wasm",
+        files: [
+            "./sqlite3/polyfills.js",
+            "./sqlite3/build/jswasm/speedtest1.js",
+            "./sqlite3/benchmark.js",
+        ],
+        preload: {
+            wasmBinary: "./sqlite3/build/jswasm/speedtest1.wasm"
+        },
+        benchmarkClass: WasmLegacyBenchmark,
+        testGroup: WasmGroup
+    }),
+    new WasmEMCCBenchmark({
         name: "tfjs-wasm",
         files: [
-            "./wasm/tfjs-model-helpers.js",
-            "./wasm/tfjs-model-mobilenet-v3.js",
-            "./wasm/tfjs-model-mobilenet-v1.js",
-            "./wasm/tfjs-model-coco-ssd.js",
-            "./wasm/tfjs-model-use.js",
-            "./wasm/tfjs-model-use-vocab.js",
-            "./wasm/tfjs-bundle.js",
-            "./wasm/tfjs.js",
-            "./wasm/tfjs-benchmark.js"
+            "./wasm/tfjs/tfjs-model-helpers.js",
+            "./wasm/tfjs/tfjs-model-mobilenet-v3.js",
+            "./wasm/tfjs/tfjs-model-mobilenet-v1.js",
+            "./wasm/tfjs/tfjs-model-coco-ssd.js",
+            "./wasm/tfjs/tfjs-model-use.js",
+            "./wasm/tfjs/tfjs-model-use-vocab.js",
+            "./wasm/tfjs/tfjs-bundle.js",
+            "./wasm/tfjs/tfjs.js",
+            "./wasm/tfjs/benchmark.js"
         ],
         preload: {
-            tfjsBackendWasmBlob: "./wasm/tfjs-backend-wasm.wasm",
+            tfjsBackendWasmBlob: "./wasm/tfjs/tfjs-backend-wasm.wasm",
         },
-        async: true,
+        iterations: 15,
+        worstCaseCount: 2,
         deterministicRandom: true,
         testGroup: WasmGroup
     }),
-    new WasmBenchmark({
+    new WasmEMCCBenchmark({
         name: "tfjs-wasm-simd",
         files: [
-            "./wasm/tfjs-model-helpers.js",
-            "./wasm/tfjs-model-mobilenet-v3.js",
-            "./wasm/tfjs-model-mobilenet-v1.js",
-            "./wasm/tfjs-model-coco-ssd.js",
-            "./wasm/tfjs-model-use.js",
-            "./wasm/tfjs-model-use-vocab.js",
-            "./wasm/tfjs-bundle.js",
-            "./wasm/tfjs.js",
-            "./wasm/tfjs-benchmark.js"
+            "./wasm/tfjs/tfjs-model-helpers.js",
+            "./wasm/tfjs/tfjs-model-mobilenet-v3.js",
+            "./wasm/tfjs/tfjs-model-mobilenet-v1.js",
+            "./wasm/tfjs/tfjs-model-coco-ssd.js",
+            "./wasm/tfjs/tfjs-model-use.js",
+            "./wasm/tfjs/tfjs-model-use-vocab.js",
+            "./wasm/tfjs/tfjs-bundle.js",
+            "./wasm/tfjs/tfjs.js",
+            "./wasm/tfjs/benchmark.js"
         ],
         preload: {
-            tfjsBackendWasmSimdBlob: "./wasm/tfjs-backend-wasm-simd.wasm",
+            tfjsBackendWasmSimdBlob: "./wasm/tfjs/tfjs-backend-wasm-simd.wasm",
         },
-        async: true,
+        iterations: 40,
+        worstCaseCount: 3,
         deterministicRandom: true,
         testGroup: WasmGroup
     }),
-    new WasmBenchmark({
+    new WasmLegacyBenchmark({
         name: "argon2-wasm",
         files: [
             "./wasm/argon2-bundle.js",
@@ -1864,7 +1993,7 @@ const BENCHMARKS = [
         },
         testGroup: WasmGroup
     }),
-    new WasmBenchmark({
+    new WasmLegacyBenchmark({
         name: "argon2-wasm-simd",
         files: [
             "./wasm/argon2-bundle.js",
@@ -1932,7 +2061,7 @@ const BENCHMARKS = [
         testGroup: WSLGroup
     }),
     // 8bitbench
-    new WasmBenchmark({
+    new WasmLegacyBenchmark({
         name: "8bitbench-wasm",
         files: [
             "./8bitbench/lib/fast-text-encoding-1.0.3/text.js",
