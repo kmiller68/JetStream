@@ -26,23 +26,5 @@ class TextDecoder {
   }
 }
 
-// `crypto.getRandomValues`. This is called only once during setup.
-// The implementation is copied from an Emscripten error message proposing this.
-globalThis.crypto = {
-  getRandomValues: (array) => {
-    for (var i = 0; i < array.length; i++) array[i] = (Math.random() * 256) | 0;
-  },
-};
-
 // Empty `URLSearchParams` has just the same interface as a `Map`.
 globalThis.URLSearchParams = Map;
-
-// `self` global object.
-globalThis.self = this;
-
-globalThis.console = {
-  log: print,
-  debug: print,
-  warn: print,
-  error: print,
-};

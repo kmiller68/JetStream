@@ -2010,7 +2010,7 @@ const BENCHMARKS = [
         worstCaseCount: 2,
         testGroup: WasmGroup
     }),
-    new WasmLegacyBenchmark({
+    new WasmEMCCBenchmark({
         name: "sqlite3-wasm",
         files: [
             "./sqlite3/polyfills.js",
@@ -2020,7 +2020,8 @@ const BENCHMARKS = [
         preload: {
             wasmBinary: "./sqlite3/build/jswasm/speedtest1.wasm"
         },
-        benchmarkClass: WasmLegacyBenchmark,
+        iterations: 15,
+        worstCaseCount: 2,
         testGroup: WasmGroup
     }),
     new WasmLegacyBenchmark({
