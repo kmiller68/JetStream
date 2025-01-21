@@ -59,8 +59,6 @@ if (typeof(URLSearchParams) !== "undefined") {
     globalThis.testWorstCaseCount = getIntParam(urlParameters, "worstCaseCount");
 }
 
-
-
 // Used for the promise representing the current benchmark run.
 this.currentResolve = null;
 this.currentReject = null;

@@ -2,6 +2,9 @@
 import * as fs from "fs";
 import * as http from "http";
 import * as path from "path";
+import commandLineArgs from "command-line-args";
+import esMain from 'es-main';
+
 const MIME_TYPES = {
     default: "application/octet-stream",
     html: "text/html; charset=UTF-8",
@@ -23,8 +26,8 @@ export default function serve(port) {
         throw new Error("Port is required");
 
     const prepareFile = async (url) => {
-        const paths = [STATIC_PATH, url];
-        if (url.endsWith("/"))
+        const paths = [STATIC_PATH, url.pathname];
+        if (url.pathname.endsWith("/"))
             paths.push("index.html");
         const filePath = path.join(...paths);
         const pathTraversal = !filePath.startsWith(STATIC_PATH);
@@ -38,14 +41,32 @@ export default function serve(port) {
 
     const server = http
         .createServer(async (req, res) => {
-            const file = await prepareFile(req.url);
+            const url = new URL(`http://localhost${req.url}`);
+            const file = await prepareFile(url);
             const statusCode = file.found ? 200 : 404;
             const mimeType = MIME_TYPES[file.ext] || MIME_TYPES.default;
-            res.writeHead(statusCode, { "Content-Type": mimeType });
+            res.writeHead(statusCode, {
+                "Content-Type": mimeType,
+                "Cross-Origin-Embedder-Policy": "require-corp",
+                "Cross-Origin-Opener-Policy": "same-origin",
+            });
             file.stream.pipe(res);
         })
         .listen(port);
 
     console.log(`Server running at http://127.0.0.1:${port}/`);
     return server;
+}
+
+
+function main() {
+    const optionDefinitions = [
+        { name: "port", type: Number, defaultValue: 8010, description: "Set the test-server port, The default value is 8010." },
+    ];
+    const options = commandLineArgs(optionDefinitions);
+    serve(options.port);
+}
+
+if (esMain(import.meta)) {
+    main();
 }
