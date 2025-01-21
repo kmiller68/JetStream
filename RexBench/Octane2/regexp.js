@@ -72,11 +72,23 @@ function RegExpBenchmark() {
     if (array) {
       for (var i = 0; i < array.length; i++) {
         var substring = array[i];
-        if (substring) sum += substring.length;
+        if (substring) {
+          sum += substring.length;
+          sum += resultHash(substring)
+        }
       }
     }
     return sum;
   }
+
+  function resultHash(substring) {
+    let sum = 0;
+    for (let j = 0; j < substring.length; j+=37)
+      sum ^= substring.charCodeAt(j)
+    sum ^= substring.charCodeAt(substring.length-1)
+    return sum;
+  }
+
   var re0 = /^ba/;
   var re1 = /(((\w+):\/\/)([^\/:]*)(:(\d+))?)?([^#?]*)(\?([^#]*))?(#(.*))?/;
   var re2 = /^\s*|\s*$/g;
