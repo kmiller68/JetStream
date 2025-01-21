@@ -1807,7 +1807,6 @@ const BENCHMARKS = [
         ],
         iterations: defaultIterationCount * 3,
         worstCaseCount: defaultWorstCaseCount * 3,
-        benchmarkClass: AsyncBenchmark,
         testGroup: ProxyGroup,
     }),
     new AsyncBenchmark({
@@ -1817,7 +1816,6 @@ const BENCHMARKS = [
             "./proxy/vue-bundle.js",
             "./proxy/vue-benchmark.js",
         ],
-        benchmarkClass: AsyncBenchmark,
         testGroup: ProxyGroup,
     }),
     // Class fields
