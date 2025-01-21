@@ -2187,7 +2187,7 @@ function enableBenchmarksByGroup(groupSymbol)
 
 function processTestList(testList)
 {
-    const benchmarkNames = [];
+    let benchmarkNames = [];
 
     if (testList instanceof Array)
         benchmarkNames = testList;
