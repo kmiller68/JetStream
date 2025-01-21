@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023-2024 Apple Inc. All rights reserved.
+ * Copyright (C) 2023 Apple Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -23,20 +23,19 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
 
-class Benchmark {
-    firstIteration = true;
-    async runIteration() {
-        if (this.firstIteration) {
-            this.firstIteration = false;
-            if (!isInBrowser) {
-               globalThis.tfjsBackendWasmSimdBlob = Module.tfjsBackendWasmSimdBlob;
-                globalThis.tfjsBackendWasmBlob = Module.tfjsBackendWasmBlob;
-            }
-
-            // setWasmBackend calls loadAndPredict()
-            return await setWasmBackend();
-        }
-
-        return await loadAndPredict();
+async function doRun() {
+    if (!isInBrowser) {
+        globalThis.tfjsBackendWasmSimdBlob = Module.tfjsBackendWasmSimdBlob;
+        globalThis.tfjsBackendWasmBlob = Module.tfjsBackendWasmBlob;
     }
-};
+
+    let start = benchmarkTime();
+    await setWasmBackend();
+    let compileTime = benchmarkTime() - start;
+    reportCompileTime(compileTime);
+
+    start = benchmarkTime();
+    for (let i = 0; i < 5; ++i)
+        await loadAndPredict();
+    reportRunTime(benchmarkTime() - start)
+}
