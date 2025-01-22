@@ -551,14 +551,23 @@ class Benchmark {
         return `
             let __benchmark = new Benchmark(${this.iterations});
             let results = [];
+            let benchmarkName = "${this.name}";
+
             for (let i = 0; i < ${this.iterations}; i++) {
                 if (__benchmark.prepareForNextIteration)
                     __benchmark.prepareForNextIteration();
 
                 ${this.preIterationCode}
+
+                const iterationMarkLabel = benchmarkName + "-iteration-" + i;
+                const iterationStartMark = performance.mark(iterationMarkLabel);
+
                 let start = performance.now();
                 __benchmark.runIteration();
                 let end = performance.now();
+
+                performanceMeasure(iterationMarkLabel, iterationStartMark);
+
                 ${this.postIterationCode}
 
                 results.push(Math.max(1, end - start));
@@ -619,7 +628,24 @@ class Benchmark {
                 assert(false, "Should not reach here in CLI");
         };
 
-        addScript(`const isInBrowser = ${isInBrowser};`);
+        addScript(`
+            const isInBrowser = ${isInBrowser};
+            const isD8 = ${isD8};
+            if (typeof performance.mark === 'undefined') {
+                performance.mark = function() {};
+            }
+            if (typeof performance.measure === 'undefined') {
+                performance.measure = function() {};
+            }
+            function performanceMeasure(name, mark) {
+                // D8 does not implement the official web API.
+                // Also the performance.mark polyfill returns an undefined mark.
+                if (isD8 || typeof mark === "undefined")
+                    performance.measure(name, mark);
+                else
+                    performance.measure(name, mark.name);
+            }
+        `);
 
         if (!!this.plan.deterministicRandom) {
             addScript(`
@@ -683,7 +709,7 @@ class Benchmark {
         }
         addScript(this.runnerCode);
 
-        this.startTime = new Date();
+        this.startTime = performance.now();
 
         if (RAMification)
             resetMemoryPeak();
@@ -698,7 +724,7 @@ class Benchmark {
         }
         const results = await promise;
 
-        this.endTime = new Date();
+        this.endTime = performance.now();
 
         if (RAMification) {
             const memoryFootprint = MemoryFootprint();
@@ -997,12 +1023,22 @@ class AsyncBenchmark extends DefaultBenchmark {
         async function doRun() {
             let __benchmark = new Benchmark();
             let results = [];
+            let benchmarkName = "${this.name}";
+
             for (let i = 0; i < ${this.iterations}; i++) {
                 ${this.preIterationCode}
+
+                const iterationMarkLabel = benchmarkName + "-iteration-" + i;
+                const iterationStartMark = performance.mark(iterationMarkLabel);
+
                 let start = performance.now();
                 await __benchmark.runIteration();
                 let end = performance.now();
+
+                performanceMeasure(iterationMarkLabel, iterationStartMark);
+
                 ${this.postIterationCode}
+
                 results.push(Math.max(1, end - start));
             }
             if (__benchmark.validate)
