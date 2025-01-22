@@ -485,7 +485,7 @@ class Driver {
 
     resultsJSON()
     {
-        const results = {};
+        let results = {};
         for (const benchmark of this.benchmarks) {
             const subResults = {}
             const subScores = benchmark.subScores();
