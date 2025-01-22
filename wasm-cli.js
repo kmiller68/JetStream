@@ -35,6 +35,7 @@ testList = [
   "argon2-wasm",
   "argon2-wasm-simd",
   "8bitbench-wasm",
+  "Dart-flute-wasm",
 ];
 
 // Reuse the full CLI runner, just with the subset of Wasm line items above.
