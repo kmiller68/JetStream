@@ -1,63 +1,28 @@
-// Simple server adapted from https://developer.mozilla.org/en-US/docs/Learn/Server-side/Node_server_without_framework:
-import * as fs from "fs";
-import * as http from "http";
+// Simple local server
 import * as path from "path";
 import commandLineArgs from "command-line-args";
-import esMain from 'es-main';
+import esMain from "es-main";
+import LocalWebServer from "local-web-server";
 
-const MIME_TYPES = {
-    default: "application/octet-stream",
-    html: "text/html; charset=UTF-8",
-    js: "application/javascript; charset=UTF-8",
-    mjs: "application/javascript; charset=UTF-8",
-    css: "text/css",
-    png: "image/png",
-    jpg: "image/jpg",
-    gif: "image/gif",
-    ico: "image/x-icon",
-    svg: "image/svg+xml",
-};
+const ROOT_DIR = path.join(process.cwd(), "./");
 
-const STATIC_PATH = path.join(process.cwd(), "./");
-const toBool = [() => true, () => false];
-
-export default function serve(port) {
+export default async function serve(port) {
     if (!port)
         throw new Error("Port is required");
-
-    const prepareFile = async (url) => {
-        const paths = [STATIC_PATH, url.pathname];
-        if (url.pathname.endsWith("/"))
-            paths.push("index.html");
-        const filePath = path.join(...paths);
-        const pathTraversal = !filePath.startsWith(STATIC_PATH);
-        const exists = await fs.promises.access(filePath).then(...toBool);
-        const found = !pathTraversal && exists;
-        const streamPath = found ? filePath : `${STATIC_PATH}/index.html`;
-        const ext = path.extname(streamPath).substring(1).toLowerCase();
-        const stream = fs.createReadStream(streamPath);
-        return { found, ext, stream };
+    const ws = await LocalWebServer.create({
+        port: port,
+        directory: ROOT_DIR,
+        corsOpenerPolicy: "same-origin",
+        corsEmbedderPolicy: "require-corp",
+    });
+    console.log(`Server started on http://localhost:${port}`);
+    process.on("exit", () => ws.server.close());
+    return {
+        close() {
+            ws.server.close();
+        }
     };
-
-    const server = http
-        .createServer(async (req, res) => {
-            const url = new URL(`http://localhost${req.url}`);
-            const file = await prepareFile(url);
-            const statusCode = file.found ? 200 : 404;
-            const mimeType = MIME_TYPES[file.ext] || MIME_TYPES.default;
-            res.writeHead(statusCode, {
-                "Content-Type": mimeType,
-                "Cross-Origin-Embedder-Policy": "require-corp",
-                "Cross-Origin-Opener-Policy": "same-origin",
-            });
-            file.stream.pipe(res);
-        })
-        .listen(port);
-
-    console.log(`Server running at http://127.0.0.1:${port}/`);
-    return server;
 }
-
 
 function main() {
     const optionDefinitions = [
@@ -67,6 +32,5 @@ function main() {
     serve(options.port);
 }
 
-if (esMain(import.meta)) {
+if (esMain(import.meta))
     main();
-}
