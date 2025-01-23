@@ -65,7 +65,7 @@ function displayCategoryScores() {
 
     let summaryElement = document.getElementById("result-summary");
     for (let [category, scores] of categoryScores)
-        summaryElement.innerHTML += `<p> ${category}: ${uiFriendlyNumber(geomean(scores))}</p>`
+        summaryElement.innerHTML += `<p> ${category}: ${uiFriendlyScore(geomean(scores))}</p>`
 
     categoryScores = null;
 }
@@ -157,6 +157,10 @@ function uiFriendlyNumber(num) {
     if (Number.isInteger(num))
         return num;
     return num.toFixed(3);
+}
+
+function uiFriendlyScore(num) {
+    return uiFriendlyNumber(num);
 }
 
 function uiFriendlyDuration(time)
@@ -287,12 +291,12 @@ class Driver {
 
         categoryScores = new Map;
         for (const benchmark of this.benchmarks) {
-            for (let category of Object.keys(benchmark.subTimes()))
+            for (let category of Object.keys(benchmark.subScores()))
                 categoryScores.set(category, []);
         }
 
         for (const benchmark of this.benchmarks) {
-            for (let [category, value] of Object.entries(benchmark.subTimes())) {
+            for (let [category, value] of Object.entries(benchmark.subScores())) {
                 const arr = categoryScores.get(category);
                 arr.push(value);
             }
@@ -300,7 +304,7 @@ class Driver {
 
         if (isInBrowser) {
             summaryElement.classList.add('done');
-            summaryElement.innerHTML = "<div class=\"score\">" + uiFriendlyNumber(geomean(allScores)) + "</div><label>Score</label>";
+            summaryElement.innerHTML = "<div class=\"score\">" + uiFriendlyScore(geomean(allScores)) + "</div><label>Score</label>";
             summaryElement.onclick = displayCategoryScores;
             if (showScoreDetails)
                 displayCategoryScores();
@@ -308,9 +312,9 @@ class Driver {
         } else if (!dumpJSONResults) {
             console.log("\n");
             for (let [category, scores] of categoryScores)
-                console.log(`${category}: ${uiFriendlyNumber(geomean(scores))}`);
+                console.log(`${category}: ${uiFriendlyScore(geomean(scores))}`);
 
-            console.log("\nTotal Score: ", uiFriendlyNumber(geomean(allScores)), "\n");
+            console.log("\nTotal Score: ", uiFriendlyScore(geomean(allScores)), "\n");
         }
 
         this.reportScoreToRunBenchmarkRunner();
@@ -482,12 +486,12 @@ class Driver {
 
     resultsJSON()
     {
-        const results = {};
+        let results = {};
         for (const benchmark of this.benchmarks) {
             const subResults = {}
-            const subTimes = benchmark.subTimes();
-            for (const name in subTimes) {
-                subResults[name] = {"metrics": {"Time": {"current": [toTimeValue(subTimes[name])]}}};
+            const subScores = benchmark.subScores();
+            for (const name in subScores) {
+                subResults[name] = {"metrics": {"Time": {"current": [toTimeValue(subScores[name])]}}};
             }
             results[benchmark.name] = {
                 "metrics" : {
@@ -553,14 +557,23 @@ class Benchmark {
         return `
             let __benchmark = new Benchmark(${this.iterations});
             let results = [];
+            let benchmarkName = "${this.name}";
+
             for (let i = 0; i < ${this.iterations}; i++) {
                 if (__benchmark.prepareForNextIteration)
                     __benchmark.prepareForNextIteration();
 
                 ${this.preIterationCode}
+
+                const iterationMarkLabel = benchmarkName + "-iteration-" + i;
+                const iterationStartMark = performance.mark(iterationMarkLabel);
+
                 let start = performance.now();
                 __benchmark.runIteration();
                 let end = performance.now();
+
+                performanceMeasure(iterationMarkLabel, iterationStartMark);
+
                 ${this.postIterationCode}
 
                 results.push(Math.max(1, end - start));
@@ -621,7 +634,24 @@ class Benchmark {
                 assert(false, "Should not reach here in CLI");
         };
 
-        addScript(`const isInBrowser = ${isInBrowser};`);
+        addScript(`
+            const isInBrowser = ${isInBrowser};
+            const isD8 = ${isD8};
+            if (typeof performance.mark === 'undefined') {
+                performance.mark = function() {};
+            }
+            if (typeof performance.measure === 'undefined') {
+                performance.measure = function() {};
+            }
+            function performanceMeasure(name, mark) {
+                // D8 does not implement the official web API.
+                // Also the performance.mark polyfill returns an undefined mark.
+                if (isD8 || typeof mark === "undefined")
+                    performance.measure(name, mark);
+                else
+                    performance.measure(name, mark.name);
+            }
+        `);
 
         if (!!this.plan.deterministicRandom) {
             addScript(`
@@ -685,7 +715,7 @@ class Benchmark {
         }
         addScript(this.runnerCode);
 
-        this.startTime = new Date();
+        this.startTime = performance.now();
 
         if (RAMification)
             resetMemoryPeak();
@@ -700,7 +730,7 @@ class Benchmark {
         }
         const results = await promise;
 
-        this.endTime = new Date();
+        this.endTime = performance.now();
 
         if (RAMification) {
             const memoryFootprint = MemoryFootprint();
@@ -917,9 +947,12 @@ class DefaultBenchmark extends Benchmark {
         super(...args);
 
         this.worstCaseCount = getWorstCaseCount(this.plan);
-        this.firstIteration = null;
-        this.worst4 = null;
-        this.average = null;
+        this.firstIterationTime = null;
+        this.firstIterationScore = null;
+        this.worst4Time = null;
+        this.worst4Score = null;
+        this.averageTime = null;
+        this.averageScore = null;
 
         assert(this.iterations > this.worstCaseCount);
     }
@@ -933,7 +966,8 @@ class DefaultBenchmark extends Benchmark {
         }
         results = copyArray(results);
 
-        this.firstIteration = toScore(results[0]);
+        this.firstIterationTime = results[0];
+        this.firstIterationScore = toScore(results[0]);
 
         results = results.slice(1);
         results.sort((a, b) => a < b ? 1 : -1);
@@ -943,19 +977,21 @@ class DefaultBenchmark extends Benchmark {
         const worstCase = [];
         for (let i = 0; i < this.worstCaseCount; ++i)
             worstCase.push(results[i]);
-        this.worst4 = toScore(mean(worstCase));
-        this.average = toScore(mean(results));
+        this.worst4Time = mean(worstCase);
+        this.worst4Score = toScore(this.worst4Time);
+        this.averageTime = mean(results);
+        this.averageScore = toScore(this.averageTime);
     }
 
     get score() {
-        return geomean([this.firstIteration, this.worst4, this.average]);
+        return geomean([this.firstIterationScore, this.worst4Score, this.averageScore]);
     }
 
-    subTimes() {
+    subScores() {
         return {
-            "First": this.firstIteration,
-            "Worst": this.worst4,
-            "Average": this.average,
+            "First": this.firstIterationScore,
+            "Worst": this.worst4Score,
+            "Average": this.averageScore,
         };
     }
 
@@ -971,20 +1007,20 @@ class DefaultBenchmark extends Benchmark {
         super.updateUIAfterRun();
 
         if (isInBrowser) {
-            document.getElementById(firstID(this)).innerHTML = uiFriendlyNumber(this.firstIteration);
-            document.getElementById(worst4ID(this)).innerHTML = uiFriendlyNumber(this.worst4);
-            document.getElementById(avgID(this)).innerHTML = uiFriendlyNumber(this.average);
-            document.getElementById(scoreID(this)).innerHTML = uiFriendlyNumber(this.score);
+            document.getElementById(firstID(this)).innerHTML = uiFriendlyScore(this.firstIterationScore);
+            document.getElementById(worst4ID(this)).innerHTML = uiFriendlyScore(this.worst4Score);
+            document.getElementById(avgID(this)).innerHTML = uiFriendlyScore(this.averageScore);
+            document.getElementById(scoreID(this)).innerHTML = uiFriendlyScore(this.score);
             return;
         }
 
         if (dumpJSONResults)
             return;
 
-        console.log("    Startup:", uiFriendlyNumber(this.firstIteration));
-        console.log("    Worst Case:", uiFriendlyNumber(this.worst4));
-        console.log("    Average:", uiFriendlyNumber(this.average));
-        console.log("    Score:", uiFriendlyNumber(this.score));
+        console.log("    Startup:", uiFriendlyScore(this.firstIterationScore));
+        console.log("    Worst Case:", uiFriendlyScore(this.worst4Score));
+        console.log("    Average:", uiFriendlyScore(this.averageScore));
+        console.log("    Score:", uiFriendlyScore(this.score));
         if (RAMification) {
             console.log("    Current Footprint:", uiFriendlyNumber(this.currentFootprint));
             console.log("    Peak Footprint:", uiFriendlyNumber(this.peakFootprint));
@@ -999,12 +1035,22 @@ class AsyncBenchmark extends DefaultBenchmark {
         async function doRun() {
             let __benchmark = new Benchmark();
             let results = [];
+            let benchmarkName = "${this.name}";
+
             for (let i = 0; i < ${this.iterations}; i++) {
                 ${this.preIterationCode}
+
+                const iterationMarkLabel = benchmarkName + "-iteration-" + i;
+                const iterationStartMark = performance.mark(iterationMarkLabel);
+
                 let start = performance.now();
                 await __benchmark.runIteration();
                 let end = performance.now();
+
+                performanceMeasure(iterationMarkLabel, iterationStartMark);
+
                 ${this.postIterationCode}
+
                 results.push(Math.max(1, end - start));
             }
             if (__benchmark.validate)
@@ -1108,17 +1154,21 @@ class WSLBenchmark extends Benchmark {
     constructor(...args) {
         super(...args);
 
-        this.stdlib = null;
-        this.mainRun = null;
+        this.stdlibTime = null;
+        this.stdlibScore = null;
+        this.mainRunTime = null;
+        this.mainRunScore = null;
     }
 
     processResults(results) {
-        this.stdlib = toScore(results[0]);
-        this.mainRun = toScore(results[1]);
+        this.stdlibTime = results[0];
+        this.stdlibScore = toScore(results[0]);
+        this.mainRunTime = results[1];
+        this.mainRunScore = toScore(results[1]);
     }
 
     get score() {
-        return geomean([this.stdlib, this.mainRun]);
+        return geomean([this.stdlibScore, this.mainRunScore]);
     }
 
     get runnerCode() {
@@ -1141,10 +1191,10 @@ class WSLBenchmark extends Benchmark {
             `;
     }
 
-    subTimes() {
+    subScores() {
         return {
-            "Stdlib": this.stdlib,
-            "MainRun": this.mainRun,
+            "Stdlib": this.stdlibScore,
+            "MainRun": this.mainRunScore,
         };
     }
 
@@ -1160,18 +1210,18 @@ class WSLBenchmark extends Benchmark {
         super.updateUIAfterRun();
 
         if (isInBrowser) {
-            document.getElementById("wsl-stdlib-score").innerHTML = uiFriendlyNumber(this.stdlib);
-            document.getElementById("wsl-tests-score").innerHTML = uiFriendlyNumber(this.mainRun);
-            document.getElementById("wsl-score-score").innerHTML = uiFriendlyNumber(this.score);
+            document.getElementById("wsl-stdlib-score").innerHTML = uiFriendlyScore(this.stdlibScore);
+            document.getElementById("wsl-tests-score").innerHTML = uiFriendlyScore(this.mainRunScore);
+            document.getElementById("wsl-score-score").innerHTML = uiFriendlyScore(this.score);
             return;
         }
 
         if (dumpJSONResults)
             return;
 
-        console.log("    Stdlib:", uiFriendlyNumber(this.stdlib));
-        console.log("    Tests:", uiFriendlyNumber(this.mainRun));
-        console.log("    Score:", uiFriendlyNumber(this.score));
+        console.log("    Stdlib:", uiFriendlyScore(this.stdlibScore));
+        console.log("    Tests:", uiFriendlyScore(this.mainRunScore));
+        console.log("    Score:", uiFriendlyScore(this.score));
         if (RAMification) {
             console.log("    Current Footprint:", uiFriendlyNumber(this.currentFootprint));
             console.log("    Peak Footprint:", uiFriendlyNumber(this.peakFootprint));
@@ -1185,16 +1235,20 @@ class WasmLegacyBenchmark extends Benchmark {
         super(...args);
 
         this.startupTime = null;
+        this.startupScore = null;
         this.runTime = null;
+        this.runScore = null;
     }
 
     processResults(results) {
-        this.startupTime = toScore(results[0]);
-        this.runTime = toScore(results[1]);
+        this.startupTime = results[0];
+        this.startupScore= toScore(results[0]);
+        this.runTime = results[1];
+        this.runScore = toScore(results[1]);
     }
 
     get score() {
-        return geomean([this.startupTime, this.runTime]);
+        return geomean([this.startupScore, this.runScore]);
     }
 
     get prerunCode() {
@@ -1313,10 +1367,10 @@ class WasmLegacyBenchmark extends Benchmark {
         return str;
     }
 
-    subTimes() {
+    subScores() {
         return {
-            "Startup": this.startupTime,
-            "Runtime": this.runTime,
+            "Startup": this.startupScore,
+            "Runtime": this.runScore,
         };
     }
 
@@ -1342,18 +1396,18 @@ class WasmLegacyBenchmark extends Benchmark {
         super.updateUIAfterRun();
 
         if (isInBrowser) {
-            document.getElementById(this.startupID).innerHTML = uiFriendlyNumber(this.startupTime);
-            document.getElementById(this.runID).innerHTML = uiFriendlyNumber(this.runTime);
-            document.getElementById(this.scoreID).innerHTML = uiFriendlyNumber(this.score);
+            document.getElementById(this.startupID).innerHTML = uiFriendlyScore(this.startupScore);
+            document.getElementById(this.runID).innerHTML = uiFriendlyScore(this.runScore);
+            document.getElementById(this.scoreID).innerHTML = uiFriendlyScore(this.score);
             return;
         }
 
         if (dumpJSONResults)
             return;
 
-        console.log("    Startup:", uiFriendlyNumber(this.startupTime));
-        console.log("    Run time:", uiFriendlyNumber(this.runTime));
-        console.log("    Score:", uiFriendlyNumber(this.score));
+        console.log("    Startup:", uiFriendlyScore(this.startupScore));
+        console.log("    Run time:", uiFriendlyScore(this.runScore));
+        console.log("    Score:", uiFriendlyScore(this.score));
         if (RAMification) {
             console.log("    Current Footprint:", uiFriendlyNumber(this.currentFootprint));
             console.log("    Peak Footprint:", uiFriendlyNumber(this.peakFootprint));
@@ -1914,14 +1968,17 @@ const BENCHMARKS = [
         iterations: 50,
         testGroup: WasmGroup
     }),
-    new WasmLegacyBenchmark({
+    new WasmEMCCBenchmark({
         name: "richards-wasm",
         files: [
-            "./wasm/richards.js"
+            "./wasm/richards/build/richards.js",
+            "./wasm/richards/benchmark.js"
         ],
         preload: {
-            wasmBinary: "./wasm/richards.wasm"
+            wasmBinary: "./wasm/richards/build/richards.wasm"
         },
+        iterations: 20,
+        worstCaseCount: 2,
         testGroup: WasmGroup
     }),
     new WasmLegacyBenchmark({
@@ -1937,45 +1994,43 @@ const BENCHMARKS = [
         benchmarkClass: WasmLegacyBenchmark,
         testGroup: WasmGroup
     }),
-    new WasmEMCCBenchmark({
+    new WasmLegacyBenchmark({
         name: "tfjs-wasm",
         files: [
-            "./wasm/tfjs/tfjs-model-helpers.js",
-            "./wasm/tfjs/tfjs-model-mobilenet-v3.js",
-            "./wasm/tfjs/tfjs-model-mobilenet-v1.js",
-            "./wasm/tfjs/tfjs-model-coco-ssd.js",
-            "./wasm/tfjs/tfjs-model-use.js",
-            "./wasm/tfjs/tfjs-model-use-vocab.js",
-            "./wasm/tfjs/tfjs-bundle.js",
-            "./wasm/tfjs/tfjs.js",
-            "./wasm/tfjs/benchmark.js"
+            "./wasm/tfjs-model-helpers.js",
+            "./wasm/tfjs-model-mobilenet-v3.js",
+            "./wasm/tfjs-model-mobilenet-v1.js",
+            "./wasm/tfjs-model-coco-ssd.js",
+            "./wasm/tfjs-model-use.js",
+            "./wasm/tfjs-model-use-vocab.js",
+            "./wasm/tfjs-bundle.js",
+            "./wasm/tfjs.js",
+            "./wasm/tfjs-benchmark.js"
         ],
         preload: {
-            tfjsBackendWasmBlob: "./wasm/tfjs/tfjs-backend-wasm.wasm",
+            tfjsBackendWasmBlob: "./wasm/tfjs-backend-wasm.wasm",
         },
-        iterations: 15,
-        worstCaseCount: 2,
+        async: true,
         deterministicRandom: true,
         testGroup: WasmGroup
     }),
-    new WasmEMCCBenchmark({
+    new WasmLegacyBenchmark({
         name: "tfjs-wasm-simd",
         files: [
-            "./wasm/tfjs/tfjs-model-helpers.js",
-            "./wasm/tfjs/tfjs-model-mobilenet-v3.js",
-            "./wasm/tfjs/tfjs-model-mobilenet-v1.js",
-            "./wasm/tfjs/tfjs-model-coco-ssd.js",
-            "./wasm/tfjs/tfjs-model-use.js",
-            "./wasm/tfjs/tfjs-model-use-vocab.js",
-            "./wasm/tfjs/tfjs-bundle.js",
-            "./wasm/tfjs/tfjs.js",
-            "./wasm/tfjs/benchmark.js"
+            "./wasm/tfjs-model-helpers.js",
+            "./wasm/tfjs-model-mobilenet-v3.js",
+            "./wasm/tfjs-model-mobilenet-v1.js",
+            "./wasm/tfjs-model-coco-ssd.js",
+            "./wasm/tfjs-model-use.js",
+            "./wasm/tfjs-model-use-vocab.js",
+            "./wasm/tfjs-bundle.js",
+            "./wasm/tfjs.js",
+            "./wasm/tfjs-benchmark.js"
         ],
         preload: {
-            tfjsBackendWasmSimdBlob: "./wasm/tfjs/tfjs-backend-wasm-simd.wasm",
+            tfjsBackendWasmSimdBlob: "./wasm/tfjs-backend-wasm-simd.wasm",
         },
-        iterations: 40,
-        worstCaseCount: 3,
+        async: true,
         deterministicRandom: true,
         testGroup: WasmGroup
     }),
