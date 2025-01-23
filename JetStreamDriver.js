@@ -55,11 +55,11 @@ function getIntParam(urlParams, key) {
 if (typeof(URLSearchParams) !== "undefined") {
     const urlParameters = new URLSearchParams(window.location.search);
     shouldReport = urlParameters.has('report') && urlParameters.get('report').toLowerCase() == 'true';
-    if (shouldReport)
+    globalThis.startDelay = getIntParam(urlParameters, "startDelay");
+    if (shouldReport && !globalThis.startDelay)
         globalThis.startDelay = 4000;
     if (urlParameters.has('test'))
         customTestList = urlParameters.getAll("test");
-    globalThis.startDelay = getIntParam(urlParameters, "startDelay");
     globalThis.testIterationCount = getIntParam(urlParameters, "iterationCount");
     globalThis.testWorstCaseCount = getIntParam(urlParameters, "worstCaseCount");
 }
