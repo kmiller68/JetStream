@@ -75,7 +75,7 @@ process.once("uncaughtException", (err) => {
 });
 
 const PORT = options.port;
-const server = serve(PORT);
+const server = await serve(PORT);
 
 async function testEnd2End() {
     const driver = await new Builder().withCapabilities(capabilities).build();
