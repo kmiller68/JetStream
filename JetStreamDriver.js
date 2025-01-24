@@ -1692,17 +1692,6 @@ const BENCHMARKS = [
         deterministicRandom: true,
         testGroup: OctaneGroup
     }),
-    new DefaultBenchmark({
-        name: "octane-zlib",
-        files: [
-            "./Octane/zlib-data.js"
-            , "./Octane/zlib.js"
-        ],
-        iterations: 15,
-        worstCaseCount: 2,
-        deterministicRandom: true,
-        testGroup: OctaneGroup
-    }),
     // RexBench
     new DefaultBenchmark({
         name: "FlightPlanner",
