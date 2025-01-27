@@ -1964,14 +1964,16 @@ const BENCHMARKS = [
         worstCaseCount: 2,
         testGroup: WasmGroup
     }),
-    new WasmLegacyBenchmark({
+    new WasmEMCCBenchmark({
         name: "quicksort-wasm",
         files: [
-            "./wasm/quicksort.js"
+            "./wasm/quicksort/build/quicksort.js",
+            "./wasm/quicksort/benchmark.js",
         ],
         preload: {
-            wasmBinary: "./wasm/quicksort.wasm"
+            wasmBinary: "./wasm/quicksort/build/quicksort.wasm"
         },
+        iterations: 50,
         testGroup: WasmGroup
     }),
     new WasmEMCCBenchmark({
