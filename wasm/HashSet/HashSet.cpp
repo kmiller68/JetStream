@@ -13473,8 +13473,8 @@ void benchmark()
 
 int main(int, char**)
 {
-    double before = currentTime();    
-    for (unsigned i = 0; i < 1000; ++i)
+    double before = currentTime();
+    for (unsigned i = 0; i < 100; ++i)
         benchmark();
     double after = currentTime();
     printf("That took %lf seconds.\n", after - before);

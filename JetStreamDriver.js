@@ -1941,13 +1941,14 @@ const BENCHMARKS = [
         testGroup: GeneratorsGroup,
     }),
     // Wasm
-    new WasmLegacyBenchmark({
+    new WasmEMCCBenchmark({
         name: "HashSet-wasm",
         files: [
-            "./wasm/HashSet.js"
+            "./wasm/HashSet/build/HashSet.js",
+            "./wasm/HashSet/benchmark.js"
         ],
         preload: {
-            wasmBinary: "./wasm/HashSet.wasm"
+            wasmBinary: "./wasm/HashSet/build/HashSet.wasm"
         },
         testGroup: WasmGroup
     }),
