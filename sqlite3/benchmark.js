@@ -2,8 +2,37 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// Since a small portion of the setup of code of SQLite is run immediately
-// when loading it, some polyfills are split out of this file and loaded first.
+// First, some polyfills for missing browser APIs in JavaScript shells.
+// Since the generated JavaScript code of SQLite immediately uses some of them,
+// we need to load and run this code before the generated `speedtest1.js` in the
+// JetStream driver.
+
+// Empty `URLSearchParams` has just the same interface as a `Map`.
+globalThis.URLSearchParams = Map;
+
+// `TextEncoder` and `TextDecoder`. These are called only a few times with short
+// ASCII strings, so this is sufficient and not performance-critical.
+class TextEncoder {
+  encode(string) {
+    return Uint8Array.from(string, (char) => {
+      let byte = char.codePointAt(0);
+      if (byte > 0x7f)
+        throw new Error("TextEncoder polyfill only supports ASCII");
+      return byte;
+    });
+  }
+}
+class TextDecoder {
+  decode(array) {
+    for (let byte of array) {
+      if (byte > 0x7f)
+        throw new Error("TextDecoder polyfill only supports ASCII");
+    }
+    return String.fromCharCode.apply(null, array);
+  }
+}
+
+// Now, some configuration options for when we initialize SQLite.
 
 // Use JetStream functions instead of `console.log` and friends.
 globalThis.sqlite3ApiConfig = {

@@ -2013,9 +2013,8 @@ const BENCHMARKS = [
     new WasmEMCCBenchmark({
         name: "sqlite3-wasm",
         files: [
-            "./sqlite3/polyfills.js",
-            "./sqlite3/build/jswasm/speedtest1.js",
             "./sqlite3/benchmark.js",
+            "./sqlite3/build/jswasm/speedtest1.js",
         ],
         preload: {
             wasmBinary: "./sqlite3/build/jswasm/speedtest1.wasm"
