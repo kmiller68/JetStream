@@ -1,10 +1,9 @@
 #!/bin/bash
 
-set -e
-set -o pipefail
+set -eo pipefail
 
 # Cleanup old files.
-rm sqlite-src-*.zip
+rm -f sqlite-src-*.zip
 rm -rf sqlite-src-*/
 rm -rf build/
 
@@ -17,7 +16,7 @@ emcc --version | head -n1 | tee -a "$BUILD_LOG"
 echo -e "wasm-strip $(wasm-strip --version)\n" | tee -a "$BUILD_LOG"
 
 # Check https://sqlite.org/download.html and update the source link, if needed.
-SQLITE_SRC_URL="https://sqlite.org/2024/sqlite-src-3470100.zip"
+SQLITE_SRC_URL="https://sqlite.org/2025/sqlite-src-3480000.zip"
 echo -e "Getting sources from $SQLITE_SRC_URL\n" | tee -a "$BUILD_LOG"
 SQLITE_SRC_FILE="$(basename $SQLITE_SRC_URL)"
 curl -o "$SQLITE_SRC_FILE" $SQLITE_SRC_URL

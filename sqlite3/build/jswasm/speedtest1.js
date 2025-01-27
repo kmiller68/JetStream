@@ -26,11 +26,11 @@
 /*
 ** This code was built from sqlite3 version...
 **
-** SQLITE_VERSION "3.47.1"
-** SQLITE_VERSION_NUMBER 3047001
-** SQLITE_SOURCE_ID "2024-11-25 12:07:48 b95d11e958643b969c47a8e5857f3793b9e69700b8f1469371386369a26e577e"
+** SQLITE_VERSION "3.48.0"
+** SQLITE_VERSION_NUMBER 3048000
+** SQLITE_SOURCE_ID "2025-01-14 11:05:00 d2fe6b05f38d9d7cd78c5d252e99ac59f1aea071d669830c1ffe4e8966e84010"
 **
-** Using the Emscripten SDK version 3.1.71.
+** Using the Emscripten SDK version 3.1.73.
 */
 
 var sqlite3InitModule = (() => {
@@ -73,7 +73,7 @@ var ENVIRONMENT_IS_SHELL = false;
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: /usr/local/google/home/dlehmann/JetStream/sqlite3/sqlite-src-3470100/ext/wasm/bld/pre-js.speedtest1-vanilla.js
+// include: /usr/local/google/home/dlehmann/JetStream/sqlite3/sqlite-src-3480000/ext/wasm/bld/pre-js.speedtest1-vanilla.js
 /**
    BEGIN FILE: api/pre-js.js
 
@@ -132,7 +132,7 @@ Module['locateFile'] = function(path, prefix) {
 /* END FILE: api/pre-js.js, noting that the build process may add a
    line after this one to change the above .uri to a build-specific
    one. */
-// end include: /usr/local/google/home/dlehmann/JetStream/sqlite3/sqlite-src-3470100/ext/wasm/bld/pre-js.speedtest1-vanilla.js
+// end include: /usr/local/google/home/dlehmann/JetStream/sqlite3/sqlite-src-3480000/ext/wasm/bld/pre-js.speedtest1-vanilla.js
 
 
 // Sometimes an existing Module object exists with properties
@@ -558,7 +558,6 @@ function getWasmImports() {
 // Create the wasm instance.
 // Receives the wasm imports, returns the exports.
 function createWasm() {
-  var info = getWasmImports();
   // Load the wasm module and create an instance of using native support in the JS engine.
   // handle a generated wasm instance, receiving its exports and
   // performing other necessary setup
@@ -588,6 +587,8 @@ function createWasm() {
     // When the regression is fixed, can restore the above PTHREADS-enabled path.
     receiveInstance(result['instance']);
   }
+
+  var info = getWasmImports();
 
   // User shell pages can write their own Module.instantiateWasm = function(imports, successCallback) callback
   // to manually instantiate the Wasm module themselves. This allows pages to
@@ -751,9 +752,8 @@ function createWasm() {
   var UTF8ToString = (ptr, maxBytesToRead) => {
       return ptr ? UTF8ArrayToString(HEAPU8, ptr, maxBytesToRead) : '';
     };
-  var ___assert_fail = (condition, filename, line, func) => {
+  var ___assert_fail = (condition, filename, line, func) =>
       abort(`Assertion failed: ${UTF8ToString(condition)}, at: ` + [filename ? UTF8ToString(filename) : 'unknown filename', line, func ? UTF8ToString(func) : 'unknown function']);
-    };
 
   var PATH = {
   isAbs:(path) => path.charAt(0) === '/',
@@ -1149,7 +1149,7 @@ function createWasm() {
   var MEMFS = {
   ops_table:null,
   mount(mount) {
-        return MEMFS.createNode(null, '/', 16384 | 511 /* 0777 */, 0);
+        return MEMFS.createNode(null, '/', 16895, 0);
       },
   createNode(parent, name, mode, dev) {
         if (FS.isBlkdev(mode) || FS.isFIFO(mode)) {
@@ -1304,7 +1304,7 @@ function createWasm() {
           }
         },
   lookup(parent, name) {
-          throw FS.genericErrors[44];
+          throw MEMFS.doesNotExistError;
         },
   mknod(parent, name, mode, dev) {
           return MEMFS.createNode(parent, name, mode, dev);
@@ -1350,7 +1350,7 @@ function createWasm() {
           return entries;
         },
   symlink(parent, newname, oldpath) {
-          var node = MEMFS.createNode(parent, newname, 511 /* 0777 */ | 40960, 0);
+          var node = MEMFS.createNode(parent, newname, 0o777 | 40960, 0);
           node.link = oldpath;
           return node;
         },
@@ -1590,8 +1590,6 @@ function createWasm() {
           this.errno = errno;
         }
       },
-  genericErrors:{
-  },
   filesystems:null,
   syncFSRequests:0,
   readFiles:{
@@ -2098,14 +2096,35 @@ function createWasm() {
         }
         return parent.node_ops.mknod(parent, name, mode, dev);
       },
-  create(path, mode) {
-        mode = mode !== undefined ? mode : 438 /* 0666 */;
+  statfs(path) {
+  
+        // NOTE: None of the defaults here are true. We're just returning safe and
+        //       sane values.
+        var rtn = {
+          bsize: 4096,
+          frsize: 4096,
+          blocks: 1e6,
+          bfree: 5e5,
+          bavail: 5e5,
+          files: FS.nextInode,
+          ffree: FS.nextInode - 1,
+          fsid: 42,
+          flags: 2,
+          namelen: 255,
+        };
+  
+        var parent = FS.lookupPath(path, {follow: true}).node;
+        if (parent?.node_ops.statfs) {
+          Object.assign(rtn, parent.node_ops.statfs(parent.mount.opts.root));
+        }
+        return rtn;
+      },
+  create(path, mode = 0o666) {
         mode &= 4095;
         mode |= 32768;
         return FS.mknod(path, mode, 0);
       },
-  mkdir(path, mode) {
-        mode = mode !== undefined ? mode : 511 /* 0777 */;
+  mkdir(path, mode = 0o777) {
         mode &= 511 | 512;
         mode |= 16384;
         return FS.mknod(path, mode, 0);
@@ -2126,7 +2145,7 @@ function createWasm() {
   mkdev(path, mode, dev) {
         if (typeof dev == 'undefined') {
           dev = mode;
-          mode = 438 /* 0666 */;
+          mode = 0o666;
         }
         mode |= 8192;
         return FS.mknod(path, mode, dev);
@@ -2224,7 +2243,7 @@ function createWasm() {
         // do the underlying fs rename
         try {
           old_dir.node_ops.rename(old_node, new_dir, new_name);
-          // update old node (we do this here to avoid each backend 
+          // update old node (we do this here to avoid each backend
           // needing to)
           old_node.parent = new_dir;
         } catch (e) {
@@ -2294,7 +2313,7 @@ function createWasm() {
         if (!link.node_ops.readlink) {
           throw new FS.ErrnoError(28);
         }
-        return PATH_FS.resolve(FS.getPath(link.parent), link.node_ops.readlink(link));
+        return link.node_ops.readlink(link);
       },
   stat(path, dontFollow) {
         var lookup = FS.lookupPath(path, { follow: !dontFollow });
@@ -2399,13 +2418,12 @@ function createWasm() {
           timestamp: Math.max(atime, mtime)
         });
       },
-  open(path, flags, mode) {
+  open(path, flags, mode = 0o666) {
         if (path === "") {
           throw new FS.ErrnoError(44);
         }
         flags = typeof flags == 'string' ? FS_modeStringToFlags(flags) : flags;
         if ((flags & 64)) {
-          mode = typeof mode == 'undefined' ? 438 /* 0666 */ : mode;
           mode = (mode & 4095) | 32768;
         } else {
           mode = 0;
@@ -2691,6 +2709,7 @@ function createWasm() {
         FS.registerDevice(FS.makedev(1, 3), {
           read: () => 0,
           write: (stream, buffer, offset, length, pos) => length,
+          llseek: () => 0,
         });
         FS.mkdev('/dev/null', FS.makedev(1, 3));
         // setup /dev/tty and /dev/tty1
@@ -2724,7 +2743,7 @@ function createWasm() {
         FS.mkdir('/proc/self/fd');
         FS.mount({
           mount() {
-            var node = FS.createNode(proc_self, 'fd', 16384 | 511 /* 0777 */, 73);
+            var node = FS.createNode(proc_self, 'fd', 16895, 73);
             node.node_ops = {
               lookup(parent, name) {
                 var fd = +name;
@@ -2773,12 +2792,6 @@ function createWasm() {
         var stderr = FS.open('/dev/stderr', 1);
       },
   staticInit() {
-        // Some errors may happen quite a bit, to avoid overhead we reuse them (and suffer a lack of stack info)
-        [44].forEach((code) => {
-          FS.genericErrors[code] = new FS.ErrnoError(code);
-          FS.genericErrors[code].stack = '<generic error, no stack>';
-        });
-  
         FS.nameTable = new Array(4096);
   
         FS.mount(MEMFS, {}, '/');
@@ -3837,9 +3850,7 @@ function createWasm() {
   var ENV = {
   };
   
-  var getExecutableName = () => {
-      return thisProgram || './this.program';
-    };
+  var getExecutableName = () => thisProgram || './this.program';
   var getEnvStrings = () => {
       if (!getEnvStrings.strings) {
         // Default values.
@@ -4059,6 +4070,13 @@ function createWasm() {
   FS.staticInit();
   // Set module methods based on EXPORTED_RUNTIME_METHODS
   ;
+
+      // This error may happen quite a bit. To avoid overhead we reuse it (and
+      // suffer a lack of stack info).
+      MEMFS.doesNotExistError = new FS.ErrnoError(44);
+      /** @suppress {checkTypes} */
+      MEMFS.doesNotExistError.stack = '<generic error, no stack>';
+      ;
 var wasmImports = {
   /** @export */
   __assert_fail: ___assert_fail,
@@ -4400,7 +4418,7 @@ run();
 
 // end include: postamble.js
 
-// include: /usr/local/google/home/dlehmann/JetStream/sqlite3/sqlite-src-3470100/ext/wasm/bld/post-js.speedtest1-vanilla.js
+// include: /usr/local/google/home/dlehmann/JetStream/sqlite3/sqlite-src-3480000/ext/wasm/bld/post-js.speedtest1-vanilla.js
 /* BEGIN FILE: api/post-js-header.js */
 /**
    post-js-header.js is to be prepended to other code to create
@@ -4461,11 +4479,11 @@ Module.postRun.push(function(Module/*the Emscripten-style module object*/){
 /*
 ** This code was built from sqlite3 version...
 **
-** SQLITE_VERSION "3.47.1"
-** SQLITE_VERSION_NUMBER 3047001
-** SQLITE_SOURCE_ID "2024-11-25 12:07:48 b95d11e958643b969c47a8e5857f3793b9e69700b8f1469371386369a26e577e"
+** SQLITE_VERSION "3.48.0"
+** SQLITE_VERSION_NUMBER 3048000
+** SQLITE_SOURCE_ID "2025-01-14 11:05:00 d2fe6b05f38d9d7cd78c5d252e99ac59f1aea071d669830c1ffe4e8966e84010"
 **
-** Using the Emscripten SDK version 3.1.71.
+** Using the Emscripten SDK version 3.1.73.
 */
 /* END FILE: ./bld/sqlite3-license-version.js */
 /* BEGIN FILE: api/sqlite3-api-prologue.js */
@@ -8723,7 +8741,7 @@ globalThis.WhWasmUtilInstaller = function(target){
       if(1===argc) return xcvPart.get(typeName);
       else if(2===argc){
         if(!adapter){
-          delete xcvPart.get(typeName);
+          xcvPart.delete(typeName);
           return func;
         }else if(!(adapter instanceof Function)){
           toss(modeName,"requires a function argument.");
@@ -11561,7 +11579,7 @@ globalThis.sqlite3ApiBootstrap.initializers.push(function(sqlite3){
 /* END FILE: api/sqlite3-api-glue.c-pp.js */
 /* BEGIN FILE: ./bld/sqlite3-api-build-version.js */
 globalThis.sqlite3ApiBootstrap.initializers.push(function(sqlite3){
-  sqlite3.version = {"libVersion": "3.47.1", "libVersionNumber": 3047001, "sourceId": "2024-11-25 12:07:48 b95d11e958643b969c47a8e5857f3793b9e69700b8f1469371386369a26e577e","downloadVersion": 3470100};
+  sqlite3.version = {"libVersion": "3.48.0", "libVersionNumber": 3048000, "sourceId": "2025-01-14 11:05:00 d2fe6b05f38d9d7cd78c5d252e99ac59f1aea071d669830c1ffe4e8966e84010","downloadVersion": 3480000};
 });
 /* END FILE: ./bld/sqlite3-api-build-version.js */
 /* BEGIN FILE: api/sqlite3-api-oo1.c-pp.js */
@@ -17606,7 +17624,7 @@ if('undefined' !== typeof Module){ // presumably an Emscripten build
    scope. */
 })/*postRun.push(...)*/;
 /* END FILE: api/post-js-footer.js */
-// end include: /usr/local/google/home/dlehmann/JetStream/sqlite3/sqlite-src-3470100/ext/wasm/bld/post-js.speedtest1-vanilla.js
+// end include: /usr/local/google/home/dlehmann/JetStream/sqlite3/sqlite-src-3480000/ext/wasm/bld/post-js.speedtest1-vanilla.js
 
 // include: postamble_modularize.js
 // In MODULARIZE mode we wrap the generated code in a factory function

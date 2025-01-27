@@ -2001,17 +2001,17 @@ const BENCHMARKS = [
         worstCaseCount: 2,
         testGroup: WasmGroup
     }),
-    new WasmLegacyBenchmark({
+    new WasmEMCCBenchmark({
         name: "sqlite3-wasm",
         files: [
-            "./sqlite3/polyfills.js",
-            "./sqlite3/build/jswasm/speedtest1.js",
             "./sqlite3/benchmark.js",
+            "./sqlite3/build/jswasm/speedtest1.js",
         ],
         preload: {
             wasmBinary: "./sqlite3/build/jswasm/speedtest1.wasm"
         },
-        benchmarkClass: WasmLegacyBenchmark,
+        iterations: 15,
+        worstCaseCount: 2,
         testGroup: WasmGroup
     }),
     new WasmLegacyBenchmark({
