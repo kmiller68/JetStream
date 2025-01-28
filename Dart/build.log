@@ -1,6 +1,5 @@
-Built on 2025-01-22 14:48:12+01:00
-
+Built on 2025-01-28 15:34:10+01:00
 Cloning into 'wasm_gc_benchmarks'...
-Updating files:  88% (109/123)Updating files:  89% (110/123)Updating files:  90% (111/123)Updating files:  91% (112/123)Updating files:  92% (114/123)Updating files:  93% (115/123)Updating files:  94% (116/123)Updating files:  95% (117/123)Updating files:  96% (119/123)Updating files:  97% (120/123)Updating files:  98% (121/123)Updating files:  99% (122/123)Updating files: 100% (123/123)Updating files: 100% (123/123), done.
+cf32ca4 Recompile all benchmarks
 Copying files from wasm_gc_benchmarks/ into build/
 Build success

@@ -7,9 +7,12 @@ rm -rf wasm_gc_benchmarks/
 rm -rf build/
 
 BUILD_LOG="$(realpath build.log)"
-echo -e "Built on $(date --rfc-3339=seconds)\n" | tee "$BUILD_LOG"
+echo -e "Built on $(date --rfc-3339=seconds)" | tee "$BUILD_LOG"
 
 git clone https://github.com/mkustermann/wasm_gc_benchmarks |& tee -a "$BUILD_LOG"
+pushd wasm_gc_benchmarks/
+git log -1 --oneline | tee -a "$BUILD_LOG"
+popd
 
 echo "Copying files from wasm_gc_benchmarks/ into build/" | tee -a "$BUILD_LOG"
 mkdir -p build/ | tee -a "$BUILD_LOG"
