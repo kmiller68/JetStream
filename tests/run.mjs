@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 /* eslint-disable-next-line  no-unused-vars */
 import serve from "./server.mjs";
-import { Builder, Capabilities} from "selenium-webdriver";
+import { Builder, Capabilities } from "selenium-webdriver";
 import commandLineArgs from "command-line-args";
 import commandLineUsage from "command-line-usage";
 
@@ -63,6 +63,7 @@ switch (BROWSER) {
         printHelp(`Invalid browser "${BROWSER}", choices are: "safari", "firefox", "chrome", "edge"`);
     }
 }
+
 process.on("unhandledRejection", (err) => {
     console.error(err);
     process.exit(1);
@@ -76,9 +77,7 @@ const PORT = options.port;
 const server = await serve(PORT);
 
 async function testEnd2End() {
-    const driver = await new Builder()
-        .withCapabilities(capabilities)
-        .build();
+    const driver = await new Builder().withCapabilities(capabilities).build();
     let results;
     try {
         console.log("Preparing JetStream");
@@ -90,7 +89,8 @@ async function testEnd2End() {
             if (globalThis?.JetStream?.isReady)
                 callback()
         });
-        results = await benchmarkResults(driver)
+        results = await benchmarkResults(driver);
+        // FIXME: validate results;
     } finally {
         console.log("\nTests complete!");
         driver.quit();
@@ -112,33 +112,31 @@ async function benchmarkResults(driver) {
         });
         JetStream.start();
     });
-
     await new Promise(resolve => pollIncrementalResults(driver, resolve));
     const resultString = await driver.executeScript(() => {
-        if (globalThis.JetStreamDone)
-            return JSON.stringify(JetStream.resultsObject());
+        return JSON.stringify(JetStream.resultsObject());
     });
     return  JSON.parse(resultString);
 }
 
 const UPDATE_INTERVAL = 250;
 async function pollIncrementalResults(driver, resolve) {
-    const internalId = setInterval(async function logResult()  {
+    const intervalId = setInterval(async function logResult()  {
         const {done, results} = await driver.executeAsyncScript((callback) => {
             callback({
                 done: globalThis.JetStreamDone,
                 results: JSON.stringify(globalThis.JetStreamResults.splice(0, Infinity))
         });
         });
-        JSON.parse(results).forEach(logBenchmarkResult);
+        JSON.parse(results).forEach(logIncrementalResult);
         if (done) {
-            clearInterval(internalId);
+            clearInterval(intervalId);
             resolve()
         }
     }, UPDATE_INTERVAL)
 }
 
-function logBenchmarkResult(benchmarkResult) {
+function logIncrementalResult(benchmarkResult) {
     console.log(benchmarkResult.name, benchmarkResult.results)
 }
 
