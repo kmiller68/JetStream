@@ -83,20 +83,27 @@ async function testEnd2End() {
     try {
         await driver.get(`http://localhost:${PORT}/index.html?worstCaseCount=2&iterationCount=3`);
         await driver.executeAsyncScript((callback) => {
-            globalThis.addEventListener("JetStreamReady", callback);
+            // callback() is explicitly called without the default event
+            // as argument to avoid serialization issues with chromedriver.
+            globalThis.addEventListener("JetStreamReady", () => callback());
             // We might not get a chance to install the on-ready listener, thus
             // we also check if the runner is ready synchronously.
             if (globalThis?.JetStream?.isReady)
                 callback()
         });
-        await driver.manage().setTimeouts({ script: 60_000 });
+        await driver.manage().setTimeouts({ script: 3 * 60_000 });
         results = await driver.executeAsyncScript((callback) => {
             globalThis.addEventListener("JetStreamDone", event => callback(event.detail));
             JetStream.start();
         });
-    } finally {
-        console.log("\nTests complete!");
+        console.log("\n✅ Tests completed!");
+        console.log("RESULTS:")
         console.log(results)
+    } catch(e) {
+        console.error("\n❌ Tests failed!");
+        console.error(e);
+        throw e;
+    } finally {
         driver.quit();
         server.close();
     }
