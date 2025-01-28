@@ -97,8 +97,11 @@ async function testEnd2End() {
         console.log("\n✅ Tests completed!");
         console.log("RESULTS:")
         console.log(results)
+    } catch(e) {
+        console.error("\n❌ Tests failed!");
+        console.error(e);
+        throw e;
     } finally {
-        console.log("\n❌ Tests failed!");
         driver.quit();
         server.close();
     }
