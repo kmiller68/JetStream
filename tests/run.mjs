@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 /* eslint-disable-next-line  no-unused-vars */
 import serve from "./server.mjs";
-import { Builder, Capabilities } from "selenium-webdriver";
+import { Builder, Capabilities, Browser,  logging} from "selenium-webdriver";
 import commandLineArgs from "command-line-args";
 import commandLineUsage from "command-line-usage";
 import assert from "assert";
@@ -64,7 +64,6 @@ switch (BROWSER) {
         printHelp(`Invalid browser "${BROWSER}", choices are: "safari", "firefox", "chrome", "edge"`);
     }
 }
-
 process.on("unhandledRejection", (err) => {
     console.error(err);
     process.exit(1);
@@ -78,28 +77,75 @@ const PORT = options.port;
 const server = await serve(PORT);
 
 async function testEnd2End() {
-    const driver = await new Builder().withCapabilities(capabilities).build();
+    var pref = new logging.Preferences();
+    pref.setLevel('browser', logging.Level.ALL); 
+    pref.setLevel('driver', logging.Level.ALL); 
+    pref.setLevel('performance', logging.Level.ALL); 
+    const driver = await new Builder()
+        .withCapabilities(capabilities)
+        .setLoggingPrefs(pref)
+        .build();
     let results;
     try {
+        console.log("Preparing JetStream");
         await driver.get(`http://localhost:${PORT}/index.html?worstCaseCount=2&iterationCount=3`);
         await driver.executeAsyncScript((callback) => {
-            globalThis.addEventListener("JetStreamReady", callback);
+            globalThis.addEventListener("JetStreamReady", () => callback());
             // We might not get a chance to install the on-ready listener, thus
             // we also check if the runner is ready synchronously.
             if (globalThis?.JetStream?.isReady)
                 callback()
         });
-        await driver.manage().setTimeouts({ script: 60_000 });
-        results = await driver.executeAsyncScript((callback) => {
-            globalThis.addEventListener("JetStreamDone", event => callback(event.detail));
-            JetStream.start();
-        });
+        results = await benchmarkResults(driver)
     } finally {
         console.log("\nTests complete!");
-        console.log(results)
         driver.quit();
         server.close();
     }
+}
+
+async function benchmarkResults(driver) {
+    console.log("Starting JetStream");
+    await driver.manage().setTimeouts({ script: 60_000 });
+    await driver.executeScript(() => {
+        globalThis.JetStreamDone = false;
+        globalThis.JetStreamResults = [];
+        globalThis.addEventListener("JetStreamDone", event => {
+            globalThis.JetStreamDone = true;
+        });
+        globalThis.addEventListener("JetStreamBenchmarkDone", event =>  {
+            globalThis.JetStreamResults.push(event.detail);
+        });
+        JetStream.start();
+    });
+
+    await new Promise(resolve => pollIncrementalResults(driver, resolve));
+    const resultString = await driver.executeScript(() => {
+        if (globalThis.JetStreamDone)
+            return JSON.stringify(JetStream.resultsObject());
+    });
+    return  JSON.parse(resultString);
+}
+
+const UPDATE_INTERVAL = 250;
+async function pollIncrementalResults(driver, resolve) {
+    const internalId = setInterval(async function logResult()  {
+        const {done, results} = await driver.executeAsyncScript((callback) => {
+            callback({
+                done: globalThis.JetStreamDone,
+                results: JSON.stringify(globalThis.JetStreamResults.splice(0, Infinity))
+        });
+        });
+        JSON.parse(results).forEach(logBenchmarkResult);
+        if (done) {
+            clearInterval(internalId);
+            resolve()
+        }
+    }, UPDATE_INTERVAL)
+}
+
+function logBenchmarkResult(benchmarkResult) {
+    console.log(benchmarkResult.name, benchmarkResult.results)
 }
 
 setImmediate(testEnd2End);

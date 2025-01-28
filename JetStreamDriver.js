@@ -279,8 +279,18 @@ class Driver {
             }
 
             benchmark.updateUIAfterRun();
+            console.log(benchmark.name)
 
             if (isInBrowser) {
+                globalThis.dispatchEvent(new CustomEvent("JetStreamBenchmarkDone", {
+                    detail: {
+                        name: benchmark.name,
+                        results: {
+                            score: benchmark.score,
+                            ...benchmark.subScores(),
+                        }
+                    }
+                }));
                 const cache = JetStream.blobDataCache;
                 for (const file of benchmark.plan.files) {
                     const blobData = cache[file];
