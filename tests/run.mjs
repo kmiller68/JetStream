@@ -125,8 +125,8 @@ async function pollIncrementalResults(driver, resolve) {
         const {done, results} = await driver.executeAsyncScript((callback) => {
             callback({
                 done: globalThis.JetStreamDone,
-                results: JSON.stringify(globalThis.JetStreamResults.splice(0, Infinity))
-        });
+                results: JSON.stringify(globalThis.JetStreamResults.splice(0, Infinity)),
+            });
         });
         JSON.parse(results).forEach(logIncrementalResult);
         if (done) {
