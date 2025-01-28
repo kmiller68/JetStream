@@ -80,8 +80,9 @@ async function testEnd2End() {
     const driver = await new Builder().withCapabilities(capabilities).build();
     let results;
     try {
-        console.log("Preparing JetStream");
-        await driver.get(`http://localhost:${PORT}/index.html?worstCaseCount=2&iterationCount=3`);
+        const url = `http://localhost:${PORT}/index.html?worstCaseCount=2&iterationCount=3`;
+        console.log(`JetStream PREPARE ${url}`);
+        await driver.get(url);
         await driver.executeAsyncScript((callback) => {
             globalThis.addEventListener("JetStreamReady", () => callback());
             // We might not get a chance to install the on-ready listener, thus
@@ -99,22 +100,15 @@ async function testEnd2End() {
 }
 
 async function benchmarkResults(driver) {
-    console.log("Starting JetStream");
+    console.log("JetStream START");
     await driver.manage().setTimeouts({ script: 60_000 });
-    await driver.executeScript(() => {
-        globalThis.JetStreamDone = false;
-        globalThis.JetStreamResults = [];
-        globalThis.addEventListener("JetStreamDone", event => {
-            globalThis.JetStreamDone = true;
-        });
-        globalThis.addEventListener("JetStreamBenchmarkDone", event =>  {
-            globalThis.JetStreamResults.push(event.detail);
-        });
-        JetStream.start();
+    await driver.executeAsyncScript((callback) => {
+        globalThis.JetStream.start();
+        callback();
     });
     await new Promise(resolve => pollIncrementalResults(driver, resolve));
     const resultString = await driver.executeScript(() => {
-        return JSON.stringify(JetStream.resultsObject());
+        return JSON.stringify(globalThis.JetStream.resultsObject());
     });
     return  JSON.parse(resultString);
 }
@@ -122,11 +116,11 @@ async function benchmarkResults(driver) {
 const UPDATE_INTERVAL = 250;
 async function pollIncrementalResults(driver, resolve) {
     const intervalId = setInterval(async function logResult()  {
-        const {done, results} = await driver.executeAsyncScript((callback) => {
-            callback({
-                done: globalThis.JetStreamDone,
-                results: JSON.stringify(globalThis.JetStreamResults.splice(0, Infinity)),
-            });
+        const {done, results} = await driver.executeScript(() => {
+            return {
+                done: globalThis.JetStream.isDone,
+                results: JSON.stringify(globalThis.JetStream.drainIncrementalResults()),
+            };
         });
         JSON.parse(results).forEach(logIncrementalResult);
         if (done) {
