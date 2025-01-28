@@ -92,8 +92,12 @@ async function testEnd2End() {
         });
         results = await benchmarkResults(driver);
         // FIXME: validate results;
+        console.log("\n✅ Tests completed!");
+    } catch(e) {
+        console.error("\n❌ Tests failed!");
+        console.error(e);
+        throw e;
     } finally {
-        console.log("\nTests complete!");
         driver.quit();
         server.close();
     }
