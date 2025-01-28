@@ -1,10 +1,9 @@
 #! /usr/bin/env node
 /* eslint-disable-next-line  no-unused-vars */
 import serve from "./server.mjs";
-import { Builder, Capabilities, Browser,  logging} from "selenium-webdriver";
+import { Builder, Capabilities} from "selenium-webdriver";
 import commandLineArgs from "command-line-args";
 import commandLineUsage from "command-line-usage";
-import assert from "assert";
 
 const optionDefinitions = [
     { name: "browser", type: String, description: "Set the browser to test, choices are [safari, firefox, chrome]. By default the $BROWSER env variable is used." },
@@ -77,13 +76,8 @@ const PORT = options.port;
 const server = await serve(PORT);
 
 async function testEnd2End() {
-    var pref = new logging.Preferences();
-    pref.setLevel('browser', logging.Level.ALL); 
-    pref.setLevel('driver', logging.Level.ALL); 
-    pref.setLevel('performance', logging.Level.ALL); 
     const driver = await new Builder()
         .withCapabilities(capabilities)
-        .setLoggingPrefs(pref)
         .build();
     let results;
     try {
