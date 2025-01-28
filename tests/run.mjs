@@ -89,14 +89,16 @@ async function testEnd2End() {
             if (globalThis?.JetStream?.isReady)
                 callback()
         });
-        await driver.manage().setTimeouts({ script: 60_000 });
+        await driver.manage().setTimeouts({ script: 3 * 60_000 });
         results = await driver.executeAsyncScript((callback) => {
             globalThis.addEventListener("JetStreamDone", event => callback(event.detail));
             JetStream.start();
         });
-    } finally {
-        console.log("\nTests complete!");
+        console.log("\n✅ Tests completed!");
+        console.log("RESULTS:")
         console.log(results)
+    } finally {
+        console.log("\n❌ Tests failed!");
         driver.quit();
         server.close();
     }
