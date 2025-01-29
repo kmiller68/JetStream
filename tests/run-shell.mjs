@@ -8,7 +8,7 @@ import { styleText } from 'node:util';
 import * as path from "path";
 import * as fs from "fs";
 import * as os from 'os';
-
+import core from "@actions/core"
 
 const optionDefinitions = [
   { name: "shell", type: String, description: "Set the shell to test, choices are [jsc, v8, spidermonkey]." },
@@ -72,50 +72,80 @@ if (SHELL_NAME != "spidermonkey")
   BASE_CLI_ARGS_WITH_OPTIONS.push("--");
 Object.freeze(BASE_CLI_ARGS_WITH_OPTIONS);
 
+const GITHUB_ACTIONS_OUTPUT = "GITHUB_ACTIONS_OUTPUT" in process.env;
+
+function log(...args) {
+  const text = args.join(" ")
+  if (GITHUB_ACTIONS_OUTPUT)
+    core.notice(styleText("yellow", text))
+  else
+    console.log(styleText("yellow", text))
+}
+
+function logGroup(name, body) {
+  if (GITHUB_ACTIONS_OUTPUT) {
+    core.startGroup(name);
+  } else {
+    log("=".repeat(80))
+    log(name);
+    log(".".repeat(80))
+  }
+  try {
+    return body();
+  } finally {
+    if (GITHUB_ACTIONS_OUTPUT)
+      core.endGroup();
+  } 
+}
+
 const SPAWN_OPTIONS =  { 
   stdio: ["inherit", "inherit", "inherit"]
 };
 
-function log(...args) {
-  const text = args.join(" ")
-  console.log(styleText("yellow", text))
-}
-
 function sh(binary, args) {
   const cmd = `${binary} ${args.join(" ")}`;
-  console.log(styleText("cyan", cmd));
-  const result = spawnSync(binary, args, SPAWN_OPTIONS);
-  if (result.status || result.error) {
-    console.error(result.error);
-    throw new Error(`Shell CMD failed: ${binary} ${args.join(" ")}`);
+  if (GITHUB_ACTIONS_OUTPUT) {
+    core.startGroup(binary);
+    core.info(cmd);
+  } else {
+    console.log(styleText("cyan", cmd));
+  }
+  try {
+    const result = spawnSync(binary, args, SPAWN_OPTIONS);
+    if (result.status || result.error) {
+      console.error(result.error);
+      throw new Error(`Shell CMD failed: ${binary} ${args.join(" ")}`);
+    }
+  } finally {
+    if (GITHUB_ACTIONS_OUTPUT)
+      core.endGroup()
   }
 }
 
-async function testShell() {
-    log(`Installing JavaScript Shell: ${SHELL_NAME}`);
+async function runTests() {
+    const shellBinary = logGroup(`Installing JavaScript Shell: ${SHELL_NAME}`, testSetup);
+    runTest("Run Complete Suite", () => sh(shellBinary, [CLI_PATH]));
+    runTest("Run Single Suite", () => {
+      const singleTestArgs = [...BASE_CLI_ARGS_WITH_OPTIONS, "proxy-mobx"];
+      sh(shellBinary, singleTestArgs);
+    });
+}
+
+function testSetup() {
     sh("jsvu", [`--engines=${SHELL_NAME}`]);
     const shellBinary = path.join(os.homedir(), ".jsvu/bin", SHELL_NAME);
     if (!fs.existsSync(shellBinary))
       throw new Error(`Could not find shell binary: ${shellBinary}`);
-    log("");
     log(`Installed JavaScript Shell: ${shellBinary}`);
-    log("");
-    testDefaultRun(shellBinary);
+    return shellBinary
 }
 
-function testDefaultRun(shellBinary) {
-
-    log("=".repeat(80))
-    log("Run Complete Suite");
-    log(".".repeat(80))
-    sh(shellBinary, [CLI_PATH])
-
-    log("=".repeat(80))
-    log("Run Single Suite");
-    log(".".repeat(80))
-
-    const singleTestArgs = [...BASE_CLI_ARGS_WITH_OPTIONS, "proxy-mobx"];
-    sh(shellBinary, singleTestArgs);
+function runTest(testName, test) {
+    try {
+      logGroup(testName, test)
+    } catch(e) {
+      console.error("TEST FAILED")
+    }
 }
 
-setImmediate(testShell);
+setImmediate(runTests);
