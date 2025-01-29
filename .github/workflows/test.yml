@@ -15,7 +15,7 @@ jobs:
         runs-on: macos-latest
         strategy:
             matrix:
-                browser: [chrome, firefox, safari]
+                browser: [chrome, firefox, safari, javascriptcore, spidermonkey, v8]
         steps:
             - name: Install Firefox
               if: ${{ matrix.browser == 'firefox' }}
@@ -25,7 +25,7 @@ jobs:
             - name: Setup Node
               uses: actions/setup-node@v3
               with:
-                  node-version: 18.13.0
+                  node-version: 23.6.1
             - name: Install
               run: npm install
             - name: Run tests
