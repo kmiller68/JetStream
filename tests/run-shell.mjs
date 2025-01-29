@@ -4,10 +4,10 @@ import commandLineArgs from "command-line-args";
 import commandLineUsage from "command-line-usage";
 import { spawnSync } from  "child_process";
 import { fileURLToPath } from "url";
-import { styleText } from 'node:util';
+import { styleText } from "node:util";
 import * as path from "path";
 import * as fs from "fs";
-import * as os from 'os';
+import * as os from "os";
 import core from "@actions/core"
 
 const optionDefinitions = [
@@ -77,7 +77,7 @@ const GITHUB_ACTIONS_OUTPUT = "GITHUB_ACTIONS_OUTPUT" in process.env;
 function log(...args) {
   const text = args.join(" ")
   if (GITHUB_ACTIONS_OUTPUT)
-    core.notice(styleText("yellow", text))
+    core.info(styleText("yellow", text))
   else
     console.log(styleText("yellow", text))
 }
@@ -106,9 +106,9 @@ function sh(binary, args) {
   const cmd = `${binary} ${args.join(" ")}`;
   if (GITHUB_ACTIONS_OUTPUT) {
     core.startGroup(binary);
-    core.notice(cmd);
+    core.notice(styleText("blue", cmd));
   } else {
-    console.log(styleText("cyan", cmd));
+    console.log(styleText("blue", cmd));
   }
   try {
     const result = spawnSync(binary, args, SPAWN_OPTIONS);
@@ -131,9 +131,29 @@ async function runTests() {
     });
 }
 
+function jsvuOSName() {
+  const osName = () => {
+      switch (os.platform()) {
+          case "win32": return "win";
+          case "darwin": return "mac";
+          case "linux": return "linux";
+          default: throw new Error("Unsupported OS");
+      }
+  };
+  const osArch = () => {
+      switch (os.arch()) {
+          case "x64": return "64";
+          case "ia32": return "32";
+          case "arm64": return "64arm";
+          default: throw new Error("Unsupported architecture");
+      }
+  };
+  return `${osName()}${osArch()}`
+}
+
 function testSetup() {
     const jsvuOS = "mac64arm";
-    sh("jsvu", [`--engines=${SHELL_NAME}`, `--os=${jsvuOS}`]);
+    sh("jsvu", [`--engines=${SHELL_NAME}`, `--os=${jsvuOSName()}`]);
     const shellBinary = path.join(os.homedir(), ".jsvu/bin", SHELL_NAME);
     if (!fs.existsSync(shellBinary))
       throw new Error(`Could not find shell binary: ${shellBinary}`);
