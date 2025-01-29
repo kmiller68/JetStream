@@ -132,7 +132,8 @@ async function runTests() {
 }
 
 function testSetup() {
-    sh("jsvu", [`--engines=${SHELL_NAME}`]);
+    const jsvuOS = "mac64arm";
+    sh("jsvu", [`--engines=${SHELL_NAME}`, `--os=${jsvuOS}`]);
     const shellBinary = path.join(os.homedir(), ".jsvu/bin", SHELL_NAME);
     if (!fs.existsSync(shellBinary))
       throw new Error(`Could not find shell binary: ${shellBinary}`);
