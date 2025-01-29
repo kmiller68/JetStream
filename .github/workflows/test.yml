@@ -13,10 +13,14 @@ jobs:
     build:
         name: Build
         runs-on: macos-latest
+        env:
+            GITHUB_ACTIONS_OUTPUT: ""
         strategy:
             matrix:
                 browser: [chrome, firefox, safari, javascriptcore, spidermonkey, v8]
         steps:
+            - name: Extract Week Number
+              run: echo "WEEK_NUMBER=$(date +%W)" >> $GITHUB_ENV
             - name: Install Firefox
               if: ${{ matrix.browser == 'firefox' }}
               run: brew install --cask firefox
@@ -31,8 +35,8 @@ jobs:
             - name: Cache jsvu Binaries 
               uses: actions/cache@v4
               with:
-                path: |
-                  ~/.jsvu
+                path:  ~/.jsvu
+                key: ${{ runner.os }}-build-jsvu-cache-${{ matrix.browser }}-${{ env.WEEK_NUMBER }}
             - name: Run tests
               run: |
                   echo "Running in $BROWSER"
