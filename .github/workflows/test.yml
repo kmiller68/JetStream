@@ -21,22 +21,36 @@ jobs:
         steps:
             - name: Extract Week Number
               run: echo "WEEK_NUMBER=$(date +%W)" >> $GITHUB_ENV
+
             - name: Install Firefox
               if: ${{ matrix.browser == 'firefox' }}
               run: brew install --cask firefox
+
             - name: Checkout Branch
               uses: actions/checkout@v4
+
+            - name: Cache node modules
+              uses: actions/cache@v4
+              with:
+                # npm cache files are stored in `~/.npm` on Linux/macOS
+                path: ~/.npm
+                key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
+                restore-keys: ${{ runner.os }}-build-node-modules-
+
             - name: Setup Node
               uses: actions/setup-node@v4
               with:
                   node-version: '23.x'
+
             - name: Install Node Packages
               run: npm ci
+
             - name: Cache jsvu Binaries 
               uses: actions/cache@v4
               with:
                 path: ~/.jsvu
-                key: ${{ runner.os }}-build-jsvu-cache-${{ matrix.browser }}-${{ env.WEEK_NUMBER }}
+                key: ${{ runner.os }}-jsvu-${{ matrix.browser }}-week-${{ env.WEEK_NUMBER }}
+
             - name: Run Tests
               run: |
                   echo "Running in $BROWSER"
