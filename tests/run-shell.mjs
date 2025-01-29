@@ -106,7 +106,7 @@ function sh(binary, args) {
   const cmd = `${binary} ${args.join(" ")}`;
   if (GITHUB_ACTIONS_OUTPUT) {
     core.startGroup(binary);
-    core.info(cmd);
+    core.notice(cmd);
   } else {
     console.log(styleText("cyan", cmd));
   }
