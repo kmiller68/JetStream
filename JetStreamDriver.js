@@ -1950,6 +1950,7 @@ const BENCHMARKS = [
         preload: {
             wasmBinary: "./wasm/HashSet/build/HashSet.wasm"
         },
+        iterations: 50,
         testGroup: WasmGroup
     }),
     new WasmEMCCBenchmark({
@@ -1961,8 +1962,7 @@ const BENCHMARKS = [
         preload: {
             wasmBinary: "./wasm/TSF/build/tsf.wasm"
         },
-        iterations: 15,
-        worstCaseCount: 2,
+        iterations: 50,
         testGroup: WasmGroup
     }),
     new WasmEMCCBenchmark({
@@ -1998,8 +1998,7 @@ const BENCHMARKS = [
         preload: {
             wasmBinary: "./wasm/richards/build/richards.wasm"
         },
-        iterations: 20,
-        worstCaseCount: 2,
+        iterations: 50,
         testGroup: WasmGroup
     }),
     new WasmEMCCBenchmark({
@@ -2011,7 +2010,7 @@ const BENCHMARKS = [
         preload: {
             wasmBinary: "./sqlite3/build/jswasm/speedtest1.wasm"
         },
-        iterations: 15,
+        iterations: 30,
         worstCaseCount: 2,
         testGroup: WasmGroup
     }),
