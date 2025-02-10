@@ -85,7 +85,7 @@ class Benchmark {
       //"--memdb", // note that memdb trumps the filename arg
       "--nomemstat",
       "--big-transactions" /*important for tests 410 and 510!*/,
-      "--size", "10", // To speedup, default is 100 (and takes about 4s).
+      "--size", "2", // To speedup, default is 100 (and takes about 4s).
       "--vfs", vfs, // See VFS comment above.
     ];
 

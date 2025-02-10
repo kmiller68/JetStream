@@ -28,6 +28,6 @@ class Benchmark {
         if (!Module._runIteration)
             await setupModule(Module);
 
-        Module._runIteration(150);
+        Module._runIteration(50);
     }
 };
