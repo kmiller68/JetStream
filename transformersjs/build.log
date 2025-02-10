@@ -1,0 +1,16 @@
+Built on 2025-02-10T16:59:32Z
+Installing Node dependencies...
+
+up to date, audited 153 packages in 496ms
+
+27 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+Download and convert audio input(s)...
+Converted 11s of audio
+  from 'jfk.wav', 2 channel(s), 44100 Hz, 16 bit
+  to   'build/inputs/jfk.raw', 1 channel(s), 16000 Hz, 32 bit float, 176000 samples, 704000 bytes
+Download and run model(s)...
+Copy library files into build/...
+Building done

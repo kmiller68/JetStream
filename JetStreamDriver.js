@@ -2098,6 +2098,23 @@ let BENCHMARKS = [
         worstCaseCount: 2,
         tags: ["Default", "Wasm"],
     }),
+    new WasmEMCCBenchmark({
+        name: "transformersjs-wasm",
+        files: [
+            "./transformersjs/build/text-encoding/encoding-indexes.js",
+            "./transformersjs/build/text-encoding/encoding.js",
+            "./transformersjs/benchmark.js",
+        ],
+        preload: {
+            wasmBinary: "./transformersjs/build/ort-wasm-simd-threaded.wasm",
+            modelWeights: "./transformersjs/build/models/Xenova/distilbert-base-uncased-finetuned-sst-2-english/onnx/model_uint8.onnx",
+            modelConfig: "./transformersjs/build/models/Xenova/distilbert-base-uncased-finetuned-sst-2-english/config.json",
+            modelTokenizer: "./transformersjs/build/models/Xenova/distilbert-base-uncased-finetuned-sst-2-english/tokenizer.json",
+            modelTokenizerConfig: "./transformersjs/build/models/Xenova/distilbert-base-uncased-finetuned-sst-2-english/tokenizer_config.json",
+        },
+        iterations: 50,
+        tags: ["Default", "Wasm"],
+    }),
     new WasmLegacyBenchmark({
         name: "tfjs-wasm",
         files: [

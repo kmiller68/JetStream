@@ -1,0 +1,12 @@
+{
+  "name": "transformersjs-wasm",
+  "version": "1.0.0",
+  "author": "Daniel Lehmann <dlehmann@chromium.org>",
+  "license": "MIT",
+  "dependencies": {
+    "@huggingface/transformers": "^3.3.2",
+    "node-zopfli": "^2.1.4",
+    "text-encoding": "^0.7.0",
+    "wavefile": "^11.0.0"
+  }
+}
