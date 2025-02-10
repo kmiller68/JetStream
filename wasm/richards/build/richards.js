@@ -537,9 +537,11 @@ var ___wasm_call_ctors = () => (___wasm_call_ctors = wasmExports["__wasm_call_ct
 
 var _scheduleIter = Module["_scheduleIter"] = () => (_scheduleIter = Module["_scheduleIter"] = wasmExports["scheduleIter"])();
 
-var _setup = Module["_setup"] = () => (_setup = Module["_setup"] = wasmExports["setup"])();
+var _setup = Module["_setup"] = a0 => (_setup = Module["_setup"] = wasmExports["setup"])(a0);
 
-var _validate = Module["_validate"] = () => (_validate = Module["_validate"] = wasmExports["validate"])();
+var _getQpktcount = Module["_getQpktcount"] = () => (_getQpktcount = Module["_getQpktcount"] = wasmExports["getQpktcount"])();
+
+var _getHoldcount = Module["_getHoldcount"] = () => (_getHoldcount = Module["_getHoldcount"] = wasmExports["getHoldcount"])();
 
 var __emscripten_stack_restore = a0 => (__emscripten_stack_restore = wasmExports["_emscripten_stack_restore"])(a0);
 
