@@ -64,7 +64,7 @@ class Benchmark {
         throw new Error("Wrong video sum, the picture is wrong: " + videoSum);
       }
     }
-    
+
     wasm_bindgen.js_tick();
   }
 }
