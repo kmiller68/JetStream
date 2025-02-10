@@ -16,9 +16,9 @@
 #include <stdlib.h>
 
 #if 1
-#define                Count           10000*100
-#define                Qpktcountval    2326410
-#define                Holdcountval     930563
+#define                Count           200000
+#define                Qpktcountval    465212
+#define                Holdcountval    186084
 #endif
 
 #define                TRUE            1

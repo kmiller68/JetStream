@@ -1695,17 +1695,6 @@ const BENCHMARKS = [
         deterministicRandom: true,
         testGroup: OctaneGroup
     }),
-    new DefaultBenchmark({
-        name: "octane-zlib",
-        files: [
-            "./Octane/zlib-data.js"
-            , "./Octane/zlib.js"
-        ],
-        iterations: 15,
-        worstCaseCount: 2,
-        deterministicRandom: true,
-        testGroup: OctaneGroup
-    }),
     // RexBench
     new DefaultBenchmark({
         name: "FlightPlanner",
@@ -1955,14 +1944,16 @@ const BENCHMARKS = [
         testGroup: GeneratorsGroup,
     }),
     // Wasm
-    new WasmLegacyBenchmark({
+    new WasmEMCCBenchmark({
         name: "HashSet-wasm",
         files: [
-            "./wasm/HashSet.js"
+            "./wasm/HashSet/build/HashSet.js",
+            "./wasm/HashSet/benchmark.js"
         ],
         preload: {
-            wasmBinary: "./wasm/HashSet.wasm"
+            wasmBinary: "./wasm/HashSet/build/HashSet.wasm"
         },
+        iterations: 50,
         testGroup: WasmGroup
     }),
     new WasmEMCCBenchmark({
@@ -1974,18 +1965,19 @@ const BENCHMARKS = [
         preload: {
             wasmBinary: "./wasm/TSF/build/tsf.wasm"
         },
-        iterations: 15,
-        worstCaseCount: 2,
+        iterations: 50,
         testGroup: WasmGroup
     }),
-    new WasmLegacyBenchmark({
+    new WasmEMCCBenchmark({
         name: "quicksort-wasm",
         files: [
-            "./wasm/quicksort.js"
+            "./wasm/quicksort/build/quicksort.js",
+            "./wasm/quicksort/benchmark.js",
         ],
         preload: {
-            wasmBinary: "./wasm/quicksort.wasm"
+            wasmBinary: "./wasm/quicksort/build/quicksort.wasm"
         },
+        iterations: 50,
         testGroup: WasmGroup
     }),
     new WasmEMCCBenchmark({
@@ -2009,21 +2001,20 @@ const BENCHMARKS = [
         preload: {
             wasmBinary: "./wasm/richards/build/richards.wasm"
         },
-        iterations: 20,
-        worstCaseCount: 2,
+        iterations: 50,
         testGroup: WasmGroup
     }),
-    new WasmLegacyBenchmark({
+    new WasmEMCCBenchmark({
         name: "sqlite3-wasm",
         files: [
-            "./sqlite3/polyfills.js",
-            "./sqlite3/build/jswasm/speedtest1.js",
             "./sqlite3/benchmark.js",
+            "./sqlite3/build/jswasm/speedtest1.js",
         ],
         preload: {
             wasmBinary: "./sqlite3/build/jswasm/speedtest1.wasm"
         },
-        benchmarkClass: WasmLegacyBenchmark,
+        iterations: 30,
+        worstCaseCount: 2,
         testGroup: WasmGroup
     }),
     new WasmEMCCBenchmark({
