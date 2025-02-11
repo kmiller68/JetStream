@@ -29,6 +29,8 @@ echo "Copy library files into build/..." | tee -a "$BUILD_LOG"
 cp util/node_modules/text-encoding/lib/*.js build/lib/text-encoding/
 
 cp util/node_modules/@huggingface/transformers/dist/transformers.js build/
+git apply transformers.js.patch
+
 # Transformers.js packages the ONNX runtime JSEP build by default, even when
 # only using the Wasm backend, which would be fine with the non-JSEP build.
 # JSEP uses ASYNCIFY, which isn't optimal. And it's a much larger Wasm binary.
