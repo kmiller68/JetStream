@@ -27,6 +27,15 @@ int compressFile(const char* infilename, const char* outfilename)
     int ret = def(infile, outfile, Z_BEST_COMPRESSION);
     if (ret != Z_OK)
         zerr(ret);
+
+    if (fclose(infile)) {
+        fputs("error closing input file", stderr);
+        return 1;
+    }
+    if (fclose(outfile)) {
+        fputs("error closing output file", stderr);
+        return 1;
+    }
     return ret;
 }
 int decompressFile(const char* infilename, const char* outfilename)
@@ -45,5 +54,14 @@ int decompressFile(const char* infilename, const char* outfilename)
     int ret = inf(infile, outfile);
     if (ret != Z_OK)
         zerr(ret);
+
+    if (fclose(infile)) {
+        fputs("error closing input file", stderr);
+        return 1;
+    }
+    if (fclose(outfile)) {
+        fputs("error closing output file", stderr);
+        return 1;
+    }
     return ret;
 }
