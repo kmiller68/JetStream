@@ -23,7 +23,7 @@ globalThis.initPipeline = async function(pipeline) {
   return await pipeline(
     'automatic-speech-recognition',
     'Xenova/whisper-tiny.en',
-    // FIXME: The non-quantized model is faster!?
+    // Use quantized model because of smaller weights.
     { dtype: 'q8' }
   );
 }

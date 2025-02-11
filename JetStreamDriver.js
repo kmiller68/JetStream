@@ -2098,6 +2098,7 @@ let BENCHMARKS = [
         worstCaseCount: 2,
         tags: ["Default", "Wasm"],
     }),
+    // TODO: Change this to AsyncBenchmark, we don't actually need the Emscripten magic.
     new WasmEMCCBenchmark({
         name: "transformersjs-bert-wasm",
         files: [

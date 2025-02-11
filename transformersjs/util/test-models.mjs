@@ -40,7 +40,6 @@ globalThis.print = function(str) { console.log(str); }
   console.log('Automatic speech recognition with Whisper model.');
   await import('../task-whisper.js');
 
-  // TODO: We could also transcribe `ted_60_16k.wav`, but that takes quite long...
   const inputAudioBuffer = readFileSync('build/inputs/jfk.raw').buffer;
 
   let start = performance.now();

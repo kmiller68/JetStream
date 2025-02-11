@@ -23,8 +23,6 @@ rm jfk.wav
 echo "Download and run model(s)..." | tee -a "$BUILD_LOG"
 # This automatically places the model files in `build/models/`.
 node util/test-models.mjs
-# TODO(dlehmann): Compress models with zopfli, without header.
-# Uncompress/inflate with https://github.com/binji/raw-wasm/blob/main/inflate/index.html / https://github.com/binji/raw-wasm/blob/main/inflate/inflate.js
 
 echo "Copy library files into build/..." | tee -a "$BUILD_LOG"
 # TextEncoder/TextDecoder polyfill with UTF-16 LE support.
@@ -41,6 +39,10 @@ cp util/node_modules/@huggingface/transformers/dist/transformers.js build/
 # use the non-JSEP build if one requests the Wasm backend.
 # TODO(dlehmann): Measure performance difference between the two.
 cp util/node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.{mjs,wasm} build/lib/onnxruntime-web/
+
+# TODO: Compress model data (and maybe Wasm modules) with zstd.
+# Either decompress with native APIs available in browsers or JS/Wasm polyfill?
+# E.g., https://github.com/101arrowz/fzstd or https://github.com/fabiospampinato/zstandard-wasm or https://github.com/donmccurdy/zstddec-wasm
 
 # Cleanup node packages.
 # rm -rf util/node_modules/
