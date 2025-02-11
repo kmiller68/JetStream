@@ -11,36 +11,38 @@ BUILD_LOG="$(realpath build.log)"
 echo "Built on $(date -u '+%Y-%m-%dT%H:%M:%SZ')" | tee "$BUILD_LOG"
 
 echo "Installing Node dependencies..." | tee -a "$BUILD_LOG"
-pushd src/
+pushd util/
 npm install | tee -a "$BUILD_LOG"
 popd
 
 echo "Download and convert audio input(s)..." | tee -a "$BUILD_LOG"
 wget https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/jfk.wav | tee -a "$BUILD_LOG"
-node src/convert-audio.mjs jfk.wav build/inputs/jfk.raw | tee -a "$BUILD_LOG"
+node util/convert-audio.mjs jfk.wav build/inputs/jfk.raw | tee -a "$BUILD_LOG"
 rm jfk.wav
 
 echo "Download and run model(s)..." | tee -a "$BUILD_LOG"
 # This automatically places the model files in `build/models/`.
-node src/test-models.mjs
+node util/test-models.mjs
+# TODO(dlehmann): Compress models with zopfli, without header.
+# Uncompress/inflate with https://github.com/binji/raw-wasm/blob/main/inflate/index.html / https://github.com/binji/raw-wasm/blob/main/inflate/inflate.js
 
 echo "Copy library files into build/..." | tee -a "$BUILD_LOG"
 # TextEncoder/TextDecoder polyfill with UTF-16 LE support.
-cp src/node_modules/text-encoding/lib/*.js build/lib/text-encoding/
+cp util/node_modules/text-encoding/lib/*.js build/lib/text-encoding/
 
-cp src/node_modules/@huggingface/transformers/dist/transformers.js build/
+cp util/node_modules/@huggingface/transformers/dist/transformers.js build/
 # Transformers.js packages the ONNX runtime JSEP build by default, even when
 # only using the Wasm backend, which would be fine with the non-JSEP build.
 # JSEP uses ASYNCIFY, which isn't optimal. And it's a much larger Wasm binary.
-# cp src/node_modules/@huggingface/transformers/dist/ort-wasm-simd-threaded.jsep.{mjs,wasm} build/
+# cp util/node_modules/@huggingface/transformers/dist/ort-wasm-simd-threaded.jsep.{mjs,wasm} build/
 
 # There is also an ONNX runtime build in the onnxruntime-web package.
 # TODO(dlehmann): Discuss with upstream Transformers.js folks, whether they can
 # use the non-JSEP build if one requests the Wasm backend.
 # TODO(dlehmann): Measure performance difference between the two.
-cp src/node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.{mjs,wasm} build/lib/onnxruntime-web/
+cp util/node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.{mjs,wasm} build/lib/onnxruntime-web/
 
 # Cleanup node packages.
-# rm -rf src/node_modules/
+# rm -rf util/node_modules/
 
 echo "Building done" | tee -a "$BUILD_LOG"

@@ -1,0 +1,3 @@
+- Two tasks: one text/NLP, one audio processing/speech-to-text.
+- Everything in `build/` comes from upstream or is generated.
+- Everything in `util/` is tooling for building, preparing the benchmark.
