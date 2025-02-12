@@ -92,10 +92,10 @@ class Benchmark {
       env.backends.onnx.wasm.numThreads = 1;
 
       // Either specify path prefix, but this loads the JSEP build by default.
-      // env.backends.onnx.wasm.wasmPaths = 'build/lib/onnxruntime-web/';
+      // env.backends.onnx.wasm.wasmPaths = 'build/onnxruntime-web/';
       // So instead, give the ONNX runtime files directly:
       env.backends.onnx.wasm.wasmPaths = {
-        mjs: './lib/onnxruntime-web/ort-wasm-simd-threaded.mjs',
+        mjs: './onnxruntime-web/ort-wasm-simd-threaded.mjs',
         wasm: 'ort-wasm-simd-threaded.wasm',
       };
       // Finally, this would be our preferred option: Giving the Wasm binary

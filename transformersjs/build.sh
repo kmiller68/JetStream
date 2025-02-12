@@ -3,8 +3,7 @@
 set -euo pipefail
 
 rm -rf build/
-mkdir -p build/{models,lib,inputs}/
-mkdir -p build/lib/{text-encoding,onnxruntime-web}
+mkdir -p build/{models,inputs,onnxruntime-web}/
 
 touch build.log
 BUILD_LOG="$(realpath build.log)"
@@ -12,7 +11,7 @@ echo "Built on $(date -u '+%Y-%m-%dT%H:%M:%SZ')" | tee "$BUILD_LOG"
 
 echo "Installing Node dependencies..." | tee -a "$BUILD_LOG"
 pushd util/
-npm install | tee -a "$BUILD_LOG"
+npm install
 popd
 
 echo "Download and convert audio input(s)..." | tee -a "$BUILD_LOG"
@@ -25,8 +24,6 @@ echo "Download and run model(s)..." | tee -a "$BUILD_LOG"
 node util/test-models.mjs
 
 echo "Copy library files into build/..." | tee -a "$BUILD_LOG"
-# TextEncoder/TextDecoder polyfill with UTF-16 LE support.
-cp util/node_modules/text-encoding/lib/*.js build/lib/text-encoding/
 
 cp util/node_modules/@huggingface/transformers/dist/transformers.js build/
 git apply transformers.js.patch
@@ -40,7 +37,7 @@ git apply transformers.js.patch
 # TODO(dlehmann): Discuss with upstream Transformers.js folks, whether they can
 # use the non-JSEP build if one requests the Wasm backend.
 # TODO(dlehmann): Measure performance difference between the two.
-cp util/node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.{mjs,wasm} build/lib/onnxruntime-web/
+cp util/node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.{mjs,wasm} build/onnxruntime-web/
 
 # TODO: Compress model data (and maybe Wasm modules) with zstd.
 # Either decompress with native APIs available in browsers or JS/Wasm polyfill?

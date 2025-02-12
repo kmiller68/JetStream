@@ -1,12 +1,5 @@
-Built on 2025-02-11T16:44:37Z
+Built on 2025-02-12T17:01:20Z
 Installing Node dependencies...
-
-up to date, audited 85 packages in 406ms
-
-20 packages are looking for funding
-  run `npm fund` for details
-
-found 0 vulnerabilities
 Download and convert audio input(s)...
 Converted 11s of audio
   from 'jfk.wav', 2 channel(s), 44100 Hz, 16 bit

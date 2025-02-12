@@ -2102,15 +2102,14 @@ let BENCHMARKS = [
     new WasmEMCCBenchmark({
         name: "transformersjs-bert-wasm",
         files: [
-            "./transformersjs/build/lib/text-encoding/encoding-indexes.js",
-            "./transformersjs/build/lib/text-encoding/encoding.js",
+            "./polyfills/fast-text-encoding-1.0.3/text.js",
             "./transformersjs/benchmark.js",
             "./transformersjs/task-bert.js",
         ],
         preload: {
             // TODO: Remove the duplication here and in `task-*.js` `preloadFiles`.
             // Probably by adding a new category of files that are just provided by filename.
-            wasmBinary: "./transformersjs/build/lib/onnxruntime-web/ort-wasm-simd-threaded.wasm",
+            wasmBinary: "./transformersjs/build/onnxruntime-web/ort-wasm-simd-threaded.wasm",
             modelWeights: "./transformersjs/build/models/Xenova/distilbert-base-uncased-finetuned-sst-2-english/onnx/model_uint8.onnx",
             modelConfig: "./transformersjs/build/models/Xenova/distilbert-base-uncased-finetuned-sst-2-english/config.json",
             modelTokenizer: "./transformersjs/build/models/Xenova/distilbert-base-uncased-finetuned-sst-2-english/tokenizer.json",
@@ -2122,13 +2121,12 @@ let BENCHMARKS = [
     new WasmEMCCBenchmark({
         name: "transformersjs-whisper-wasm",
         files: [
-            "./transformersjs/build/lib/text-encoding/encoding-indexes.js",
-            "./transformersjs/build/lib/text-encoding/encoding.js",
+            "./polyfills/fast-text-encoding-1.0.3/text.js",
             "./transformersjs/benchmark.js",
             "./transformersjs/task-whisper.js",
         ],
         preload: {
-            wasmBinary: "./transformersjs/build/lib/onnxruntime-web/ort-wasm-simd-threaded.wasm",
+            wasmBinary: "./transformersjs/build/onnxruntime-web/ort-wasm-simd-threaded.wasm",
             modelEncoderWeights: "./transformersjs/build/models/Xenova/whisper-tiny.en/onnx/encoder_model_quantized.onnx",
             modelDecoderWeights: "./transformersjs/build/models/Xenova/whisper-tiny.en/onnx/decoder_model_merged_quantized.onnx",
             modelConfig: "./transformersjs/build/models/Xenova/whisper-tiny.en/config.json",

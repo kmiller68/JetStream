@@ -5,7 +5,6 @@
   "license": "MIT",
   "dependencies": {
     "@huggingface/transformers": "^3.3.2",
-    "text-encoding": "^0.7.0",
     "wavefile": "^11.0.0"
   }
 }
