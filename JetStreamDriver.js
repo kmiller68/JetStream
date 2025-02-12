@@ -2147,7 +2147,20 @@ const BENCHMARKS = [
         },
         async: true,
         testGroup: WasmGroup
-    })
+    }),
+    // zlib-wasm
+    new WasmEMCCBenchmark({
+        name: "zlib-wasm",
+        files: [
+            "./wasm/zlib/build/zlib.js",
+            "./wasm/zlib/benchmark.js",
+        ],
+        preload: {
+            wasmBinary: "./wasm/zlib/build/zlib.wasm",
+        },
+        iterations: 40,
+        testGroup: WasmGroup
+    }),
 ];
 
 // LuaJSFight tests
