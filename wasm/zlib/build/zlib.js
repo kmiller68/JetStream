@@ -3470,6 +3470,8 @@ var _decompressFile = Module["_decompressFile"] = (a0, a1) => (_decompressFile =
 
 var _malloc = a0 => (_malloc = wasmExports["malloc"])(a0);
 
+var _free = Module["_free"] = a0 => (_free = Module["_free"] = wasmExports["free"])(a0);
+
 var __emscripten_stack_restore = a0 => (__emscripten_stack_restore = wasmExports["_emscripten_stack_restore"])(a0);
 
 var __emscripten_stack_alloc = a0 => (__emscripten_stack_alloc = wasmExports["_emscripten_stack_alloc"])(a0);

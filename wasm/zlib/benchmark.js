@@ -20,6 +20,10 @@ class Benchmark {
         throw new Error("Length after decompression doesn't match");
       }
     }
+
+    Module._free(inputzoutStr);
+    Module._free(inputzStr);
+    Module._free(inputStr);
   }
 
   validate() {

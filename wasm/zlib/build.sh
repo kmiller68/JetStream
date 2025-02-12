@@ -21,7 +21,7 @@ emcc -o build/zlib.js \
     -s WASM=1 -O2 \
     -g1 --emit-symbol-map \
     -s USE_ZLIB=1 -s FORCE_FILESYSTEM=1 \
-    -s MODULARIZE=1 -s EXPORT_NAME=setupModule -s EXPORTED_RUNTIME_METHODS=FS,stringToNewUTF8 -s EXPORTED_FUNCTIONS=_compressFile,_decompressFile \
+    -s MODULARIZE=1 -s EXPORT_NAME=setupModule -s EXPORTED_RUNTIME_METHODS=FS,stringToNewUTF8 -s EXPORTED_FUNCTIONS=_compressFile,_decompressFile,_free \
     src/zpipe.c src/main.c | tee -a "$BUILD_LOG"
 # If you want the native build for reference:
 # clang -o build/zlib -O2 -lz src/zpipe.c src/main.c
