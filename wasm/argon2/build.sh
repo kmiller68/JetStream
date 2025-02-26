@@ -11,7 +11,7 @@ echo "Built on $(date -u '+%Y-%m-%dT%H:%M:%SZ')" | tee "$BUILD_LOG"
 echo "Toolchain versions" | tee -a "$BUILD_LOG"
 emcc --version | head -n1 | tee -a "$BUILD_LOG"
 
-# FIXME: Redownload the source if argon2 ever has source updates. At the time of writing it was last changed 5 years ago so this is probably not a high priority.
+# FIXME: Redownload the source (from https://github.com/P-H-C/phc-winner-argon2) if argon2 ever has source updates. At the time of writing it was last changed 5 years ago so this is probably not a high priority.
 SOURCES=(
     src/blake2/blake2b.c
 

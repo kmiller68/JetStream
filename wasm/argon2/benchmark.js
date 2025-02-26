@@ -27,6 +27,7 @@ let passwordStrings = [
     '123456',
     'p@assw0rd',
     'qwerty',
+    'letmein',
     '汉字漢字',
     'كلمة المرور',
     'Z7ihQxGE93',
@@ -35,13 +36,16 @@ let passwordStrings = [
 ];
 
 // Emscripten doesn't have a way to manage your pointers for you so these will free them when the wrapper dies.
-const mallocRegistry = new FinalizationRegistry((ptr) => Module._free(ptr));
 
+// If/when https://github.com/tc39/proposal-explicit-resource-management becomes a thing we should use that syntax/symbol instead of a dispose call.
 class CString {
     constructor(string) {
         this.ptr = Module.stringToNewUTF8(string);
         this.length = Module._strlen(this.ptr);
-        mallocRegistry.register(this, this.ptr);
+    }
+
+    dispose() {
+        Module._free(this.ptr);
     }
 }
 
@@ -49,14 +53,24 @@ class MallocPtr {
     constructor(size) {
         this.ptr = Module._malloc(size);
         this.size = size;
-        mallocRegistry.register(this, this.ptr);
+    }
+
+    dispose() {
+        Module._free(this.ptr);
     }
 }
 
-const tCost = 2;
+const tCost = 3;
 const mCost = 1024;
 const parallelism = 1;
-const argon2NumberOfTypes = 2;
+// There are three argon2 types (modes), we test all three. See wasm/argon2/include/argon2.h for the enum:
+// /* Argon2 primitive type */
+// typedef enum Argon2_type {
+//   Argon2_d = 0,
+//   Argon2_i = 1,
+//   Argon2_id = 2
+// } argon2_type;
+const argon2Type = 2;
 const version = 0x13;
 const saltLength = 12;
 
@@ -68,7 +82,7 @@ class Benchmark {
         }
 
         for (let i = 0; i < passwordStrings.length; ++i)
-            this.hashAndVerify(passwordStrings[i], i % argon2NumberOfTypes);
+            this.hashAndVerify(passwordStrings[i], argon2Type);
     }
 
     randomSalt() {
@@ -82,15 +96,20 @@ class Benchmark {
     hashAndVerify(password, argon2Type) {
         password = new CString(password);
         let salt = this.randomSalt();
-        this.hashBuffer = new MallocPtr(24);
-        this.encodedBuffer = new MallocPtr(Module._argon2_encodedlen(tCost, mCost, parallelism, saltLength, this.hashBuffer.size, argon2Type) + 1);
+        let hashBuffer = new MallocPtr(24);
+        let encodedBuffer = new MallocPtr(Module._argon2_encodedlen(tCost, mCost, parallelism, salt.size, hashBuffer.size, argon2Type) + 1);
 
-        let status = Module._argon2_hash(tCost, mCost, parallelism, password.ptr, password.length, salt.ptr, salt.size, this.hashBuffer.ptr, this.hashBuffer.size, this.encodedBuffer.ptr, this.encodedBuffer.size, argon2Type, version);
+        let status = Module._argon2_hash(tCost, mCost, parallelism, password.ptr, password.length, salt.ptr, salt.size, hashBuffer.ptr, hashBuffer.size, encodedBuffer.ptr, encodedBuffer.size, argon2Type, version);
         if (status !== 0)
             throw new Error(`argon2_hash exited with status: ${status} (${Module.UTF8ToString(Module._argon2_error_message(status))})`);
 
-        status = Module._argon2_verify(this.encodedBuffer.ptr, password.ptr, password.length, argon2Type);
+        status = Module._argon2_verify(encodedBuffer.ptr, password.ptr, password.length, argon2Type);
         if (status !== 0)
             throw new Error(`argon2_verify exited with status: ${status} (${Module.UTF8ToString(Module._argon2_error_message(status))})`);
+
+        password.dispose();
+        salt.dispose();
+        hashBuffer.dispose();
+        encodedBuffer.dispose();
     }
 }

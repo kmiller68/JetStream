@@ -2063,7 +2063,8 @@ const BENCHMARKS = [
         preload: {
             wasmBinary: "./wasm/argon2/build/argon2.wasm"
         },
-        iterations: 50,
+        iterations: 30,
+        worstCaseCount: 3,
         testGroup: WasmGroup,
         deterministicRandom: true,
     }),
