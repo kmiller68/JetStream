@@ -63,14 +63,15 @@ class MallocPtr {
 const tCost = 3;
 const mCost = 1024;
 const parallelism = 1;
-// There are three argon2 types (modes), we test all three. See wasm/argon2/include/argon2.h for the enum:
-// /* Argon2 primitive type */
+// There are three argon2 types (modes), but they all exercise the same computational kernel,
+// so we chose the recommended one from a security standpoint.
+// See wasm/argon2/include/argon2.h for the enum:
 // typedef enum Argon2_type {
 //   Argon2_d = 0,
 //   Argon2_i = 1,
 //   Argon2_id = 2
 // } argon2_type;
-const argon2Type = 2;
+const argon2idType = 2;
 const version = 0x13;
 const saltLength = 12;
 
@@ -82,7 +83,7 @@ class Benchmark {
         }
 
         for (let i = 0; i < passwordStrings.length; ++i)
-            this.hashAndVerify(passwordStrings[i], argon2Type);
+            this.hashAndVerify(passwordStrings[i]);
     }
 
     randomSalt() {
@@ -93,17 +94,17 @@ class Benchmark {
         return result;
     }
 
-    hashAndVerify(password, argon2Type) {
+    hashAndVerify(password) {
         password = new CString(password);
         let salt = this.randomSalt();
         let hashBuffer = new MallocPtr(24);
-        let encodedBuffer = new MallocPtr(Module._argon2_encodedlen(tCost, mCost, parallelism, salt.size, hashBuffer.size, argon2Type) + 1);
+        let encodedBuffer = new MallocPtr(Module._argon2_encodedlen(tCost, mCost, parallelism, salt.size, hashBuffer.size, argon2idType) + 1);
 
-        let status = Module._argon2_hash(tCost, mCost, parallelism, password.ptr, password.length, salt.ptr, salt.size, hashBuffer.ptr, hashBuffer.size, encodedBuffer.ptr, encodedBuffer.size, argon2Type, version);
+        let status = Module._argon2_hash(tCost, mCost, parallelism, password.ptr, password.length, salt.ptr, salt.size, hashBuffer.ptr, hashBuffer.size, encodedBuffer.ptr, encodedBuffer.size, argon2idType, version);
         if (status !== 0)
             throw new Error(`argon2_hash exited with status: ${status} (${Module.UTF8ToString(Module._argon2_error_message(status))})`);
 
-        status = Module._argon2_verify(encodedBuffer.ptr, password.ptr, password.length, argon2Type);
+        status = Module._argon2_verify(encodedBuffer.ptr, password.ptr, password.length, argon2idType);
         if (status !== 0)
             throw new Error(`argon2_verify exited with status: ${status} (${Module.UTF8ToString(Module._argon2_error_message(status))})`);
 
