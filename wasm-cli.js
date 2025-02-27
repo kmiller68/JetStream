@@ -33,7 +33,6 @@ testList = [
   "tfjs-wasm",
   "tfjs-wasm-simd",
   "argon2-wasm",
-  "argon2-wasm-simd",
   "8bitbench-wasm",
   "Dart-flute-wasm",
   "zlib-wasm",
