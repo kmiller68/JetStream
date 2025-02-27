@@ -269,7 +269,8 @@ class Benchmark {
     if (isInBrowser) {
       // In browsers, relative imports don't work since we are not in a module.
       // (`import.meta.url` is not defined.)
-      this.dart2wasmJsModule = await import(location.origin + "/Dart/build/flute.dart2wasm.mjs");
+      let pathname = location.pathname.match(/(.*)index\.html/)[1];
+      this.dart2wasmJsModule = await import(location.origin + pathname + "./Dart/build/flute.dart2wasm.mjs");
     } else {
       // In shells, relative imports require different paths, so try with and
       // without the "./" prefix (e.g., JSC requires it).
