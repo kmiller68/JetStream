@@ -2097,6 +2097,24 @@ let BENCHMARKS = [
         worstCaseCount: 2,
         tags: ["Wasm"],
     }),
+    new WasmEMCCBenchmark({
+        name: "Kotlin-compose-wasm",
+        files: [
+            "./Kotlin-compose/benchmark.js",
+        ],
+        preload: {
+            wasmBinary: "./Kotlin-compose/build/compose-benchmarks-benchmarks-wasm-js.wasm",
+            wasmSkikoBinary: "./Kotlin-compose/build/skiko.wasm",
+            inputImageCompose: "./Kotlin-compose/build/compose-multiplatform.png",
+            inputImageCat: "./Kotlin-compose/build/example1_cat.jpg",
+            inputImageComposeCommunity: "./Kotlin-compose/build/example1_compose-community-primary.png",
+            inputFontItalic: "./Kotlin-compose/build/jetbrainsmono_italic.ttf",
+            inputFontRegular: "./Kotlin-compose/build/jetbrainsmono_regular.ttf"
+        },
+        iterations: 10,
+        worstCaseCount: 2,
+        testGroup: WasmGroup,
+    }),
     new WasmLegacyBenchmark({
         name: "tfjs-wasm",
         files: [
