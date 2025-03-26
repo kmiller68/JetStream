@@ -82,6 +82,14 @@ function log(...args) {
     console.log(styleText("yellow", text))
 }
 
+function logError(...args) {
+  const text = args.join(" ")
+  if (GITHUB_ACTIONS_OUTPUT)
+    core.error(styleText("red", text))
+  else
+    console.error(styleText("red", text))
+}
+
 function logGroup(name, body) {
   if (GITHUB_ACTIONS_OUTPUT) {
     core.startGroup(name);
@@ -113,7 +121,7 @@ function sh(binary, args) {
   try {
     const result = spawnSync(binary, args, SPAWN_OPTIONS);
     if (result.status || result.error) {
-      console.error(result.error);
+      logError(result.error);
       throw new Error(`Shell CMD failed: ${binary} ${args.join(" ")}`);
     }
   } finally {
@@ -131,7 +139,6 @@ async function runTests() {
       sh(shellBinary, singleTestArgs);
     });
     if (!success) {
-      console.error("TEST FAILURES")
       process.exit(1)
     }
 }
@@ -173,7 +180,7 @@ function runTest(testName, test) {
     try {
       logGroup(testName, test)
     } catch(e) {
-      console.error("TEST FAILED")
+      logError("TEST FAILED")
       return false
     }
     return true
