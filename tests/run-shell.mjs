@@ -122,6 +122,8 @@ function sh(binary, args) {
   }
 }
 
+DEFAULT_JSC_LOCATION = "/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Helpers/jsc"
+
 async function runTests() {
     const shellBinary = logGroup(`Installing JavaScript Shell: ${SHELL_NAME}`, testSetup);
     runTest("Run Complete Suite", () => sh(shellBinary, [CLI_PATH]));
