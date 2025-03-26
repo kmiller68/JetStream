@@ -289,9 +289,9 @@ Date.prototype.formatDate = function (input,time) {
             // this is our way of allowing users to escape stuff
             ia.splice(ij,1);
         } else {
-            var formatter = formatters[ia[ij]]
+            var formatter = formatters[ia[ij]];
             if (formatter) {
-                ia[ij] = formatter()
+                ia[ij] = formatter();
             }
         }
         ij++;
