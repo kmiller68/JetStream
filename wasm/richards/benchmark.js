@@ -9,7 +9,8 @@ class Benchmark {
       await setupModule(Module);
 
     // Set-up the problem (fill the work queue) on each run.
-    Module._setup();
+    const taskCount = 200_000;
+    Module._setup(taskCount);
 
     // Repeatedly call into Wasm to stress test JS-to-Wasm call performance.
     // I (dlehmann) suppose this wrapper was added (originally in JetStream 2)
@@ -21,7 +22,7 @@ class Benchmark {
   }
 
   validate() {
-    if (!Module._validate())
+    if (Module._getQpktcount() !== 465212 || Module._getHoldcount() !== 186084)
       throw new Error("Bad richards result!");
   }
 }
