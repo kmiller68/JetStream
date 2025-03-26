@@ -297,6 +297,7 @@ function run() {
         var shortFormat = date.formatDate("Y-m-d");
         var longFormat = date.formatDate("l, F d, Y g:i:s A");
         date.setTime(date.getTime() + 84266956);
+        console.log(shortFormat.charCodeAt(6) , shortFormat.charCodeAt(8), longFormat.charCodeAt(10) , longFormat.charCodeAt(11) )
         resultHash ^= shortFormat.charCodeAt(6) | shortFormat.charCodeAt(8) << 8;
         resultHash ^= longFormat.charCodeAt(10) << 16 | longFormat.charCodeAt(11) << 24;
     }
