@@ -151,7 +151,7 @@ function jsvuOSName() {
   return `${osName()}${osArch()}`
 }
 
-DEFAULT_JSC_LOCATION = "/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Helpers/jsc"
+const DEFAULT_JSC_LOCATION = "/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Helpers/jsc"
 
 function testSetup() {
     let shellBinary;
