@@ -61,7 +61,6 @@ var expectedGameboyStateStr =
 var GameBoyWindow = { };
 
 function GameBoyContext(canvas) {
-
   this.createBuffer = function() {
     return new Buffer();
   }
