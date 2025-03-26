@@ -9783,6 +9783,6 @@ setupGameboy();
 
 class Benchmark {
     runIteration() {
-        runGameboy();
+        this.result = runGameboy();
     }
 }
