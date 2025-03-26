@@ -410,21 +410,26 @@ Date.patterns = {
 
 function run() {
     var date = new Date("1/1/2007 1:11:11");
+    var resultHash = 0x1a2b3c4d;
 
     for (i = 0; i < 4000; ++i) {
         var shortFormat = date.dateFormat("Y-m-d");
         var longFormat = date.dateFormat("l, F d, Y g:i:s A");
         date.setTime(date.getTime() + 84266956);
+        resultHash ^= shortFormat.charCodeAt(6) | shortFormat.charCodeAt(8) << 8;
+        resultHash ^= longFormat.charCodeAt(10) << 16 | longFormat.charCodeAt(11) << 24;
     }
 
     // FIXME: Find a way to validate this test.
     // https://bugs.webkit.org/show_bug.cgi?id=114849
+    return resultHash;
 }
 
 
 class Benchmark {
     runIteration() {
+        this.resultHash = 0x1a2b3c4d;
         for (let i = 0; i < 8; ++i)
-            run();
+            this.resultHash ^= run();
     }
 }
