@@ -122,8 +122,6 @@ function sh(binary, args) {
   }
 }
 
-DEFAULT_JSC_LOCATION = "/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Helpers/jsc"
-
 async function runTests() {
     const shellBinary = logGroup(`Installing JavaScript Shell: ${SHELL_NAME}`, testSetup);
     runTest("Run Complete Suite", () => sh(shellBinary, [CLI_PATH]));
@@ -153,10 +151,17 @@ function jsvuOSName() {
   return `${osName()}${osArch()}`
 }
 
+DEFAULT_JSC_LOCATION = "/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Helpers/jsc"
+
 function testSetup() {
-    const jsvuOS = "mac64arm";
-    sh("jsvu", [`--engines=${SHELL_NAME}`, `--os=${jsvuOSName()}`]);
-    const shellBinary = path.join(os.homedir(), ".jsvu/bin", SHELL_NAME);
+    let shellBinary;
+    try {
+      sh("jsvu", [`--engines=${SHELL_NAME}`, `--os=${jsvuOSName()}`]);
+      shellBinary = path.join(os.homedir(), ".jsvu/bin", SHELL_NAME);
+    } catch {
+      if (SHELL_NAME == "javascriptcore")
+        shellBinary = DEFAULT_JSC_LOCATION
+    }
     if (!fs.existsSync(shellBinary))
       throw new Error(`Could not find shell binary: ${shellBinary}`);
     log(`Installed JavaScript Shell: ${shellBinary}`);
