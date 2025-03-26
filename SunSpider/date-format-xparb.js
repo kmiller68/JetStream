@@ -416,6 +416,7 @@ function run() {
         var shortFormat = date.dateFormat("Y-m-d");
         var longFormat = date.dateFormat("l, F d, Y g:i:s A");
         date.setTime(date.getTime() + 84266956);
+        // Assuming only ascii output.
         resultHash ^= shortFormat.charCodeAt(6) | shortFormat.charCodeAt(8) << 8;
         resultHash ^= longFormat.charCodeAt(10) << 16 | longFormat.charCodeAt(11) << 24;
     }
