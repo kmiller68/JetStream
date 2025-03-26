@@ -25,7 +25,8 @@
 
 const isInBrowser = false;
 console = {
-    log: print
+    log: globalThis?.console?.log ?? print,
+    error: globalThis?.console?.error ?? print,
 }
 
 const isD8 = typeof Realm !== "undefined";
@@ -57,8 +58,9 @@ async function runJetStream() {
         await JetStream.initialize();
         await JetStream.start();
     } catch (e) {
-        console.log("JetStream3 failed: " + e);
-        console.log(e.stack);
+        console.error("JetStream3 failed: " + e);
+        console.error(e.stack);
+        throw e;
     }
 }
 runJetStream();
