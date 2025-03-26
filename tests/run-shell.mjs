@@ -154,14 +154,10 @@ function jsvuOSName() {
 const DEFAULT_JSC_LOCATION = "/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Helpers/jsc"
 
 function testSetup() {
-    let shellBinary;
-    try {
-      sh("jsvu", [`--engines=${SHELL_NAME}`, `--os=${jsvuOSName()}`]);
-      shellBinary = path.join(os.homedir(), ".jsvu/bin", SHELL_NAME);
-    } catch {
-      if (SHELL_NAME == "javascriptcore")
-        shellBinary = DEFAULT_JSC_LOCATION
-    }
+    sh("jsvu", [`--engines=${SHELL_NAME}`, `--os=${jsvuOSName()}`]);
+    let shellBinary = path.join(os.homedir(), ".jsvu/bin", SHELL_NAME);
+    if (!fs.existsSync(shellBinary) && SHELL_NAME == "javascriptcore")
+      shellBinary = DEFAULT_JSC_LOCATION
     if (!fs.existsSync(shellBinary))
       throw new Error(`Could not find shell binary: ${shellBinary}`);
     log(`Installed JavaScript Shell: ${shellBinary}`);
