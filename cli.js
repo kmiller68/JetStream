@@ -32,9 +32,13 @@ const isD8 = typeof Realm !== "undefined";
 if (isD8)
     globalThis.readFile = read;
 const isSpiderMonkey = typeof newGlobal !== "undefined";
-if (isSpiderMonkey)
+if (isSpiderMonkey) {
     globalThis.readFile = readRelativeToScript;
+    globalThis.arguments = scriptArgs;
+}
 
+if (typeof arguments !== "undefined" && arguments.length > 0)
+    testList = arguments.slice();
 if (typeof testList === "undefined")
     testList = undefined;
 

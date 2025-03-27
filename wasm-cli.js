@@ -29,12 +29,14 @@ testList = [
   "quicksort-wasm",
   "gcc-loops-wasm",
   "richards-wasm",
+  "sqlite3-wasm",
   "tfjs-wasm",
   "tfjs-wasm-simd",
   "argon2-wasm",
-  "argon2-wasm-simd",
   "8bitbench-wasm",
+  "Dart-flute-wasm",
+  "zlib-wasm",
 ];
 
-// Re-use the full CLI runner, just with the subset of Wasm line items above.
+// Reuse the full CLI runner, just with the subset of Wasm line items above.
 load("./cli.js");

@@ -1,7 +1,7 @@
 "use strict";
 
 /*
- * Copyright (C) 2018-2022 Apple Inc. All rights reserved.
+ * Copyright (C) 2018-2024 Apple Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -27,28 +27,46 @@
 
 const measureTotalTimeAsSubtest = false; // Once we move to preloading all resources, it would be good to turn this on.
 
+const defaultIterationCount = 120;
+const defaultWorstCaseCount = 4;
+
 globalThis.performance ??= Date;
 globalThis.RAMification ??= false;
 globalThis.testIterationCount ??= undefined;
 globalThis.testIterationCountMap ??= new Map();
+globalThis.testWorstCaseCount ??= undefined;
 globalThis.testWorstCaseCountMap ??= new Map();
 globalThis.dumpJSONResults ??= false;
 globalThis.customTestList ??= [];
+globalThis.startDelay ??= undefined;
 
 let shouldReport = false;
+
+function getIntParam(urlParams, key) {
+    if (!urlParams.has(key))
+        return undefined
+    const rawValue = urlParams.get(key);
+    const value = parseInt(rawValue);
+    if (value <= 0)
+        throw new Error(`Expected positive value for ${key}, but got ${rawValue}`)
+    return value
+}
+
 if (typeof(URLSearchParams) !== "undefined") {
     const urlParameters = new URLSearchParams(window.location.search);
     shouldReport = urlParameters.has('report') && urlParameters.get('report').toLowerCase() == 'true';
+    globalThis.startDelay = getIntParam(urlParameters, "startDelay");
+    if (shouldReport && !globalThis.startDelay)
+        globalThis.startDelay = 4000;
     if (urlParameters.has('test'))
         customTestList = urlParameters.getAll("test");
+    globalThis.testIterationCount = getIntParam(urlParameters, "iterationCount");
+    globalThis.testWorstCaseCount = getIntParam(urlParameters, "worstCaseCount");
 }
 
 // Used for the promise representing the current benchmark run.
 this.currentResolve = null;
 this.currentReject = null;
-
-const defaultIterationCount = 120;
-const defaultWorstCaseCount = 4;
 
 let showScoreDetails = false;
 let categoryScores = null;
@@ -59,7 +77,7 @@ function displayCategoryScores() {
 
     let summaryElement = document.getElementById("result-summary");
     for (let [category, scores] of categoryScores)
-        summaryElement.innerHTML += `<p> ${category}: ${uiFriendlyNumber(geomean(scores))}</p>`
+        summaryElement.innerHTML += `<p> ${category}: ${uiFriendlyScore(geomean(scores))}</p>`
 
     categoryScores = null;
 }
@@ -77,6 +95,8 @@ function getIterationCount(plan) {
 function getWorstCaseCount(plan) {
     if (testWorstCaseCountMap.has(plan.name))
         return testWorstCaseCountMap.get(plan.name);
+    if (testWorstCaseCount)
+        return testWorstCaseCount;
     if (plan.worstCaseCount)
         return plan.worstCaseCount;
     return defaultWorstCaseCount;
@@ -153,12 +173,16 @@ function uiFriendlyNumber(num) {
     return num.toFixed(3);
 }
 
+function uiFriendlyScore(num) {
+    return uiFriendlyNumber(num);
+}
+
 function uiFriendlyDuration(time)
 {
     const minutes = time.getMinutes();
     const seconds = time.getSeconds();
     const milliSeconds = time.getMilliseconds();
-    const result = "" + minutes + ":";
+    let result = "" + minutes + ":";
 
     result = result + (seconds < 10 ? "0" : "") + seconds + ".";
     result = result + (milliSeconds < 10 ? "00" : (milliSeconds < 100 ? "0" : "")) + milliSeconds;
@@ -214,6 +238,7 @@ const fileLoader = (function() {
 
 class Driver {
     constructor() {
+        this.isReady = false;
         this.benchmarks = [];
         this.blobDataCache = { };
         this.loadCache = { };
@@ -281,12 +306,12 @@ class Driver {
 
         categoryScores = new Map;
         for (const benchmark of this.benchmarks) {
-            for (let category of Object.keys(benchmark.subTimes()))
+            for (let category of Object.keys(benchmark.subScores()))
                 categoryScores.set(category, []);
         }
 
         for (const benchmark of this.benchmarks) {
-            for (let [category, value] of Object.entries(benchmark.subTimes())) {
+            for (let [category, value] of Object.entries(benchmark.subScores())) {
                 const arr = categoryScores.get(category);
                 arr.push(value);
             }
@@ -294,7 +319,7 @@ class Driver {
 
         if (isInBrowser) {
             summaryElement.classList.add('done');
-            summaryElement.innerHTML = "<div class=\"score\">" + uiFriendlyNumber(geomean(allScores)) + "</div><label>Score</label>";
+            summaryElement.innerHTML = "<div class=\"score\">" + uiFriendlyScore(geomean(allScores)) + "</div><label>Score</label>";
             summaryElement.onclick = displayCategoryScores;
             if (showScoreDetails)
                 displayCategoryScores();
@@ -302,13 +327,18 @@ class Driver {
         } else if (!dumpJSONResults) {
             console.log("\n");
             for (let [category, scores] of categoryScores)
-                console.log(`${category}: ${uiFriendlyNumber(geomean(scores))}`);
+                console.log(`${category}: ${uiFriendlyScore(geomean(scores))}`);
 
-            console.log("\nTotal Score: ", uiFriendlyNumber(geomean(allScores)), "\n");
+            console.log("\nTotal Score: ", uiFriendlyScore(geomean(allScores)), "\n");
         }
 
         this.reportScoreToRunBenchmarkRunner();
         this.dumpJSONResultsIfNeeded();
+        if (isInBrowser) {
+            globalThis.dispatchEvent(new CustomEvent("JetStreamDone", {
+                detail: this.resultsObject()
+            }));
+        }
     }
 
     runCode(string)
@@ -331,7 +361,13 @@ class Driver {
             } else
                 globalObject = runString("");
 
-            globalObject.console = { log: globalObject.print, warn: (e) => { print("Warn: " + e); /*$vm.abort();*/ } }
+            globalObject.console = {
+                log: globalObject.print,
+                warn: (e) => { print("Warn: " + e); },
+                error: (e) => { print("Error: " + e); },
+                debug: (e) => { print("Debug: " + e); },
+            };
+
             globalObject.self = globalObject;
             globalObject.top = {
                 currentResolve,
@@ -415,8 +451,12 @@ class Driver {
         await this.prefetchResourcesForBrowser();
         await this.fetchResources();
         this.prepareToRun();
-        if (isInBrowser && shouldReport) {
-            setTimeout(() => this.start(), 4000);
+        this.isReady = true;
+        if (isInBrowser) {
+            globalThis.dispatchEvent(new Event("JetStreamReady"));
+            if (typeof(globalThis.startDelay) !== "undefined") {
+                setTimeout(() => this.start(), globalThis.startDelay);
+            }
         }
     }
 
@@ -468,14 +508,14 @@ class Driver {
         }
     }
 
-    resultsJSON()
+    resultsObject()
     {
-        const results = {};
+        let results = {};
         for (const benchmark of this.benchmarks) {
             const subResults = {}
-            const subTimes = benchmark.subTimes();
-            for (const name in subTimes) {
-                subResults[name] = {"metrics": {"Time": {"current": [toTimeValue(subTimes[name])]}}};
+            const subScores = benchmark.subScores();
+            for (const name in subScores) {
+                subResults[name] = {"metrics": {"Time": {"current": [toTimeValue(subScores[name])]}}};
             }
             results[benchmark.name] = {
                 "metrics" : {
@@ -487,8 +527,13 @@ class Driver {
         }
 
         results = {"JetStream3.0": {"metrics" : {"Score" : ["Geometric"]}, "tests" : results}};
+        return results;
 
-        return JSON.stringify(results);
+    }
+
+    resultsJSON()
+    {
+        return JSON.stringify(this.resultsObject());
     }
 
     dumpJSONResultsIfNeeded()
@@ -548,19 +593,29 @@ class Benchmark {
         return `
             let __benchmark = new Benchmark(${this.iterations});
             let results = [];
+            let benchmarkName = "${this.name}";
+
             for (let i = 0; i < ${this.iterations}; i++) {
                 if (__benchmark.prepareForNextIteration)
                     __benchmark.prepareForNextIteration();
 
-                ${this.preiterationCode}
+                ${this.preIterationCode}
+
+                const iterationMarkLabel = benchmarkName + "-iteration-" + i;
+                const iterationStartMark = performance.mark(iterationMarkLabel);
+
                 let start = performance.now();
                 __benchmark.runIteration();
                 let end = performance.now();
 
+                performanceMeasure(iterationMarkLabel, iterationStartMark);
+
+                ${this.postIterationCode}
+
                 results.push(Math.max(1, end - start));
             }
             if (__benchmark.validate)
-                __benchmark.validate();
+                __benchmark.validate(${this.iterations});
             top.currentResolve(results);`;
     }
 
@@ -574,11 +629,24 @@ class Benchmark {
 
     get prerunCode() { return null; }
 
-    get preiterationCode() {
+    get preIterationCode() {
+        let code = "";
         if (this.plan.deterministicRandom)
-            return `Math.random.__resetSeed();`;
+            code += `Math.random.__resetSeed();`;
 
-        return "";
+        if (globalThis.customPreIterationCode)
+            code += customPreIterationCode;
+
+        return code;
+    }
+
+    get postIterationCode() {
+        let code = "";
+
+        if (globalThis.customPostIterationCode)
+            code += customPostIterationCode;
+
+        return code;
     }
 
     async run() {
@@ -602,7 +670,24 @@ class Benchmark {
                 assert(false, "Should not reach here in CLI");
         };
 
-        addScript(`const isInBrowser = ${isInBrowser};`);
+        addScript(`
+            const isInBrowser = ${isInBrowser};
+            const isD8 = ${isD8};
+            if (typeof performance.mark === 'undefined') {
+                performance.mark = function() {};
+            }
+            if (typeof performance.measure === 'undefined') {
+                performance.measure = function() {};
+            }
+            function performanceMeasure(name, mark) {
+                // D8 does not implement the official web API.
+                // Also the performance.mark polyfill returns an undefined mark.
+                if (isD8 || typeof mark === "undefined")
+                    performance.measure(name, mark);
+                else
+                    performance.measure(name, mark.name);
+            }
+        `);
 
         if (!!this.plan.deterministicRandom) {
             addScript(`
@@ -666,7 +751,7 @@ class Benchmark {
         }
         addScript(this.runnerCode);
 
-        this.startTime = new Date();
+        this.startTime = performance.now();
 
         if (RAMification)
             resetMemoryPeak();
@@ -681,7 +766,7 @@ class Benchmark {
         }
         const results = await promise;
 
-        this.endTime = new Date();
+        this.endTime = performance.now();
 
         if (RAMification) {
             const memoryFootprint = MemoryFootprint();
@@ -898,9 +983,12 @@ class DefaultBenchmark extends Benchmark {
         super(...args);
 
         this.worstCaseCount = getWorstCaseCount(this.plan);
-        this.firstIteration = null;
-        this.worst4 = null;
-        this.average = null;
+        this.firstIterationTime = null;
+        this.firstIterationScore = null;
+        this.worst4Time = null;
+        this.worst4Score = null;
+        this.averageTime = null;
+        this.averageScore = null;
 
         assert(this.iterations > this.worstCaseCount);
     }
@@ -914,7 +1002,8 @@ class DefaultBenchmark extends Benchmark {
         }
         results = copyArray(results);
 
-        this.firstIteration = toScore(results[0]);
+        this.firstIterationTime = results[0];
+        this.firstIterationScore = toScore(results[0]);
 
         results = results.slice(1);
         results.sort((a, b) => a < b ? 1 : -1);
@@ -924,19 +1013,21 @@ class DefaultBenchmark extends Benchmark {
         const worstCase = [];
         for (let i = 0; i < this.worstCaseCount; ++i)
             worstCase.push(results[i]);
-        this.worst4 = toScore(mean(worstCase));
-        this.average = toScore(mean(results));
+        this.worst4Time = mean(worstCase);
+        this.worst4Score = toScore(this.worst4Time);
+        this.averageTime = mean(results);
+        this.averageScore = toScore(this.averageTime);
     }
 
     get score() {
-        return geomean([this.firstIteration, this.worst4, this.average]);
+        return geomean([this.firstIterationScore, this.worst4Score, this.averageScore]);
     }
 
-    subTimes() {
+    subScores() {
         return {
-            "First": this.firstIteration,
-            "Worst": this.worst4,
-            "Average": this.average,
+            "First": this.firstIterationScore,
+            "Worst": this.worst4Score,
+            "Average": this.averageScore,
         };
     }
 
@@ -952,20 +1043,20 @@ class DefaultBenchmark extends Benchmark {
         super.updateUIAfterRun();
 
         if (isInBrowser) {
-            document.getElementById(firstID(this)).innerHTML = uiFriendlyNumber(this.firstIteration);
-            document.getElementById(worst4ID(this)).innerHTML = uiFriendlyNumber(this.worst4);
-            document.getElementById(avgID(this)).innerHTML = uiFriendlyNumber(this.average);
-            document.getElementById(scoreID(this)).innerHTML = uiFriendlyNumber(this.score);
+            document.getElementById(firstID(this)).innerHTML = uiFriendlyScore(this.firstIterationScore);
+            document.getElementById(worst4ID(this)).innerHTML = uiFriendlyScore(this.worst4Score);
+            document.getElementById(avgID(this)).innerHTML = uiFriendlyScore(this.averageScore);
+            document.getElementById(scoreID(this)).innerHTML = uiFriendlyScore(this.score);
             return;
         }
 
         if (dumpJSONResults)
             return;
 
-        console.log("    Startup:", uiFriendlyNumber(this.firstIteration));
-        console.log("    Worst Case:", uiFriendlyNumber(this.worst4));
-        console.log("    Average:", uiFriendlyNumber(this.average));
-        console.log("    Score:", uiFriendlyNumber(this.score));
+        console.log("    Startup:", uiFriendlyScore(this.firstIterationScore));
+        console.log("    Worst Case:", uiFriendlyScore(this.worst4Score));
+        console.log("    Average:", uiFriendlyScore(this.averageScore));
+        console.log("    Score:", uiFriendlyScore(this.score));
         if (RAMification) {
             console.log("    Current Footprint:", uiFriendlyNumber(this.currentFootprint));
             console.log("    Peak Footprint:", uiFriendlyNumber(this.peakFootprint));
@@ -979,19 +1070,122 @@ class AsyncBenchmark extends DefaultBenchmark {
         return `
         async function doRun() {
             let __benchmark = new Benchmark();
+            if (__benchmark.init)
+                await __benchmark.init();
             let results = [];
+            let benchmarkName = "${this.name}";
+
             for (let i = 0; i < ${this.iterations}; i++) {
-                ${this.preiterationCode}
+                ${this.preIterationCode}
+
+                const iterationMarkLabel = benchmarkName + "-iteration-" + i;
+                const iterationStartMark = performance.mark(iterationMarkLabel);
+
                 let start = performance.now();
                 await __benchmark.runIteration();
                 let end = performance.now();
+
+                performanceMeasure(iterationMarkLabel, iterationStartMark);
+
+                ${this.postIterationCode}
+
                 results.push(Math.max(1, end - start));
             }
             if (__benchmark.validate)
-                __benchmark.validate();
+                __benchmark.validate(${this.iterations});
             top.currentResolve(results);
         }
         doRun().catch((error) => { top.currentReject(error); });`
+    }
+};
+
+// Meant for wasm benchmarks that are directly compiled with an emcc build script. It might not work for benchmarks built as
+// part of a larger project's build system or a wasm benchmark compiled from a language that doesn't compile with emcc.
+class WasmEMCCBenchmark extends AsyncBenchmark {
+    get prerunCode() {
+        let str = `
+            let verbose = false;
+
+            let globalObject = this;
+
+            abort = quit = function() {
+                if (verbose)
+                    console.log('Intercepted quit/abort');
+            };
+
+            oldPrint = globalObject.print;
+            globalObject.print = globalObject.printErr = (...args) => {
+                if (verbose)
+                    console.log('Intercepted print: ', ...args);
+            };
+
+            let Module = {
+                preRun: [],
+                postRun: [],
+                noInitialRun: true,
+                print: print,
+                printErr: printErr,
+                setStatus: function(text) {
+                },
+                totalDependencies: 0,
+                monitorRunDependencies: function(left) {
+                    this.totalDependencies = Math.max(this.totalDependencies, left);
+                    Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
+                },
+            };
+            globalObject.Module = Module;
+            `;
+        return str;
+    }
+
+    // FIXME: Why is this part of the runnerCode and not prerunCode?
+    get runnerCode() {
+        let str = `function loadBlob(key, path, andThen) {`;
+
+        if (isInBrowser) {
+            str += `
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', path, true);
+                xhr.responseType = 'arraybuffer';
+                xhr.onload = function() {
+                    Module[key] = new Int8Array(xhr.response);
+                    andThen();
+                };
+                xhr.send(null);
+            `;
+        } else {
+            str += `
+            Module[key] = new Int8Array(read(path, "binary"));
+
+            Module.setStatus = null;
+            Module.monitorRunDependencies = null;
+
+            Promise.resolve(42).then(() => {
+                try {
+                    andThen();
+                } catch(e) {
+                    console.log("error running wasm:", e);
+                    console.log(e.stack);
+                    throw e;
+                }
+            })
+            `;
+        }
+
+        str += "}";
+
+        let keys = Object.keys(this.plan.preload);
+        for (let i = 0; i < keys.length; ++i) {
+            str += `loadBlob("${keys[i]}", "${this.plan.preload[keys[i]]}", async () => {\n`;
+        }
+
+        str += super.runnerCode;
+        for (let i = 0; i < keys.length; ++i) {
+            str += `})`;
+        }
+        str += `;`;
+
+        return str;
     }
 };
 
@@ -999,17 +1193,21 @@ class WSLBenchmark extends Benchmark {
     constructor(...args) {
         super(...args);
 
-        this.stdlib = null;
-        this.mainRun = null;
+        this.stdlibTime = null;
+        this.stdlibScore = null;
+        this.mainRunTime = null;
+        this.mainRunScore = null;
     }
 
     processResults(results) {
-        this.stdlib = toScore(results[0]);
-        this.mainRun = toScore(results[1]);
+        this.stdlibTime = results[0];
+        this.stdlibScore = toScore(results[0]);
+        this.mainRunTime = results[1];
+        this.mainRunScore = toScore(results[1]);
     }
 
     get score() {
-        return geomean([this.stdlib, this.mainRun]);
+        return geomean([this.stdlibScore, this.mainRunScore]);
     }
 
     get runnerCode() {
@@ -1032,10 +1230,10 @@ class WSLBenchmark extends Benchmark {
             `;
     }
 
-    subTimes() {
+    subScores() {
         return {
-            "Stdlib": this.stdlib,
-            "MainRun": this.mainRun,
+            "Stdlib": this.stdlibScore,
+            "MainRun": this.mainRunScore,
         };
     }
 
@@ -1051,18 +1249,18 @@ class WSLBenchmark extends Benchmark {
         super.updateUIAfterRun();
 
         if (isInBrowser) {
-            document.getElementById("wsl-stdlib-score").innerHTML = uiFriendlyNumber(this.stdlib);
-            document.getElementById("wsl-tests-score").innerHTML = uiFriendlyNumber(this.mainRun);
-            document.getElementById("wsl-score-score").innerHTML = uiFriendlyNumber(this.score);
+            document.getElementById("wsl-stdlib-score").innerHTML = uiFriendlyScore(this.stdlibScore);
+            document.getElementById("wsl-tests-score").innerHTML = uiFriendlyScore(this.mainRunScore);
+            document.getElementById("wsl-score-score").innerHTML = uiFriendlyScore(this.score);
             return;
         }
 
         if (dumpJSONResults)
             return;
 
-        console.log("    Stdlib:", uiFriendlyNumber(this.stdlib));
-        console.log("    Tests:", uiFriendlyNumber(this.mainRun));
-        console.log("    Score:", uiFriendlyNumber(this.score));
+        console.log("    Stdlib:", uiFriendlyScore(this.stdlibScore));
+        console.log("    Tests:", uiFriendlyScore(this.mainRunScore));
+        console.log("    Score:", uiFriendlyScore(this.score));
         if (RAMification) {
             console.log("    Current Footprint:", uiFriendlyNumber(this.currentFootprint));
             console.log("    Peak Footprint:", uiFriendlyNumber(this.peakFootprint));
@@ -1071,21 +1269,25 @@ class WSLBenchmark extends Benchmark {
     }
 };
 
-class WasmBenchmark extends Benchmark {
+class WasmLegacyBenchmark extends Benchmark {
     constructor(...args) {
         super(...args);
 
         this.startupTime = null;
+        this.startupScore = null;
         this.runTime = null;
+        this.runScore = null;
     }
 
     processResults(results) {
-        this.startupTime = toScore(results[0]);
-        this.runTime = toScore(results[1]);
+        this.startupTime = results[0];
+        this.startupScore= toScore(results[0]);
+        this.runTime = results[1];
+        this.runScore = toScore(results[1]);
     }
 
     get score() {
-        return geomean([this.startupTime, this.runTime]);
+        return geomean([this.startupScore, this.runScore]);
     }
 
     get prerunCode() {
@@ -1118,16 +1320,17 @@ class WasmBenchmark extends Benchmark {
             };
 
             oldPrint = globalObject.print;
+            oldConsoleLog = globalObject.console.log;
             globalObject.print = globalObject.printErr = (...args) => {
                 if (verbose)
-                    console.log('Intercepted print: ', ...args);
+                    oldConsoleLog('Intercepted print: ', ...args);
             };
 
             let Module = {
                 preRun: [],
                 postRun: [],
-                print: function() { },
-                printErr: function() { },
+                print: globalObject.print,
+                printErr: globalObject.print,
                 setStatus: function(text) {
                 },
                 totalDependencies: 0,
@@ -1203,10 +1406,10 @@ class WasmBenchmark extends Benchmark {
         return str;
     }
 
-    subTimes() {
+    subScores() {
         return {
-            "Startup": this.startupTime,
-            "Runtime": this.runTime,
+            "Startup": this.startupScore,
+            "Runtime": this.runScore,
         };
     }
 
@@ -1232,22 +1435,23 @@ class WasmBenchmark extends Benchmark {
         super.updateUIAfterRun();
 
         if (isInBrowser) {
-            document.getElementById(this.startupID).innerHTML = uiFriendlyNumber(this.startupTime);
-            document.getElementById(this.runID).innerHTML = uiFriendlyNumber(this.runTime);
-            document.getElementById(this.scoreID).innerHTML = uiFriendlyNumber(this.score);
+            document.getElementById(this.startupID).innerHTML = uiFriendlyScore(this.startupScore);
+            document.getElementById(this.runID).innerHTML = uiFriendlyScore(this.runScore);
+            document.getElementById(this.scoreID).innerHTML = uiFriendlyScore(this.score);
             return;
         }
 
         if (dumpJSONResults)
             return;
 
-        console.log("    Startup:", uiFriendlyNumber(this.startupTime));
-        console.log("    Run time:", uiFriendlyNumber(this.runTime));
+        console.log("    Startup:", uiFriendlyScore(this.startupScore));
+        console.log("    Run time:", uiFriendlyScore(this.runScore));
+        console.log("    Score:", uiFriendlyScore(this.score));
         if (RAMification) {
             console.log("    Current Footprint:", uiFriendlyNumber(this.currentFootprint));
             console.log("    Peak Footprint:", uiFriendlyNumber(this.peakFootprint));
         }
-        console.log("    Score:", uiFriendlyNumber(this.score));
+        console.log("    Wall time:", uiFriendlyDuration(new Date(this.endTime - this.startTime)));
     }
 };
 
@@ -1500,17 +1704,6 @@ let BENCHMARKS = [
         deterministicRandom: true,
         tags: ["Octane"]
     }),
-    new DefaultBenchmark({
-        name: "octane-zlib",
-        files: [
-            "./Octane/zlib-data.js"
-            , "./Octane/zlib.js"
-        ],
-        iterations: 15,
-        worstCaseCount: 2,
-        deterministicRandom: true,
-        tags: ["Octane"]
-    }),
     // RexBench
     new DefaultBenchmark({
         name: "FlightPlanner",
@@ -1552,15 +1745,6 @@ let BENCHMARKS = [
         tags: ["RexBench"]
     }),
     // Simple
-    new DefaultBenchmark({
-        name: "float-mm.c",
-        files: [
-            "./simple/float-mm.c.js"
-        ],
-        iterations: 15,
-        worstCaseCount: 2,
-        tags: ["Simple"]
-    }),
     new DefaultBenchmark({
         name: "hash-map",
         files: [
@@ -1707,7 +1891,6 @@ let BENCHMARKS = [
         ],
         iterations: defaultIterationCount * 3,
         worstCaseCount: defaultWorstCaseCount * 3,
-        benchmarkClass: AsyncBenchmark,
         tags: ["Proxy",]
     }),
     new AsyncBenchmark({
@@ -1717,7 +1900,6 @@ let BENCHMARKS = [
             "./proxy/vue-bundle.js",
             "./proxy/vue-benchmark.js",
         ],
-        benchmarkClass: AsyncBenchmark,
         tags: ["Proxy",]
     }),
     // Class fields
@@ -1771,57 +1953,92 @@ let BENCHMARKS = [
         tags: ["Generators",]
     }),
     // Wasm
-    new WasmBenchmark({
+    new WasmEMCCBenchmark({
         name: "HashSet-wasm",
         files: [
-            "./wasm/HashSet.js"
+            "./wasm/HashSet/build/HashSet.js",
+            "./wasm/HashSet/benchmark.js"
         ],
         preload: {
-            wasmBinary: "./wasm/HashSet.wasm"
+            wasmBinary: "./wasm/HashSet/build/HashSet.wasm"
         },
+        iterations: 50,
         tags: ["Wasm"]
     }),
-    new WasmBenchmark({
+    new WasmEMCCBenchmark({
         name: "tsf-wasm",
         files: [
-            "./wasm/tsf.js"
+            "./wasm/TSF/build/tsf.js",
+            "./wasm/TSF/benchmark.js",
         ],
         preload: {
-            wasmBinary: "./wasm/tsf.wasm"
+            wasmBinary: "./wasm/TSF/build/tsf.wasm"
         },
+        iterations: 50,
         tags: ["Wasm"]
     }),
-    new WasmBenchmark({
+    new WasmEMCCBenchmark({
         name: "quicksort-wasm",
         files: [
-            "./wasm/quicksort.js"
+            "./wasm/quicksort/build/quicksort.js",
+            "./wasm/quicksort/benchmark.js",
         ],
         preload: {
-            wasmBinary: "./wasm/quicksort.wasm"
+            wasmBinary: "./wasm/quicksort/build/quicksort.wasm"
         },
+        iterations: 50,
         tags: ["Wasm"]
     }),
-    new WasmBenchmark({
+    new WasmEMCCBenchmark({
         name: "gcc-loops-wasm",
         files: [
-            "./wasm/gcc-loops.js"
+            "./wasm/gcc-loops/build/gcc-loops.js",
+            "./wasm/gcc-loops/benchmark.js",
         ],
         preload: {
-            wasmBinary: "./wasm/gcc-loops.wasm"
+            wasmBinary: "./wasm/gcc-loops/build/gcc-loops.wasm"
         },
+        iterations: 50,
         tags: ["Wasm"]
     }),
-    new WasmBenchmark({
+    new WasmEMCCBenchmark({
         name: "richards-wasm",
         files: [
-            "./wasm/richards.js"
+            "./wasm/richards/build/richards.js",
+            "./wasm/richards/benchmark.js"
         ],
         preload: {
-            wasmBinary: "./wasm/richards.wasm"
+            wasmBinary: "./wasm/richards/build/richards.wasm"
         },
+        iterations: 50,
         tags: ["Wasm"]
     }),
-    new WasmBenchmark({
+    new WasmEMCCBenchmark({
+        name: "sqlite3-wasm",
+        files: [
+            "./sqlite3/benchmark.js",
+            "./sqlite3/build/jswasm/speedtest1.js",
+        ],
+        preload: {
+            wasmBinary: "./sqlite3/build/jswasm/speedtest1.wasm"
+        },
+        iterations: 30,
+        worstCaseCount: 2,
+        tags: ["Wasm"]
+    }),
+    new WasmEMCCBenchmark({
+        name: "Dart-flute-wasm",
+        files: [
+            "./Dart/benchmark.js",
+        ],
+        preload: {
+            wasmBinary: "./Dart/build/flute.dart2wasm.wasm"
+        },
+        iterations: 15,
+        worstCaseCount: 2,
+        tags: ["Wasm"],
+    }),
+    new WasmLegacyBenchmark({
         name: "tfjs-wasm",
         files: [
             "./wasm/tfjs-model-helpers.js",
@@ -1841,7 +2058,7 @@ let BENCHMARKS = [
         deterministicRandom: true,
         tags: ["Wasm"]
     }),
-    new WasmBenchmark({
+    new WasmLegacyBenchmark({
         name: "tfjs-wasm-simd",
         files: [
             "./wasm/tfjs-model-helpers.js",
@@ -1861,28 +2078,18 @@ let BENCHMARKS = [
         deterministicRandom: true,
         tags: ["Wasm"]
     }),
-    new WasmBenchmark({
+    new WasmEMCCBenchmark({
         name: "argon2-wasm",
         files: [
-            "./wasm/argon2-bundle.js",
-            "./wasm/argon2.js",
-            "./wasm/argon2-benchmark.js"
+            "./wasm/argon2/build/argon2.js",
+            "./wasm/argon2/benchmark.js",
         ],
         preload: {
-            argon2WasmBlob: "./wasm/argon2.wasm",
+            wasmBinary: "./wasm/argon2/build/argon2.wasm"
         },
-        tags: ["Wasm"]
-    }),
-    new WasmBenchmark({
-        name: "argon2-wasm-simd",
-        files: [
-            "./wasm/argon2-bundle.js",
-            "./wasm/argon2.js",
-            "./wasm/argon2-benchmark.js"
-        ],
-        preload: {
-            argon2WasmSimdBlob: "./wasm/argon2-simd.wasm",
-        },
+        iterations: 30,
+        worstCaseCount: 3,
+        deterministicRandom: true,
         tags: ["Wasm"]
     }),
     // WorkerTests
@@ -1941,20 +2148,34 @@ let BENCHMARKS = [
         tags: ["WSL"]
     }),
     // 8bitbench
-    new WasmBenchmark({
+    new WasmEMCCBenchmark({
         name: "8bitbench-wasm",
         files: [
-            "./8bitbench/lib/fast-text-encoding-1.0.3/text.js",
-            "./8bitbench/rust/pkg/emu_bench.js",
-            "./8bitbench/js3harness.js"
+            "./8bitbench/build/lib/fast-text-encoding-1.0.3/text.js",
+            "./8bitbench/build/rust/pkg/emu_bench.js",
+            "./8bitbench/benchmark.js",
         ],
         preload: {
-            wasmBinary: "./8bitbench/rust/pkg/emu_bench_bg.wasm.release",
-            romBinary: "./8bitbench/assets/program.bin"
+            wasmBinary: "./8bitbench/build/rust/pkg/emu_bench_bg.wasm",
+            romBinary: "./8bitbench/build/assets/program.bin"
         },
-        async: true,
+        iterations: 15,
+        worstCaseCount: 2,
         tags: ["Wasm"]
-    })
+    }),
+    // zlib-wasm
+    new WasmEMCCBenchmark({
+        name: "zlib-wasm",
+        files: [
+            "./wasm/zlib/build/zlib.js",
+            "./wasm/zlib/benchmark.js",
+        ],
+        preload: {
+            wasmBinary: "./wasm/zlib/build/zlib.wasm",
+        },
+        iterations: 40,
+        tags: ["Wasm"]
+    }),
 ];
 
 // LuaJSFight tests
@@ -2071,7 +2292,7 @@ function enableBenchmarksByTag(tag)
 
 function processTestList(testList)
 {
-    const benchmarkNames = [];
+    let benchmarkNames = [];
 
     if (testList instanceof Array)
         benchmarkNames = testList;
