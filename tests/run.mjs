@@ -84,6 +84,8 @@ async function testEnd2End() {
         console.log(`JetStream PREPARE ${url}`);
         await driver.get(url);
         await driver.executeAsyncScript((callback) => {
+            // callback() is explicitly called without the default event
+            // as argument to avoid serialization issues with chromedriver.
             globalThis.addEventListener("JetStreamReady", () => callback());
             // We might not get a chance to install the on-ready listener, thus
             // we also check if the runner is ready synchronously.
