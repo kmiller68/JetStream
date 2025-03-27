@@ -467,7 +467,7 @@ class Driver {
     }
 
     async initialize() {
-        window.addEventListener("error", (e) => this.pushError(benchmark, e.error));
+        window.addEventListener("error", (e) => this.pushError("driver startup", e.error));
         await this.prefetchResourcesForBrowser();
         await this.fetchResources();
         this.prepareToRun();
@@ -551,20 +551,14 @@ class Driver {
 
     resultsObjectOld()
     {
-        let testResults = {};
+        let results = {};
         for (const benchmark of this.benchmarks) {
             const subResults = {}
             const subScores = benchmark.subScores();
             for (const name in subScores) {
-                subResults[name] = {
-                    "metrics": {
-                        "Time": {
-                            "current": [toTimeValue(subScores[name])]
-                        }
-                    }
-                };
+                subResults[name] = {"metrics": {"Time": {"current": [toTimeValue(subScores[name])]}}};
             }
-            testResults[benchmark.name] = {
+            results[benchmark.name] = {
                 "metrics" : {
                     "Score" : {"current" : [benchmark.score]},
                     "Time": ["Geometric"],
@@ -573,14 +567,7 @@ class Driver {
             };
         }
 
-        const results = {
-            "JetStream3.0": {
-                "metrics" : {
-                    "Score" : ["Geometric"]
-                },
-                "tests" : testResults
-            }
-        };
+        results = {"JetStream3.0": {"metrics" : {"Score" : ["Geometric"]}, "tests" : results}};
         return results;
     }
 
