@@ -98,6 +98,7 @@ async function testEnd2End() {
         console.error(e);
         throw e;
     } finally {
+        driver.close();
         driver.quit();
         server.close();
     }
@@ -110,23 +111,38 @@ async function benchmarkResults(driver) {
         globalThis.JetStream.start();
         callback();
     });
-    await new Promise(resolve => pollIncrementalResults(driver, resolve));
-    const resultString = await driver.executeScript(() => {
-        return JSON.stringify(globalThis.JetStream.resultsObject());
+
+    await new Promise((resolve, reject) => pollResultsUntilDone(driver, resolve, reject));
+    const resultsJSON = await driver.executeScript(() => {
+        return globalThis.JetStream.resultsJSON();
     });
-    return  JSON.parse(resultString);
+    return JSON.parse(resultsJSON);
+}
+
+class JetStreamTestError extends Error {
+    constructor(errors) {
+        super(`Tests failed: ${errors.map(e => e.name).join(", ")}`)
+        this.errors = errors
+    }
+
 }
 
 const UPDATE_INTERVAL = 250;
-async function pollIncrementalResults(driver, resolve) {
+async function pollResultsUntilDone(driver, resolve, reject) {
+    const previousResults = new Set();
     const intervalId = setInterval(async function logResult()  {
-        const {done, results} = await driver.executeScript(() => {
+        const {done, errors, resultsJSON} = await driver.executeScript(() => {
             return {
                 done: globalThis.JetStream.isDone,
-                results: JSON.stringify(globalThis.JetStream.drainIncrementalResults()),
+                errors: globalThis.JetStream.errors,
+                resultsJSON: JSON.stringify(globalThis.JetStream.resultsObjectNew()),
             };
         });
-        JSON.parse(results).forEach(logIncrementalResult);
+        if (errors.length) {
+            clearInterval(intervalId);
+            reject(new JetStreamTestError(errors));
+        }
+        logIncrementalResult(previousResults, JSON.parse(resultsJSON))
         if (done) {
             clearInterval(intervalId);
             resolve()
@@ -134,8 +150,14 @@ async function pollIncrementalResults(driver, resolve) {
     }, UPDATE_INTERVAL)
 }
 
-function logIncrementalResult(benchmarkResult) {
-    console.log(benchmarkResult.name, benchmarkResult.results)
+function logIncrementalResult(previousResults, benchmarkResults) {
+    console.log(benchmarkResults)
+    for (const [testName, testResults] of Object.entries(benchmarkResults)) {
+        if (previousResults.has(testName))
+            continue;
+        console.log(testName, testResults);
+        previousResults.add(testName);
+    }
 }
 
 setImmediate(testEnd2End);

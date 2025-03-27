@@ -240,7 +240,7 @@ class Driver {
     constructor() {
         this.isReady = false;
         this.isDone = false;
-        this.incrementalResults = [];
+        this.errors = [];
         this.benchmarks = [];
         this.blobDataCache = { };
         this.loadCache = { };
@@ -276,7 +276,7 @@ class Driver {
             try {
                 await benchmark.run();
             } catch(e) {
-                JetStream.reportError(benchmark);
+                this.reportError(benchmark, e);
                 throw e;
             }
 
@@ -284,13 +284,6 @@ class Driver {
             console.log(benchmark.name)
 
             if (isInBrowser) {
-                this.incrementalResults.push({
-                    name: benchmark.name,
-                    results: {
-                        Score: benchmark.score,
-                        ...benchmark.subScores(),
-                    }
-                });
                 const cache = JetStream.blobDataCache;
                 for (const file of benchmark.plan.files) {
                     const blobData = cache[file];
@@ -345,17 +338,12 @@ class Driver {
         this.reportScoreToRunBenchmarkRunner();
         this.dumpJSONResultsIfNeeded();
         this.isDone = true;
+
         if (isInBrowser) {
             globalThis.dispatchEvent(new CustomEvent("JetStreamDone", {
-                detail: this.resultsObject()
+                detail: this.resultsObjectNew()
             }));
         }
-    }
-
-    drainIncrementalResults() {
-        const currentIncrementalResults = this.incrementalResults;
-        this.incrementalResults = [];
-        return currentIncrementalResults
     }
 
     runCode(string)
@@ -455,16 +443,31 @@ class Driver {
         });
     }
 
-    reportError(benchmark)
+    reportError(benchmark, error)
     {
+        this.pushError(benchmark.name, error);
+
         if (!isInBrowser)
             return;
 
-        for (const id of benchmark.scoreIdentifiers())
+        for (const id of benchmark.scoreIdentifiers()) {
             document.getElementById(id).innerHTML = "error";
+            const benchmarkResultsUI = document.getElementById(`benchmark-${benchmark.name}`);
+            benchmarkResultsUI.classList.remove("benchmark-running");
+            benchmarkResultsUI.classList.add("benchmark-error");
+        }
+    }
+
+    pushError(name, error) {
+        this.errors.push({
+            benchmark: name,
+            error: error.toString(),
+            stack: error.stack
+        });
     }
 
     async initialize() {
+        window.addEventListener("error", (e) => this.pushError(benchmark, e.error));
         await this.prefetchResourcesForBrowser();
         await this.fetchResources();
         this.prepareToRun();
@@ -525,16 +528,43 @@ class Driver {
         }
     }
 
-    resultsObject()
+    resultsObject(newStyle = false) {
+        if (newStyle)
+            return this.resultsObjectNew();
+        return this.resultsObjectOld();
+    }
+
+    resultsObjectNew() {
+        const results = {__proto__: null};
+        for (const benchmark of this.benchmarks) {
+            if (!benchmark.isDone)
+                continue;
+            results[benchmark.name] = {
+                Score: benchmark.score,
+                ...benchmark.subScores(),
+
+            };
+        }
+        return results;
+    }
+
+
+    resultsObjectOld()
     {
-        let results = {};
+        let testResults = {};
         for (const benchmark of this.benchmarks) {
             const subResults = {}
             const subScores = benchmark.subScores();
             for (const name in subScores) {
-                subResults[name] = {"metrics": {"Time": {"current": [toTimeValue(subScores[name])]}}};
+                subResults[name] = {
+                    "metrics": {
+                        "Time": {
+                            "current": [toTimeValue(subScores[name])]
+                        }
+                    }
+                };
             }
-            results[benchmark.name] = {
+            testResults[benchmark.name] = {
                 "metrics" : {
                     "Score" : {"current" : [benchmark.score]},
                     "Time": ["Geometric"],
@@ -543,9 +573,15 @@ class Driver {
             };
         }
 
-        results = {"JetStream3.0": {"metrics" : {"Score" : ["Geometric"]}, "tests" : results}};
+        const results = {
+            "JetStream3.0": {
+                "metrics" : {
+                    "Score" : ["Geometric"]
+                },
+                "tests" : testResults
+            }
+        };
         return results;
-
     }
 
     resultsJSON()
@@ -595,9 +631,12 @@ class Benchmark {
         this.scripts = null;
 
         this._resourcesPromise = null;
+        this._isDone = false;
     }
 
     get name() { return this.plan.name; }
+
+    get isDone() { return this._isDone; }
 
     get runnerCode() {
         return `
@@ -660,6 +699,8 @@ class Benchmark {
     }
 
     async run() {
+        if (this.isDone)
+            throw new Error(`Cannot run Benchmark ${this.name} twice`);
         let code;
         if (isInBrowser)
             code = "";
@@ -777,6 +818,7 @@ class Benchmark {
         const results = await promise;
 
         this.endTime = performance.now();
+        this._isDone = true;
 
         if (RAMification) {
             const memoryFootprint = MemoryFootprint();
