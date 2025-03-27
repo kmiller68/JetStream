@@ -1,4 +1,4 @@
-// $ emcc -o richards.html -O2 -s TOTAL_MEMORY=83886080 -g1 -s "EXPORTED_FUNCTIONS=[_setup, _scheduleIter, _validate]" ./richards.c
+// $ emcc -o richards.html -O2 -s TOTAL_MEMORY=83886080 -g1 -s "EXPORTED_FUNCTIONS=[_setup, _scheduleIter, _getQpktcount, _getHoldcount]" ./richards.c
 
 #include <emscripten.h>
 
@@ -14,12 +14,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-#if 1
-#define                Count           10000*100
-#define                Qpktcountval    2326410
-#define                Holdcountval     930563
-#endif
 
 #define                TRUE            1
 #define                FALSE           0
@@ -335,11 +329,11 @@ void append(struct packet *pkt, struct packet *ptr)
     ptr->p_link = pkt;
 }
 
-void setup()
+void setup(int count)
 {
     struct packet *wkq = 0;
 
-    createtask(I_IDLE, 0, wkq, S_RUN, idlefn, 1, Count);
+    createtask(I_IDLE, 0, wkq, S_RUN, idlefn, 1, count);
 
     wkq = pkt(0, 0, K_WORK);
     wkq = pkt(wkq, 0, K_WORK);
@@ -370,7 +364,12 @@ void setup()
     layout = 0;
 }
 
-int validate()
+int getQpktcount()
 {
-    return qpktcount == Qpktcountval && holdcount == Holdcountval;
+    return qpktcount;
+}
+
+int getHoldcount()
+{
+    return holdcount;
 }

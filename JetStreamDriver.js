@@ -471,7 +471,7 @@ class Driver {
         this.isReady = true;
         if (isInBrowser) {
             globalThis.dispatchEvent(new Event("JetStreamReady"));
-            if (shouldReport) {
+            if (typeof(globalThis.startDelay) !== "undefined") {
                 setTimeout(() => this.start(), globalThis.startDelay);
             }
         }
@@ -1080,6 +1080,8 @@ class AsyncBenchmark extends DefaultBenchmark {
         return `
         async function doRun() {
             let __benchmark = new Benchmark();
+            if (__benchmark.init)
+                await __benchmark.init();
             let results = [];
             let benchmarkName = "${this.name}";
 
@@ -1146,6 +1148,7 @@ class WasmEMCCBenchmark extends AsyncBenchmark {
         return str;
     }
 
+    // FIXME: Why is this part of the runnerCode and not prerunCode?
     get runnerCode() {
         let str = `function loadBlob(key, path, andThen) {`;
 
@@ -1967,6 +1970,7 @@ const BENCHMARKS = [
         preload: {
             wasmBinary: "./wasm/HashSet/build/HashSet.wasm"
         },
+        iterations: 50,
         testGroup: WasmGroup
     }),
     new WasmEMCCBenchmark({
@@ -1978,8 +1982,7 @@ const BENCHMARKS = [
         preload: {
             wasmBinary: "./wasm/TSF/build/tsf.wasm"
         },
-        iterations: 15,
-        worstCaseCount: 2,
+        iterations: 50,
         testGroup: WasmGroup
     }),
     new WasmEMCCBenchmark({
@@ -2015,8 +2018,7 @@ const BENCHMARKS = [
         preload: {
             wasmBinary: "./wasm/richards/build/richards.wasm"
         },
-        iterations: 20,
-        worstCaseCount: 2,
+        iterations: 50,
         testGroup: WasmGroup
     }),
     new WasmEMCCBenchmark({
@@ -2028,9 +2030,21 @@ const BENCHMARKS = [
         preload: {
             wasmBinary: "./sqlite3/build/jswasm/speedtest1.wasm"
         },
-        iterations: 15,
+        iterations: 30,
         worstCaseCount: 2,
         testGroup: WasmGroup
+    }),
+    new WasmEMCCBenchmark({
+        name: "Dart-flute-wasm",
+        files: [
+            "./Dart/benchmark.js",
+        ],
+        preload: {
+            wasmBinary: "./Dart/build/flute.dart2wasm.wasm"
+        },
+        iterations: 15,
+        worstCaseCount: 2,
+        testGroup: WasmGroup,
     }),
     new WasmLegacyBenchmark({
         name: "tfjs-wasm",
@@ -2072,29 +2086,19 @@ const BENCHMARKS = [
         deterministicRandom: true,
         testGroup: WasmGroup
     }),
-    new WasmLegacyBenchmark({
+    new WasmEMCCBenchmark({
         name: "argon2-wasm",
         files: [
-            "./wasm/argon2-bundle.js",
-            "./wasm/argon2.js",
-            "./wasm/argon2-benchmark.js"
+            "./wasm/argon2/build/argon2.js",
+            "./wasm/argon2/benchmark.js",
         ],
         preload: {
-            argon2WasmBlob: "./wasm/argon2.wasm",
+            wasmBinary: "./wasm/argon2/build/argon2.wasm"
         },
-        testGroup: WasmGroup
-    }),
-    new WasmLegacyBenchmark({
-        name: "argon2-wasm-simd",
-        files: [
-            "./wasm/argon2-bundle.js",
-            "./wasm/argon2.js",
-            "./wasm/argon2-benchmark.js"
-        ],
-        preload: {
-            argon2WasmSimdBlob: "./wasm/argon2-simd.wasm",
-        },
-        testGroup: WasmGroup
+        iterations: 30,
+        worstCaseCount: 3,
+        testGroup: WasmGroup,
+        deterministicRandom: true,
     }),
     // WorkerTests
     new AsyncBenchmark({
@@ -2152,20 +2156,34 @@ const BENCHMARKS = [
         testGroup: WSLGroup
     }),
     // 8bitbench
-    new WasmLegacyBenchmark({
+    new WasmEMCCBenchmark({
         name: "8bitbench-wasm",
         files: [
-            "./8bitbench/lib/fast-text-encoding-1.0.3/text.js",
-            "./8bitbench/rust/pkg/emu_bench.js",
-            "./8bitbench/js3harness.js"
+            "./8bitbench/build/lib/fast-text-encoding-1.0.3/text.js",
+            "./8bitbench/build/rust/pkg/emu_bench.js",
+            "./8bitbench/benchmark.js",
         ],
         preload: {
-            wasmBinary: "./8bitbench/rust/pkg/emu_bench_bg.wasm.release",
-            romBinary: "./8bitbench/assets/program.bin"
+            wasmBinary: "./8bitbench/build/rust/pkg/emu_bench_bg.wasm",
+            romBinary: "./8bitbench/build/assets/program.bin"
         },
-        async: true,
+        iterations: 15,
+        worstCaseCount: 2,
         testGroup: WasmGroup
-    })
+    }),
+    // zlib-wasm
+    new WasmEMCCBenchmark({
+        name: "zlib-wasm",
+        files: [
+            "./wasm/zlib/build/zlib.js",
+            "./wasm/zlib/benchmark.js",
+        ],
+        preload: {
+            wasmBinary: "./wasm/zlib/build/zlib.wasm",
+        },
+        iterations: 40,
+        testGroup: WasmGroup
+    }),
 ];
 
 // LuaJSFight tests
