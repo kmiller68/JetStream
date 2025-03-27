@@ -100,7 +100,6 @@ async function testEnd2End() {
         console.error(e);
         throw e;
     } finally {
-        driver.close();
         driver.quit();
         server.close();
     }
