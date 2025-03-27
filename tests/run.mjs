@@ -121,8 +121,8 @@ async function benchmarkResults(driver) {
 
 class JetStreamTestError extends Error {
     constructor(errors) {
-        super(`Tests failed: ${errors.map(e => e.name).join(", ")}`)
-        this.errors = errors
+        super(`Tests failed: ${errors.map(e => e.name).join(", ")}`);
+        this.errors = errors;
     }
 
 }
@@ -142,16 +142,15 @@ async function pollResultsUntilDone(driver, resolve, reject) {
             clearInterval(intervalId);
             reject(new JetStreamTestError(errors));
         }
-        logIncrementalResult(previousResults, JSON.parse(resultsJSON))
+        logIncrementalResult(previousResults, JSON.parse(resultsJSON));
         if (done) {
             clearInterval(intervalId);
-            resolve()
+            resolve();
         }
     }, UPDATE_INTERVAL)
 }
 
 function logIncrementalResult(previousResults, benchmarkResults) {
-    console.log(benchmarkResults)
     for (const [testName, testResults] of Object.entries(benchmarkResults)) {
         if (previousResults.has(testName))
             continue;
