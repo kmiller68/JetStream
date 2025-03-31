@@ -155,7 +155,6 @@ function jsvuOSName() {
   const osArch = () => {
       switch (os.arch()) {
           case "x64": return "64";
-          case "ia32": return "32";
           case "arm64": return "64arm";
           default: throw new Error("Unsupported architecture");
       }
