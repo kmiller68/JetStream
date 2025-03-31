@@ -533,7 +533,7 @@ class Driver {
             return this.runBenchmarkResultsObject();
         if (format != "simple")
             throw Error(`Unknown result format '${format}'`);
-        return simpleResultsObject();
+        return this.simpleResultsObject();
     }
 
     runBenchmarkResultsObject()
