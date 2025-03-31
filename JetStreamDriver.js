@@ -341,7 +341,7 @@ class Driver {
 
         if (isInBrowser) {
             globalThis.dispatchEvent(new CustomEvent("JetStreamDone", {
-                detail: this.resultsObjectNew()
+                detail: this.resultsObject()
             }));
         }
     }
@@ -528,28 +528,30 @@ class Driver {
         }
     }
 
-    resultsObject(newStyle = false) {
-        if (newStyle)
-            return this.resultsObjectNew();
-        return this.resultsObjectOld();
-    }
-
-    resultsObjectNew() {
+    resultsObject(format = "run-benchmark") {
+        if (format == "run-benchmark")
+            return this.runBenchmarkResultsObject();
+        if (format != "simple")
+            throw Error(`Unknown result format '${format}'`);
         const results = {__proto__: null};
         for (const benchmark of this.benchmarks) {
             if (!benchmark.isDone)
                 continue;
-            results[benchmark.name] = {
-                Score: benchmark.score,
-                ...benchmark.subScores(),
+            if (!benchmark.isSuccess) {
+                results[benchmark.name] = "FAILED";
+            } else {
+                results[benchmark.name] = {
+                    Score: benchmark.score,
+                    ...benchmark.subScores(),
 
-            };
+                };
+            }
         }
         return results;
     }
 
 
-    resultsObjectOld()
+    runBenchmarkResultsObject()
     {
         let results = {};
         for (const benchmark of this.benchmarks) {
@@ -571,9 +573,9 @@ class Driver {
         return results;
     }
 
-    resultsJSON()
+    resultsJSON(format = "run-benchmark")
     {
-        return JSON.stringify(this.resultsObject());
+        return JSON.stringify(this.resultsObject(format));
     }
 
     dumpJSONResultsIfNeeded()
@@ -606,6 +608,15 @@ class Driver {
     }
 };
 
+const BenchmarkState = Object.freeze({
+    READY: "READY",
+    SETUP: "SETUP",
+    RUNNING: "RUNNING",
+    FINALIZE: "FINALIZE",
+    ERROR: "ERROR",
+    DONE: "DONE"
+})
+
 class Benchmark {
     constructor(plan)
     {
@@ -618,12 +629,15 @@ class Benchmark {
         this.scripts = null;
 
         this._resourcesPromise = null;
-        this._isDone = false;
+        this._state = BenchmarkState.READY;
     }
 
     get name() { return this.plan.name; }
 
-    get isDone() { return this._isDone; }
+    get isDone() {
+        return this._state == BenchmarkState.DONE || this._state == BenchmarkState.ERROR;
+    }
+    get isSuccess() { return this._state = BenchmarkState.DONE; }
 
     get runnerCode() {
         return `
@@ -688,6 +702,7 @@ class Benchmark {
     async run() {
         if (this.isDone)
             throw new Error(`Cannot run Benchmark ${this.name} twice`);
+        this._state = BenchmarkState.PREPARE;
         let code;
         if (isInBrowser)
             code = "";
@@ -796,16 +811,19 @@ class Benchmark {
 
         let magicFrame;
         try {
+            this._state = BenchmarkState.RUNNING;
             magicFrame = JetStream.runCode(code);
         } catch(e) {
+            this._state = BenchmarkState.ERROR;
             console.log("Error in runCode: ", e);
             console.log(e.stack)
             throw e;
+        } finally {
+            this._state = BenchmarkState.FINALIZE;
         }
         const results = await promise;
 
         this.endTime = performance.now();
-        this._isDone = true;
 
         if (RAMification) {
             const memoryFootprint = MemoryFootprint();
@@ -814,6 +832,8 @@ class Benchmark {
         }
 
         this.processResults(results);
+        this._state = BenchmarkState.DONE;
+
         if (isInBrowser)
             magicFrame.contentDocument.close();
         else if (isD8)

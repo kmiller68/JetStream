@@ -136,7 +136,7 @@ async function pollResultsUntilDone(driver, resolve, reject) {
             return {
                 done: globalThis.JetStream.isDone,
                 errors: globalThis.JetStream.errors,
-                resultsJSON: JSON.stringify(globalThis.JetStream.resultsObjectNew()),
+                resultsJSON: JSON.stringify(globalThis.JetStream.resultsObject("simple")),
             };
         });
         if (errors.length) {
