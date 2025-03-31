@@ -533,23 +533,8 @@ class Driver {
             return this.runBenchmarkResultsObject();
         if (format != "simple")
             throw Error(`Unknown result format '${format}'`);
-        const results = {__proto__: null};
-        for (const benchmark of this.benchmarks) {
-            if (!benchmark.isDone)
-                continue;
-            if (!benchmark.isSuccess) {
-                results[benchmark.name] = "FAILED";
-            } else {
-                results[benchmark.name] = {
-                    Score: benchmark.score,
-                    ...benchmark.subScores(),
-
-                };
-            }
-        }
-        return results;
+        return simpleResultsObject();
     }
-
 
     runBenchmarkResultsObject()
     {
@@ -570,6 +555,24 @@ class Driver {
         }
 
         results = {"JetStream3.0": {"metrics" : {"Score" : ["Geometric"]}, "tests" : results}};
+        return results;
+    }
+
+    simpleResultsObject() {
+        const results = {__proto__: null};
+        for (const benchmark of this.benchmarks) {
+            if (!benchmark.isDone)
+                continue;
+            if (!benchmark.isSuccess) {
+                results[benchmark.name] = "FAILED";
+            } else {
+                results[benchmark.name] = {
+                    Score: benchmark.score,
+                    ...benchmark.subScores(),
+
+                };
+            }
+        }
         return results;
     }
 
