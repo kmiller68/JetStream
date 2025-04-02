@@ -1209,7 +1209,7 @@ class WSLBenchmark extends Benchmark {
             const benchmarkName = "${this.name}";
             let results = [];
             {
-                const markLabel = benchmarkName + "-stlib";
+                const markLabel = benchmarkName + "-stdlib";
                 const startMark = performance.mark(markLabel);
 
                 let start = performance.now();
