@@ -239,6 +239,8 @@ const fileLoader = (function() {
 class Driver {
     constructor() {
         this.isReady = false;
+        this.isDone = false;
+        this.errors = [];
         this.benchmarks = [];
         this.blobDataCache = { };
         this.loadCache = { };
@@ -274,11 +276,12 @@ class Driver {
             try {
                 await benchmark.run();
             } catch(e) {
-                JetStream.reportError(benchmark);
+                this.reportError(benchmark, e);
                 throw e;
             }
 
             benchmark.updateUIAfterRun();
+            console.log(benchmark.name)
 
             if (isInBrowser) {
                 const cache = JetStream.blobDataCache;
@@ -334,6 +337,8 @@ class Driver {
 
         this.reportScoreToRunBenchmarkRunner();
         this.dumpJSONResultsIfNeeded();
+        this.isDone = true;
+
         if (isInBrowser) {
             globalThis.dispatchEvent(new CustomEvent("JetStreamDone", {
                 detail: this.resultsObject()
@@ -438,16 +443,32 @@ class Driver {
         });
     }
 
-    reportError(benchmark)
+    reportError(benchmark, error)
     {
+        this.pushError(benchmark.name, error);
+
         if (!isInBrowser)
             return;
 
-        for (const id of benchmark.scoreIdentifiers())
+        for (const id of benchmark.scoreIdentifiers()) {
             document.getElementById(id).innerHTML = "error";
+            const benchmarkResultsUI = document.getElementById(`benchmark-${benchmark.name}`);
+            benchmarkResultsUI.classList.remove("benchmark-running");
+            benchmarkResultsUI.classList.add("benchmark-error");
+        }
+    }
+
+    pushError(name, error) {
+        this.errors.push({
+            benchmark: name,
+            error: error.toString(),
+            stack: error.stack
+        });
     }
 
     async initialize() {
+        if (isInBrowser)
+            window.addEventListener("error", (e) => this.pushError("driver startup", e.error));
         await this.prefetchResourcesForBrowser();
         await this.fetchResources();
         this.prepareToRun();
@@ -508,7 +529,18 @@ class Driver {
         }
     }
 
-    resultsObject()
+    resultsObject(format = "run-benchmark") {
+        switch(format) {
+            case "run-benchmark":
+                return this.runBenchmarkResultsObject();
+            case "simple":
+                return this.simpleResultsObject();
+            default:
+                throw Error(`Unknown result format '${format}'`);
+        }
+    }
+
+    runBenchmarkResultsObject()
     {
         let results = {};
         for (const benchmark of this.benchmarks) {
@@ -528,12 +560,29 @@ class Driver {
 
         results = {"JetStream3.0": {"metrics" : {"Score" : ["Geometric"]}, "tests" : results}};
         return results;
-
     }
 
-    resultsJSON()
+    simpleResultsObject() {
+        const results = {__proto__: null};
+        for (const benchmark of this.benchmarks) {
+            if (!benchmark.isDone)
+                continue;
+            if (!benchmark.isSuccess) {
+                results[benchmark.name] = "FAILED";
+            } else {
+                results[benchmark.name] = {
+                    Score: benchmark.score,
+                    ...benchmark.subScores(),
+
+                };
+            }
+        }
+        return results;
+    }
+
+    resultsJSON(format = "run-benchmark")
     {
-        return JSON.stringify(this.resultsObject());
+        return JSON.stringify(this.resultsObject(format));
     }
 
     dumpJSONResultsIfNeeded()
@@ -566,6 +615,15 @@ class Driver {
     }
 };
 
+const BenchmarkState = Object.freeze({
+    READY: "READY",
+    SETUP: "SETUP",
+    RUNNING: "RUNNING",
+    FINALIZE: "FINALIZE",
+    ERROR: "ERROR",
+    DONE: "DONE"
+})
+
 class Benchmark {
     constructor(plan)
     {
@@ -575,9 +633,15 @@ class Benchmark {
         this.isAsync = !!plan.isAsync;
         this.scripts = null;
         this._resourcesPromise = null;
+        this._state = BenchmarkState.READY;
     }
 
     get name() { return this.plan.name; }
+
+    get isDone() {
+        return this._state == BenchmarkState.DONE || this._state == BenchmarkState.ERROR;
+    }
+    get isSuccess() { return this._state = BenchmarkState.DONE; }
 
     get runnerCode() {
         return `
@@ -640,6 +704,9 @@ class Benchmark {
     }
 
     async run() {
+        if (this.isDone)
+            throw new Error(`Cannot run Benchmark ${this.name} twice`);
+        this._state = BenchmarkState.PREPARE;
         let code;
         if (isInBrowser)
             code = "";
@@ -748,11 +815,15 @@ class Benchmark {
 
         let magicFrame;
         try {
+            this._state = BenchmarkState.RUNNING;
             magicFrame = JetStream.runCode(code);
         } catch(e) {
+            this._state = BenchmarkState.ERROR;
             console.log("Error in runCode: ", e);
             console.log(e.stack)
             throw e;
+        } finally {
+            this._state = BenchmarkState.FINALIZE;
         }
         const results = await promise;
 
@@ -765,6 +836,8 @@ class Benchmark {
         }
 
         this.processResults(results);
+        this._state = BenchmarkState.DONE;
+
         if (isInBrowser)
             magicFrame.contentDocument.close();
         else if (isD8)

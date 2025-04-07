@@ -312,6 +312,7 @@ a.button {
     background-image: none;
 }
 
+
 .benchmark-done h3, .benchmark-done h4, .benchmark-done .result, .benchmark-done label {
     background-color: transparent;
     background-image: none;
@@ -320,6 +321,16 @@ a.button {
     -moz-user-select: text;
     -ms-user-select: text;
     user-select: text;
+}
+
+.benchmark-error h4, .benchmark-error .result, .benchmark-error label {
+    color: #ff8686;
+    background-color: #ff8686;
+    background-image: none;
+}
+
+.benchmark-error h3 {
+    color: #ff8686;
 }
 
 .benchmark h3 {
