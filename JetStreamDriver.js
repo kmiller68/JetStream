@@ -467,7 +467,8 @@ class Driver {
     }
 
     async initialize() {
-        window.addEventListener("error", (e) => this.pushError("driver startup", e.error));
+        if (isInBrowser)
+            window.addEventListener("error", (e) => this.pushError("driver startup", e.error));
         await this.prefetchResourcesForBrowser();
         await this.fetchResources();
         this.prepareToRun();
@@ -529,11 +530,14 @@ class Driver {
     }
 
     resultsObject(format = "run-benchmark") {
-        if (format == "run-benchmark")
-            return this.runBenchmarkResultsObject();
-        if (format != "simple")
-            throw Error(`Unknown result format '${format}'`);
-        return this.simpleResultsObject();
+        switch(format) {
+            case "run-benchmark":
+                return this.runBenchmarkResultsObject();
+            case "simple":
+                return this.simpleResultsObject();
+            default:
+                throw Error(`Unknown result format '${format}'`);
+        }
     }
 
     runBenchmarkResultsObject()
