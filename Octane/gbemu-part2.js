@@ -9782,7 +9782,14 @@ var gameboy_rom='r+BPyZiEZwA+AeBPySAobeEq6gAgKlYj5WJv6SRmZjjhKuXqACDJ///////////
 setupGameboy();
 
 class Benchmark {
+    EXPECTED_RESULT_HASH = 0x1a2b3c4f;
     runIteration() {
         this.result = runGameboy();
+    }
+
+    validate() {
+      if (this.result != this.EXPECTED_RESULT_HASH)
+        throw new Error(`Got unexpected result hash ${this.result} instead of ${this.EXPECTED_RESULT_HASH}`)
+
     }
 }
