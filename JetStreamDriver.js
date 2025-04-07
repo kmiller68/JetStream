@@ -1207,6 +1207,7 @@ class WSLBenchmark extends Benchmark {
         return `
             let benchmark = new Benchmark();
             const benchmarkName = "${this.name}";
+
             let results = [];
             {
                 const markLabel = benchmarkName + "-stdlib";
