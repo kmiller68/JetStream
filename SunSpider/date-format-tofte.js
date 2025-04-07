@@ -309,9 +309,16 @@ function run() {
 
 
 class Benchmark {
+    EXPECTED_RESULT_HASH = 439041101;
+
     runIteration() {
         this.resultHash = 0x1a2b3c4d;
         for (let i = 0; i < 8; ++i)
             this.resultHash ^= run();
+    }
+
+    validate() {
+        if (this.resultHash != this.EXPECTED_RESULT_HASH)
+            throw new Error(`Got unexpected result hash ${this.resultHash} instead of ${this.EXPECTED_RESULT_HASH}`)
     }
 }
