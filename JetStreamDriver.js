@@ -1445,27 +1445,6 @@ class WasmLegacyBenchmark extends Benchmark {
     }
 };
 
-const TAGS = new Set([
-    "ARES",
-    "CDJS",
-    "CodeLoad",
-    "LuaJSFight",
-    "Octane",
-    "RexBench",
-    "SeaMonster",
-    "Simple",
-    "SunSpider",
-    "BigIntNoble",
-    "BigIntMisc",
-    "Proxy",
-    "ClassFields",
-    "Generators",
-    "Wasm",
-    "WorkerTests",
-    "WSL",
-    "WTB"
-]);
-
 let BENCHMARKS = [
     // ARES
     new DefaultBenchmark({
