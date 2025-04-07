@@ -1747,14 +1747,14 @@ let BENCHMARKS = [
         files: [
             "./simple/doxbee-promise.js",
         ],
-        tags: ["Simple",],
+        tags: ["Simple"],
     }),
     new AsyncBenchmark({
         name: "doxbee-async",
         files: [
             "./simple/doxbee-async.js",
         ],
-        tags: ["Simple",],
+        tags: ["Simple"],
     }),
     // SeaMonster
     new DefaultBenchmark({
@@ -1826,7 +1826,7 @@ let BENCHMARKS = [
         iterations: 4,
         worstCaseCount: 1,
         deterministicRandom: true,
-        tags: ["BigIntNoble",],
+        tags: ["BigIntNoble"],
     }),
     new AsyncBenchmark({
         name: "bigint-noble-secp256k1",
@@ -1836,7 +1836,7 @@ let BENCHMARKS = [
             "./bigint/noble-benchmark.js",
         ],
         deterministicRandom: true,
-        tags: ["BigIntNoble",],
+        tags: ["BigIntNoble"],
     }),
     new AsyncBenchmark({
         name: "bigint-noble-ed25519",
@@ -1847,7 +1847,7 @@ let BENCHMARKS = [
         ],
         iterations: 30,
         deterministicRandom: true,
-        tags: ["BigIntNoble",],
+        tags: ["BigIntNoble"],
     }),
     new DefaultBenchmark({
         name: "bigint-paillier",
@@ -1859,7 +1859,7 @@ let BENCHMARKS = [
         iterations: 10,
         worstCaseCount: 2,
         deterministicRandom: true,
-        tags: ["BigIntMisc",],
+        tags: ["BigIntMisc"],
     }),
     new DefaultBenchmark({
         name: "bigint-bigdenary",
@@ -1869,7 +1869,7 @@ let BENCHMARKS = [
         ],
         iterations: 160,
         worstCaseCount: 16,
-        tags: ["BigIntMisc",],
+        tags: ["BigIntMisc"],
     }),
     // Proxy
     new AsyncBenchmark({
@@ -1881,7 +1881,7 @@ let BENCHMARKS = [
         ],
         iterations: defaultIterationCount * 3,
         worstCaseCount: defaultWorstCaseCount * 3,
-        tags: ["Proxy",],
+        tags: ["Proxy"],
     }),
     new AsyncBenchmark({
         name: "proxy-vue",
@@ -1890,7 +1890,7 @@ let BENCHMARKS = [
             "./proxy/vue-bundle.js",
             "./proxy/vue-benchmark.js",
         ],
-        tags: ["Proxy",],
+        tags: ["Proxy"]
     }),
     // Class fields
     new DefaultBenchmark({
@@ -1898,14 +1898,14 @@ let BENCHMARKS = [
         files: [
             "./class-fields/raytrace-public-class-fields.js",
         ],
-        tags: ["ClassFields",],
+        tags: ["ClassFields"]
     }),
     new DefaultBenchmark({
         name: "raytrace-private-class-fields",
         files: [
             "./class-fields/raytrace-private-class-fields.js",
         ],
-        tags: ["ClassFields",],
+        tags: ["ClassFields"]
     }),
     // Generators
     new AsyncBenchmark({
@@ -1916,7 +1916,7 @@ let BENCHMARKS = [
         iterations: 80,
         worstCaseCount: 6,
         deterministicRandom: true,
-        tags: ["Generators",],
+        tags: ["Generators"]
     }),
     new DefaultBenchmark({
         name: "sync-fs",
@@ -1926,21 +1926,21 @@ let BENCHMARKS = [
         iterations: 80,
         worstCaseCount: 6,
         deterministicRandom: true,
-        tags: ["Generators",],
+        tags: ["Generators"]
     }),
     new DefaultBenchmark({
         name: "lazy-collections",
         files: [
             "./generators/lazy-collections.js",
         ],
-        tags: ["Generators",],
+        tags: ["Generators"]
     }),
     new DefaultBenchmark({
         name: "js-tokens",
         files: [
             "./generators/js-tokens.js",
         ],
-        tags: ["Generators",],
+        tags: ["Generators"]
     }),
     // Wasm
     new WasmEMCCBenchmark({
