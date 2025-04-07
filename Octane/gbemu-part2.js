@@ -9782,7 +9782,8 @@ var gameboy_rom='r+BPyZiEZwA+AeBPySAobeEq6gAgKlYj5WJv6SRmZjjhKuXqACDJ///////////
 setupGameboy();
 
 class Benchmark {
-    EXPECTED_RESULT_HASH = 0x1a2b3c4f;
+    EXPECTED_RESULT_HASH = 439041103;
+
     runIteration() {
         this.result = runGameboy();
     }
