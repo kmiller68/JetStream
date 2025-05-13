@@ -631,6 +631,7 @@ class Benchmark {
         this.tags = new Set(plan.tags);
         this.iterations = getIterationCount(plan);
         this.isAsync = !!plan.isAsync;
+        this.disabledByDefault = !!plan.disabledByDefault;
         this.scripts = null;
         this._resourcesPromise = null;
         this._state = BenchmarkState.READY;
@@ -1891,6 +1892,7 @@ let BENCHMARKS = [
         worstCaseCount: 1,
         deterministicRandom: true,
         tags: ["BigIntNoble"],
+        disabledByDefault: true,
     }),
     new AsyncBenchmark({
         name: "bigint-noble-secp256k1",
@@ -1901,6 +1903,7 @@ let BENCHMARKS = [
         ],
         deterministicRandom: true,
         tags: ["BigIntNoble"],
+        disabledByDefault: true,
     }),
     new AsyncBenchmark({
         name: "bigint-noble-ed25519",
@@ -1924,6 +1927,7 @@ let BENCHMARKS = [
         worstCaseCount: 2,
         deterministicRandom: true,
         tags: ["BigIntMisc"],
+        disabledByDefault: true,
     }),
     new DefaultBenchmark({
         name: "bigint-bigdenary",
@@ -1934,6 +1938,7 @@ let BENCHMARKS = [
         iterations: 160,
         worstCaseCount: 16,
         tags: ["BigIntMisc"],
+        disabledByDefault: true,
     }),
     // Proxy
     new AsyncBenchmark({
@@ -2321,17 +2326,28 @@ for (const benchmark of BENCHMARKS) {
 
 this.JetStream = new Driver();
 
+function enableBenchmarks(benchmarks, forceEnable = false)
+{
+    for (let benchmark of benchmarks) {
+        if (!forceEnable && benchmark.disabledByDefault)
+            return;
+
+        JetStream.addBenchmark(benchmark);
+    }
+}
+
 function enableBenchmarksByName(name)
 {
     const benchmark = benchmarksByName.get(name);
 
-    if (benchmark)
-        JetStream.addBenchmark(benchmark);
-    else
+    if (!benchmark)
         throw new Error(`Couldn't find benchmark named "${name}"`);
+
+    // We only use this for test lists.
+    JetStream.addBenchmark(benchmark);
 }
 
-function enableBenchmarksByTag(tag)
+function enableBenchmarksByTag(tag, forceEnable = false)
 {
     const benchmarks = benchmarksByTag.get(tag);
 
@@ -2340,8 +2356,12 @@ function enableBenchmarksByTag(tag)
         throw new Error(`Couldn't find tag named: ${tag}.\n Choices are ${validTags}`);
     }
 
-    for (let benchmark of benchmarks)
+    for (const benchmark of benchmarks) {
+        if (!forceEnable && benchmark.disabledByDefault)
+            continue;
+
         JetStream.addBenchmark(benchmark);
+    }
 }
 
 function processTestList(testList)
@@ -2353,9 +2373,10 @@ function processTestList(testList)
     else
         benchmarkNames = testList.split(/[\s,]/);
 
+    const forceEnable = true;
     for (const name of benchmarkNames) {
         if (benchmarksByTag.has(name))
-            enableBenchmarksByTag(name);
+            enableBenchmarksByTag(name, forceEnable);
         else
             enableBenchmarksByName(name);
     }
