@@ -33,6 +33,18 @@ class Benchmark {
                     behavior: "icu"
                 },
                 {
+                    name: "System.Collections.Concurrent.wasm",
+                    resolvedUrl: dllCollectionsConcurrentUrl,
+                    buffer: await fetchBin(dllCollectionsConcurrentUrl),
+                    behavior: "assembly"
+                },
+                {
+                    name: "System.Collections.wasm",
+                    resolvedUrl: dllCollectionsUrl,
+                    buffer: await fetchBin(dllCollectionsUrl),
+                    behavior: "assembly"
+                },
+                {
                     name: "System.ComponentModel.Primitives.wasm",
                     resolvedUrl: dllComponentModelPrimitivesUrl,
                     buffer: await fetchBin(dllComponentModelPrimitivesUrl),
@@ -57,6 +69,24 @@ class Benchmark {
                     behavior: "assembly"
                 },
                 {
+                    name: "System.IO.Pipelines.wasm",
+                    resolvedUrl: dllIOPipelinesUrl,
+                    buffer: await fetchBin(dllIOPipelinesUrl),
+                    behavior: "assembly"
+                },
+                {
+                    name: "System.Linq.wasm",
+                    resolvedUrl: dllLinqUrl,
+                    buffer: await fetchBin(dllLinqUrl),
+                    behavior: "assembly"
+                },
+                {
+                    name: "System.Memory.wasm",
+                    resolvedUrl: dllMemoryUrl,
+                    buffer: await fetchBin(dllMemoryUrl),
+                    behavior: "assembly"
+                },
+                {
                     name: "System.ObjectModel.wasm",
                     resolvedUrl: dllObjectModelUrl,
                     buffer: await fetchBin(dllObjectModelUrl),
@@ -72,6 +102,18 @@ class Benchmark {
                     name: "System.Runtime.InteropServices.JavaScript.wasm",
                     resolvedUrl: dllRuntimeInteropServicesJavaScriptUrl,
                     buffer: await fetchBin(dllRuntimeInteropServicesJavaScriptUrl),
+                    behavior: "assembly"
+                },
+                {
+                    name: "System.Text.Encodings.Web.wasm",
+                    resolvedUrl: dllTextEncodingsWebUrl,
+                    buffer: await fetchBin(dllTextEncodingsWebUrl),
+                    behavior: "assembly"
+                },
+                {
+                    name: "System.Text.Json.wasm",
+                    resolvedUrl: dllTextJsonUrl,
+                    buffer: await fetchBin(dllTextJsonUrl),
                     behavior: "assembly"
                 },
                 {

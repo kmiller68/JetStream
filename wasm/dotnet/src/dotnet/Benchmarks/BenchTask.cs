@@ -135,8 +135,9 @@ static partial class BenchInterop
     {
         task = name switch
         {
-            "StringTask" => new Sample.StringTask(),
             "ExceptionsTask" => new Sample.ExceptionsTask(),
+            "JsonTask" => new Sample.JsonTask(),
+            "StringTask" => new Sample.StringTask(),
             _ => throw new NotSupportedException($"Task {name} is not supported")
         };
 
