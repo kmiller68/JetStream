@@ -2263,87 +2263,25 @@ let BENCHMARKS = [
     }),
     // .NET
     new AsyncBenchmark({
-        name: "dotnet-interp-string",
+        name: "dotnet-interp",
         files: [
-            "./wasm/dotnet/string.js",
             "./wasm/dotnet/benchmark.js",
         ],
         preload: dotnetPreloads("interp"),
-        iterations: 20,
+        iterations: 2,
+        worstCaseCount: 1,
         tags: ["Wasm", "dotnet"]
     }),
     new AsyncBenchmark({
-        name: "dotnet-interp-json",
+        name: "dotnet-aot",
         files: [
-            "./wasm/dotnet/json.js",
-            "./wasm/dotnet/benchmark.js",
-        ],
-        preload: dotnetPreloads("interp"),
-        iterations: 20,
-        tags: ["Wasm", "dotnet"]
-    }),
-    new AsyncBenchmark({
-        name: "dotnet-interp-exceptions",
-        files: [
-            "./wasm/dotnet/exceptions.js",
-            "./wasm/dotnet/benchmark.js",
-        ],
-        preload: dotnetPreloads("interp"),
-        iterations: 10,
-        tags: ["Wasm", "dotnet"]
-    }),
-    new AsyncBenchmark({
-        name: "dotnet-interp-raytracer",
-        files: [
-            "./wasm/dotnet/raytracer.js",
-            "./wasm/dotnet/benchmark.js",
-        ],
-        preload: dotnetPreloads("interp"),
-        iterations: 7,
-        worstCaseCount: 2,
-        tags: ["Wasm", "dotnet"]
-    }),
-    new AsyncBenchmark({
-        name: "dotnet-aot-string",
-        files: [
-            "./wasm/dotnet/string.js",
             "./wasm/dotnet/benchmark.js",
         ],
         preload: dotnetPreloads("aot"),
-        iterations: 20,
+        iterations: 2,
+        worstCaseCount: 1,
         tags: ["Wasm", "dotnet"]
-    }),
-    new AsyncBenchmark({
-        name: "dotnet-aot-json",
-        files: [
-            "./wasm/dotnet/json.js",
-            "./wasm/dotnet/benchmark.js",
-        ],
-        preload: dotnetPreloads("aot"),
-        iterations: 20,
-        tags: ["Wasm", "dotnet"]
-    }),
-    new AsyncBenchmark({
-        name: "dotnet-aot-exceptions",
-        files: [
-            "./wasm/dotnet/exceptions.js",
-            "./wasm/dotnet/benchmark.js",
-        ],
-        preload: dotnetPreloads("aot"),
-        iterations: 10,
-        tags: ["Wasm", "dotnet"]
-    }),
-    new AsyncBenchmark({
-        name: "dotnet-aot-raytracer",
-        files: [
-            "./wasm/dotnet/raytracer.js",
-            "./wasm/dotnet/benchmark.js",
-        ],
-        preload: dotnetPreloads("aot"),
-        iterations: 7,
-        worstCaseCount: 2,
-        tags: ["Wasm", "dotnet"]
-    }),
+    })
 ];
 
 // LuaJSFight tests

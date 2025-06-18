@@ -23,7 +23,6 @@ public partial class MainJS
         return scene;
     }
 
-    [JSExport]
     internal static void PrepareToRender(int sceneWidth, int sceneHeight, int hardwareConcurrency)
     {
         sceneEnvironment.Width = sceneWidth;
@@ -33,23 +32,7 @@ public partial class MainJS
         sceneEnvironment.rgbaRenderBuffer = new byte[sceneWidth * sceneHeight * 4];
     }
 
-    [JSExport]
-    [return: JSMarshalAs<JSType.Promise<JSType.Void>>]
-    internal static async Task Render(bool isWarmup)
-    {
-        if (isWarmup)
-        {
-            await Render();
-            GC.Collect();
-        }
-        else
-        {
-            for (int i = 0; i < 5; i++)
-                await Render();
-        }
-    }
-
-    private static Task Render()
+    internal static Task Render()
     {
         return sceneEnvironment.Scene.Camera.RenderScene(sceneEnvironment.Scene, sceneEnvironment.rgbaRenderBuffer, sceneEnvironment.Width, sceneEnvironment.Height, sceneEnvironment.HardwareConcurrency);
     }

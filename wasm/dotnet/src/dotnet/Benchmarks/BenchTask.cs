@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.JavaScript;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -15,7 +14,7 @@ public abstract class BenchTask
 
     public virtual bool BrowserOnly => false;
 
-    public virtual int BatchSize => 5;
+    public virtual int BatchSize => 3;
 
     public async Task RunInitialSamples(int measurementIdx)
     {
@@ -121,38 +120,6 @@ public abstract class BenchTask
             catch (Exception)
             {
             }
-        }
-    }
-}
-
-static partial class BenchInterop
-{
-    private static BenchTask task;
-
-    [JSExport]
-    [return: JSMarshalAs<JSType.Promise<JSType.Void>>]
-    public static async Task PrepareTask(string name)
-    {
-        task = name switch
-        {
-            "ExceptionsTask" => new Sample.ExceptionsTask(),
-            "JsonTask" => new Sample.JsonTask(),
-            "StringTask" => new Sample.StringTask(),
-            _ => throw new NotSupportedException($"Task {name} is not supported")
-        };
-
-        for (int i = 0; i < task.Measurements.Length; i++)
-        {
-            await task.RunInitialSamples(i);
-        }
-    }
-    [JSExport]
-    [return: JSMarshalAs<JSType.Promise<JSType.Void>>]
-    public static async Task Run()
-    {
-        for (int i = 0; i < task.Measurements.Length; i++)
-        {
-            await task.RunBatch(i);
         }
     }
 }

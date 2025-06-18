@@ -129,18 +129,9 @@ class Benchmark {
         this.api = await this.dotnet.withModuleConfig({ locateFile: e => e }).withConfig(config).create();
         this.exports = await this.api.getAssemblyExports("dotnet.dll");
         
-        if (globalThis.dotnetBenchmarkName == "traytracer") {
-            this.exports.MainJS.PrepareToRender(320, 240, globalThis.navigator.hardwareConcurrency);
-            await this.exports.MainJS.Render(true);
-        } else {
-            await this.exports.BenchInterop.PrepareTask(globalThis.dotnetBenchmarkName);
-        }
+        await this.exports.Interop.WarmUp(320, 240, globalThis.navigator.hardwareConcurrency);
     }
     async runIteration() {
-        if (globalThis.dotnetBenchmarkName == "traytracer") {
-            await this.exports.MainJS.Render(false);
-        } else {
-            await this.exports.BenchInterop.Run();
-        }
+        await this.exports.Interop.RunIteration();
     }
 }
