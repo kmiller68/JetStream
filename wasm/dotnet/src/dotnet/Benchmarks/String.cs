@@ -45,7 +45,7 @@ namespace Sample
 
         public abstract class StringMeasurement : BenchTask.Measurement
         {
-            public override int InitialSamples => 30;
+            public override int InitialSamples => 3;
             protected Random random;
             protected char[] data;
             protected int len = 64 * 1024;
@@ -143,7 +143,7 @@ namespace Sample
 
         public abstract class StringsCompare : StringMeasurement
         {
-            public override int InitialSamples => 100;
+            public override int InitialSamples => 10;
 
             protected string strAsciiSuffix;
             protected string strAsciiPrefix;

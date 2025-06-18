@@ -40,13 +40,13 @@ namespace Sample
 
         public abstract class ExcMeasurement : BenchTask.Measurement
         {
-            public override int InitialSamples => 100000;
+            public override int InitialSamples => 10000;
         }
 
         class NoExceptionHandling : ExcMeasurement
         {
             public override string Name => "NoExceptionHandling";
-            public override int InitialSamples => 1000000;
+            public override int InitialSamples => 100000;
             bool increaseCounter = false;
             int unusedCounter;
 
@@ -66,7 +66,7 @@ namespace Sample
         class TryCatch : ExcMeasurement
         {
             public override string Name => "TryCatch";
-            public override int InitialSamples => 1000000;
+            public override int InitialSamples => 100000;
             bool doThrow = false;
 
             public override void RunStep()

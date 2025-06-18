@@ -2278,7 +2278,7 @@ let BENCHMARKS = [
             "./wasm/dotnet/benchmark.js",
         ],
         preload: dotnetPreloads("aot"),
-        iterations: 2,
+        iterations: 4,
         worstCaseCount: 1,
         tags: ["Wasm", "dotnet"]
     })

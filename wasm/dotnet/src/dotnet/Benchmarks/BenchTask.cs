@@ -49,7 +49,7 @@ public abstract class BenchTask
         protected int currentStep = 0;
         public abstract string Name { get; }
 
-        public virtual int InitialSamples => 5;
+        public virtual int InitialSamples => 2;
         public virtual int NumberOfRuns => 5;
         public virtual int RunLength => 5000;
         public virtual Task<bool> IsEnabled() => Task.FromResult(true);

@@ -95,7 +95,7 @@ namespace Sample
 
             public LargeSerialize(JsonTask task) => this.task = task;
             public override string Name => "large serialize";
-            public override int InitialSamples => 3;
+            public override int InitialSamples => 1;
 
             public override void RunStep() => JsonSerializer.Serialize(task.largeOrgChart, TestSerializerContext.Default.Person);
         }
@@ -106,7 +106,7 @@ namespace Sample
 
             public LargeDeserialize(JsonTask task) => this.task = task;
             public override string Name => "large deserialize";
-            public override int InitialSamples => 3;
+            public override int InitialSamples => 1;
 
             public override void RunStep() => JsonSerializer.Deserialize<Person>(task.largeOrgChartJson, TestSerializerContext.Default.Person);
         }
