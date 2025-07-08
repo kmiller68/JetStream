@@ -16,13 +16,13 @@ pushd benchmarks/multiplatform
 ./gradlew :benchmarks:wasmJsProductionExecutableCompileSync
 # For building polyfills and JavaScript launcher to run in d8 (which inspires the benchmark.js launcher here):
 # ./gradlew :benchmarks:buildD8Distribution
-BUILD_SRC_DIR="compose-multiplatform/benchmarks/multiplatform/build/js/packages/compose-benchmarks-benchmarks-wasm-js/kotlin"
+BUILD_SRC_DIR="compose-multiplatform/benchmarks/multiplatform/build/wasm/packages/compose-benchmarks-benchmarks/kotlin"
 popd
 popd
 
 echo "Copying generated files into build/" | tee -a "$BUILD_LOG"
-mkdir -p build/drawable/ | tee -a "$BUILD_LOG"
-cp $BUILD_SRC_DIR/compose-benchmarks-benchmarks-wasm-js.{wasm,uninstantiated.mjs} build/ | tee -a "$BUILD_LOG"
+mkdir -p build/ | tee -a "$BUILD_LOG"
+cp $BUILD_SRC_DIR/compose-benchmarks-benchmarks.{wasm,uninstantiated.mjs} build/ | tee -a "$BUILD_LOG"
 git apply hook-print.patch | tee -a "$BUILD_LOG"
 cp $BUILD_SRC_DIR/skiko.{wasm,mjs} build/ | tee -a "$BUILD_LOG"
 git apply skiko-disable-instantiate.patch | tee -a "$BUILD_LOG"

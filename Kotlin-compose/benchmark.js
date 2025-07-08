@@ -101,7 +101,7 @@ globalThis.skipFunMain = true;
 
 // Prevent this from being detected as a shell environment, so that we use the
 // same code paths as in the browser.
-// See `compose-benchmarks-benchmarks-wasm-js.uninstantiated.mjs`.
+// See `compose-benchmarks-benchmarks.uninstantiated.mjs`.
 delete globalThis.d8;
 delete globalThis.inIon;
 delete globalThis.jscOptions;
@@ -145,7 +145,7 @@ class Benchmark {
 
     preload = {
       'skiko.wasm': Module.wasmSkikoBinary,
-      './compose-benchmarks-benchmarks-wasm-js.wasm': Module.wasmBinary,
+      './compose-benchmarks-benchmarks.wasm': Module.wasmBinary,
       './composeResources/compose_benchmarks.benchmarks.generated.resources/drawable/compose-multiplatform.png': Module.inputImageCompose,
       './composeResources/compose_benchmarks.benchmarks.generated.resources/drawable/example1_cat.jpg': Module.inputImageCat,
       './composeResources/compose_benchmarks.benchmarks.generated.resources/files/example1_compose-community-primary.png': Module.inputImageComposeCommunity,
@@ -154,10 +154,10 @@ class Benchmark {
     };
 
     // We patched `skiko.mjs` to not immediately instantiate the `skiko.wasm`
-    // module, so that we can move the dynamic JS import here and measure 
+    // module, so that we can move the dynamic JS import here but measure 
     // WebAssembly compilation and instantiation as part of the first iteration.
     this.skikoInstantiate = (await dynamicJSImport('Kotlin-compose/build/skiko.mjs')).default;
-    this.mainInstantiate = (await dynamicJSImport('Kotlin-compose/build/compose-benchmarks-benchmarks-wasm-js.uninstantiated.mjs')).instantiate;
+    this.mainInstantiate = (await dynamicJSImport('Kotlin-compose/build/compose-benchmarks-benchmarks.uninstantiated.mjs')).instantiate;
   }
 
   async runIteration() {

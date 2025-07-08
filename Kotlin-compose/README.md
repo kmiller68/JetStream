@@ -15,4 +15,4 @@ See `build.log` for the last build time, used sources, and toolchain versions.
 ## Running in JS shells
 
 To run the unmodified upstream benchmark, without the JetStream driver, see the
-upstream repo.
+upstream repo, specifically https://github.com/JetBrains/compose-multiplatform/blob/master/benchmarks/multiplatform/README.md

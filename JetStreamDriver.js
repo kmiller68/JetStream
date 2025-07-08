@@ -2103,7 +2103,7 @@ let BENCHMARKS = [
             "./Kotlin-compose/benchmark.js",
         ],
         preload: {
-            wasmBinary: "./Kotlin-compose/build/compose-benchmarks-benchmarks-wasm-js.wasm",
+            wasmBinary: "./Kotlin-compose/build/compose-benchmarks-benchmarks.wasm",
             wasmSkikoBinary: "./Kotlin-compose/build/skiko.wasm",
             inputImageCompose: "./Kotlin-compose/build/compose-multiplatform.png",
             inputImageCat: "./Kotlin-compose/build/example1_cat.jpg",
@@ -2111,9 +2111,9 @@ let BENCHMARKS = [
             inputFontItalic: "./Kotlin-compose/build/jetbrainsmono_italic.ttf",
             inputFontRegular: "./Kotlin-compose/build/jetbrainsmono_regular.ttf"
         },
-        iterations: 10,
+        iterations: 15,
         worstCaseCount: 2,
-        testGroup: WasmGroup,
+        tags: ["Wasm"],
     }),
     new WasmLegacyBenchmark({
         name: "tfjs-wasm",
