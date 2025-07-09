@@ -2265,6 +2265,7 @@ let BENCHMARKS = [
     new AsyncBenchmark({
         name: "dotnet-interp",
         files: [
+            "./wasm/dotnet/interp.js",
             "./wasm/dotnet/benchmark.js",
         ],
         preload: dotnetPreloads("interp"),
@@ -2275,6 +2276,7 @@ let BENCHMARKS = [
     new AsyncBenchmark({
         name: "dotnet-aot",
         files: [
+            "./wasm/dotnet/aot.js",
             "./wasm/dotnet/benchmark.js",
         ],
         preload: dotnetPreloads("aot"),
