@@ -4,8 +4,9 @@ class Benchmark {
             return new Uint8Array(await (await fetch(name)).arrayBuffer());
         }
 
-        if ("dotnetRuntimeUrl" in globalThis) {
-            const config = {
+        if (isInBrowser) {
+            this.dotnetUrl = dotnetUrl;
+            this.config = {
                 mainAssemblyName: "dotnet.dll",
                 globalizationMode: "custom",
                 assets: [
@@ -126,12 +127,12 @@ class Benchmark {
                 ]
             };
         } else {
-            globalThis.config = {};
-            globalThis.dotnetUrl = `./wasm/dotnet/build-${dotnetFlavor}/wwwroot/_framework/dotnet.js`;
+            this.config = {};
+            this.dotnetUrl = `./wasm/dotnet/build-${dotnetFlavor}/wwwroot/_framework/dotnet.js`;
         }
 
-        this.dotnet = (await import(dotnetUrl)).dotnet;
-        this.api = await this.dotnet.withModuleConfig({ locateFile: e => e }).withConfig(config).create();
+        this.dotnet = (await import(this.dotnetUrl)).dotnet;
+        this.api = await this.dotnet.withModuleConfig({ locateFile: e => e }).withConfig(this.config).create();
         this.exports = await this.api.getAssemblyExports("dotnet.dll");
         
         const hardwareConcurrency = globalThis.navigator?.hardwareConcurrency ?? 1;
