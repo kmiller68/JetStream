@@ -143,7 +143,7 @@ namespace Sample
 
         public abstract class StringsCompare : StringMeasurement
         {
-            public override int InitialSamples => 10;
+            public override int InitialSamples => 5;
 
             protected string strAsciiSuffix;
             protected string strAsciiPrefix;

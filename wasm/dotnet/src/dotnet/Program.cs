@@ -54,7 +54,7 @@ static partial class Interop
         }
 
         // RayTracer
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 2; i++)
         {
             await MainJS.Render();
         }
