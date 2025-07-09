@@ -994,7 +994,6 @@ class Benchmark {
             return this._resourcesPromise;
 
         this.preloads = [];
-        this.blobs = [];
 
         if (isInBrowser) {
             this._resourcesPromise = Promise.resolve();
@@ -1137,6 +1136,51 @@ class DefaultBenchmark extends Benchmark {
 }
 
 class AsyncBenchmark extends DefaultBenchmark {
+    get prerunCode() {
+        let str = "";
+        // FIXME: It would be nice if these were available to any benchmark not just async ones but since these functions
+        // are async they would only work in a context where the benchmark is async anyway. Long term, we should do away
+        // with this class and make all benchmarks async.
+        if (isInBrowser) {
+            str += `
+                async function getBinary(blobURL) {
+                    const response = await fetch(blobURL);
+                    return new Int8Array(await response.arrayBuffer());
+                }
+
+                async function getString(blobURL) {
+                    const response = await fetch(blobURL);
+                    return response.text();
+                }
+
+                async function dynamicImport(blobURL) {
+                    return await import(blobURL);
+                }
+            `;
+        } else {
+            str += `
+                async function getBinary(path) {
+                    return new Int8Array(read(path, "binary"));
+                }
+
+                async function getString(path) {
+                    return read(path);
+                }
+
+                async function dynamicImport(path) {
+                    try {
+                        return await import(path);
+                    } catch (e) {
+                        // In shells, relative imports require different paths, so try with and
+                        // without the "./" prefix (e.g., JSC requires it).
+                        return await import(path.slice("./".length))
+                    }
+                }
+            `;
+        }
+        return str;
+    }
+
     get runnerCode() {
         return `
         async function doRun() {
@@ -1174,7 +1218,7 @@ class AsyncBenchmark extends DefaultBenchmark {
 // part of a larger project's build system or a wasm benchmark compiled from a language that doesn't compile with emcc.
 class WasmEMCCBenchmark extends AsyncBenchmark {
     get prerunCode() {
-        return `
+        let str = `
             let verbose = false;
 
             let globalObject = this;
@@ -1204,43 +1248,20 @@ class WasmEMCCBenchmark extends AsyncBenchmark {
                     Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
                 },
             };
-            globalObject.Module = Module;
-        `;
-    }
 
-    // This is in runnerCode rather than prerunCode because prerunCode isn't currently structured to be async by default.
-    get runnerCode() {
-        let str = `(async function doRunWrapper() {`
-        if (isInBrowser) {
-            str += `
-                async function getBinary(key, blobURL) {
-                    const response = await fetch(blobURL);
-                    Module[key] = new Int8Array(await response.arrayBuffer());
-                }
-            `;
-        } else
+            globalObject.Module = Module;
+            ${super.prerunCode};
+        `;
+
+        if (isSpiderMonkey) {
             str += `
                 // Needed because SpiderMonkey shell doesn't have a setTimeout.
                 Module.setStatus = null;
                 Module.monitorRunDependencies = null;
-                function getBinary(key, path) {
-                    Module[key] = new Int8Array(read(path, "binary"));
-                }
             `;
-
-        for (let [ preloadKey, blobURLOrPath ] of this.preloads) {
-            if (preloadKey == "wasmBinary") {
-                str += `await getBinary("${preloadKey}", "${blobURLOrPath}");\n`
-                break;
-            }
         }
 
-        str += super.runnerCode;
-
-        str += "\n})().catch((error) => { top.currentReject(error); });"
-
         return str;
-
     }
 };
 
@@ -1576,7 +1597,7 @@ let BENCHMARKS = [
         iterations: 60,
         tags: ["ARES"],
     }),
-    new DefaultBenchmark({
+    new AsyncBenchmark({
         name: "Babylon",
         files: [
             "./ARES-6/Babylon/index.js"
@@ -1612,7 +1633,7 @@ let BENCHMARKS = [
         tags: ["CDJS"],
     }),
     // CodeLoad
-    new DefaultBenchmark({
+    new AsyncBenchmark({
         name: "first-inspector-code-load",
         files: [
             "./code-load/code-first-load.js"
@@ -1622,7 +1643,7 @@ let BENCHMARKS = [
         },
         tags: ["CodeLoad"],
     }),
-    new DefaultBenchmark({
+    new AsyncBenchmark({
         name: "multi-inspector-code-load",
         files: [
             "./code-load/code-multi-load.js"

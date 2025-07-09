@@ -38,12 +38,8 @@ class Benchmark {
   romBinary;
 
   async init() {
-    if (isInBrowser) {
-      let response = await fetch(romBinary);
-      this.romBinary = new Int8Array(await response.arrayBuffer());
-    } else {
-      this.romBinary = new Int8Array(read(romBinary, "binary"));
-    }
+    Module.wasmBinary = await getBinary(wasmBinary);
+    this.romBinary = await getBinary(romBinary);
   }
 
   async runIteration() {
