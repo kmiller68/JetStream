@@ -22,26 +22,7 @@ static partial class Interop
     ];
 
     [JSExport]
-    public static async Task WarmUp(int sceneWidth, int sceneHeight, int hardwareConcurrency)
-    {
-        // BenchTasks
-        for (int i = 0; i < tasks.Length; i++)
-        {
-            var task = tasks[i];
-            for (int j = 0; j < task.Measurements.Length; j++)
-            {
-                await task.RunInitialSamples(j);
-            }
-        }
-
-        // RayTracer
-        MainJS.PrepareToRender(sceneWidth, sceneHeight, hardwareConcurrency);
-        await MainJS.Render();
-        GC.Collect();
-    }
-
-    [JSExport]
-    public static async Task RunIteration()
+    public static async Task RunIteration(int sceneWidth, int sceneHeight, int hardwareConcurrency)
     {
         // BenchTasks
         for (int i = 0; i < tasks.Length; i++)
@@ -54,9 +35,7 @@ static partial class Interop
         }
 
         // RayTracer
-        for (int i = 0; i < 2; i++)
-        {
-            await MainJS.Render();
-        }
+        MainJS.PrepareToRender(sceneWidth, sceneHeight, hardwareConcurrency);
+        await MainJS.Render();
     }
 }

@@ -125,12 +125,11 @@ class Benchmark {
         this.api = await this.dotnet.withModuleConfig({ locateFile: e => e }).withConfig(config).create();
         this.exports = await this.api.getAssemblyExports("dotnet.dll");
         
-        const hardwareConcurrency = globalThis.navigator?.hardwareConcurrency ?? 1;
-        const sceneWidth = dotnetFlavor === "aot" ? 320 : 240;
-        const sceneHeight = dotnetFlavor === "aot" ? 240 : 160;
-        await this.exports.Interop.WarmUp(sceneWidth, sceneHeight, hardwareConcurrency);
+        this.hardwareConcurrency = globalThis.navigator?.hardwareConcurrency ?? 1;
+        this.sceneWidth = dotnetFlavor === "aot" ? 320 : 240;
+        this.sceneHeight = dotnetFlavor === "aot" ? 240 : 160;
     }
     async runIteration() {
-        await this.exports.Interop.RunIteration();
+        await this.exports.Interop.RunIteration(this.sceneWidth, this.sceneHeight, this.hardwareConcurrency);
     }
 }
