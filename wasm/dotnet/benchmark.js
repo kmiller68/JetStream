@@ -121,12 +121,6 @@ class Benchmark {
             ]
         };
 
-        for (let index = 0; index < config.assets.length; index++) {
-            const element = config.assets[index];
-            console.log(`Asset ${index}: ${element.name} ${element.buffer?.length}`);
-        }
-        debugger;
-
         this.dotnet = (await dynamicImport(dotnetUrl)).dotnet;
         this.api = await this.dotnet.withModuleConfig({ locateFile: e => e }).withConfig(config).create();
         this.exports = await this.api.getAssemblyExports("dotnet.dll");
