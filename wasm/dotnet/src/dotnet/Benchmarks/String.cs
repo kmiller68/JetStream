@@ -11,7 +11,6 @@ namespace Sample
     class StringTask : BenchTask
     {
         public override string Name => "String";
-        public override int BatchSize => 2;
         Measurement[] measurements;
 
         public StringTask()

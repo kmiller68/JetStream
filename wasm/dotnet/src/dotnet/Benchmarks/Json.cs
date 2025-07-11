@@ -13,7 +13,6 @@ namespace Sample
     class JsonTask : BenchTask
     {
         public override string Name => "Json";
-        public override int BatchSize => 25;
         Measurement[] measurements;
 
         public JsonTask()

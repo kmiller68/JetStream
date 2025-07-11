@@ -14,7 +14,7 @@ public abstract class BenchTask
 
     public virtual bool BrowserOnly => false;
 
-    public virtual int BatchSize => 3;
+    public virtual int BatchSize => 100;
 
     public async Task RunInitialSamples(int measurementIdx)
     {
