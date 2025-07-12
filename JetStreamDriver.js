@@ -650,9 +650,6 @@ class Benchmark {
             let benchmarkName = "${this.name}";
 
             for (let i = 0; i < ${this.iterations}; i++) {
-                if (__benchmark.prepareForNextIteration)
-                    __benchmark.prepareForNextIteration();
-
                 ${this.preIterationCode}
 
                 const iterationMarkLabel = benchmarkName + "-iteration-" + i;
@@ -668,8 +665,7 @@ class Benchmark {
 
                 results.push(Math.max(1, end - start));
             }
-            if (__benchmark.validate)
-                __benchmark.validate(${this.iterations});
+            __benchmark.validate?.(${this.iterations});
             top.currentResolve(results);`;
     }
 
@@ -684,7 +680,7 @@ class Benchmark {
     get prerunCode() { return null; }
 
     get preIterationCode() {
-        let code = "";
+        let code = `__benchmark.prepareForNextIteration?.();`;
         if (this.plan.deterministicRandom)
             code += `Math.random.__resetSeed();`;
 
@@ -1185,8 +1181,7 @@ class AsyncBenchmark extends DefaultBenchmark {
         return `
         async function doRun() {
             let __benchmark = new Benchmark();
-            if (__benchmark.init)
-                await __benchmark.init();
+            await __benchmark.init?.();
             let results = [];
             let benchmarkName = "${this.name}";
 
@@ -1206,8 +1201,7 @@ class AsyncBenchmark extends DefaultBenchmark {
 
                 results.push(Math.max(1, end - start));
             }
-            if (__benchmark.validate)
-                __benchmark.validate(${this.iterations});
+            __benchmark.validate?.(${this.iterations});
             top.currentResolve(results);
         }
         doRun().catch((error) => { top.currentReject(error); });`
