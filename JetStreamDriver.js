@@ -597,7 +597,6 @@ class Benchmark {
         this.disabledByDefault = !!plan.disabledByDefault;
         this.scripts = null;
         this.preloads = null;
-        this._resourcesPromise = null;
         this._state = BenchmarkState.READY;
     }
 
