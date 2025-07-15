@@ -92,13 +92,15 @@ class Benchmark {
                     name: "System.Private.CoreLib.wasm",
                     resolvedUrl: dllPrivateCorelibUrl,
                     buffer: await getBinary(dllPrivateCorelibUrl),
-                    behavior: "assembly"
+                    behavior: "assembly",
+                    isCore: true
                 },
                 {
                     name: "System.Runtime.InteropServices.JavaScript.wasm",
                     resolvedUrl: dllRuntimeInteropServicesJavaScriptUrl,
                     buffer: await getBinary(dllRuntimeInteropServicesJavaScriptUrl),
-                    behavior: "assembly"
+                    behavior: "assembly",
+                    isCore: true
                 },
                 {
                     name: "System.Text.Encodings.Web.wasm",
@@ -116,7 +118,8 @@ class Benchmark {
                     name: "dotnet.wasm",
                     resolvedUrl: dllAppUrl,
                     buffer: await getBinary(dllAppUrl),
-                    behavior: "assembly"
+                    behavior: "assembly",
+                    isCore: true
                 }
             ]
         };
