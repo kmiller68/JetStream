@@ -394,11 +394,11 @@ class Driver {
         let text = "";
         let newBenchmarks = [];
         for (const benchmark of this.benchmarks) {
-            const id = JSON.stringify(benchmark.constructor.scoreDescription());
-            const description = JSON.parse(id);
+            const description = Object.keys(benchmark.subScores());
+            description.push("Score");
 
             newBenchmarks.push(benchmark);
-            const scoreIds = benchmark.scoreIdentifiers()
+            const scoreIds = benchmark.scoreIdentifiers();
             const overallScoreId = scoreIds.pop();
 
             if (isInBrowser) {
@@ -1005,7 +1005,6 @@ class Benchmark {
         return this._resourcesPromise;
     }
 
-    static scoreDescription() { throw new Error("Must be implemented by subclasses."); }
     scoreIdentifiers() { throw new Error("Must be implemented by subclasses"); }
 
     updateUIBeforeRun() {
@@ -1086,10 +1085,6 @@ class DefaultBenchmark extends Benchmark {
             "Worst": this.worst4Score,
             "Average": this.averageScore,
         };
-    }
-
-    static scoreDescription() {
-        return ["First", "Worst", "Average", "Score"];
     }
 
     scoreIdentifiers() {
@@ -1310,10 +1305,6 @@ class WSLBenchmark extends Benchmark {
         };
     }
 
-    static scoreDescription() {
-        return ["Stdlib", "MainRun", "Score"];
-    }
-
     scoreIdentifiers() {
         return ["wsl-stdlib-score", "wsl-tests-score", "wsl-score-score"];
     }
@@ -1484,10 +1475,6 @@ class WasmLegacyBenchmark extends Benchmark {
             "Startup": this.startupScore,
             "Runtime": this.runScore,
         };
-    }
-
-    static scoreDescription() {
-        return ["Startup", "Runtime", "Score"];
     }
 
     get startupID() {
