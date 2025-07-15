@@ -124,8 +124,8 @@ class Benchmark {
         this.dotnet = (await dynamicImport(dotnetUrl)).dotnet;
         this.api = await this.dotnet.withModuleConfig({ locateFile: e => e }).withConfig(config).create();
         this.exports = await this.api.getAssemblyExports("dotnet.dll");
-        
-        this.hardwareConcurrency = globalThis.navigator?.hardwareConcurrency ?? 1;
+
+        this.hardwareConcurrency = 1;
         this.sceneWidth = dotnetFlavor === "aot" ? 300 : 150;
         this.sceneHeight = dotnetFlavor === "aot" ? 200 : 100;
     }
