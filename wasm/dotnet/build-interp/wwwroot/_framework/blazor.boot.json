@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "dotnet",
   "resources": {
-    "hash": "sha256-ezRDz6H5tKMjptH2ReJ2D+NOcqDKtAmeQmi5Rng7EMs=",
+    "hash": "sha256-epkqAGMnhXPdLSVY82kSgrgnTJ7/DQ5AvtVnnfaAAt0=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-byX+R2fU4k/BCE4uzI+3ZqDM4tUu50nBCUwWUwhAdWQ="
     },
@@ -21,7 +21,7 @@
       "System.Runtime.InteropServices.JavaScript.wasm": "sha256-korzY+8y6mDCphxjpRx32qfUE1gK6/6D9W3cnrkRvjo="
     },
     "assembly": {
-      "dotnet.wasm": "sha256-L9ikR6noSArHMLSS5bEeP56holqZR9+98IHJDkIYQZA=",
+      "dotnet.wasm": "sha256-cX9JP6/LNFLI7mxWCZADyUWY0bG55uZVbFDgy12K380=",
       "System.Collections.Concurrent.wasm": "sha256-t0RfwdTUubHqJjICCaVLtSx90sFWPoVRYIBQnpqEfMQ=",
       "System.Collections.wasm": "sha256-74tIaxlz1VKy1ZJ4df4oWr0Qg+02hNMZMg8sM0uJR2s=",
       "System.ComponentModel.Primitives.wasm": "sha256-9KlsDyYr/L+BwPCVQ2tA0tK0UoOCyGIHfd97P1s0oBE=",

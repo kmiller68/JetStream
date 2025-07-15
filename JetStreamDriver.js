@@ -2282,8 +2282,8 @@ let BENCHMARKS = [
             "./wasm/dotnet/benchmark.js",
         ],
         preload: dotnetPreloads("interp"),
-        iterations: 2,
-        worstCaseCount: 1,
+        iterations: 10,
+        worstCaseCount: 2,
         tags: ["Wasm", "dotnet"]
     }),
     new AsyncBenchmark({
@@ -2293,8 +2293,8 @@ let BENCHMARKS = [
             "./wasm/dotnet/benchmark.js",
         ],
         preload: dotnetPreloads("aot"),
-        iterations: 4,
-        worstCaseCount: 1,
+        iterations: 15,
+        worstCaseCount: 2,
         tags: ["Wasm", "dotnet"]
     })
 ];
