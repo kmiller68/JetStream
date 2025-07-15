@@ -14,3 +14,17 @@ Download .NET SDK 9.0.3xx
 Run `build.sh` script. It will install `wasm-tools` workload & build the benchmark code twice (for Mono interpreter & AOT).
 
 To run the benchmark code on `jsc`, we need to remove the unguarded use of `import.meta.url` in `dotnet.js`.
+
+## Background on .NET / build output files
+
+Mono AOT works in a "mixed mode". It is not able to compile all code patterns and in various scenarios it falls back to interpreter.
+Because of that we are still loading managed dlls (all the other not-`dotnet.native.wasm` files).
+
+Structure of the build output
+
+- `dotnet.js` is entrypoint JavaScript with public API.
+- `dotnet.runtime.js` is internal implementation of JavaScript logic for .NET.
+- `dotnet.native.js` is emscripten module configured for .NET.
+- `dotnet.native.wasm` is unmanaged code (Mono runtime + AOT compiled code).
+- `System.*.wasm` is .NET BCL that has unused code trimmed away.
+- `dotnet.wasm` is the benchmark code.
