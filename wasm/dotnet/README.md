@@ -13,7 +13,7 @@ Download .NET SDK 9.0.3xx
 
 Run `build.sh` script. It will install `wasm-tools` workload & build the benchmark code twice (for Mono interpreter & AOT).
 
-To run the benchmark code on `jsc`, we need to remove the unguarded use of `import.meta.url` in `dotnet.js`.
+To run the benchmark code on `jsc`, we are prepending `import.meta.url ??= ""` to `dotnet.js`.
 
 ## Background on .NET / build output files
 
