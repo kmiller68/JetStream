@@ -2169,7 +2169,7 @@ let BENCHMARKS = [
         preload: dotnetPreloads("interp"),
         iterations: 10,
         worstCaseCount: 2,
-        tags: ["Wasm", "dotnet"]
+        tags: ["Default", "Wasm", "dotnet"]
     }),
     new AsyncBenchmark({
         name: "dotnet-aot",
@@ -2180,7 +2180,7 @@ let BENCHMARKS = [
         preload: dotnetPreloads("aot"),
         iterations: 15,
         worstCaseCount: 2,
-        tags: ["Wasm", "dotnet"]
+        tags: ["Default", "Wasm", "dotnet"]
     })
 ];
 
