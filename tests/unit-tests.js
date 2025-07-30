@@ -38,10 +38,8 @@ function assertEquals(actual, expected, message) {
 
 
 (function testDriverBenchmarksOrder() {
-  const driver = new Driver();
-  driver.enableBenchmarksByTag("all");
-  assertEquals(driver.benchmarks.size, BENCHMARKS.length);
-  driver.initializeBenchmarks();
+  const benchmarks = findBenchmarksByTag("all");
+  const driver = new Driver(benchmarks);
   assertEquals(driver.benchmarks.length, BENCHMARKS.length);
   const names = driver.benchmarks.map(b => b.name.toLowerCase()).sort().reverse();
   for (let i = 0; i < names.length; i++) {
@@ -51,18 +49,26 @@ function assertEquals(actual, expected, message) {
 
 
 (function testEnableByTag() {
-  const driverA = new Driver();
-  const driverB = new Driver();
-  driverA.enableBenchmarksByTag("Default");
-  driverB.enableBenchmarksByTag("default");
-  assertTrue(driverA.benchmarks.size > 0);
-  assertEquals(driverA.benchmarks.size, driverB.benchmarks.size);
+  const driverA = new Driver(findBenchmarksByTag("Default"));
+  const driverB = new Driver(findBenchmarksByTag("default"));
+  assertTrue(driverA.benchmarks.length > 0);
+  assertEquals(driverA.benchmarks.length, driverB.benchmarks.length);
   const enabledBenchmarkNames = new Set(
       Array.from(driverA.benchmarks).map(b => b.name));
   for (const benchmark of BENCHMARKS) {
     if (benchmark.tags.has("default"))
       assertTrue(enabledBenchmarkNames.has(benchmark.name));
   }
+})();
+
+
+(function testDriverEnableDuplicateAndSort() {
+    const benchmarks = [...findBenchmarksByTag("wasm"), ...findBenchmarksByTag("wasm")];
+    assertTrue(benchmarks.length > 0);
+    const uniqueBenchmarks = new Set(benchmarks);
+    assertFalse(uniqueBenchmarks.size == benchmarks.length);
+    const driver = new Driver(benchmarks);
+    assertEquals(driver.benchmarks.length, uniqueBenchmarks.size);
 })();
 
 
