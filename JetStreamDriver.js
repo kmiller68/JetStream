@@ -1472,7 +1472,6 @@ let BENCHMARKS = [
             "./ARES-6/Basic/parser.js",
             "./ARES-6/Basic/random.js",
             "./ARES-6/Basic/state.js",
-            "./ARES-6/Basic/util.js",
             "./ARES-6/Basic/benchmark.js",
         ],
         tags: ["Default", "ARES"],
