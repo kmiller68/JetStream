@@ -2309,23 +2309,6 @@ let BENCHMARKS = [
     })
 ];
 
-// FIXME: figure out what to do this these benchmarks.
-// // LuaJSFight tests
-// const luaJSFightTests = [
-//     "hello_world"
-//     , "list_search"
-//     , "lists"
-//     , "string_lists"
-// ];
-// for (const test of luaJSFightTests) {
-//     BENCHMARKS.push(new DefaultBenchmark({
-//         name: `${test}-LJF`,
-//         files: [
-//             `./LuaJSFight/${test}.js`
-//         ],
-//         tags: ["LuaJSFight"],
-//     }));
-// }
 
 // SunSpider tests
 const SUNSPIDER_TESTS = [
