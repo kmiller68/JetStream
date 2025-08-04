@@ -23,35 +23,42 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-const isInBrowser = false;
-console = {
-    log: globalThis?.console?.log ?? print,
-    error: globalThis?.console?.error ?? print,
+load("./shell-config.js")
+
+const cliFlags = { __proto__: null };
+const cliArgs = [];
+if (globalThis.arguments?.length) {
+    for (const argument of globalThis.arguments)
+        if (argument.startsWith("--")) {
+            const parts = argument.split("=");
+            cliFlags[parts[0].toLowerCase()] = parts.slice(1).join("=");
+        } else
+            cliArgs.push(argument);
 }
 
-const isD8 = typeof Realm !== "undefined";
-if (isD8)
-    globalThis.readFile = read;
-const isSpiderMonkey = typeof newGlobal !== "undefined";
-if (isSpiderMonkey) {
-    globalThis.readFile = readRelativeToScript;
-    globalThis.arguments = scriptArgs;
+function getIntFlag(flags, flag) {
+    if (!(flag in flags))
+        return undefined;
+    const rawValue = flags[flag];
+    const value = parseInt(rawValue);
+    if (value <= 0)
+        throw new Error(`Expected positive value for ${flag}, but got ${rawValue}`);
+    return value;
 }
 
-if (typeof arguments !== "undefined" && arguments.length > 0)
-    testList = arguments.slice();
-if (typeof testList === "undefined")
-    testList = undefined;
-
-if (typeof testIterationCount === "undefined")
-    testIterationCount = undefined;
-
+if ("--iteration-count" in cliFlags)
+    globalThis.testIterationCount = getIntFlag(cliFlags, "--iteration-count");
+if ("--worst-case-count" in cliFlags)
+    globalThis.testWorstCaseCount = getIntFlag(cliFlags, "--worst-case-count");
+if ("--dump-json-results" in cliFlags)
+    globalThis.dumpJSONResults = true;
 if (typeof runMode !== "undefined" && runMode == "RAMification")
-    RAMification = true;
-else
-    RAMification = false;
+    globalThis.RAMification = true;
+if ("--ramification" in cliFlags)
+    globalThis.RAMification = true;
+if (cliArgs.length)
+    globalThis.testList = cliArgs;
 
-load("./JetStreamDriver.js");
 
 async function runJetStream() {
     try {
@@ -63,4 +70,29 @@ async function runJetStream() {
         throw e;
     }
 }
-runJetStream();
+
+load("./JetStreamDriver.js");
+
+if ("--help" in cliFlags) {
+    console.log("JetStream Driver Help");
+    console.log("");
+
+    console.log("Options:");
+    console.log("   --iteration-count:  Set the default iteration count.");
+    console.log("   --worst-case-count: Set the default worst-case count");
+    console.log("   --dump-json-results: Print summary json to the console.");
+    console.log("");
+
+    console.log("Available tags:");
+    const tagNames = Array.from(benchmarksByTag.keys()).sort();
+    for (const tagName of tagNames)
+        console.log("  ", tagName);
+    console.log("");
+
+    console.log("Available tests:");
+    const benchmarkNames = BENCHMARKS.map(b => b.name).sort();
+    for (const benchmark of benchmarkNames)
+        console.log("  ", benchmark);
+} else {
+    runJetStream();
+}
