@@ -38,24 +38,31 @@ globalThis.URL = URL;
 // first iteration / instantiation measurement.
 // The downside is that this doesn't test streaming Wasm instantiation, which we
 // are willing to accept.
-let preload = {};
+let preload = { /* Initialized in init() below due to async. */ };
+const originalFetch = globalThis.fetch ?? function(url) {
+  throw new Error("no fetch available");
+}
 globalThis.fetch = async function(url) {
   // DEBUG
   // console.log('fetch', url);
-  if (!preload[url]) {
-    throw new Error('Unexpected fetch: ' + url);
+
+  // Redirect some paths to cached/preloaded resources.
+  if (preload[url]) {
+    return {
+      ok: true,
+      status: 200,
+      arrayBuffer() { return preload[url]; },
+      async blob() {
+        return {
+          size: preload[url].byteLength,
+          async arrayBuffer() { return preload[url]; }
+        }
+      },
+    };
   }
-  return {
-    ok: true,
-    status: 200,
-    arrayBuffer() { return preload[url]; },
-    async blob() {
-      return {
-        size: preload[url].byteLength,
-        async arrayBuffer() { return preload[url]; }
-      }
-    },
-  };
+
+  // This should only be called in the browser, where fetch() is available.
+  return originalFetch(url);
 };
 globalThis.WebAssembly.instantiateStreaming = async function(m,i) {
   // DEBUG
@@ -116,8 +123,8 @@ class Benchmark {
     // console.log("init");
 
     preload = {
-      'skiko.wasm': await getBinary(wasmSkikoBinary),
-      './compose-benchmarks-benchmarks.wasm': await getBinary(wasmBinary),
+      'skiko.wasm': await getBinary(skikoWasmBinary),
+      './compose-benchmarks-benchmarks.wasm': await getBinary(composeWasmBinary),
       './composeResources/compose_benchmarks.benchmarks.generated.resources/drawable/compose-multiplatform.png': await getBinary(inputImageCompose),
       './composeResources/compose_benchmarks.benchmarks.generated.resources/drawable/example1_cat.jpg': await getBinary(inputImageCat),
       './composeResources/compose_benchmarks.benchmarks.generated.resources/files/example1_compose-community-primary.png': await getBinary(inputImageComposeCommunity),
@@ -128,8 +135,8 @@ class Benchmark {
     // We patched `skiko.mjs` to not immediately instantiate the `skiko.wasm`
     // module, so that we can move the dynamic JS import here but measure 
     // WebAssembly compilation and instantiation as part of the first iteration.
-    this.skikoInstantiate = (await dynamicImport('Kotlin-compose/build/skiko.mjs')).default;
-    this.mainInstantiate = (await dynamicImport('Kotlin-compose/build/compose-benchmarks-benchmarks.uninstantiated.mjs')).instantiate;
+    this.skikoInstantiate = (await dynamicImport(skikoJsModule)).default;
+    this.mainInstantiate = (await dynamicImport(composeJsModule)).instantiate;
   }
 
   async runIteration() {

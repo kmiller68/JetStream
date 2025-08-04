@@ -2003,8 +2003,10 @@ let BENCHMARKS = [
             "./Kotlin-compose/benchmark.js",
         ],
         preload: {
-            wasmBinary: "./Kotlin-compose/build/compose-benchmarks-benchmarks.wasm",
-            wasmSkikoBinary: "./Kotlin-compose/build/skiko.wasm",
+            skikoJsModule: "./Kotlin-compose/build/skiko.mjs",
+            skikoWasmBinary: "./Kotlin-compose/build/skiko.wasm",
+            composeJsModule: "./Kotlin-compose/build/compose-benchmarks-benchmarks.uninstantiated.mjs",
+            composeWasmBinary: "./Kotlin-compose/build/compose-benchmarks-benchmarks.wasm",
             inputImageCompose: "./Kotlin-compose/build/compose-multiplatform.png",
             inputImageCat: "./Kotlin-compose/build/example1_cat.jpg",
             inputImageComposeCommunity: "./Kotlin-compose/build/example1_compose-community-primary.png",
