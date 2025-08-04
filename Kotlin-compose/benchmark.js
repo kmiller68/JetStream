@@ -106,34 +106,6 @@ delete globalThis.d8;
 delete globalThis.inIon;
 delete globalThis.jscOptions;
 
-// The JetStream driver doesn't have support for ES6 modules yet.
-// Since this file is not an ES module, we have to use a dynamic import.
-// However, browsers and different shalls have different requirements on whether
-// the path can or may be relative, so try all possible combinations.
-// TODO: Support ES6 modules in the driver instead of this one-off solution.
-// This probably requires a new `Benchmark` field called `modules` that
-// is a map from module variable name (which will hold the resulting module
-// namespace object) to relative module URL, which is resolved in the
-// `preRunnerCode`, similar to this code here.
-async function dynamicJSImport(path) {
-  let result;
-  if (isInBrowser) {
-    // In browsers, relative imports don't work since we are not in a module.
-    // (`import.meta.url` is not defined.)
-    const pathname = location.pathname.match(/^(.*\/)(?:[^.]+(?:\.(?:[^\/]+))+)?$/)[1];
-    result = await import(location.origin + pathname + './' + path);
-  } else {
-    // In shells, relative imports require different paths, so try with and
-    // without the "./" prefix (e.g., JSC requires it).
-    try {
-      result = await import(path);
-    } catch {
-      result = await import('./' + path);
-    }
-  }
-  return result;
-}
-
 class Benchmark {
   skikoInstantiate;
   mainInstantiate;
@@ -144,20 +116,20 @@ class Benchmark {
     // console.log("init");
 
     preload = {
-      'skiko.wasm': Module.wasmSkikoBinary,
-      './compose-benchmarks-benchmarks.wasm': Module.wasmBinary,
-      './composeResources/compose_benchmarks.benchmarks.generated.resources/drawable/compose-multiplatform.png': Module.inputImageCompose,
-      './composeResources/compose_benchmarks.benchmarks.generated.resources/drawable/example1_cat.jpg': Module.inputImageCat,
-      './composeResources/compose_benchmarks.benchmarks.generated.resources/files/example1_compose-community-primary.png': Module.inputImageComposeCommunity,
-      './composeResources/compose_benchmarks.benchmarks.generated.resources/font/jetbrainsmono_italic.ttf': Module.inputFontItalic,
-      './composeResources/compose_benchmarks.benchmarks.generated.resources/font/jetbrainsmono_regular.ttf': Module.inputFontRegular,
+      'skiko.wasm': await getBinary(wasmSkikoBinary),
+      './compose-benchmarks-benchmarks.wasm': await getBinary(wasmBinary),
+      './composeResources/compose_benchmarks.benchmarks.generated.resources/drawable/compose-multiplatform.png': await getBinary(inputImageCompose),
+      './composeResources/compose_benchmarks.benchmarks.generated.resources/drawable/example1_cat.jpg': await getBinary(inputImageCat),
+      './composeResources/compose_benchmarks.benchmarks.generated.resources/files/example1_compose-community-primary.png': await getBinary(inputImageComposeCommunity),
+      './composeResources/compose_benchmarks.benchmarks.generated.resources/font/jetbrainsmono_italic.ttf': await getBinary(inputFontItalic),
+      './composeResources/compose_benchmarks.benchmarks.generated.resources/font/jetbrainsmono_regular.ttf': await getBinary(inputFontRegular),
     };
 
     // We patched `skiko.mjs` to not immediately instantiate the `skiko.wasm`
     // module, so that we can move the dynamic JS import here but measure 
     // WebAssembly compilation and instantiation as part of the first iteration.
-    this.skikoInstantiate = (await dynamicJSImport('Kotlin-compose/build/skiko.mjs')).default;
-    this.mainInstantiate = (await dynamicJSImport('Kotlin-compose/build/compose-benchmarks-benchmarks.uninstantiated.mjs')).instantiate;
+    this.skikoInstantiate = (await dynamicImport('Kotlin-compose/build/skiko.mjs')).default;
+    this.mainInstantiate = (await dynamicImport('Kotlin-compose/build/compose-benchmarks-benchmarks.uninstantiated.mjs')).instantiate;
   }
 
   async runIteration() {
