@@ -16,7 +16,7 @@ git clone -b ok/jetstream3_hotfix https://github.com/JetBrains/compose-multiplat
 pushd compose-multiplatform/
 git log -1 --oneline | tee -a "$BUILD_LOG"
 # FIXME: Use stable 2.3 Kotlin/Wasm toolchain, once available.
-git apply ../register-hotfix.patch | tee -a "$BUILD_LOG"
+git apply ../use-beta-toolchain.patch | tee -a "$BUILD_LOG"
 pushd benchmarks/multiplatform
 ./gradlew :benchmarks:wasmJsProductionExecutableCompileSync
 # For building polyfills and JavaScript launcher to run in d8 (which inspires the benchmark.js launcher here):
