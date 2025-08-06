@@ -380,14 +380,14 @@ var tempDouble;
 var tempI64;
 
 var ASM_CONSTS = {
- 1894896: $0 => {
+ 1894920: $0 => {
   _releaseCallback($0);
  },
- 1894921: $0 => _callCallback($0).value ? 1 : 0,
- 1894965: $0 => _callCallback($0).value,
- 1895001: $0 => _callCallback($0).value,
- 1895037: $0 => _callCallback($0).value,
- 1895073: $0 => {
+ 1894945: $0 => _callCallback($0).value ? 1 : 0,
+ 1894989: $0 => _callCallback($0).value,
+ 1895025: $0 => _callCallback($0).value,
+ 1895061: $0 => _callCallback($0).value,
+ 1895097: $0 => {
   _callCallback($0);
  }
 };
@@ -6189,17 +6189,301 @@ var wasmExports = createWasm();
 
 var ___wasm_call_ctors = () => (___wasm_call_ctors = wasmExports["__wasm_call_ctors"])();
 
-var org_jetbrains_skia_RuntimeEffect__1nMakeShader = Module["org_jetbrains_skia_RuntimeEffect__1nMakeShader"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_RuntimeEffect__1nMakeShader = Module["org_jetbrains_skia_RuntimeEffect__1nMakeShader"] = wasmExports["org_jetbrains_skia_RuntimeEffect__1nMakeShader"])(a0, a1, a2, a3, a4);
+var org_jetbrains_skia_ColorFilter__1nMakeComposed = Module["org_jetbrains_skia_ColorFilter__1nMakeComposed"] = (a0, a1) => (org_jetbrains_skia_ColorFilter__1nMakeComposed = Module["org_jetbrains_skia_ColorFilter__1nMakeComposed"] = wasmExports["org_jetbrains_skia_ColorFilter__1nMakeComposed"])(a0, a1);
 
-var org_jetbrains_skia_RuntimeEffect__1nMakeForShader = Module["org_jetbrains_skia_RuntimeEffect__1nMakeForShader"] = a0 => (org_jetbrains_skia_RuntimeEffect__1nMakeForShader = Module["org_jetbrains_skia_RuntimeEffect__1nMakeForShader"] = wasmExports["org_jetbrains_skia_RuntimeEffect__1nMakeForShader"])(a0);
+var org_jetbrains_skia_ColorFilter__1nMakeBlend = Module["org_jetbrains_skia_ColorFilter__1nMakeBlend"] = (a0, a1) => (org_jetbrains_skia_ColorFilter__1nMakeBlend = Module["org_jetbrains_skia_ColorFilter__1nMakeBlend"] = wasmExports["org_jetbrains_skia_ColorFilter__1nMakeBlend"])(a0, a1);
 
-var org_jetbrains_skia_RuntimeEffect__1nMakeForColorFilter = Module["org_jetbrains_skia_RuntimeEffect__1nMakeForColorFilter"] = a0 => (org_jetbrains_skia_RuntimeEffect__1nMakeForColorFilter = Module["org_jetbrains_skia_RuntimeEffect__1nMakeForColorFilter"] = wasmExports["org_jetbrains_skia_RuntimeEffect__1nMakeForColorFilter"])(a0);
+var org_jetbrains_skia_ColorFilter__1nMakeMatrix = Module["org_jetbrains_skia_ColorFilter__1nMakeMatrix"] = a0 => (org_jetbrains_skia_ColorFilter__1nMakeMatrix = Module["org_jetbrains_skia_ColorFilter__1nMakeMatrix"] = wasmExports["org_jetbrains_skia_ColorFilter__1nMakeMatrix"])(a0);
 
-var org_jetbrains_skia_RuntimeEffect__1Result_nGetPtr = Module["org_jetbrains_skia_RuntimeEffect__1Result_nGetPtr"] = a0 => (org_jetbrains_skia_RuntimeEffect__1Result_nGetPtr = Module["org_jetbrains_skia_RuntimeEffect__1Result_nGetPtr"] = wasmExports["org_jetbrains_skia_RuntimeEffect__1Result_nGetPtr"])(a0);
+var org_jetbrains_skia_ColorFilter__1nMakeHSLAMatrix = Module["org_jetbrains_skia_ColorFilter__1nMakeHSLAMatrix"] = a0 => (org_jetbrains_skia_ColorFilter__1nMakeHSLAMatrix = Module["org_jetbrains_skia_ColorFilter__1nMakeHSLAMatrix"] = wasmExports["org_jetbrains_skia_ColorFilter__1nMakeHSLAMatrix"])(a0);
 
-var org_jetbrains_skia_RuntimeEffect__1Result_nGetError = Module["org_jetbrains_skia_RuntimeEffect__1Result_nGetError"] = a0 => (org_jetbrains_skia_RuntimeEffect__1Result_nGetError = Module["org_jetbrains_skia_RuntimeEffect__1Result_nGetError"] = wasmExports["org_jetbrains_skia_RuntimeEffect__1Result_nGetError"])(a0);
+var org_jetbrains_skia_ColorFilter__1nGetLinearToSRGBGamma = Module["org_jetbrains_skia_ColorFilter__1nGetLinearToSRGBGamma"] = () => (org_jetbrains_skia_ColorFilter__1nGetLinearToSRGBGamma = Module["org_jetbrains_skia_ColorFilter__1nGetLinearToSRGBGamma"] = wasmExports["org_jetbrains_skia_ColorFilter__1nGetLinearToSRGBGamma"])();
 
-var org_jetbrains_skia_RuntimeEffect__1Result_nDestroy = Module["org_jetbrains_skia_RuntimeEffect__1Result_nDestroy"] = a0 => (org_jetbrains_skia_RuntimeEffect__1Result_nDestroy = Module["org_jetbrains_skia_RuntimeEffect__1Result_nDestroy"] = wasmExports["org_jetbrains_skia_RuntimeEffect__1Result_nDestroy"])(a0);
+var org_jetbrains_skia_ColorFilter__1nGetSRGBToLinearGamma = Module["org_jetbrains_skia_ColorFilter__1nGetSRGBToLinearGamma"] = () => (org_jetbrains_skia_ColorFilter__1nGetSRGBToLinearGamma = Module["org_jetbrains_skia_ColorFilter__1nGetSRGBToLinearGamma"] = wasmExports["org_jetbrains_skia_ColorFilter__1nGetSRGBToLinearGamma"])();
+
+var org_jetbrains_skia_ColorFilter__1nMakeLerp = Module["org_jetbrains_skia_ColorFilter__1nMakeLerp"] = (a0, a1, a2) => (org_jetbrains_skia_ColorFilter__1nMakeLerp = Module["org_jetbrains_skia_ColorFilter__1nMakeLerp"] = wasmExports["org_jetbrains_skia_ColorFilter__1nMakeLerp"])(a0, a1, a2);
+
+var org_jetbrains_skia_ColorFilter__1nMakeLighting = Module["org_jetbrains_skia_ColorFilter__1nMakeLighting"] = (a0, a1) => (org_jetbrains_skia_ColorFilter__1nMakeLighting = Module["org_jetbrains_skia_ColorFilter__1nMakeLighting"] = wasmExports["org_jetbrains_skia_ColorFilter__1nMakeLighting"])(a0, a1);
+
+var org_jetbrains_skia_ColorFilter__1nMakeHighContrast = Module["org_jetbrains_skia_ColorFilter__1nMakeHighContrast"] = (a0, a1, a2) => (org_jetbrains_skia_ColorFilter__1nMakeHighContrast = Module["org_jetbrains_skia_ColorFilter__1nMakeHighContrast"] = wasmExports["org_jetbrains_skia_ColorFilter__1nMakeHighContrast"])(a0, a1, a2);
+
+var org_jetbrains_skia_ColorFilter__1nMakeTable = Module["org_jetbrains_skia_ColorFilter__1nMakeTable"] = a0 => (org_jetbrains_skia_ColorFilter__1nMakeTable = Module["org_jetbrains_skia_ColorFilter__1nMakeTable"] = wasmExports["org_jetbrains_skia_ColorFilter__1nMakeTable"])(a0);
+
+var org_jetbrains_skia_ColorFilter__1nMakeTableARGB = Module["org_jetbrains_skia_ColorFilter__1nMakeTableARGB"] = (a0, a1, a2, a3) => (org_jetbrains_skia_ColorFilter__1nMakeTableARGB = Module["org_jetbrains_skia_ColorFilter__1nMakeTableARGB"] = wasmExports["org_jetbrains_skia_ColorFilter__1nMakeTableARGB"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_ColorFilter__1nMakeOverdraw = Module["org_jetbrains_skia_ColorFilter__1nMakeOverdraw"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_ColorFilter__1nMakeOverdraw = Module["org_jetbrains_skia_ColorFilter__1nMakeOverdraw"] = wasmExports["org_jetbrains_skia_ColorFilter__1nMakeOverdraw"])(a0, a1, a2, a3, a4, a5);
+
+var org_jetbrains_skia_ColorFilter__1nGetLuma = Module["org_jetbrains_skia_ColorFilter__1nGetLuma"] = () => (org_jetbrains_skia_ColorFilter__1nGetLuma = Module["org_jetbrains_skia_ColorFilter__1nGetLuma"] = wasmExports["org_jetbrains_skia_ColorFilter__1nGetLuma"])();
+
+var org_jetbrains_skia_Data__1nGetFinalizer = Module["org_jetbrains_skia_Data__1nGetFinalizer"] = () => (org_jetbrains_skia_Data__1nGetFinalizer = Module["org_jetbrains_skia_Data__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_Data__1nGetFinalizer"])();
+
+var org_jetbrains_skia_Data__1nSize = Module["org_jetbrains_skia_Data__1nSize"] = a0 => (org_jetbrains_skia_Data__1nSize = Module["org_jetbrains_skia_Data__1nSize"] = wasmExports["org_jetbrains_skia_Data__1nSize"])(a0);
+
+var org_jetbrains_skia_Data__1nBytes = Module["org_jetbrains_skia_Data__1nBytes"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Data__1nBytes = Module["org_jetbrains_skia_Data__1nBytes"] = wasmExports["org_jetbrains_skia_Data__1nBytes"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_Data__1nEquals = Module["org_jetbrains_skia_Data__1nEquals"] = (a0, a1) => (org_jetbrains_skia_Data__1nEquals = Module["org_jetbrains_skia_Data__1nEquals"] = wasmExports["org_jetbrains_skia_Data__1nEquals"])(a0, a1);
+
+var org_jetbrains_skia_Data__1nMakeFromBytes = Module["org_jetbrains_skia_Data__1nMakeFromBytes"] = (a0, a1, a2) => (org_jetbrains_skia_Data__1nMakeFromBytes = Module["org_jetbrains_skia_Data__1nMakeFromBytes"] = wasmExports["org_jetbrains_skia_Data__1nMakeFromBytes"])(a0, a1, a2);
+
+var _malloc = a0 => (_malloc = wasmExports["malloc"])(a0);
+
+var org_jetbrains_skia_Data__1nMakeWithoutCopy = Module["org_jetbrains_skia_Data__1nMakeWithoutCopy"] = (a0, a1) => (org_jetbrains_skia_Data__1nMakeWithoutCopy = Module["org_jetbrains_skia_Data__1nMakeWithoutCopy"] = wasmExports["org_jetbrains_skia_Data__1nMakeWithoutCopy"])(a0, a1);
+
+var org_jetbrains_skia_Data__1nMakeFromFileName = Module["org_jetbrains_skia_Data__1nMakeFromFileName"] = a0 => (org_jetbrains_skia_Data__1nMakeFromFileName = Module["org_jetbrains_skia_Data__1nMakeFromFileName"] = wasmExports["org_jetbrains_skia_Data__1nMakeFromFileName"])(a0);
+
+var org_jetbrains_skia_Data__1nMakeSubset = Module["org_jetbrains_skia_Data__1nMakeSubset"] = (a0, a1, a2) => (org_jetbrains_skia_Data__1nMakeSubset = Module["org_jetbrains_skia_Data__1nMakeSubset"] = wasmExports["org_jetbrains_skia_Data__1nMakeSubset"])(a0, a1, a2);
+
+var org_jetbrains_skia_Data__1nMakeEmpty = Module["org_jetbrains_skia_Data__1nMakeEmpty"] = () => (org_jetbrains_skia_Data__1nMakeEmpty = Module["org_jetbrains_skia_Data__1nMakeEmpty"] = wasmExports["org_jetbrains_skia_Data__1nMakeEmpty"])();
+
+var org_jetbrains_skia_Data__1nMakeUninitialized = Module["org_jetbrains_skia_Data__1nMakeUninitialized"] = a0 => (org_jetbrains_skia_Data__1nMakeUninitialized = Module["org_jetbrains_skia_Data__1nMakeUninitialized"] = wasmExports["org_jetbrains_skia_Data__1nMakeUninitialized"])(a0);
+
+var org_jetbrains_skia_Data__1nWritableData = Module["org_jetbrains_skia_Data__1nWritableData"] = a0 => (org_jetbrains_skia_Data__1nWritableData = Module["org_jetbrains_skia_Data__1nWritableData"] = wasmExports["org_jetbrains_skia_Data__1nWritableData"])(a0);
+
+var _skia_memGetByte = Module["_skia_memGetByte"] = a0 => (_skia_memGetByte = Module["_skia_memGetByte"] = wasmExports["skia_memGetByte"])(a0);
+
+var _skia_memSetByte = Module["_skia_memSetByte"] = (a0, a1) => (_skia_memSetByte = Module["_skia_memSetByte"] = wasmExports["skia_memSetByte"])(a0, a1);
+
+var _skia_memGetChar = Module["_skia_memGetChar"] = a0 => (_skia_memGetChar = Module["_skia_memGetChar"] = wasmExports["skia_memGetChar"])(a0);
+
+var _skia_memSetChar = Module["_skia_memSetChar"] = (a0, a1) => (_skia_memSetChar = Module["_skia_memSetChar"] = wasmExports["skia_memSetChar"])(a0, a1);
+
+var _skia_memGetShort = Module["_skia_memGetShort"] = a0 => (_skia_memGetShort = Module["_skia_memGetShort"] = wasmExports["skia_memGetShort"])(a0);
+
+var _skia_memSetShort = Module["_skia_memSetShort"] = (a0, a1) => (_skia_memSetShort = Module["_skia_memSetShort"] = wasmExports["skia_memSetShort"])(a0, a1);
+
+var _skia_memGetInt = Module["_skia_memGetInt"] = a0 => (_skia_memGetInt = Module["_skia_memGetInt"] = wasmExports["skia_memGetInt"])(a0);
+
+var _skia_memSetInt = Module["_skia_memSetInt"] = (a0, a1) => (_skia_memSetInt = Module["_skia_memSetInt"] = wasmExports["skia_memSetInt"])(a0, a1);
+
+var _skia_memGetFloat = Module["_skia_memGetFloat"] = a0 => (_skia_memGetFloat = Module["_skia_memGetFloat"] = wasmExports["skia_memGetFloat"])(a0);
+
+var _skia_memSetFloat = Module["_skia_memSetFloat"] = (a0, a1) => (_skia_memSetFloat = Module["_skia_memSetFloat"] = wasmExports["skia_memSetFloat"])(a0, a1);
+
+var _skia_memGetDouble = Module["_skia_memGetDouble"] = a0 => (_skia_memGetDouble = Module["_skia_memGetDouble"] = wasmExports["skia_memGetDouble"])(a0);
+
+var _skia_memSetDouble = Module["_skia_memSetDouble"] = (a0, a1) => (_skia_memSetDouble = Module["_skia_memSetDouble"] = wasmExports["skia_memSetDouble"])(a0, a1);
+
+var org_jetbrains_skia_PathSegmentIterator__1nMake = Module["org_jetbrains_skia_PathSegmentIterator__1nMake"] = (a0, a1) => (org_jetbrains_skia_PathSegmentIterator__1nMake = Module["org_jetbrains_skia_PathSegmentIterator__1nMake"] = wasmExports["org_jetbrains_skia_PathSegmentIterator__1nMake"])(a0, a1);
+
+var org_jetbrains_skia_PathSegmentIterator__1nGetFinalizer = Module["org_jetbrains_skia_PathSegmentIterator__1nGetFinalizer"] = () => (org_jetbrains_skia_PathSegmentIterator__1nGetFinalizer = Module["org_jetbrains_skia_PathSegmentIterator__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_PathSegmentIterator__1nGetFinalizer"])();
+
+var org_jetbrains_skia_PathSegmentIterator__1nNext = Module["org_jetbrains_skia_PathSegmentIterator__1nNext"] = (a0, a1) => (org_jetbrains_skia_PathSegmentIterator__1nNext = Module["org_jetbrains_skia_PathSegmentIterator__1nNext"] = wasmExports["org_jetbrains_skia_PathSegmentIterator__1nNext"])(a0, a1);
+
+var org_jetbrains_skiko_RenderTargetsKt_makeGLRenderTargetNative = Module["org_jetbrains_skiko_RenderTargetsKt_makeGLRenderTargetNative"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skiko_RenderTargetsKt_makeGLRenderTargetNative = Module["org_jetbrains_skiko_RenderTargetsKt_makeGLRenderTargetNative"] = wasmExports["org_jetbrains_skiko_RenderTargetsKt_makeGLRenderTargetNative"])(a0, a1, a2, a3, a4, a5);
+
+var org_jetbrains_skiko_RenderTargetsKt_makeGLContextNative = Module["org_jetbrains_skiko_RenderTargetsKt_makeGLContextNative"] = () => (org_jetbrains_skiko_RenderTargetsKt_makeGLContextNative = Module["org_jetbrains_skiko_RenderTargetsKt_makeGLContextNative"] = wasmExports["org_jetbrains_skiko_RenderTargetsKt_makeGLContextNative"])();
+
+var org_jetbrains_skiko_RenderTargetsKt_makeMetalRenderTargetNative = Module["org_jetbrains_skiko_RenderTargetsKt_makeMetalRenderTargetNative"] = (a0, a1, a2) => (org_jetbrains_skiko_RenderTargetsKt_makeMetalRenderTargetNative = Module["org_jetbrains_skiko_RenderTargetsKt_makeMetalRenderTargetNative"] = wasmExports["org_jetbrains_skiko_RenderTargetsKt_makeMetalRenderTargetNative"])(a0, a1, a2);
+
+var org_jetbrains_skiko_RenderTargetsKt_makeMetalContextNative = Module["org_jetbrains_skiko_RenderTargetsKt_makeMetalContextNative"] = () => (org_jetbrains_skiko_RenderTargetsKt_makeMetalContextNative = Module["org_jetbrains_skiko_RenderTargetsKt_makeMetalContextNative"] = wasmExports["org_jetbrains_skiko_RenderTargetsKt_makeMetalContextNative"])();
+
+var org_jetbrains_skia_Image__1nMakeRaster = Module["org_jetbrains_skia_Image__1nMakeRaster"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Image__1nMakeRaster = Module["org_jetbrains_skia_Image__1nMakeRaster"] = wasmExports["org_jetbrains_skia_Image__1nMakeRaster"])(a0, a1, a2, a3, a4, a5, a6);
+
+var org_jetbrains_skia_Image__1nMakeRasterData = Module["org_jetbrains_skia_Image__1nMakeRasterData"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Image__1nMakeRasterData = Module["org_jetbrains_skia_Image__1nMakeRasterData"] = wasmExports["org_jetbrains_skia_Image__1nMakeRasterData"])(a0, a1, a2, a3, a4, a5, a6);
+
+var org_jetbrains_skia_Image__1nMakeFromBitmap = Module["org_jetbrains_skia_Image__1nMakeFromBitmap"] = a0 => (org_jetbrains_skia_Image__1nMakeFromBitmap = Module["org_jetbrains_skia_Image__1nMakeFromBitmap"] = wasmExports["org_jetbrains_skia_Image__1nMakeFromBitmap"])(a0);
+
+var org_jetbrains_skia_Image__1nMakeFromPixmap = Module["org_jetbrains_skia_Image__1nMakeFromPixmap"] = a0 => (org_jetbrains_skia_Image__1nMakeFromPixmap = Module["org_jetbrains_skia_Image__1nMakeFromPixmap"] = wasmExports["org_jetbrains_skia_Image__1nMakeFromPixmap"])(a0);
+
+var org_jetbrains_skia_Image__1nMakeFromEncoded = Module["org_jetbrains_skia_Image__1nMakeFromEncoded"] = (a0, a1) => (org_jetbrains_skia_Image__1nMakeFromEncoded = Module["org_jetbrains_skia_Image__1nMakeFromEncoded"] = wasmExports["org_jetbrains_skia_Image__1nMakeFromEncoded"])(a0, a1);
+
+var org_jetbrains_skia_Image__1nGetImageInfo = Module["org_jetbrains_skia_Image__1nGetImageInfo"] = (a0, a1, a2) => (org_jetbrains_skia_Image__1nGetImageInfo = Module["org_jetbrains_skia_Image__1nGetImageInfo"] = wasmExports["org_jetbrains_skia_Image__1nGetImageInfo"])(a0, a1, a2);
+
+var org_jetbrains_skia_Image__1nEncodeToData = Module["org_jetbrains_skia_Image__1nEncodeToData"] = (a0, a1, a2) => (org_jetbrains_skia_Image__1nEncodeToData = Module["org_jetbrains_skia_Image__1nEncodeToData"] = wasmExports["org_jetbrains_skia_Image__1nEncodeToData"])(a0, a1, a2);
+
+var org_jetbrains_skia_Image__1nMakeShader = Module["org_jetbrains_skia_Image__1nMakeShader"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Image__1nMakeShader = Module["org_jetbrains_skia_Image__1nMakeShader"] = wasmExports["org_jetbrains_skia_Image__1nMakeShader"])(a0, a1, a2, a3, a4, a5);
+
+var org_jetbrains_skia_Image__1nPeekPixels = Module["org_jetbrains_skia_Image__1nPeekPixels"] = a0 => (org_jetbrains_skia_Image__1nPeekPixels = Module["org_jetbrains_skia_Image__1nPeekPixels"] = wasmExports["org_jetbrains_skia_Image__1nPeekPixels"])(a0);
+
+var org_jetbrains_skia_Image__1nPeekPixelsToPixmap = Module["org_jetbrains_skia_Image__1nPeekPixelsToPixmap"] = (a0, a1) => (org_jetbrains_skia_Image__1nPeekPixelsToPixmap = Module["org_jetbrains_skia_Image__1nPeekPixelsToPixmap"] = wasmExports["org_jetbrains_skia_Image__1nPeekPixelsToPixmap"])(a0, a1);
+
+var org_jetbrains_skia_Image__1nReadPixelsBitmap = Module["org_jetbrains_skia_Image__1nReadPixelsBitmap"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Image__1nReadPixelsBitmap = Module["org_jetbrains_skia_Image__1nReadPixelsBitmap"] = wasmExports["org_jetbrains_skia_Image__1nReadPixelsBitmap"])(a0, a1, a2, a3, a4, a5);
+
+var org_jetbrains_skia_Image__1nReadPixelsPixmap = Module["org_jetbrains_skia_Image__1nReadPixelsPixmap"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Image__1nReadPixelsPixmap = Module["org_jetbrains_skia_Image__1nReadPixelsPixmap"] = wasmExports["org_jetbrains_skia_Image__1nReadPixelsPixmap"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skia_Image__1nScalePixels = Module["org_jetbrains_skia_Image__1nScalePixels"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Image__1nScalePixels = Module["org_jetbrains_skia_Image__1nScalePixels"] = wasmExports["org_jetbrains_skia_Image__1nScalePixels"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skia_FontMgr__1nGetFamiliesCount = Module["org_jetbrains_skia_FontMgr__1nGetFamiliesCount"] = a0 => (org_jetbrains_skia_FontMgr__1nGetFamiliesCount = Module["org_jetbrains_skia_FontMgr__1nGetFamiliesCount"] = wasmExports["org_jetbrains_skia_FontMgr__1nGetFamiliesCount"])(a0);
+
+var org_jetbrains_skia_FontMgr__1nGetFamilyName = Module["org_jetbrains_skia_FontMgr__1nGetFamilyName"] = (a0, a1) => (org_jetbrains_skia_FontMgr__1nGetFamilyName = Module["org_jetbrains_skia_FontMgr__1nGetFamilyName"] = wasmExports["org_jetbrains_skia_FontMgr__1nGetFamilyName"])(a0, a1);
+
+var org_jetbrains_skia_FontMgr__1nMakeStyleSet = Module["org_jetbrains_skia_FontMgr__1nMakeStyleSet"] = (a0, a1) => (org_jetbrains_skia_FontMgr__1nMakeStyleSet = Module["org_jetbrains_skia_FontMgr__1nMakeStyleSet"] = wasmExports["org_jetbrains_skia_FontMgr__1nMakeStyleSet"])(a0, a1);
+
+var org_jetbrains_skia_FontMgr__1nMatchFamily = Module["org_jetbrains_skia_FontMgr__1nMatchFamily"] = (a0, a1) => (org_jetbrains_skia_FontMgr__1nMatchFamily = Module["org_jetbrains_skia_FontMgr__1nMatchFamily"] = wasmExports["org_jetbrains_skia_FontMgr__1nMatchFamily"])(a0, a1);
+
+var org_jetbrains_skia_FontMgr__1nMatchFamilyStyle = Module["org_jetbrains_skia_FontMgr__1nMatchFamilyStyle"] = (a0, a1, a2) => (org_jetbrains_skia_FontMgr__1nMatchFamilyStyle = Module["org_jetbrains_skia_FontMgr__1nMatchFamilyStyle"] = wasmExports["org_jetbrains_skia_FontMgr__1nMatchFamilyStyle"])(a0, a1, a2);
+
+var org_jetbrains_skia_FontMgr__1nMatchFamilyStyleCharacter = Module["org_jetbrains_skia_FontMgr__1nMatchFamilyStyleCharacter"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_FontMgr__1nMatchFamilyStyleCharacter = Module["org_jetbrains_skia_FontMgr__1nMatchFamilyStyleCharacter"] = wasmExports["org_jetbrains_skia_FontMgr__1nMatchFamilyStyleCharacter"])(a0, a1, a2, a3, a4, a5);
+
+var org_jetbrains_skia_FontMgr__1nMakeFromData = Module["org_jetbrains_skia_FontMgr__1nMakeFromData"] = (a0, a1, a2) => (org_jetbrains_skia_FontMgr__1nMakeFromData = Module["org_jetbrains_skia_FontMgr__1nMakeFromData"] = wasmExports["org_jetbrains_skia_FontMgr__1nMakeFromData"])(a0, a1, a2);
+
+var org_jetbrains_skia_FontMgr__1nMakeFromFile = Module["org_jetbrains_skia_FontMgr__1nMakeFromFile"] = (a0, a1, a2) => (org_jetbrains_skia_FontMgr__1nMakeFromFile = Module["org_jetbrains_skia_FontMgr__1nMakeFromFile"] = wasmExports["org_jetbrains_skia_FontMgr__1nMakeFromFile"])(a0, a1, a2);
+
+var org_jetbrains_skia_FontMgr__1nLegacyMakeTypeface = Module["org_jetbrains_skia_FontMgr__1nLegacyMakeTypeface"] = (a0, a1, a2) => (org_jetbrains_skia_FontMgr__1nLegacyMakeTypeface = Module["org_jetbrains_skia_FontMgr__1nLegacyMakeTypeface"] = wasmExports["org_jetbrains_skia_FontMgr__1nLegacyMakeTypeface"])(a0, a1, a2);
+
+var org_jetbrains_skia_FontMgr__1nDefault = Module["org_jetbrains_skia_FontMgr__1nDefault"] = () => (org_jetbrains_skia_FontMgr__1nDefault = Module["org_jetbrains_skia_FontMgr__1nDefault"] = wasmExports["org_jetbrains_skia_FontMgr__1nDefault"])();
+
+var org_jetbrains_skia_FontMgr__1nEmpty = Module["org_jetbrains_skia_FontMgr__1nEmpty"] = () => (org_jetbrains_skia_FontMgr__1nEmpty = Module["org_jetbrains_skia_FontMgr__1nEmpty"] = wasmExports["org_jetbrains_skia_FontMgr__1nEmpty"])();
+
+var org_jetbrains_skia_FontMgrWithFallback__1nDefaultWithFallbackFontProvider = Module["org_jetbrains_skia_FontMgrWithFallback__1nDefaultWithFallbackFontProvider"] = a0 => (org_jetbrains_skia_FontMgrWithFallback__1nDefaultWithFallbackFontProvider = Module["org_jetbrains_skia_FontMgrWithFallback__1nDefaultWithFallbackFontProvider"] = wasmExports["org_jetbrains_skia_FontMgrWithFallback__1nDefaultWithFallbackFontProvider"])(a0);
+
+var org_jetbrains_skia_RTreeFactory__1nMake = Module["org_jetbrains_skia_RTreeFactory__1nMake"] = () => (org_jetbrains_skia_RTreeFactory__1nMake = Module["org_jetbrains_skia_RTreeFactory__1nMake"] = wasmExports["org_jetbrains_skia_RTreeFactory__1nMake"])();
+
+var org_jetbrains_skia_BBHFactory__1nGetFinalizer = Module["org_jetbrains_skia_BBHFactory__1nGetFinalizer"] = () => (org_jetbrains_skia_BBHFactory__1nGetFinalizer = Module["org_jetbrains_skia_BBHFactory__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_BBHFactory__1nGetFinalizer"])();
+
+var org_jetbrains_skia_Bitmap__1nGetFinalizer = Module["org_jetbrains_skia_Bitmap__1nGetFinalizer"] = () => (org_jetbrains_skia_Bitmap__1nGetFinalizer = Module["org_jetbrains_skia_Bitmap__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_Bitmap__1nGetFinalizer"])();
+
+var org_jetbrains_skia_Bitmap__1nMake = Module["org_jetbrains_skia_Bitmap__1nMake"] = () => (org_jetbrains_skia_Bitmap__1nMake = Module["org_jetbrains_skia_Bitmap__1nMake"] = wasmExports["org_jetbrains_skia_Bitmap__1nMake"])();
+
+var org_jetbrains_skia_Bitmap__1nMakeClone = Module["org_jetbrains_skia_Bitmap__1nMakeClone"] = a0 => (org_jetbrains_skia_Bitmap__1nMakeClone = Module["org_jetbrains_skia_Bitmap__1nMakeClone"] = wasmExports["org_jetbrains_skia_Bitmap__1nMakeClone"])(a0);
+
+var org_jetbrains_skia_Bitmap__1nSwap = Module["org_jetbrains_skia_Bitmap__1nSwap"] = (a0, a1) => (org_jetbrains_skia_Bitmap__1nSwap = Module["org_jetbrains_skia_Bitmap__1nSwap"] = wasmExports["org_jetbrains_skia_Bitmap__1nSwap"])(a0, a1);
+
+var org_jetbrains_skia_Bitmap__1nGetImageInfo = Module["org_jetbrains_skia_Bitmap__1nGetImageInfo"] = (a0, a1, a2) => (org_jetbrains_skia_Bitmap__1nGetImageInfo = Module["org_jetbrains_skia_Bitmap__1nGetImageInfo"] = wasmExports["org_jetbrains_skia_Bitmap__1nGetImageInfo"])(a0, a1, a2);
+
+var org_jetbrains_skia_Bitmap__1nGetRowBytesAsPixels = Module["org_jetbrains_skia_Bitmap__1nGetRowBytesAsPixels"] = a0 => (org_jetbrains_skia_Bitmap__1nGetRowBytesAsPixels = Module["org_jetbrains_skia_Bitmap__1nGetRowBytesAsPixels"] = wasmExports["org_jetbrains_skia_Bitmap__1nGetRowBytesAsPixels"])(a0);
+
+var org_jetbrains_skia_Bitmap__1nIsNull = Module["org_jetbrains_skia_Bitmap__1nIsNull"] = a0 => (org_jetbrains_skia_Bitmap__1nIsNull = Module["org_jetbrains_skia_Bitmap__1nIsNull"] = wasmExports["org_jetbrains_skia_Bitmap__1nIsNull"])(a0);
+
+var org_jetbrains_skia_Bitmap__1nGetRowBytes = Module["org_jetbrains_skia_Bitmap__1nGetRowBytes"] = a0 => (org_jetbrains_skia_Bitmap__1nGetRowBytes = Module["org_jetbrains_skia_Bitmap__1nGetRowBytes"] = wasmExports["org_jetbrains_skia_Bitmap__1nGetRowBytes"])(a0);
+
+var org_jetbrains_skia_Bitmap__1nSetAlphaType = Module["org_jetbrains_skia_Bitmap__1nSetAlphaType"] = (a0, a1) => (org_jetbrains_skia_Bitmap__1nSetAlphaType = Module["org_jetbrains_skia_Bitmap__1nSetAlphaType"] = wasmExports["org_jetbrains_skia_Bitmap__1nSetAlphaType"])(a0, a1);
+
+var org_jetbrains_skia_Bitmap__1nComputeByteSize = Module["org_jetbrains_skia_Bitmap__1nComputeByteSize"] = a0 => (org_jetbrains_skia_Bitmap__1nComputeByteSize = Module["org_jetbrains_skia_Bitmap__1nComputeByteSize"] = wasmExports["org_jetbrains_skia_Bitmap__1nComputeByteSize"])(a0);
+
+var org_jetbrains_skia_Bitmap__1nIsImmutable = Module["org_jetbrains_skia_Bitmap__1nIsImmutable"] = a0 => (org_jetbrains_skia_Bitmap__1nIsImmutable = Module["org_jetbrains_skia_Bitmap__1nIsImmutable"] = wasmExports["org_jetbrains_skia_Bitmap__1nIsImmutable"])(a0);
+
+var org_jetbrains_skia_Bitmap__1nSetImmutable = Module["org_jetbrains_skia_Bitmap__1nSetImmutable"] = a0 => (org_jetbrains_skia_Bitmap__1nSetImmutable = Module["org_jetbrains_skia_Bitmap__1nSetImmutable"] = wasmExports["org_jetbrains_skia_Bitmap__1nSetImmutable"])(a0);
+
+var org_jetbrains_skia_Bitmap__1nReset = Module["org_jetbrains_skia_Bitmap__1nReset"] = a0 => (org_jetbrains_skia_Bitmap__1nReset = Module["org_jetbrains_skia_Bitmap__1nReset"] = wasmExports["org_jetbrains_skia_Bitmap__1nReset"])(a0);
+
+var org_jetbrains_skia_Bitmap__1nComputeIsOpaque = Module["org_jetbrains_skia_Bitmap__1nComputeIsOpaque"] = a0 => (org_jetbrains_skia_Bitmap__1nComputeIsOpaque = Module["org_jetbrains_skia_Bitmap__1nComputeIsOpaque"] = wasmExports["org_jetbrains_skia_Bitmap__1nComputeIsOpaque"])(a0);
+
+var org_jetbrains_skia_Bitmap__1nSetImageInfo = Module["org_jetbrains_skia_Bitmap__1nSetImageInfo"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Bitmap__1nSetImageInfo = Module["org_jetbrains_skia_Bitmap__1nSetImageInfo"] = wasmExports["org_jetbrains_skia_Bitmap__1nSetImageInfo"])(a0, a1, a2, a3, a4, a5, a6);
+
+var org_jetbrains_skia_Bitmap__1nAllocPixelsFlags = Module["org_jetbrains_skia_Bitmap__1nAllocPixelsFlags"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Bitmap__1nAllocPixelsFlags = Module["org_jetbrains_skia_Bitmap__1nAllocPixelsFlags"] = wasmExports["org_jetbrains_skia_Bitmap__1nAllocPixelsFlags"])(a0, a1, a2, a3, a4, a5, a6);
+
+var org_jetbrains_skia_Bitmap__1nAllocPixelsRowBytes = Module["org_jetbrains_skia_Bitmap__1nAllocPixelsRowBytes"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Bitmap__1nAllocPixelsRowBytes = Module["org_jetbrains_skia_Bitmap__1nAllocPixelsRowBytes"] = wasmExports["org_jetbrains_skia_Bitmap__1nAllocPixelsRowBytes"])(a0, a1, a2, a3, a4, a5, a6);
+
+var _free = a0 => (_free = wasmExports["free"])(a0);
+
+var org_jetbrains_skia_Bitmap__1nInstallPixels = Module["org_jetbrains_skia_Bitmap__1nInstallPixels"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8) => (org_jetbrains_skia_Bitmap__1nInstallPixels = Module["org_jetbrains_skia_Bitmap__1nInstallPixels"] = wasmExports["org_jetbrains_skia_Bitmap__1nInstallPixels"])(a0, a1, a2, a3, a4, a5, a6, a7, a8);
+
+var org_jetbrains_skia_Bitmap__1nAllocPixels = Module["org_jetbrains_skia_Bitmap__1nAllocPixels"] = a0 => (org_jetbrains_skia_Bitmap__1nAllocPixels = Module["org_jetbrains_skia_Bitmap__1nAllocPixels"] = wasmExports["org_jetbrains_skia_Bitmap__1nAllocPixels"])(a0);
+
+var org_jetbrains_skia_Bitmap__1nGetPixelRef = Module["org_jetbrains_skia_Bitmap__1nGetPixelRef"] = a0 => (org_jetbrains_skia_Bitmap__1nGetPixelRef = Module["org_jetbrains_skia_Bitmap__1nGetPixelRef"] = wasmExports["org_jetbrains_skia_Bitmap__1nGetPixelRef"])(a0);
+
+var org_jetbrains_skia_Bitmap__1nGetPixelRefOriginX = Module["org_jetbrains_skia_Bitmap__1nGetPixelRefOriginX"] = a0 => (org_jetbrains_skia_Bitmap__1nGetPixelRefOriginX = Module["org_jetbrains_skia_Bitmap__1nGetPixelRefOriginX"] = wasmExports["org_jetbrains_skia_Bitmap__1nGetPixelRefOriginX"])(a0);
+
+var org_jetbrains_skia_Bitmap__1nGetPixelRefOriginY = Module["org_jetbrains_skia_Bitmap__1nGetPixelRefOriginY"] = a0 => (org_jetbrains_skia_Bitmap__1nGetPixelRefOriginY = Module["org_jetbrains_skia_Bitmap__1nGetPixelRefOriginY"] = wasmExports["org_jetbrains_skia_Bitmap__1nGetPixelRefOriginY"])(a0);
+
+var org_jetbrains_skia_Bitmap__1nSetPixelRef = Module["org_jetbrains_skia_Bitmap__1nSetPixelRef"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Bitmap__1nSetPixelRef = Module["org_jetbrains_skia_Bitmap__1nSetPixelRef"] = wasmExports["org_jetbrains_skia_Bitmap__1nSetPixelRef"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_Bitmap__1nIsReadyToDraw = Module["org_jetbrains_skia_Bitmap__1nIsReadyToDraw"] = a0 => (org_jetbrains_skia_Bitmap__1nIsReadyToDraw = Module["org_jetbrains_skia_Bitmap__1nIsReadyToDraw"] = wasmExports["org_jetbrains_skia_Bitmap__1nIsReadyToDraw"])(a0);
+
+var org_jetbrains_skia_Bitmap__1nGetGenerationId = Module["org_jetbrains_skia_Bitmap__1nGetGenerationId"] = a0 => (org_jetbrains_skia_Bitmap__1nGetGenerationId = Module["org_jetbrains_skia_Bitmap__1nGetGenerationId"] = wasmExports["org_jetbrains_skia_Bitmap__1nGetGenerationId"])(a0);
+
+var org_jetbrains_skia_Bitmap__1nNotifyPixelsChanged = Module["org_jetbrains_skia_Bitmap__1nNotifyPixelsChanged"] = a0 => (org_jetbrains_skia_Bitmap__1nNotifyPixelsChanged = Module["org_jetbrains_skia_Bitmap__1nNotifyPixelsChanged"] = wasmExports["org_jetbrains_skia_Bitmap__1nNotifyPixelsChanged"])(a0);
+
+var org_jetbrains_skia_Bitmap__1nEraseColor = Module["org_jetbrains_skia_Bitmap__1nEraseColor"] = (a0, a1) => (org_jetbrains_skia_Bitmap__1nEraseColor = Module["org_jetbrains_skia_Bitmap__1nEraseColor"] = wasmExports["org_jetbrains_skia_Bitmap__1nEraseColor"])(a0, a1);
+
+var org_jetbrains_skia_Bitmap__1nErase = Module["org_jetbrains_skia_Bitmap__1nErase"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Bitmap__1nErase = Module["org_jetbrains_skia_Bitmap__1nErase"] = wasmExports["org_jetbrains_skia_Bitmap__1nErase"])(a0, a1, a2, a3, a4, a5);
+
+var org_jetbrains_skia_Bitmap__1nGetColor = Module["org_jetbrains_skia_Bitmap__1nGetColor"] = (a0, a1, a2) => (org_jetbrains_skia_Bitmap__1nGetColor = Module["org_jetbrains_skia_Bitmap__1nGetColor"] = wasmExports["org_jetbrains_skia_Bitmap__1nGetColor"])(a0, a1, a2);
+
+var org_jetbrains_skia_Bitmap__1nGetAlphaf = Module["org_jetbrains_skia_Bitmap__1nGetAlphaf"] = (a0, a1, a2) => (org_jetbrains_skia_Bitmap__1nGetAlphaf = Module["org_jetbrains_skia_Bitmap__1nGetAlphaf"] = wasmExports["org_jetbrains_skia_Bitmap__1nGetAlphaf"])(a0, a1, a2);
+
+var org_jetbrains_skia_Bitmap__1nExtractSubset = Module["org_jetbrains_skia_Bitmap__1nExtractSubset"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Bitmap__1nExtractSubset = Module["org_jetbrains_skia_Bitmap__1nExtractSubset"] = wasmExports["org_jetbrains_skia_Bitmap__1nExtractSubset"])(a0, a1, a2, a3, a4, a5);
+
+var org_jetbrains_skia_Bitmap__1nReadPixels = Module["org_jetbrains_skia_Bitmap__1nReadPixels"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) => (org_jetbrains_skia_Bitmap__1nReadPixels = Module["org_jetbrains_skia_Bitmap__1nReadPixels"] = wasmExports["org_jetbrains_skia_Bitmap__1nReadPixels"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
+
+var org_jetbrains_skia_Bitmap__1nExtractAlpha = Module["org_jetbrains_skia_Bitmap__1nExtractAlpha"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Bitmap__1nExtractAlpha = Module["org_jetbrains_skia_Bitmap__1nExtractAlpha"] = wasmExports["org_jetbrains_skia_Bitmap__1nExtractAlpha"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_Bitmap__1nPeekPixels = Module["org_jetbrains_skia_Bitmap__1nPeekPixels"] = a0 => (org_jetbrains_skia_Bitmap__1nPeekPixels = Module["org_jetbrains_skia_Bitmap__1nPeekPixels"] = wasmExports["org_jetbrains_skia_Bitmap__1nPeekPixels"])(a0);
+
+var org_jetbrains_skia_Bitmap__1nMakeShader = Module["org_jetbrains_skia_Bitmap__1nMakeShader"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Bitmap__1nMakeShader = Module["org_jetbrains_skia_Bitmap__1nMakeShader"] = wasmExports["org_jetbrains_skia_Bitmap__1nMakeShader"])(a0, a1, a2, a3, a4, a5);
+
+var org_jetbrains_skia_shaper_HbIcuScriptRunIterator__1nMake = Module["org_jetbrains_skia_shaper_HbIcuScriptRunIterator__1nMake"] = a0 => (org_jetbrains_skia_shaper_HbIcuScriptRunIterator__1nMake = Module["org_jetbrains_skia_shaper_HbIcuScriptRunIterator__1nMake"] = wasmExports["org_jetbrains_skia_shaper_HbIcuScriptRunIterator__1nMake"])(a0);
+
+var org_jetbrains_skia_shaper_HbIcuScriptRunIterator__1nGetCurrentScriptTag = Module["org_jetbrains_skia_shaper_HbIcuScriptRunIterator__1nGetCurrentScriptTag"] = a0 => (org_jetbrains_skia_shaper_HbIcuScriptRunIterator__1nGetCurrentScriptTag = Module["org_jetbrains_skia_shaper_HbIcuScriptRunIterator__1nGetCurrentScriptTag"] = wasmExports["org_jetbrains_skia_shaper_HbIcuScriptRunIterator__1nGetCurrentScriptTag"])(a0);
+
+var org_jetbrains_skia_shaper_ManagedRunIterator__1nGetFinalizer = Module["org_jetbrains_skia_shaper_ManagedRunIterator__1nGetFinalizer"] = () => (org_jetbrains_skia_shaper_ManagedRunIterator__1nGetFinalizer = Module["org_jetbrains_skia_shaper_ManagedRunIterator__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_shaper_ManagedRunIterator__1nGetFinalizer"])();
+
+var org_jetbrains_skia_shaper_ManagedRunIterator__1nConsume = Module["org_jetbrains_skia_shaper_ManagedRunIterator__1nConsume"] = a0 => (org_jetbrains_skia_shaper_ManagedRunIterator__1nConsume = Module["org_jetbrains_skia_shaper_ManagedRunIterator__1nConsume"] = wasmExports["org_jetbrains_skia_shaper_ManagedRunIterator__1nConsume"])(a0);
+
+var org_jetbrains_skia_shaper_ManagedRunIterator__1nGetEndOfCurrentRun = Module["org_jetbrains_skia_shaper_ManagedRunIterator__1nGetEndOfCurrentRun"] = (a0, a1) => (org_jetbrains_skia_shaper_ManagedRunIterator__1nGetEndOfCurrentRun = Module["org_jetbrains_skia_shaper_ManagedRunIterator__1nGetEndOfCurrentRun"] = wasmExports["org_jetbrains_skia_shaper_ManagedRunIterator__1nGetEndOfCurrentRun"])(a0, a1);
+
+var org_jetbrains_skia_shaper_ManagedRunIterator__1nIsAtEnd = Module["org_jetbrains_skia_shaper_ManagedRunIterator__1nIsAtEnd"] = a0 => (org_jetbrains_skia_shaper_ManagedRunIterator__1nIsAtEnd = Module["org_jetbrains_skia_shaper_ManagedRunIterator__1nIsAtEnd"] = wasmExports["org_jetbrains_skia_shaper_ManagedRunIterator__1nIsAtEnd"])(a0);
+
+var org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nGetFinalizer = Module["org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nGetFinalizer"] = () => (org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nGetFinalizer = Module["org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nGetFinalizer"])();
+
+var org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nMake = Module["org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nMake"] = (a0, a1, a2) => (org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nMake = Module["org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nMake"] = wasmExports["org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nMake"])(a0, a1, a2);
+
+var org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nMakeBlob = Module["org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nMakeBlob"] = a0 => (org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nMakeBlob = Module["org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nMakeBlob"] = wasmExports["org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nMakeBlob"])(a0);
+
+var org_jetbrains_skia_shaper_FontMgrRunIterator__1nMake = Module["org_jetbrains_skia_shaper_FontMgrRunIterator__1nMake"] = (a0, a1, a2, a3) => (org_jetbrains_skia_shaper_FontMgrRunIterator__1nMake = Module["org_jetbrains_skia_shaper_FontMgrRunIterator__1nMake"] = wasmExports["org_jetbrains_skia_shaper_FontMgrRunIterator__1nMake"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_shaper_FontMgrRunIterator__1nGetCurrentFont = Module["org_jetbrains_skia_shaper_FontMgrRunIterator__1nGetCurrentFont"] = a0 => (org_jetbrains_skia_shaper_FontMgrRunIterator__1nGetCurrentFont = Module["org_jetbrains_skia_shaper_FontMgrRunIterator__1nGetCurrentFont"] = wasmExports["org_jetbrains_skia_shaper_FontMgrRunIterator__1nGetCurrentFont"])(a0);
+
+var org_jetbrains_skia_shaper_Shaper__1nGetFinalizer = Module["org_jetbrains_skia_shaper_Shaper__1nGetFinalizer"] = () => (org_jetbrains_skia_shaper_Shaper__1nGetFinalizer = Module["org_jetbrains_skia_shaper_Shaper__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_shaper_Shaper__1nGetFinalizer"])();
+
+var org_jetbrains_skia_shaper_Shaper__1nMakePrimitive = Module["org_jetbrains_skia_shaper_Shaper__1nMakePrimitive"] = () => (org_jetbrains_skia_shaper_Shaper__1nMakePrimitive = Module["org_jetbrains_skia_shaper_Shaper__1nMakePrimitive"] = wasmExports["org_jetbrains_skia_shaper_Shaper__1nMakePrimitive"])();
+
+var org_jetbrains_skia_shaper_Shaper__1nMakeShaperDrivenWrapper = Module["org_jetbrains_skia_shaper_Shaper__1nMakeShaperDrivenWrapper"] = a0 => (org_jetbrains_skia_shaper_Shaper__1nMakeShaperDrivenWrapper = Module["org_jetbrains_skia_shaper_Shaper__1nMakeShaperDrivenWrapper"] = wasmExports["org_jetbrains_skia_shaper_Shaper__1nMakeShaperDrivenWrapper"])(a0);
+
+var org_jetbrains_skia_shaper_Shaper__1nMakeShapeThenWrap = Module["org_jetbrains_skia_shaper_Shaper__1nMakeShapeThenWrap"] = a0 => (org_jetbrains_skia_shaper_Shaper__1nMakeShapeThenWrap = Module["org_jetbrains_skia_shaper_Shaper__1nMakeShapeThenWrap"] = wasmExports["org_jetbrains_skia_shaper_Shaper__1nMakeShapeThenWrap"])(a0);
+
+var org_jetbrains_skia_shaper_Shaper__1nMakeShapeDontWrapOrReorder = Module["org_jetbrains_skia_shaper_Shaper__1nMakeShapeDontWrapOrReorder"] = a0 => (org_jetbrains_skia_shaper_Shaper__1nMakeShapeDontWrapOrReorder = Module["org_jetbrains_skia_shaper_Shaper__1nMakeShapeDontWrapOrReorder"] = wasmExports["org_jetbrains_skia_shaper_Shaper__1nMakeShapeDontWrapOrReorder"])(a0);
+
+var org_jetbrains_skia_shaper_Shaper__1nMakeCoreText = Module["org_jetbrains_skia_shaper_Shaper__1nMakeCoreText"] = () => (org_jetbrains_skia_shaper_Shaper__1nMakeCoreText = Module["org_jetbrains_skia_shaper_Shaper__1nMakeCoreText"] = wasmExports["org_jetbrains_skia_shaper_Shaper__1nMakeCoreText"])();
+
+var org_jetbrains_skia_shaper_Shaper__1nMake = Module["org_jetbrains_skia_shaper_Shaper__1nMake"] = a0 => (org_jetbrains_skia_shaper_Shaper__1nMake = Module["org_jetbrains_skia_shaper_Shaper__1nMake"] = wasmExports["org_jetbrains_skia_shaper_Shaper__1nMake"])(a0);
+
+var org_jetbrains_skia_shaper_Shaper__1nShapeBlob = Module["org_jetbrains_skia_shaper_Shaper__1nShapeBlob"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8) => (org_jetbrains_skia_shaper_Shaper__1nShapeBlob = Module["org_jetbrains_skia_shaper_Shaper__1nShapeBlob"] = wasmExports["org_jetbrains_skia_shaper_Shaper__1nShapeBlob"])(a0, a1, a2, a3, a4, a5, a6, a7, a8);
+
+var org_jetbrains_skia_shaper_Shaper__1nShapeLine = Module["org_jetbrains_skia_shaper_Shaper__1nShapeLine"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_shaper_Shaper__1nShapeLine = Module["org_jetbrains_skia_shaper_Shaper__1nShapeLine"] = wasmExports["org_jetbrains_skia_shaper_Shaper__1nShapeLine"])(a0, a1, a2, a3, a4, a5);
+
+var org_jetbrains_skia_shaper_Shaper__1nShape = Module["org_jetbrains_skia_shaper_Shaper__1nShape"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) => (org_jetbrains_skia_shaper_Shaper__1nShape = Module["org_jetbrains_skia_shaper_Shaper__1nShape"] = wasmExports["org_jetbrains_skia_shaper_Shaper__1nShape"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+
+var org_jetbrains_skia_shaper_Shaper_RunIterator_1nGetFinalizer = Module["org_jetbrains_skia_shaper_Shaper_RunIterator_1nGetFinalizer"] = () => (org_jetbrains_skia_shaper_Shaper_RunIterator_1nGetFinalizer = Module["org_jetbrains_skia_shaper_Shaper_RunIterator_1nGetFinalizer"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunIterator_1nGetFinalizer"])();
+
+var org_jetbrains_skia_shaper_Shaper_RunIterator_1nCreateRunIterator = Module["org_jetbrains_skia_shaper_Shaper_RunIterator_1nCreateRunIterator"] = (a0, a1) => (org_jetbrains_skia_shaper_Shaper_RunIterator_1nCreateRunIterator = Module["org_jetbrains_skia_shaper_Shaper_RunIterator_1nCreateRunIterator"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunIterator_1nCreateRunIterator"])(a0, a1);
+
+var org_jetbrains_skia_shaper_Shaper_RunIterator_1nInitRunIterator = Module["org_jetbrains_skia_shaper_Shaper_RunIterator_1nInitRunIterator"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_shaper_Shaper_RunIterator_1nInitRunIterator = Module["org_jetbrains_skia_shaper_Shaper_RunIterator_1nInitRunIterator"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunIterator_1nInitRunIterator"])(a0, a1, a2, a3, a4, a5);
+
+var org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetFinalizer = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetFinalizer"] = () => (org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetFinalizer = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetFinalizer"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetFinalizer"])();
+
+var org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetRunInfo = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetRunInfo"] = (a0, a1) => (org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetRunInfo = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetRunInfo"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetRunInfo"])(a0, a1);
+
+var org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetGlyphs = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetGlyphs"] = (a0, a1) => (org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetGlyphs = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetGlyphs"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetGlyphs"])(a0, a1);
+
+var org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetPositions = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetPositions"] = (a0, a1) => (org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetPositions = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetPositions"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetPositions"])(a0, a1);
+
+var org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetClusters = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetClusters"] = (a0, a1) => (org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetClusters = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetClusters"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetClusters"])(a0, a1);
+
+var org_jetbrains_skia_shaper_Shaper_RunHandler_1nSetOffset = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nSetOffset"] = (a0, a1, a2) => (org_jetbrains_skia_shaper_Shaper_RunHandler_1nSetOffset = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nSetOffset"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunHandler_1nSetOffset"])(a0, a1, a2);
+
+var org_jetbrains_skia_shaper_Shaper_RunHandler_1nCreate = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nCreate"] = () => (org_jetbrains_skia_shaper_Shaper_RunHandler_1nCreate = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nCreate"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunHandler_1nCreate"])();
+
+var org_jetbrains_skia_shaper_Shaper_RunHandler_1nInit = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nInit"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_shaper_Shaper_RunHandler_1nInit = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nInit"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunHandler_1nInit"])(a0, a1, a2, a3, a4, a5, a6);
+
+var org_jetbrains_skia_shaper_IcuBidiRunIterator__1nMake = Module["org_jetbrains_skia_shaper_IcuBidiRunIterator__1nMake"] = (a0, a1) => (org_jetbrains_skia_shaper_IcuBidiRunIterator__1nMake = Module["org_jetbrains_skia_shaper_IcuBidiRunIterator__1nMake"] = wasmExports["org_jetbrains_skia_shaper_IcuBidiRunIterator__1nMake"])(a0, a1);
+
+var org_jetbrains_skia_shaper_IcuBidiRunIterator__1nGetCurrentLevel = Module["org_jetbrains_skia_shaper_IcuBidiRunIterator__1nGetCurrentLevel"] = a0 => (org_jetbrains_skia_shaper_IcuBidiRunIterator__1nGetCurrentLevel = Module["org_jetbrains_skia_shaper_IcuBidiRunIterator__1nGetCurrentLevel"] = wasmExports["org_jetbrains_skia_shaper_IcuBidiRunIterator__1nGetCurrentLevel"])(a0);
+
+var org_jetbrains_skia_PictureRecorder__1nMake = Module["org_jetbrains_skia_PictureRecorder__1nMake"] = () => (org_jetbrains_skia_PictureRecorder__1nMake = Module["org_jetbrains_skia_PictureRecorder__1nMake"] = wasmExports["org_jetbrains_skia_PictureRecorder__1nMake"])();
+
+var org_jetbrains_skia_PictureRecorder__1nGetFinalizer = Module["org_jetbrains_skia_PictureRecorder__1nGetFinalizer"] = () => (org_jetbrains_skia_PictureRecorder__1nGetFinalizer = Module["org_jetbrains_skia_PictureRecorder__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_PictureRecorder__1nGetFinalizer"])();
+
+var org_jetbrains_skia_PictureRecorder__1nBeginRecording = Module["org_jetbrains_skia_PictureRecorder__1nBeginRecording"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_PictureRecorder__1nBeginRecording = Module["org_jetbrains_skia_PictureRecorder__1nBeginRecording"] = wasmExports["org_jetbrains_skia_PictureRecorder__1nBeginRecording"])(a0, a1, a2, a3, a4, a5);
+
+var org_jetbrains_skia_PictureRecorder__1nGetRecordingCanvas = Module["org_jetbrains_skia_PictureRecorder__1nGetRecordingCanvas"] = a0 => (org_jetbrains_skia_PictureRecorder__1nGetRecordingCanvas = Module["org_jetbrains_skia_PictureRecorder__1nGetRecordingCanvas"] = wasmExports["org_jetbrains_skia_PictureRecorder__1nGetRecordingCanvas"])(a0);
+
+var org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsPicture = Module["org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsPicture"] = a0 => (org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsPicture = Module["org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsPicture"] = wasmExports["org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsPicture"])(a0);
+
+var org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsPictureWithCull = Module["org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsPictureWithCull"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsPictureWithCull = Module["org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsPictureWithCull"] = wasmExports["org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsPictureWithCull"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsDrawable = Module["org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsDrawable"] = a0 => (org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsDrawable = Module["org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsDrawable"] = wasmExports["org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsDrawable"])(a0);
 
 var org_jetbrains_skia_BreakIterator__1nGetFinalizer = Module["org_jetbrains_skia_BreakIterator__1nGetFinalizer"] = () => (org_jetbrains_skia_BreakIterator__1nGetFinalizer = Module["org_jetbrains_skia_BreakIterator__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_BreakIterator__1nGetFinalizer"])();
 
@@ -6229,65 +6513,197 @@ var org_jetbrains_skia_BreakIterator__1nGetRuleStatuses = Module["org_jetbrains_
 
 var org_jetbrains_skia_BreakIterator__1nSetText = Module["org_jetbrains_skia_BreakIterator__1nSetText"] = (a0, a1, a2, a3) => (org_jetbrains_skia_BreakIterator__1nSetText = Module["org_jetbrains_skia_BreakIterator__1nSetText"] = wasmExports["org_jetbrains_skia_BreakIterator__1nSetText"])(a0, a1, a2, a3);
 
-var org_jetbrains_skia_ColorFilter__1nMakeComposed = Module["org_jetbrains_skia_ColorFilter__1nMakeComposed"] = (a0, a1) => (org_jetbrains_skia_ColorFilter__1nMakeComposed = Module["org_jetbrains_skia_ColorFilter__1nMakeComposed"] = wasmExports["org_jetbrains_skia_ColorFilter__1nMakeComposed"])(a0, a1);
+var org_jetbrains_skia_PathUtils__1nFillPathWithPaint = Module["org_jetbrains_skia_PathUtils__1nFillPathWithPaint"] = (a0, a1, a2) => (org_jetbrains_skia_PathUtils__1nFillPathWithPaint = Module["org_jetbrains_skia_PathUtils__1nFillPathWithPaint"] = wasmExports["org_jetbrains_skia_PathUtils__1nFillPathWithPaint"])(a0, a1, a2);
 
-var org_jetbrains_skia_ColorFilter__1nMakeBlend = Module["org_jetbrains_skia_ColorFilter__1nMakeBlend"] = (a0, a1) => (org_jetbrains_skia_ColorFilter__1nMakeBlend = Module["org_jetbrains_skia_ColorFilter__1nMakeBlend"] = wasmExports["org_jetbrains_skia_ColorFilter__1nMakeBlend"])(a0, a1);
+var org_jetbrains_skia_PathUtils__1nFillPathWithPaintCull = Module["org_jetbrains_skia_PathUtils__1nFillPathWithPaintCull"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_PathUtils__1nFillPathWithPaintCull = Module["org_jetbrains_skia_PathUtils__1nFillPathWithPaintCull"] = wasmExports["org_jetbrains_skia_PathUtils__1nFillPathWithPaintCull"])(a0, a1, a2, a3, a4, a5, a6);
 
-var org_jetbrains_skia_ColorFilter__1nMakeMatrix = Module["org_jetbrains_skia_ColorFilter__1nMakeMatrix"] = a0 => (org_jetbrains_skia_ColorFilter__1nMakeMatrix = Module["org_jetbrains_skia_ColorFilter__1nMakeMatrix"] = wasmExports["org_jetbrains_skia_ColorFilter__1nMakeMatrix"])(a0);
+var org_jetbrains_skia_skottie_Animation__1nGetFinalizer = Module["org_jetbrains_skia_skottie_Animation__1nGetFinalizer"] = () => (org_jetbrains_skia_skottie_Animation__1nGetFinalizer = Module["org_jetbrains_skia_skottie_Animation__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nGetFinalizer"])();
 
-var org_jetbrains_skia_ColorFilter__1nMakeHSLAMatrix = Module["org_jetbrains_skia_ColorFilter__1nMakeHSLAMatrix"] = a0 => (org_jetbrains_skia_ColorFilter__1nMakeHSLAMatrix = Module["org_jetbrains_skia_ColorFilter__1nMakeHSLAMatrix"] = wasmExports["org_jetbrains_skia_ColorFilter__1nMakeHSLAMatrix"])(a0);
+var org_jetbrains_skia_skottie_Animation__1nMakeFromString = Module["org_jetbrains_skia_skottie_Animation__1nMakeFromString"] = a0 => (org_jetbrains_skia_skottie_Animation__1nMakeFromString = Module["org_jetbrains_skia_skottie_Animation__1nMakeFromString"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nMakeFromString"])(a0);
 
-var org_jetbrains_skia_ColorFilter__1nGetLinearToSRGBGamma = Module["org_jetbrains_skia_ColorFilter__1nGetLinearToSRGBGamma"] = () => (org_jetbrains_skia_ColorFilter__1nGetLinearToSRGBGamma = Module["org_jetbrains_skia_ColorFilter__1nGetLinearToSRGBGamma"] = wasmExports["org_jetbrains_skia_ColorFilter__1nGetLinearToSRGBGamma"])();
+var org_jetbrains_skia_skottie_Animation__1nMakeFromFile = Module["org_jetbrains_skia_skottie_Animation__1nMakeFromFile"] = a0 => (org_jetbrains_skia_skottie_Animation__1nMakeFromFile = Module["org_jetbrains_skia_skottie_Animation__1nMakeFromFile"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nMakeFromFile"])(a0);
 
-var org_jetbrains_skia_ColorFilter__1nGetSRGBToLinearGamma = Module["org_jetbrains_skia_ColorFilter__1nGetSRGBToLinearGamma"] = () => (org_jetbrains_skia_ColorFilter__1nGetSRGBToLinearGamma = Module["org_jetbrains_skia_ColorFilter__1nGetSRGBToLinearGamma"] = wasmExports["org_jetbrains_skia_ColorFilter__1nGetSRGBToLinearGamma"])();
+var org_jetbrains_skia_skottie_Animation__1nMakeFromData = Module["org_jetbrains_skia_skottie_Animation__1nMakeFromData"] = a0 => (org_jetbrains_skia_skottie_Animation__1nMakeFromData = Module["org_jetbrains_skia_skottie_Animation__1nMakeFromData"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nMakeFromData"])(a0);
 
-var org_jetbrains_skia_ColorFilter__1nMakeLerp = Module["org_jetbrains_skia_ColorFilter__1nMakeLerp"] = (a0, a1, a2) => (org_jetbrains_skia_ColorFilter__1nMakeLerp = Module["org_jetbrains_skia_ColorFilter__1nMakeLerp"] = wasmExports["org_jetbrains_skia_ColorFilter__1nMakeLerp"])(a0, a1, a2);
+var org_jetbrains_skia_skottie_Animation__1nRender = Module["org_jetbrains_skia_skottie_Animation__1nRender"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_skottie_Animation__1nRender = Module["org_jetbrains_skia_skottie_Animation__1nRender"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nRender"])(a0, a1, a2, a3, a4, a5, a6);
 
-var org_jetbrains_skia_ColorFilter__1nMakeLighting = Module["org_jetbrains_skia_ColorFilter__1nMakeLighting"] = (a0, a1) => (org_jetbrains_skia_ColorFilter__1nMakeLighting = Module["org_jetbrains_skia_ColorFilter__1nMakeLighting"] = wasmExports["org_jetbrains_skia_ColorFilter__1nMakeLighting"])(a0, a1);
+var org_jetbrains_skia_skottie_Animation__1nSeek = Module["org_jetbrains_skia_skottie_Animation__1nSeek"] = (a0, a1, a2) => (org_jetbrains_skia_skottie_Animation__1nSeek = Module["org_jetbrains_skia_skottie_Animation__1nSeek"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nSeek"])(a0, a1, a2);
 
-var org_jetbrains_skia_ColorFilter__1nMakeHighContrast = Module["org_jetbrains_skia_ColorFilter__1nMakeHighContrast"] = (a0, a1, a2) => (org_jetbrains_skia_ColorFilter__1nMakeHighContrast = Module["org_jetbrains_skia_ColorFilter__1nMakeHighContrast"] = wasmExports["org_jetbrains_skia_ColorFilter__1nMakeHighContrast"])(a0, a1, a2);
+var org_jetbrains_skia_skottie_Animation__1nSeekFrame = Module["org_jetbrains_skia_skottie_Animation__1nSeekFrame"] = (a0, a1, a2) => (org_jetbrains_skia_skottie_Animation__1nSeekFrame = Module["org_jetbrains_skia_skottie_Animation__1nSeekFrame"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nSeekFrame"])(a0, a1, a2);
 
-var org_jetbrains_skia_ColorFilter__1nMakeTable = Module["org_jetbrains_skia_ColorFilter__1nMakeTable"] = a0 => (org_jetbrains_skia_ColorFilter__1nMakeTable = Module["org_jetbrains_skia_ColorFilter__1nMakeTable"] = wasmExports["org_jetbrains_skia_ColorFilter__1nMakeTable"])(a0);
+var org_jetbrains_skia_skottie_Animation__1nSeekFrameTime = Module["org_jetbrains_skia_skottie_Animation__1nSeekFrameTime"] = (a0, a1, a2) => (org_jetbrains_skia_skottie_Animation__1nSeekFrameTime = Module["org_jetbrains_skia_skottie_Animation__1nSeekFrameTime"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nSeekFrameTime"])(a0, a1, a2);
 
-var org_jetbrains_skia_ColorFilter__1nMakeTableARGB = Module["org_jetbrains_skia_ColorFilter__1nMakeTableARGB"] = (a0, a1, a2, a3) => (org_jetbrains_skia_ColorFilter__1nMakeTableARGB = Module["org_jetbrains_skia_ColorFilter__1nMakeTableARGB"] = wasmExports["org_jetbrains_skia_ColorFilter__1nMakeTableARGB"])(a0, a1, a2, a3);
+var org_jetbrains_skia_skottie_Animation__1nGetDuration = Module["org_jetbrains_skia_skottie_Animation__1nGetDuration"] = a0 => (org_jetbrains_skia_skottie_Animation__1nGetDuration = Module["org_jetbrains_skia_skottie_Animation__1nGetDuration"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nGetDuration"])(a0);
 
-var org_jetbrains_skia_ColorFilter__1nMakeOverdraw = Module["org_jetbrains_skia_ColorFilter__1nMakeOverdraw"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_ColorFilter__1nMakeOverdraw = Module["org_jetbrains_skia_ColorFilter__1nMakeOverdraw"] = wasmExports["org_jetbrains_skia_ColorFilter__1nMakeOverdraw"])(a0, a1, a2, a3, a4, a5);
+var org_jetbrains_skia_skottie_Animation__1nGetFPS = Module["org_jetbrains_skia_skottie_Animation__1nGetFPS"] = a0 => (org_jetbrains_skia_skottie_Animation__1nGetFPS = Module["org_jetbrains_skia_skottie_Animation__1nGetFPS"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nGetFPS"])(a0);
 
-var org_jetbrains_skia_ColorFilter__1nGetLuma = Module["org_jetbrains_skia_ColorFilter__1nGetLuma"] = () => (org_jetbrains_skia_ColorFilter__1nGetLuma = Module["org_jetbrains_skia_ColorFilter__1nGetLuma"] = wasmExports["org_jetbrains_skia_ColorFilter__1nGetLuma"])();
+var org_jetbrains_skia_skottie_Animation__1nGetInPoint = Module["org_jetbrains_skia_skottie_Animation__1nGetInPoint"] = a0 => (org_jetbrains_skia_skottie_Animation__1nGetInPoint = Module["org_jetbrains_skia_skottie_Animation__1nGetInPoint"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nGetInPoint"])(a0);
 
-var org_jetbrains_skia_RuntimeShaderBuilder__1nGetFinalizer = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nGetFinalizer"] = () => (org_jetbrains_skia_RuntimeShaderBuilder__1nGetFinalizer = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nGetFinalizer"])();
+var org_jetbrains_skia_skottie_Animation__1nGetOutPoint = Module["org_jetbrains_skia_skottie_Animation__1nGetOutPoint"] = a0 => (org_jetbrains_skia_skottie_Animation__1nGetOutPoint = Module["org_jetbrains_skia_skottie_Animation__1nGetOutPoint"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nGetOutPoint"])(a0);
 
-var org_jetbrains_skia_RuntimeShaderBuilder__1nMakeFromRuntimeEffect = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nMakeFromRuntimeEffect"] = a0 => (org_jetbrains_skia_RuntimeShaderBuilder__1nMakeFromRuntimeEffect = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nMakeFromRuntimeEffect"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nMakeFromRuntimeEffect"])(a0);
+var org_jetbrains_skia_skottie_Animation__1nGetVersion = Module["org_jetbrains_skia_skottie_Animation__1nGetVersion"] = a0 => (org_jetbrains_skia_skottie_Animation__1nGetVersion = Module["org_jetbrains_skia_skottie_Animation__1nGetVersion"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nGetVersion"])(a0);
 
-var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt"] = (a0, a1, a2) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt"])(a0, a1, a2);
+var org_jetbrains_skia_skottie_Animation__1nGetSize = Module["org_jetbrains_skia_skottie_Animation__1nGetSize"] = (a0, a1) => (org_jetbrains_skia_skottie_Animation__1nGetSize = Module["org_jetbrains_skia_skottie_Animation__1nGetSize"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nGetSize"])(a0, a1);
 
-var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt2 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt2"] = (a0, a1, a2, a3) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt2 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt2"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt2"])(a0, a1, a2, a3);
+var org_jetbrains_skia_skottie_AnimationBuilder__1nGetFinalizer = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nGetFinalizer"] = () => (org_jetbrains_skia_skottie_AnimationBuilder__1nGetFinalizer = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_skottie_AnimationBuilder__1nGetFinalizer"])();
 
-var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt3 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt3"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt3 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt3"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt3"])(a0, a1, a2, a3, a4);
+var org_jetbrains_skia_skottie_AnimationBuilder__1nMake = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nMake"] = a0 => (org_jetbrains_skia_skottie_AnimationBuilder__1nMake = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nMake"] = wasmExports["org_jetbrains_skia_skottie_AnimationBuilder__1nMake"])(a0);
 
-var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt4 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt4"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt4 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt4"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt4"])(a0, a1, a2, a3, a4, a5);
+var org_jetbrains_skia_skottie_AnimationBuilder__1nSetFontManager = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nSetFontManager"] = (a0, a1) => (org_jetbrains_skia_skottie_AnimationBuilder__1nSetFontManager = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nSetFontManager"] = wasmExports["org_jetbrains_skia_skottie_AnimationBuilder__1nSetFontManager"])(a0, a1);
 
-var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat"] = (a0, a1, a2) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat"])(a0, a1, a2);
+var org_jetbrains_skia_skottie_AnimationBuilder__1nSetLogger = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nSetLogger"] = (a0, a1) => (org_jetbrains_skia_skottie_AnimationBuilder__1nSetLogger = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nSetLogger"] = wasmExports["org_jetbrains_skia_skottie_AnimationBuilder__1nSetLogger"])(a0, a1);
 
-var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat2 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat2"] = (a0, a1, a2, a3) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat2 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat2"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat2"])(a0, a1, a2, a3);
+var org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromString = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromString"] = (a0, a1) => (org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromString = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromString"] = wasmExports["org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromString"])(a0, a1);
 
-var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat3 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat3"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat3 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat3"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat3"])(a0, a1, a2, a3, a4);
+var org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromFile = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromFile"] = (a0, a1) => (org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromFile = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromFile"] = wasmExports["org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromFile"])(a0, a1);
 
-var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat4 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat4"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat4 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat4"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat4"])(a0, a1, a2, a3, a4, a5);
+var org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromData = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromData"] = (a0, a1) => (org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromData = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromData"] = wasmExports["org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromData"])(a0, a1);
 
-var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatArray = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatArray"] = (a0, a1, a2, a3) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatArray = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatArray"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatArray"])(a0, a1, a2, a3);
+var org_jetbrains_skia_skottie_Logger__1nMake = Module["org_jetbrains_skia_skottie_Logger__1nMake"] = () => (org_jetbrains_skia_skottie_Logger__1nMake = Module["org_jetbrains_skia_skottie_Logger__1nMake"] = wasmExports["org_jetbrains_skia_skottie_Logger__1nMake"])();
 
-var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix22 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix22"] = (a0, a1, a2) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix22 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix22"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix22"])(a0, a1, a2);
+var org_jetbrains_skia_skottie_Logger__1nInit = Module["org_jetbrains_skia_skottie_Logger__1nInit"] = (a0, a1) => (org_jetbrains_skia_skottie_Logger__1nInit = Module["org_jetbrains_skia_skottie_Logger__1nInit"] = wasmExports["org_jetbrains_skia_skottie_Logger__1nInit"])(a0, a1);
 
-var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix33 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix33"] = (a0, a1, a2) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix33 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix33"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix33"])(a0, a1, a2);
+var org_jetbrains_skia_skottie_Logger__1nGetLogMessage = Module["org_jetbrains_skia_skottie_Logger__1nGetLogMessage"] = a0 => (org_jetbrains_skia_skottie_Logger__1nGetLogMessage = Module["org_jetbrains_skia_skottie_Logger__1nGetLogMessage"] = wasmExports["org_jetbrains_skia_skottie_Logger__1nGetLogMessage"])(a0);
 
-var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix44 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix44"] = (a0, a1, a2) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix44 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix44"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix44"])(a0, a1, a2);
+var org_jetbrains_skia_skottie_Logger__1nGetLogJson = Module["org_jetbrains_skia_skottie_Logger__1nGetLogJson"] = a0 => (org_jetbrains_skia_skottie_Logger__1nGetLogJson = Module["org_jetbrains_skia_skottie_Logger__1nGetLogJson"] = wasmExports["org_jetbrains_skia_skottie_Logger__1nGetLogJson"])(a0);
 
-var org_jetbrains_skia_RuntimeShaderBuilder__1nChildShader = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nChildShader"] = (a0, a1, a2) => (org_jetbrains_skia_RuntimeShaderBuilder__1nChildShader = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nChildShader"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nChildShader"])(a0, a1, a2);
+var org_jetbrains_skia_skottie_Logger__1nGetLogLevel = Module["org_jetbrains_skia_skottie_Logger__1nGetLogLevel"] = a0 => (org_jetbrains_skia_skottie_Logger__1nGetLogLevel = Module["org_jetbrains_skia_skottie_Logger__1nGetLogLevel"] = wasmExports["org_jetbrains_skia_skottie_Logger__1nGetLogLevel"])(a0);
 
-var org_jetbrains_skia_RuntimeShaderBuilder__1nChildColorFilter = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nChildColorFilter"] = (a0, a1, a2) => (org_jetbrains_skia_RuntimeShaderBuilder__1nChildColorFilter = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nChildColorFilter"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nChildColorFilter"])(a0, a1, a2);
+var org_jetbrains_skia_PaintFilterCanvas__1nInit = Module["org_jetbrains_skia_PaintFilterCanvas__1nInit"] = (a0, a1) => (org_jetbrains_skia_PaintFilterCanvas__1nInit = Module["org_jetbrains_skia_PaintFilterCanvas__1nInit"] = wasmExports["org_jetbrains_skia_PaintFilterCanvas__1nInit"])(a0, a1);
 
-var org_jetbrains_skia_RuntimeShaderBuilder__1nMakeShader = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nMakeShader"] = (a0, a1) => (org_jetbrains_skia_RuntimeShaderBuilder__1nMakeShader = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nMakeShader"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nMakeShader"])(a0, a1);
+var org_jetbrains_skia_PaintFilterCanvas__1nMake = Module["org_jetbrains_skia_PaintFilterCanvas__1nMake"] = (a0, a1) => (org_jetbrains_skia_PaintFilterCanvas__1nMake = Module["org_jetbrains_skia_PaintFilterCanvas__1nMake"] = wasmExports["org_jetbrains_skia_PaintFilterCanvas__1nMake"])(a0, a1);
+
+var org_jetbrains_skia_PaintFilterCanvas__1nGetOnFilterPaint = Module["org_jetbrains_skia_PaintFilterCanvas__1nGetOnFilterPaint"] = a0 => (org_jetbrains_skia_PaintFilterCanvas__1nGetOnFilterPaint = Module["org_jetbrains_skia_PaintFilterCanvas__1nGetOnFilterPaint"] = wasmExports["org_jetbrains_skia_PaintFilterCanvas__1nGetOnFilterPaint"])(a0);
+
+var org_jetbrains_skia_Font__1nGetFinalizer = Module["org_jetbrains_skia_Font__1nGetFinalizer"] = () => (org_jetbrains_skia_Font__1nGetFinalizer = Module["org_jetbrains_skia_Font__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_Font__1nGetFinalizer"])();
+
+var org_jetbrains_skia_Font__1nMakeDefault = Module["org_jetbrains_skia_Font__1nMakeDefault"] = () => (org_jetbrains_skia_Font__1nMakeDefault = Module["org_jetbrains_skia_Font__1nMakeDefault"] = wasmExports["org_jetbrains_skia_Font__1nMakeDefault"])();
+
+var org_jetbrains_skia_Font__1nMakeTypeface = Module["org_jetbrains_skia_Font__1nMakeTypeface"] = a0 => (org_jetbrains_skia_Font__1nMakeTypeface = Module["org_jetbrains_skia_Font__1nMakeTypeface"] = wasmExports["org_jetbrains_skia_Font__1nMakeTypeface"])(a0);
+
+var org_jetbrains_skia_Font__1nMakeTypefaceSize = Module["org_jetbrains_skia_Font__1nMakeTypefaceSize"] = (a0, a1) => (org_jetbrains_skia_Font__1nMakeTypefaceSize = Module["org_jetbrains_skia_Font__1nMakeTypefaceSize"] = wasmExports["org_jetbrains_skia_Font__1nMakeTypefaceSize"])(a0, a1);
+
+var org_jetbrains_skia_Font__1nMakeTypefaceSizeScaleSkew = Module["org_jetbrains_skia_Font__1nMakeTypefaceSizeScaleSkew"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Font__1nMakeTypefaceSizeScaleSkew = Module["org_jetbrains_skia_Font__1nMakeTypefaceSizeScaleSkew"] = wasmExports["org_jetbrains_skia_Font__1nMakeTypefaceSizeScaleSkew"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_Font__1nMakeClone = Module["org_jetbrains_skia_Font__1nMakeClone"] = a0 => (org_jetbrains_skia_Font__1nMakeClone = Module["org_jetbrains_skia_Font__1nMakeClone"] = wasmExports["org_jetbrains_skia_Font__1nMakeClone"])(a0);
+
+var org_jetbrains_skia_Font__1nEquals = Module["org_jetbrains_skia_Font__1nEquals"] = (a0, a1) => (org_jetbrains_skia_Font__1nEquals = Module["org_jetbrains_skia_Font__1nEquals"] = wasmExports["org_jetbrains_skia_Font__1nEquals"])(a0, a1);
+
+var org_jetbrains_skia_Font__1nIsAutoHintingForced = Module["org_jetbrains_skia_Font__1nIsAutoHintingForced"] = a0 => (org_jetbrains_skia_Font__1nIsAutoHintingForced = Module["org_jetbrains_skia_Font__1nIsAutoHintingForced"] = wasmExports["org_jetbrains_skia_Font__1nIsAutoHintingForced"])(a0);
+
+var org_jetbrains_skia_Font__1nAreBitmapsEmbedded = Module["org_jetbrains_skia_Font__1nAreBitmapsEmbedded"] = a0 => (org_jetbrains_skia_Font__1nAreBitmapsEmbedded = Module["org_jetbrains_skia_Font__1nAreBitmapsEmbedded"] = wasmExports["org_jetbrains_skia_Font__1nAreBitmapsEmbedded"])(a0);
+
+var org_jetbrains_skia_Font__1nIsSubpixel = Module["org_jetbrains_skia_Font__1nIsSubpixel"] = a0 => (org_jetbrains_skia_Font__1nIsSubpixel = Module["org_jetbrains_skia_Font__1nIsSubpixel"] = wasmExports["org_jetbrains_skia_Font__1nIsSubpixel"])(a0);
+
+var org_jetbrains_skia_Font__1nIsLinearMetrics = Module["org_jetbrains_skia_Font__1nIsLinearMetrics"] = a0 => (org_jetbrains_skia_Font__1nIsLinearMetrics = Module["org_jetbrains_skia_Font__1nIsLinearMetrics"] = wasmExports["org_jetbrains_skia_Font__1nIsLinearMetrics"])(a0);
+
+var org_jetbrains_skia_Font__1nIsEmboldened = Module["org_jetbrains_skia_Font__1nIsEmboldened"] = a0 => (org_jetbrains_skia_Font__1nIsEmboldened = Module["org_jetbrains_skia_Font__1nIsEmboldened"] = wasmExports["org_jetbrains_skia_Font__1nIsEmboldened"])(a0);
+
+var org_jetbrains_skia_Font__1nIsBaselineSnapped = Module["org_jetbrains_skia_Font__1nIsBaselineSnapped"] = a0 => (org_jetbrains_skia_Font__1nIsBaselineSnapped = Module["org_jetbrains_skia_Font__1nIsBaselineSnapped"] = wasmExports["org_jetbrains_skia_Font__1nIsBaselineSnapped"])(a0);
+
+var org_jetbrains_skia_Font__1nSetAutoHintingForced = Module["org_jetbrains_skia_Font__1nSetAutoHintingForced"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetAutoHintingForced = Module["org_jetbrains_skia_Font__1nSetAutoHintingForced"] = wasmExports["org_jetbrains_skia_Font__1nSetAutoHintingForced"])(a0, a1);
+
+var org_jetbrains_skia_Font__1nSetBitmapsEmbedded = Module["org_jetbrains_skia_Font__1nSetBitmapsEmbedded"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetBitmapsEmbedded = Module["org_jetbrains_skia_Font__1nSetBitmapsEmbedded"] = wasmExports["org_jetbrains_skia_Font__1nSetBitmapsEmbedded"])(a0, a1);
+
+var org_jetbrains_skia_Font__1nSetSubpixel = Module["org_jetbrains_skia_Font__1nSetSubpixel"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetSubpixel = Module["org_jetbrains_skia_Font__1nSetSubpixel"] = wasmExports["org_jetbrains_skia_Font__1nSetSubpixel"])(a0, a1);
+
+var org_jetbrains_skia_Font__1nSetLinearMetrics = Module["org_jetbrains_skia_Font__1nSetLinearMetrics"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetLinearMetrics = Module["org_jetbrains_skia_Font__1nSetLinearMetrics"] = wasmExports["org_jetbrains_skia_Font__1nSetLinearMetrics"])(a0, a1);
+
+var org_jetbrains_skia_Font__1nSetEmboldened = Module["org_jetbrains_skia_Font__1nSetEmboldened"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetEmboldened = Module["org_jetbrains_skia_Font__1nSetEmboldened"] = wasmExports["org_jetbrains_skia_Font__1nSetEmboldened"])(a0, a1);
+
+var org_jetbrains_skia_Font__1nSetBaselineSnapped = Module["org_jetbrains_skia_Font__1nSetBaselineSnapped"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetBaselineSnapped = Module["org_jetbrains_skia_Font__1nSetBaselineSnapped"] = wasmExports["org_jetbrains_skia_Font__1nSetBaselineSnapped"])(a0, a1);
+
+var org_jetbrains_skia_Font__1nGetEdging = Module["org_jetbrains_skia_Font__1nGetEdging"] = a0 => (org_jetbrains_skia_Font__1nGetEdging = Module["org_jetbrains_skia_Font__1nGetEdging"] = wasmExports["org_jetbrains_skia_Font__1nGetEdging"])(a0);
+
+var org_jetbrains_skia_Font__1nSetEdging = Module["org_jetbrains_skia_Font__1nSetEdging"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetEdging = Module["org_jetbrains_skia_Font__1nSetEdging"] = wasmExports["org_jetbrains_skia_Font__1nSetEdging"])(a0, a1);
+
+var org_jetbrains_skia_Font__1nGetHinting = Module["org_jetbrains_skia_Font__1nGetHinting"] = a0 => (org_jetbrains_skia_Font__1nGetHinting = Module["org_jetbrains_skia_Font__1nGetHinting"] = wasmExports["org_jetbrains_skia_Font__1nGetHinting"])(a0);
+
+var org_jetbrains_skia_Font__1nSetHinting = Module["org_jetbrains_skia_Font__1nSetHinting"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetHinting = Module["org_jetbrains_skia_Font__1nSetHinting"] = wasmExports["org_jetbrains_skia_Font__1nSetHinting"])(a0, a1);
+
+var org_jetbrains_skia_Font__1nGetTypeface = Module["org_jetbrains_skia_Font__1nGetTypeface"] = a0 => (org_jetbrains_skia_Font__1nGetTypeface = Module["org_jetbrains_skia_Font__1nGetTypeface"] = wasmExports["org_jetbrains_skia_Font__1nGetTypeface"])(a0);
+
+var org_jetbrains_skia_Font__1nGetSize = Module["org_jetbrains_skia_Font__1nGetSize"] = a0 => (org_jetbrains_skia_Font__1nGetSize = Module["org_jetbrains_skia_Font__1nGetSize"] = wasmExports["org_jetbrains_skia_Font__1nGetSize"])(a0);
+
+var org_jetbrains_skia_Font__1nGetScaleX = Module["org_jetbrains_skia_Font__1nGetScaleX"] = a0 => (org_jetbrains_skia_Font__1nGetScaleX = Module["org_jetbrains_skia_Font__1nGetScaleX"] = wasmExports["org_jetbrains_skia_Font__1nGetScaleX"])(a0);
+
+var org_jetbrains_skia_Font__1nGetSkewX = Module["org_jetbrains_skia_Font__1nGetSkewX"] = a0 => (org_jetbrains_skia_Font__1nGetSkewX = Module["org_jetbrains_skia_Font__1nGetSkewX"] = wasmExports["org_jetbrains_skia_Font__1nGetSkewX"])(a0);
+
+var org_jetbrains_skia_Font__1nSetTypeface = Module["org_jetbrains_skia_Font__1nSetTypeface"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetTypeface = Module["org_jetbrains_skia_Font__1nSetTypeface"] = wasmExports["org_jetbrains_skia_Font__1nSetTypeface"])(a0, a1);
+
+var org_jetbrains_skia_Font__1nSetSize = Module["org_jetbrains_skia_Font__1nSetSize"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetSize = Module["org_jetbrains_skia_Font__1nSetSize"] = wasmExports["org_jetbrains_skia_Font__1nSetSize"])(a0, a1);
+
+var org_jetbrains_skia_Font__1nSetScaleX = Module["org_jetbrains_skia_Font__1nSetScaleX"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetScaleX = Module["org_jetbrains_skia_Font__1nSetScaleX"] = wasmExports["org_jetbrains_skia_Font__1nSetScaleX"])(a0, a1);
+
+var org_jetbrains_skia_Font__1nSetSkewX = Module["org_jetbrains_skia_Font__1nSetSkewX"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetSkewX = Module["org_jetbrains_skia_Font__1nSetSkewX"] = wasmExports["org_jetbrains_skia_Font__1nSetSkewX"])(a0, a1);
+
+var org_jetbrains_skia_Font__1nGetUTF32Glyphs = Module["org_jetbrains_skia_Font__1nGetUTF32Glyphs"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Font__1nGetUTF32Glyphs = Module["org_jetbrains_skia_Font__1nGetUTF32Glyphs"] = wasmExports["org_jetbrains_skia_Font__1nGetUTF32Glyphs"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_Font__1nGetUTF32Glyph = Module["org_jetbrains_skia_Font__1nGetUTF32Glyph"] = (a0, a1) => (org_jetbrains_skia_Font__1nGetUTF32Glyph = Module["org_jetbrains_skia_Font__1nGetUTF32Glyph"] = wasmExports["org_jetbrains_skia_Font__1nGetUTF32Glyph"])(a0, a1);
+
+var org_jetbrains_skia_Font__1nGetStringGlyphsCount = Module["org_jetbrains_skia_Font__1nGetStringGlyphsCount"] = (a0, a1, a2) => (org_jetbrains_skia_Font__1nGetStringGlyphsCount = Module["org_jetbrains_skia_Font__1nGetStringGlyphsCount"] = wasmExports["org_jetbrains_skia_Font__1nGetStringGlyphsCount"])(a0, a1, a2);
+
+var org_jetbrains_skia_Font__1nMeasureText = Module["org_jetbrains_skia_Font__1nMeasureText"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Font__1nMeasureText = Module["org_jetbrains_skia_Font__1nMeasureText"] = wasmExports["org_jetbrains_skia_Font__1nMeasureText"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skia_Font__1nMeasureTextWidth = Module["org_jetbrains_skia_Font__1nMeasureTextWidth"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Font__1nMeasureTextWidth = Module["org_jetbrains_skia_Font__1nMeasureTextWidth"] = wasmExports["org_jetbrains_skia_Font__1nMeasureTextWidth"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_Font__1nGetWidths = Module["org_jetbrains_skia_Font__1nGetWidths"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Font__1nGetWidths = Module["org_jetbrains_skia_Font__1nGetWidths"] = wasmExports["org_jetbrains_skia_Font__1nGetWidths"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_Font__1nGetBounds = Module["org_jetbrains_skia_Font__1nGetBounds"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Font__1nGetBounds = Module["org_jetbrains_skia_Font__1nGetBounds"] = wasmExports["org_jetbrains_skia_Font__1nGetBounds"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skia_Font__1nGetPositions = Module["org_jetbrains_skia_Font__1nGetPositions"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Font__1nGetPositions = Module["org_jetbrains_skia_Font__1nGetPositions"] = wasmExports["org_jetbrains_skia_Font__1nGetPositions"])(a0, a1, a2, a3, a4, a5);
+
+var org_jetbrains_skia_Font__1nGetXPositions = Module["org_jetbrains_skia_Font__1nGetXPositions"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Font__1nGetXPositions = Module["org_jetbrains_skia_Font__1nGetXPositions"] = wasmExports["org_jetbrains_skia_Font__1nGetXPositions"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skia_Font__1nGetPath = Module["org_jetbrains_skia_Font__1nGetPath"] = (a0, a1) => (org_jetbrains_skia_Font__1nGetPath = Module["org_jetbrains_skia_Font__1nGetPath"] = wasmExports["org_jetbrains_skia_Font__1nGetPath"])(a0, a1);
+
+var org_jetbrains_skia_Font__1nGetPaths = Module["org_jetbrains_skia_Font__1nGetPaths"] = (a0, a1, a2) => (org_jetbrains_skia_Font__1nGetPaths = Module["org_jetbrains_skia_Font__1nGetPaths"] = wasmExports["org_jetbrains_skia_Font__1nGetPaths"])(a0, a1, a2);
+
+var org_jetbrains_skia_Font__1nGetMetrics = Module["org_jetbrains_skia_Font__1nGetMetrics"] = (a0, a1) => (org_jetbrains_skia_Font__1nGetMetrics = Module["org_jetbrains_skia_Font__1nGetMetrics"] = wasmExports["org_jetbrains_skia_Font__1nGetMetrics"])(a0, a1);
+
+var org_jetbrains_skia_Font__1nGetSpacing = Module["org_jetbrains_skia_Font__1nGetSpacing"] = a0 => (org_jetbrains_skia_Font__1nGetSpacing = Module["org_jetbrains_skia_Font__1nGetSpacing"] = wasmExports["org_jetbrains_skia_Font__1nGetSpacing"])(a0);
+
+var org_jetbrains_skia_svg_SVGSVG__1nGetTag = Module["org_jetbrains_skia_svg_SVGSVG__1nGetTag"] = a0 => (org_jetbrains_skia_svg_SVGSVG__1nGetTag = Module["org_jetbrains_skia_svg_SVGSVG__1nGetTag"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nGetTag"])(a0);
+
+var org_jetbrains_skia_svg_SVGSVG__1nGetX = Module["org_jetbrains_skia_svg_SVGSVG__1nGetX"] = (a0, a1) => (org_jetbrains_skia_svg_SVGSVG__1nGetX = Module["org_jetbrains_skia_svg_SVGSVG__1nGetX"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nGetX"])(a0, a1);
+
+var org_jetbrains_skia_svg_SVGSVG__1nGetY = Module["org_jetbrains_skia_svg_SVGSVG__1nGetY"] = (a0, a1) => (org_jetbrains_skia_svg_SVGSVG__1nGetY = Module["org_jetbrains_skia_svg_SVGSVG__1nGetY"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nGetY"])(a0, a1);
+
+var org_jetbrains_skia_svg_SVGSVG__1nGetHeight = Module["org_jetbrains_skia_svg_SVGSVG__1nGetHeight"] = (a0, a1) => (org_jetbrains_skia_svg_SVGSVG__1nGetHeight = Module["org_jetbrains_skia_svg_SVGSVG__1nGetHeight"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nGetHeight"])(a0, a1);
+
+var org_jetbrains_skia_svg_SVGSVG__1nGetWidth = Module["org_jetbrains_skia_svg_SVGSVG__1nGetWidth"] = (a0, a1) => (org_jetbrains_skia_svg_SVGSVG__1nGetWidth = Module["org_jetbrains_skia_svg_SVGSVG__1nGetWidth"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nGetWidth"])(a0, a1);
+
+var org_jetbrains_skia_svg_SVGSVG__1nGetPreserveAspectRatio = Module["org_jetbrains_skia_svg_SVGSVG__1nGetPreserveAspectRatio"] = (a0, a1) => (org_jetbrains_skia_svg_SVGSVG__1nGetPreserveAspectRatio = Module["org_jetbrains_skia_svg_SVGSVG__1nGetPreserveAspectRatio"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nGetPreserveAspectRatio"])(a0, a1);
+
+var org_jetbrains_skia_svg_SVGSVG__1nGetViewBox = Module["org_jetbrains_skia_svg_SVGSVG__1nGetViewBox"] = (a0, a1) => (org_jetbrains_skia_svg_SVGSVG__1nGetViewBox = Module["org_jetbrains_skia_svg_SVGSVG__1nGetViewBox"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nGetViewBox"])(a0, a1);
+
+var org_jetbrains_skia_svg_SVGSVG__1nGetIntrinsicSize = Module["org_jetbrains_skia_svg_SVGSVG__1nGetIntrinsicSize"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_svg_SVGSVG__1nGetIntrinsicSize = Module["org_jetbrains_skia_svg_SVGSVG__1nGetIntrinsicSize"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nGetIntrinsicSize"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skia_svg_SVGSVG__1nSetX = Module["org_jetbrains_skia_svg_SVGSVG__1nSetX"] = (a0, a1, a2) => (org_jetbrains_skia_svg_SVGSVG__1nSetX = Module["org_jetbrains_skia_svg_SVGSVG__1nSetX"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nSetX"])(a0, a1, a2);
+
+var org_jetbrains_skia_svg_SVGSVG__1nSetY = Module["org_jetbrains_skia_svg_SVGSVG__1nSetY"] = (a0, a1, a2) => (org_jetbrains_skia_svg_SVGSVG__1nSetY = Module["org_jetbrains_skia_svg_SVGSVG__1nSetY"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nSetY"])(a0, a1, a2);
+
+var org_jetbrains_skia_svg_SVGSVG__1nSetWidth = Module["org_jetbrains_skia_svg_SVGSVG__1nSetWidth"] = (a0, a1, a2) => (org_jetbrains_skia_svg_SVGSVG__1nSetWidth = Module["org_jetbrains_skia_svg_SVGSVG__1nSetWidth"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nSetWidth"])(a0, a1, a2);
+
+var org_jetbrains_skia_svg_SVGSVG__1nSetHeight = Module["org_jetbrains_skia_svg_SVGSVG__1nSetHeight"] = (a0, a1, a2) => (org_jetbrains_skia_svg_SVGSVG__1nSetHeight = Module["org_jetbrains_skia_svg_SVGSVG__1nSetHeight"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nSetHeight"])(a0, a1, a2);
+
+var org_jetbrains_skia_svg_SVGSVG__1nSetPreserveAspectRatio = Module["org_jetbrains_skia_svg_SVGSVG__1nSetPreserveAspectRatio"] = (a0, a1, a2) => (org_jetbrains_skia_svg_SVGSVG__1nSetPreserveAspectRatio = Module["org_jetbrains_skia_svg_SVGSVG__1nSetPreserveAspectRatio"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nSetPreserveAspectRatio"])(a0, a1, a2);
+
+var org_jetbrains_skia_svg_SVGSVG__1nSetViewBox = Module["org_jetbrains_skia_svg_SVGSVG__1nSetViewBox"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_svg_SVGSVG__1nSetViewBox = Module["org_jetbrains_skia_svg_SVGSVG__1nSetViewBox"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nSetViewBox"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skia_svg_SVGCanvas__1nMake = Module["org_jetbrains_skia_svg_SVGCanvas__1nMake"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_svg_SVGCanvas__1nMake = Module["org_jetbrains_skia_svg_SVGCanvas__1nMake"] = wasmExports["org_jetbrains_skia_svg_SVGCanvas__1nMake"])(a0, a1, a2, a3, a4, a5);
+
+var org_jetbrains_skia_svg_SVGNode__1nGetTag = Module["org_jetbrains_skia_svg_SVGNode__1nGetTag"] = a0 => (org_jetbrains_skia_svg_SVGNode__1nGetTag = Module["org_jetbrains_skia_svg_SVGNode__1nGetTag"] = wasmExports["org_jetbrains_skia_svg_SVGNode__1nGetTag"])(a0);
+
+var org_jetbrains_skia_svg_SVGDOM__1nMakeFromData = Module["org_jetbrains_skia_svg_SVGDOM__1nMakeFromData"] = a0 => (org_jetbrains_skia_svg_SVGDOM__1nMakeFromData = Module["org_jetbrains_skia_svg_SVGDOM__1nMakeFromData"] = wasmExports["org_jetbrains_skia_svg_SVGDOM__1nMakeFromData"])(a0);
+
+var org_jetbrains_skia_svg_SVGDOM__1nGetRoot = Module["org_jetbrains_skia_svg_SVGDOM__1nGetRoot"] = a0 => (org_jetbrains_skia_svg_SVGDOM__1nGetRoot = Module["org_jetbrains_skia_svg_SVGDOM__1nGetRoot"] = wasmExports["org_jetbrains_skia_svg_SVGDOM__1nGetRoot"])(a0);
+
+var org_jetbrains_skia_svg_SVGDOM__1nGetContainerSize = Module["org_jetbrains_skia_svg_SVGDOM__1nGetContainerSize"] = (a0, a1) => (org_jetbrains_skia_svg_SVGDOM__1nGetContainerSize = Module["org_jetbrains_skia_svg_SVGDOM__1nGetContainerSize"] = wasmExports["org_jetbrains_skia_svg_SVGDOM__1nGetContainerSize"])(a0, a1);
+
+var org_jetbrains_skia_svg_SVGDOM__1nSetContainerSize = Module["org_jetbrains_skia_svg_SVGDOM__1nSetContainerSize"] = (a0, a1, a2) => (org_jetbrains_skia_svg_SVGDOM__1nSetContainerSize = Module["org_jetbrains_skia_svg_SVGDOM__1nSetContainerSize"] = wasmExports["org_jetbrains_skia_svg_SVGDOM__1nSetContainerSize"])(a0, a1, a2);
+
+var org_jetbrains_skia_svg_SVGDOM__1nRender = Module["org_jetbrains_skia_svg_SVGDOM__1nRender"] = (a0, a1) => (org_jetbrains_skia_svg_SVGDOM__1nRender = Module["org_jetbrains_skia_svg_SVGDOM__1nRender"] = wasmExports["org_jetbrains_skia_svg_SVGDOM__1nRender"])(a0, a1);
 
 var org_jetbrains_skia_BackendRenderTarget__1nGetFinalizer = Module["org_jetbrains_skia_BackendRenderTarget__1nGetFinalizer"] = () => (org_jetbrains_skia_BackendRenderTarget__1nGetFinalizer = Module["org_jetbrains_skia_BackendRenderTarget__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_BackendRenderTarget__1nGetFinalizer"])();
 
@@ -6296,6 +6712,74 @@ var org_jetbrains_skia_BackendRenderTarget__1nMakeGL = Module["org_jetbrains_ski
 var _BackendRenderTarget_nMakeMetal = Module["_BackendRenderTarget_nMakeMetal"] = (a0, a1, a2) => (_BackendRenderTarget_nMakeMetal = Module["_BackendRenderTarget_nMakeMetal"] = wasmExports["BackendRenderTarget_nMakeMetal"])(a0, a1, a2);
 
 var _BackendRenderTarget_MakeDirect3D = Module["_BackendRenderTarget_MakeDirect3D"] = (a0, a1, a2, a3, a4, a5) => (_BackendRenderTarget_MakeDirect3D = Module["_BackendRenderTarget_MakeDirect3D"] = wasmExports["BackendRenderTarget_MakeDirect3D"])(a0, a1, a2, a3, a4, a5);
+
+var org_jetbrains_skia_GraphicsKt__1nGetFontCacheLimit = Module["org_jetbrains_skia_GraphicsKt__1nGetFontCacheLimit"] = () => (org_jetbrains_skia_GraphicsKt__1nGetFontCacheLimit = Module["org_jetbrains_skia_GraphicsKt__1nGetFontCacheLimit"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nGetFontCacheLimit"])();
+
+var org_jetbrains_skia_GraphicsKt__1nSetFontCacheLimit = Module["org_jetbrains_skia_GraphicsKt__1nSetFontCacheLimit"] = a0 => (org_jetbrains_skia_GraphicsKt__1nSetFontCacheLimit = Module["org_jetbrains_skia_GraphicsKt__1nSetFontCacheLimit"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nSetFontCacheLimit"])(a0);
+
+var org_jetbrains_skia_GraphicsKt__1nGetFontCacheUsed = Module["org_jetbrains_skia_GraphicsKt__1nGetFontCacheUsed"] = () => (org_jetbrains_skia_GraphicsKt__1nGetFontCacheUsed = Module["org_jetbrains_skia_GraphicsKt__1nGetFontCacheUsed"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nGetFontCacheUsed"])();
+
+var org_jetbrains_skia_GraphicsKt__1nGetFontCacheCountLimit = Module["org_jetbrains_skia_GraphicsKt__1nGetFontCacheCountLimit"] = () => (org_jetbrains_skia_GraphicsKt__1nGetFontCacheCountLimit = Module["org_jetbrains_skia_GraphicsKt__1nGetFontCacheCountLimit"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nGetFontCacheCountLimit"])();
+
+var org_jetbrains_skia_GraphicsKt__1nSetFontCacheCountLimit = Module["org_jetbrains_skia_GraphicsKt__1nSetFontCacheCountLimit"] = a0 => (org_jetbrains_skia_GraphicsKt__1nSetFontCacheCountLimit = Module["org_jetbrains_skia_GraphicsKt__1nSetFontCacheCountLimit"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nSetFontCacheCountLimit"])(a0);
+
+var org_jetbrains_skia_GraphicsKt__1nGetFontCacheCountUsed = Module["org_jetbrains_skia_GraphicsKt__1nGetFontCacheCountUsed"] = () => (org_jetbrains_skia_GraphicsKt__1nGetFontCacheCountUsed = Module["org_jetbrains_skia_GraphicsKt__1nGetFontCacheCountUsed"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nGetFontCacheCountUsed"])();
+
+var org_jetbrains_skia_GraphicsKt__1nGetResourceCacheTotalByteLimit = Module["org_jetbrains_skia_GraphicsKt__1nGetResourceCacheTotalByteLimit"] = () => (org_jetbrains_skia_GraphicsKt__1nGetResourceCacheTotalByteLimit = Module["org_jetbrains_skia_GraphicsKt__1nGetResourceCacheTotalByteLimit"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nGetResourceCacheTotalByteLimit"])();
+
+var org_jetbrains_skia_GraphicsKt__1nSetResourceCacheTotalByteLimit = Module["org_jetbrains_skia_GraphicsKt__1nSetResourceCacheTotalByteLimit"] = a0 => (org_jetbrains_skia_GraphicsKt__1nSetResourceCacheTotalByteLimit = Module["org_jetbrains_skia_GraphicsKt__1nSetResourceCacheTotalByteLimit"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nSetResourceCacheTotalByteLimit"])(a0);
+
+var org_jetbrains_skia_GraphicsKt__1nGetResourceCacheSingleAllocationByteLimit = Module["org_jetbrains_skia_GraphicsKt__1nGetResourceCacheSingleAllocationByteLimit"] = () => (org_jetbrains_skia_GraphicsKt__1nGetResourceCacheSingleAllocationByteLimit = Module["org_jetbrains_skia_GraphicsKt__1nGetResourceCacheSingleAllocationByteLimit"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nGetResourceCacheSingleAllocationByteLimit"])();
+
+var org_jetbrains_skia_GraphicsKt__1nSetResourceCacheSingleAllocationByteLimit = Module["org_jetbrains_skia_GraphicsKt__1nSetResourceCacheSingleAllocationByteLimit"] = a0 => (org_jetbrains_skia_GraphicsKt__1nSetResourceCacheSingleAllocationByteLimit = Module["org_jetbrains_skia_GraphicsKt__1nSetResourceCacheSingleAllocationByteLimit"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nSetResourceCacheSingleAllocationByteLimit"])(a0);
+
+var org_jetbrains_skia_GraphicsKt__1nGetResourceCacheTotalBytesUsed = Module["org_jetbrains_skia_GraphicsKt__1nGetResourceCacheTotalBytesUsed"] = () => (org_jetbrains_skia_GraphicsKt__1nGetResourceCacheTotalBytesUsed = Module["org_jetbrains_skia_GraphicsKt__1nGetResourceCacheTotalBytesUsed"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nGetResourceCacheTotalBytesUsed"])();
+
+var org_jetbrains_skia_GraphicsKt__1nPurgeFontCache = Module["org_jetbrains_skia_GraphicsKt__1nPurgeFontCache"] = () => (org_jetbrains_skia_GraphicsKt__1nPurgeFontCache = Module["org_jetbrains_skia_GraphicsKt__1nPurgeFontCache"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nPurgeFontCache"])();
+
+var org_jetbrains_skia_GraphicsKt__1nPurgeResourceCache = Module["org_jetbrains_skia_GraphicsKt__1nPurgeResourceCache"] = () => (org_jetbrains_skia_GraphicsKt__1nPurgeResourceCache = Module["org_jetbrains_skia_GraphicsKt__1nPurgeResourceCache"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nPurgeResourceCache"])();
+
+var org_jetbrains_skia_GraphicsKt__1nPurgeAllCaches = Module["org_jetbrains_skia_GraphicsKt__1nPurgeAllCaches"] = () => (org_jetbrains_skia_GraphicsKt__1nPurgeAllCaches = Module["org_jetbrains_skia_GraphicsKt__1nPurgeAllCaches"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nPurgeAllCaches"])();
+
+var org_jetbrains_skia_sksg_InvalidationController_nGetFinalizer = Module["org_jetbrains_skia_sksg_InvalidationController_nGetFinalizer"] = () => (org_jetbrains_skia_sksg_InvalidationController_nGetFinalizer = Module["org_jetbrains_skia_sksg_InvalidationController_nGetFinalizer"] = wasmExports["org_jetbrains_skia_sksg_InvalidationController_nGetFinalizer"])();
+
+var org_jetbrains_skia_sksg_InvalidationController_nMake = Module["org_jetbrains_skia_sksg_InvalidationController_nMake"] = () => (org_jetbrains_skia_sksg_InvalidationController_nMake = Module["org_jetbrains_skia_sksg_InvalidationController_nMake"] = wasmExports["org_jetbrains_skia_sksg_InvalidationController_nMake"])();
+
+var org_jetbrains_skia_sksg_InvalidationController_nInvalidate = Module["org_jetbrains_skia_sksg_InvalidationController_nInvalidate"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_sksg_InvalidationController_nInvalidate = Module["org_jetbrains_skia_sksg_InvalidationController_nInvalidate"] = wasmExports["org_jetbrains_skia_sksg_InvalidationController_nInvalidate"])(a0, a1, a2, a3, a4, a5);
+
+var org_jetbrains_skia_sksg_InvalidationController_nGetBounds = Module["org_jetbrains_skia_sksg_InvalidationController_nGetBounds"] = (a0, a1) => (org_jetbrains_skia_sksg_InvalidationController_nGetBounds = Module["org_jetbrains_skia_sksg_InvalidationController_nGetBounds"] = wasmExports["org_jetbrains_skia_sksg_InvalidationController_nGetBounds"])(a0, a1);
+
+var org_jetbrains_skia_sksg_InvalidationController_nReset = Module["org_jetbrains_skia_sksg_InvalidationController_nReset"] = a0 => (org_jetbrains_skia_sksg_InvalidationController_nReset = Module["org_jetbrains_skia_sksg_InvalidationController_nReset"] = wasmExports["org_jetbrains_skia_sksg_InvalidationController_nReset"])(a0);
+
+var org_jetbrains_skia_PixelRef__1nGetWidth = Module["org_jetbrains_skia_PixelRef__1nGetWidth"] = a0 => (org_jetbrains_skia_PixelRef__1nGetWidth = Module["org_jetbrains_skia_PixelRef__1nGetWidth"] = wasmExports["org_jetbrains_skia_PixelRef__1nGetWidth"])(a0);
+
+var org_jetbrains_skia_PixelRef__1nGetHeight = Module["org_jetbrains_skia_PixelRef__1nGetHeight"] = a0 => (org_jetbrains_skia_PixelRef__1nGetHeight = Module["org_jetbrains_skia_PixelRef__1nGetHeight"] = wasmExports["org_jetbrains_skia_PixelRef__1nGetHeight"])(a0);
+
+var org_jetbrains_skia_PixelRef__1nGetRowBytes = Module["org_jetbrains_skia_PixelRef__1nGetRowBytes"] = a0 => (org_jetbrains_skia_PixelRef__1nGetRowBytes = Module["org_jetbrains_skia_PixelRef__1nGetRowBytes"] = wasmExports["org_jetbrains_skia_PixelRef__1nGetRowBytes"])(a0);
+
+var org_jetbrains_skia_PixelRef__1nGetGenerationId = Module["org_jetbrains_skia_PixelRef__1nGetGenerationId"] = a0 => (org_jetbrains_skia_PixelRef__1nGetGenerationId = Module["org_jetbrains_skia_PixelRef__1nGetGenerationId"] = wasmExports["org_jetbrains_skia_PixelRef__1nGetGenerationId"])(a0);
+
+var org_jetbrains_skia_PixelRef__1nNotifyPixelsChanged = Module["org_jetbrains_skia_PixelRef__1nNotifyPixelsChanged"] = a0 => (org_jetbrains_skia_PixelRef__1nNotifyPixelsChanged = Module["org_jetbrains_skia_PixelRef__1nNotifyPixelsChanged"] = wasmExports["org_jetbrains_skia_PixelRef__1nNotifyPixelsChanged"])(a0);
+
+var org_jetbrains_skia_PixelRef__1nIsImmutable = Module["org_jetbrains_skia_PixelRef__1nIsImmutable"] = a0 => (org_jetbrains_skia_PixelRef__1nIsImmutable = Module["org_jetbrains_skia_PixelRef__1nIsImmutable"] = wasmExports["org_jetbrains_skia_PixelRef__1nIsImmutable"])(a0);
+
+var org_jetbrains_skia_PixelRef__1nSetImmutable = Module["org_jetbrains_skia_PixelRef__1nSetImmutable"] = a0 => (org_jetbrains_skia_PixelRef__1nSetImmutable = Module["org_jetbrains_skia_PixelRef__1nSetImmutable"] = wasmExports["org_jetbrains_skia_PixelRef__1nSetImmutable"])(a0);
+
+var org_jetbrains_skia_ManagedString__1nGetFinalizer = Module["org_jetbrains_skia_ManagedString__1nGetFinalizer"] = () => (org_jetbrains_skia_ManagedString__1nGetFinalizer = Module["org_jetbrains_skia_ManagedString__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_ManagedString__1nGetFinalizer"])();
+
+var org_jetbrains_skia_ManagedString__1nMake = Module["org_jetbrains_skia_ManagedString__1nMake"] = a0 => (org_jetbrains_skia_ManagedString__1nMake = Module["org_jetbrains_skia_ManagedString__1nMake"] = wasmExports["org_jetbrains_skia_ManagedString__1nMake"])(a0);
+
+var org_jetbrains_skia_ManagedString__nStringSize = Module["org_jetbrains_skia_ManagedString__nStringSize"] = a0 => (org_jetbrains_skia_ManagedString__nStringSize = Module["org_jetbrains_skia_ManagedString__nStringSize"] = wasmExports["org_jetbrains_skia_ManagedString__nStringSize"])(a0);
+
+var org_jetbrains_skia_ManagedString__nStringData = Module["org_jetbrains_skia_ManagedString__nStringData"] = (a0, a1, a2) => (org_jetbrains_skia_ManagedString__nStringData = Module["org_jetbrains_skia_ManagedString__nStringData"] = wasmExports["org_jetbrains_skia_ManagedString__nStringData"])(a0, a1, a2);
+
+var org_jetbrains_skia_ManagedString__1nInsert = Module["org_jetbrains_skia_ManagedString__1nInsert"] = (a0, a1, a2) => (org_jetbrains_skia_ManagedString__1nInsert = Module["org_jetbrains_skia_ManagedString__1nInsert"] = wasmExports["org_jetbrains_skia_ManagedString__1nInsert"])(a0, a1, a2);
+
+var org_jetbrains_skia_ManagedString__1nAppend = Module["org_jetbrains_skia_ManagedString__1nAppend"] = (a0, a1) => (org_jetbrains_skia_ManagedString__1nAppend = Module["org_jetbrains_skia_ManagedString__1nAppend"] = wasmExports["org_jetbrains_skia_ManagedString__1nAppend"])(a0, a1);
+
+var org_jetbrains_skia_ManagedString__1nRemoveSuffix = Module["org_jetbrains_skia_ManagedString__1nRemoveSuffix"] = (a0, a1) => (org_jetbrains_skia_ManagedString__1nRemoveSuffix = Module["org_jetbrains_skia_ManagedString__1nRemoveSuffix"] = wasmExports["org_jetbrains_skia_ManagedString__1nRemoveSuffix"])(a0, a1);
+
+var org_jetbrains_skia_ManagedString__1nRemove = Module["org_jetbrains_skia_ManagedString__1nRemove"] = (a0, a1, a2) => (org_jetbrains_skia_ManagedString__1nRemove = Module["org_jetbrains_skia_ManagedString__1nRemove"] = wasmExports["org_jetbrains_skia_ManagedString__1nRemove"])(a0, a1, a2);
 
 var org_jetbrains_skia_Paint__1nGetFinalizer = Module["org_jetbrains_skia_Paint__1nGetFinalizer"] = () => (org_jetbrains_skia_Paint__1nGetFinalizer = Module["org_jetbrains_skia_Paint__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_Paint__1nGetFinalizer"])();
 
@@ -6369,43 +6853,389 @@ var org_jetbrains_skia_Paint__1nSetColorFilter = Module["org_jetbrains_skia_Pain
 
 var org_jetbrains_skia_Paint__1nHasNothingToDraw = Module["org_jetbrains_skia_Paint__1nHasNothingToDraw"] = a0 => (org_jetbrains_skia_Paint__1nHasNothingToDraw = Module["org_jetbrains_skia_Paint__1nHasNothingToDraw"] = wasmExports["org_jetbrains_skia_Paint__1nHasNothingToDraw"])(a0);
 
-var org_jetbrains_skia_paragraph_TextBox__1nGetArraySize = Module["org_jetbrains_skia_paragraph_TextBox__1nGetArraySize"] = a0 => (org_jetbrains_skia_paragraph_TextBox__1nGetArraySize = Module["org_jetbrains_skia_paragraph_TextBox__1nGetArraySize"] = wasmExports["org_jetbrains_skia_paragraph_TextBox__1nGetArraySize"])(a0);
+var org_jetbrains_skia_TextBlob__1nGetFinalizer = Module["org_jetbrains_skia_TextBlob__1nGetFinalizer"] = () => (org_jetbrains_skia_TextBlob__1nGetFinalizer = Module["org_jetbrains_skia_TextBlob__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetFinalizer"])();
 
-var org_jetbrains_skia_paragraph_TextBox__1nDisposeArray = Module["org_jetbrains_skia_paragraph_TextBox__1nDisposeArray"] = a0 => (org_jetbrains_skia_paragraph_TextBox__1nDisposeArray = Module["org_jetbrains_skia_paragraph_TextBox__1nDisposeArray"] = wasmExports["org_jetbrains_skia_paragraph_TextBox__1nDisposeArray"])(a0);
+var org_jetbrains_skia_TextBlob__1nBounds = Module["org_jetbrains_skia_TextBlob__1nBounds"] = (a0, a1) => (org_jetbrains_skia_TextBlob__1nBounds = Module["org_jetbrains_skia_TextBlob__1nBounds"] = wasmExports["org_jetbrains_skia_TextBlob__1nBounds"])(a0, a1);
 
-var org_jetbrains_skia_paragraph_TextBox__1nGetArrayElement = Module["org_jetbrains_skia_paragraph_TextBox__1nGetArrayElement"] = (a0, a1, a2, a3) => (org_jetbrains_skia_paragraph_TextBox__1nGetArrayElement = Module["org_jetbrains_skia_paragraph_TextBox__1nGetArrayElement"] = wasmExports["org_jetbrains_skia_paragraph_TextBox__1nGetArrayElement"])(a0, a1, a2, a3);
+var org_jetbrains_skia_TextBlob__1nGetUniqueId = Module["org_jetbrains_skia_TextBlob__1nGetUniqueId"] = a0 => (org_jetbrains_skia_TextBlob__1nGetUniqueId = Module["org_jetbrains_skia_TextBlob__1nGetUniqueId"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetUniqueId"])(a0);
 
-var org_jetbrains_skia_paragraph_TypefaceFontProvider__1nMake = Module["org_jetbrains_skia_paragraph_TypefaceFontProvider__1nMake"] = () => (org_jetbrains_skia_paragraph_TypefaceFontProvider__1nMake = Module["org_jetbrains_skia_paragraph_TypefaceFontProvider__1nMake"] = wasmExports["org_jetbrains_skia_paragraph_TypefaceFontProvider__1nMake"])();
+var org_jetbrains_skia_TextBlob__1nGetInterceptsLength = Module["org_jetbrains_skia_TextBlob__1nGetInterceptsLength"] = (a0, a1, a2, a3) => (org_jetbrains_skia_TextBlob__1nGetInterceptsLength = Module["org_jetbrains_skia_TextBlob__1nGetInterceptsLength"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetInterceptsLength"])(a0, a1, a2, a3);
 
-var org_jetbrains_skia_paragraph_TypefaceFontProviderWithFallback__1nMakeAsFallbackProvider = Module["org_jetbrains_skia_paragraph_TypefaceFontProviderWithFallback__1nMakeAsFallbackProvider"] = () => (org_jetbrains_skia_paragraph_TypefaceFontProviderWithFallback__1nMakeAsFallbackProvider = Module["org_jetbrains_skia_paragraph_TypefaceFontProviderWithFallback__1nMakeAsFallbackProvider"] = wasmExports["org_jetbrains_skia_paragraph_TypefaceFontProviderWithFallback__1nMakeAsFallbackProvider"])();
+var org_jetbrains_skia_TextBlob__1nGetIntercepts = Module["org_jetbrains_skia_TextBlob__1nGetIntercepts"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_TextBlob__1nGetIntercepts = Module["org_jetbrains_skia_TextBlob__1nGetIntercepts"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetIntercepts"])(a0, a1, a2, a3, a4);
 
-var org_jetbrains_skia_paragraph_TypefaceFontProvider__1nRegisterTypeface = Module["org_jetbrains_skia_paragraph_TypefaceFontProvider__1nRegisterTypeface"] = (a0, a1, a2) => (org_jetbrains_skia_paragraph_TypefaceFontProvider__1nRegisterTypeface = Module["org_jetbrains_skia_paragraph_TypefaceFontProvider__1nRegisterTypeface"] = wasmExports["org_jetbrains_skia_paragraph_TypefaceFontProvider__1nRegisterTypeface"])(a0, a1, a2);
+var org_jetbrains_skia_TextBlob__1nMakeFromPosH = Module["org_jetbrains_skia_TextBlob__1nMakeFromPosH"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_TextBlob__1nMakeFromPosH = Module["org_jetbrains_skia_TextBlob__1nMakeFromPosH"] = wasmExports["org_jetbrains_skia_TextBlob__1nMakeFromPosH"])(a0, a1, a2, a3, a4);
 
-var org_jetbrains_skia_paragraph_TypefaceFontProviderWithFallback__1nRegisterTypefaceForFallback = Module["org_jetbrains_skia_paragraph_TypefaceFontProviderWithFallback__1nRegisterTypefaceForFallback"] = (a0, a1, a2) => (org_jetbrains_skia_paragraph_TypefaceFontProviderWithFallback__1nRegisterTypefaceForFallback = Module["org_jetbrains_skia_paragraph_TypefaceFontProviderWithFallback__1nRegisterTypefaceForFallback"] = wasmExports["org_jetbrains_skia_paragraph_TypefaceFontProviderWithFallback__1nRegisterTypefaceForFallback"])(a0, a1, a2);
+var org_jetbrains_skia_TextBlob__1nMakeFromPos = Module["org_jetbrains_skia_TextBlob__1nMakeFromPos"] = (a0, a1, a2, a3) => (org_jetbrains_skia_TextBlob__1nMakeFromPos = Module["org_jetbrains_skia_TextBlob__1nMakeFromPos"] = wasmExports["org_jetbrains_skia_TextBlob__1nMakeFromPos"])(a0, a1, a2, a3);
 
-var org_jetbrains_skia_paragraph_FontCollection__1nMake = Module["org_jetbrains_skia_paragraph_FontCollection__1nMake"] = () => (org_jetbrains_skia_paragraph_FontCollection__1nMake = Module["org_jetbrains_skia_paragraph_FontCollection__1nMake"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nMake"])();
+var org_jetbrains_skia_TextBlob__1nMakeFromRSXform = Module["org_jetbrains_skia_TextBlob__1nMakeFromRSXform"] = (a0, a1, a2, a3) => (org_jetbrains_skia_TextBlob__1nMakeFromRSXform = Module["org_jetbrains_skia_TextBlob__1nMakeFromRSXform"] = wasmExports["org_jetbrains_skia_TextBlob__1nMakeFromRSXform"])(a0, a1, a2, a3);
 
-var org_jetbrains_skia_paragraph_FontCollection__1nGetFontManagersCount = Module["org_jetbrains_skia_paragraph_FontCollection__1nGetFontManagersCount"] = a0 => (org_jetbrains_skia_paragraph_FontCollection__1nGetFontManagersCount = Module["org_jetbrains_skia_paragraph_FontCollection__1nGetFontManagersCount"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nGetFontManagersCount"])(a0);
+var org_jetbrains_skia_TextBlob__1nSerializeToData = Module["org_jetbrains_skia_TextBlob__1nSerializeToData"] = a0 => (org_jetbrains_skia_TextBlob__1nSerializeToData = Module["org_jetbrains_skia_TextBlob__1nSerializeToData"] = wasmExports["org_jetbrains_skia_TextBlob__1nSerializeToData"])(a0);
 
-var org_jetbrains_skia_paragraph_FontCollection__1nSetAssetFontManager = Module["org_jetbrains_skia_paragraph_FontCollection__1nSetAssetFontManager"] = (a0, a1, a2) => (org_jetbrains_skia_paragraph_FontCollection__1nSetAssetFontManager = Module["org_jetbrains_skia_paragraph_FontCollection__1nSetAssetFontManager"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nSetAssetFontManager"])(a0, a1, a2);
+var org_jetbrains_skia_TextBlob__1nMakeFromData = Module["org_jetbrains_skia_TextBlob__1nMakeFromData"] = a0 => (org_jetbrains_skia_TextBlob__1nMakeFromData = Module["org_jetbrains_skia_TextBlob__1nMakeFromData"] = wasmExports["org_jetbrains_skia_TextBlob__1nMakeFromData"])(a0);
 
-var org_jetbrains_skia_paragraph_FontCollection__1nSetDynamicFontManager = Module["org_jetbrains_skia_paragraph_FontCollection__1nSetDynamicFontManager"] = (a0, a1, a2) => (org_jetbrains_skia_paragraph_FontCollection__1nSetDynamicFontManager = Module["org_jetbrains_skia_paragraph_FontCollection__1nSetDynamicFontManager"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nSetDynamicFontManager"])(a0, a1, a2);
+var org_jetbrains_skia_TextBlob__1nGetGlyphsLength = Module["org_jetbrains_skia_TextBlob__1nGetGlyphsLength"] = a0 => (org_jetbrains_skia_TextBlob__1nGetGlyphsLength = Module["org_jetbrains_skia_TextBlob__1nGetGlyphsLength"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetGlyphsLength"])(a0);
 
-var org_jetbrains_skia_paragraph_FontCollection__1nSetTestFontManager = Module["org_jetbrains_skia_paragraph_FontCollection__1nSetTestFontManager"] = (a0, a1, a2) => (org_jetbrains_skia_paragraph_FontCollection__1nSetTestFontManager = Module["org_jetbrains_skia_paragraph_FontCollection__1nSetTestFontManager"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nSetTestFontManager"])(a0, a1, a2);
+var org_jetbrains_skia_TextBlob__1nGetGlyphs = Module["org_jetbrains_skia_TextBlob__1nGetGlyphs"] = (a0, a1) => (org_jetbrains_skia_TextBlob__1nGetGlyphs = Module["org_jetbrains_skia_TextBlob__1nGetGlyphs"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetGlyphs"])(a0, a1);
 
-var org_jetbrains_skia_paragraph_FontCollection__1nSetDefaultFontManager = Module["org_jetbrains_skia_paragraph_FontCollection__1nSetDefaultFontManager"] = (a0, a1, a2) => (org_jetbrains_skia_paragraph_FontCollection__1nSetDefaultFontManager = Module["org_jetbrains_skia_paragraph_FontCollection__1nSetDefaultFontManager"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nSetDefaultFontManager"])(a0, a1, a2);
+var org_jetbrains_skia_TextBlob__1nGetPositionsLength = Module["org_jetbrains_skia_TextBlob__1nGetPositionsLength"] = a0 => (org_jetbrains_skia_TextBlob__1nGetPositionsLength = Module["org_jetbrains_skia_TextBlob__1nGetPositionsLength"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetPositionsLength"])(a0);
 
-var org_jetbrains_skia_paragraph_FontCollection__1nGetFallbackManager = Module["org_jetbrains_skia_paragraph_FontCollection__1nGetFallbackManager"] = a0 => (org_jetbrains_skia_paragraph_FontCollection__1nGetFallbackManager = Module["org_jetbrains_skia_paragraph_FontCollection__1nGetFallbackManager"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nGetFallbackManager"])(a0);
+var org_jetbrains_skia_TextBlob__1nGetPositions = Module["org_jetbrains_skia_TextBlob__1nGetPositions"] = (a0, a1) => (org_jetbrains_skia_TextBlob__1nGetPositions = Module["org_jetbrains_skia_TextBlob__1nGetPositions"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetPositions"])(a0, a1);
 
-var org_jetbrains_skia_paragraph_FontCollection__1nFindTypefaces = Module["org_jetbrains_skia_paragraph_FontCollection__1nFindTypefaces"] = (a0, a1, a2, a3) => (org_jetbrains_skia_paragraph_FontCollection__1nFindTypefaces = Module["org_jetbrains_skia_paragraph_FontCollection__1nFindTypefaces"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nFindTypefaces"])(a0, a1, a2, a3);
+var org_jetbrains_skia_TextBlob__1nGetClustersLength = Module["org_jetbrains_skia_TextBlob__1nGetClustersLength"] = a0 => (org_jetbrains_skia_TextBlob__1nGetClustersLength = Module["org_jetbrains_skia_TextBlob__1nGetClustersLength"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetClustersLength"])(a0);
 
-var org_jetbrains_skia_paragraph_FontCollection__1nDefaultFallbackChar = Module["org_jetbrains_skia_paragraph_FontCollection__1nDefaultFallbackChar"] = (a0, a1, a2, a3) => (org_jetbrains_skia_paragraph_FontCollection__1nDefaultFallbackChar = Module["org_jetbrains_skia_paragraph_FontCollection__1nDefaultFallbackChar"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nDefaultFallbackChar"])(a0, a1, a2, a3);
+var org_jetbrains_skia_TextBlob__1nGetClusters = Module["org_jetbrains_skia_TextBlob__1nGetClusters"] = (a0, a1) => (org_jetbrains_skia_TextBlob__1nGetClusters = Module["org_jetbrains_skia_TextBlob__1nGetClusters"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetClusters"])(a0, a1);
 
-var org_jetbrains_skia_paragraph_FontCollection__1nDefaultFallback = Module["org_jetbrains_skia_paragraph_FontCollection__1nDefaultFallback"] = a0 => (org_jetbrains_skia_paragraph_FontCollection__1nDefaultFallback = Module["org_jetbrains_skia_paragraph_FontCollection__1nDefaultFallback"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nDefaultFallback"])(a0);
+var org_jetbrains_skia_TextBlob__1nGetTightBounds = Module["org_jetbrains_skia_TextBlob__1nGetTightBounds"] = (a0, a1) => (org_jetbrains_skia_TextBlob__1nGetTightBounds = Module["org_jetbrains_skia_TextBlob__1nGetTightBounds"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetTightBounds"])(a0, a1);
 
-var org_jetbrains_skia_paragraph_FontCollection__1nSetEnableFallback = Module["org_jetbrains_skia_paragraph_FontCollection__1nSetEnableFallback"] = (a0, a1) => (org_jetbrains_skia_paragraph_FontCollection__1nSetEnableFallback = Module["org_jetbrains_skia_paragraph_FontCollection__1nSetEnableFallback"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nSetEnableFallback"])(a0, a1);
+var org_jetbrains_skia_TextBlob__1nGetBlockBounds = Module["org_jetbrains_skia_TextBlob__1nGetBlockBounds"] = (a0, a1) => (org_jetbrains_skia_TextBlob__1nGetBlockBounds = Module["org_jetbrains_skia_TextBlob__1nGetBlockBounds"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetBlockBounds"])(a0, a1);
 
-var org_jetbrains_skia_paragraph_FontCollection__1nGetParagraphCache = Module["org_jetbrains_skia_paragraph_FontCollection__1nGetParagraphCache"] = a0 => (org_jetbrains_skia_paragraph_FontCollection__1nGetParagraphCache = Module["org_jetbrains_skia_paragraph_FontCollection__1nGetParagraphCache"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nGetParagraphCache"])(a0);
+var org_jetbrains_skia_TextBlob__1nGetFirstBaseline = Module["org_jetbrains_skia_TextBlob__1nGetFirstBaseline"] = (a0, a1) => (org_jetbrains_skia_TextBlob__1nGetFirstBaseline = Module["org_jetbrains_skia_TextBlob__1nGetFirstBaseline"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetFirstBaseline"])(a0, a1);
+
+var org_jetbrains_skia_TextBlob__1nGetLastBaseline = Module["org_jetbrains_skia_TextBlob__1nGetLastBaseline"] = (a0, a1) => (org_jetbrains_skia_TextBlob__1nGetLastBaseline = Module["org_jetbrains_skia_TextBlob__1nGetLastBaseline"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetLastBaseline"])(a0, a1);
+
+var org_jetbrains_skia_TextBlob_Iter__1nCreate = Module["org_jetbrains_skia_TextBlob_Iter__1nCreate"] = a0 => (org_jetbrains_skia_TextBlob_Iter__1nCreate = Module["org_jetbrains_skia_TextBlob_Iter__1nCreate"] = wasmExports["org_jetbrains_skia_TextBlob_Iter__1nCreate"])(a0);
+
+var org_jetbrains_skia_TextBlob_Iter__1nGetFinalizer = Module["org_jetbrains_skia_TextBlob_Iter__1nGetFinalizer"] = () => (org_jetbrains_skia_TextBlob_Iter__1nGetFinalizer = Module["org_jetbrains_skia_TextBlob_Iter__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_TextBlob_Iter__1nGetFinalizer"])();
+
+var org_jetbrains_skia_TextBlob_Iter__1nFetch = Module["org_jetbrains_skia_TextBlob_Iter__1nFetch"] = a0 => (org_jetbrains_skia_TextBlob_Iter__1nFetch = Module["org_jetbrains_skia_TextBlob_Iter__1nFetch"] = wasmExports["org_jetbrains_skia_TextBlob_Iter__1nFetch"])(a0);
+
+var org_jetbrains_skia_TextBlob_Iter__1nHasNext = Module["org_jetbrains_skia_TextBlob_Iter__1nHasNext"] = a0 => (org_jetbrains_skia_TextBlob_Iter__1nHasNext = Module["org_jetbrains_skia_TextBlob_Iter__1nHasNext"] = wasmExports["org_jetbrains_skia_TextBlob_Iter__1nHasNext"])(a0);
+
+var org_jetbrains_skia_TextBlob_Iter__1nGetTypeface = Module["org_jetbrains_skia_TextBlob_Iter__1nGetTypeface"] = a0 => (org_jetbrains_skia_TextBlob_Iter__1nGetTypeface = Module["org_jetbrains_skia_TextBlob_Iter__1nGetTypeface"] = wasmExports["org_jetbrains_skia_TextBlob_Iter__1nGetTypeface"])(a0);
+
+var org_jetbrains_skia_TextBlob_Iter__1nGetGlyphCount = Module["org_jetbrains_skia_TextBlob_Iter__1nGetGlyphCount"] = a0 => (org_jetbrains_skia_TextBlob_Iter__1nGetGlyphCount = Module["org_jetbrains_skia_TextBlob_Iter__1nGetGlyphCount"] = wasmExports["org_jetbrains_skia_TextBlob_Iter__1nGetGlyphCount"])(a0);
+
+var org_jetbrains_skia_TextBlob_Iter__1nGetGlyphs = Module["org_jetbrains_skia_TextBlob_Iter__1nGetGlyphs"] = (a0, a1, a2) => (org_jetbrains_skia_TextBlob_Iter__1nGetGlyphs = Module["org_jetbrains_skia_TextBlob_Iter__1nGetGlyphs"] = wasmExports["org_jetbrains_skia_TextBlob_Iter__1nGetGlyphs"])(a0, a1, a2);
+
+var org_jetbrains_skia_Drawable__1nGetFinalizer = Module["org_jetbrains_skia_Drawable__1nGetFinalizer"] = () => (org_jetbrains_skia_Drawable__1nGetFinalizer = Module["org_jetbrains_skia_Drawable__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_Drawable__1nGetFinalizer"])();
+
+var org_jetbrains_skia_Drawable__1nSetBounds = Module["org_jetbrains_skia_Drawable__1nSetBounds"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Drawable__1nSetBounds = Module["org_jetbrains_skia_Drawable__1nSetBounds"] = wasmExports["org_jetbrains_skia_Drawable__1nSetBounds"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skia_Drawable__1nGetBounds = Module["org_jetbrains_skia_Drawable__1nGetBounds"] = (a0, a1) => (org_jetbrains_skia_Drawable__1nGetBounds = Module["org_jetbrains_skia_Drawable__1nGetBounds"] = wasmExports["org_jetbrains_skia_Drawable__1nGetBounds"])(a0, a1);
+
+var org_jetbrains_skia_Drawable__1nGetOnDrawCanvas = Module["org_jetbrains_skia_Drawable__1nGetOnDrawCanvas"] = a0 => (org_jetbrains_skia_Drawable__1nGetOnDrawCanvas = Module["org_jetbrains_skia_Drawable__1nGetOnDrawCanvas"] = wasmExports["org_jetbrains_skia_Drawable__1nGetOnDrawCanvas"])(a0);
+
+var org_jetbrains_skia_Drawable__1nMake = Module["org_jetbrains_skia_Drawable__1nMake"] = () => (org_jetbrains_skia_Drawable__1nMake = Module["org_jetbrains_skia_Drawable__1nMake"] = wasmExports["org_jetbrains_skia_Drawable__1nMake"])();
+
+var org_jetbrains_skia_Drawable__1nInit = Module["org_jetbrains_skia_Drawable__1nInit"] = (a0, a1, a2) => (org_jetbrains_skia_Drawable__1nInit = Module["org_jetbrains_skia_Drawable__1nInit"] = wasmExports["org_jetbrains_skia_Drawable__1nInit"])(a0, a1, a2);
+
+var org_jetbrains_skia_Drawable__1nDraw = Module["org_jetbrains_skia_Drawable__1nDraw"] = (a0, a1, a2) => (org_jetbrains_skia_Drawable__1nDraw = Module["org_jetbrains_skia_Drawable__1nDraw"] = wasmExports["org_jetbrains_skia_Drawable__1nDraw"])(a0, a1, a2);
+
+var org_jetbrains_skia_Drawable__1nMakePictureSnapshot = Module["org_jetbrains_skia_Drawable__1nMakePictureSnapshot"] = a0 => (org_jetbrains_skia_Drawable__1nMakePictureSnapshot = Module["org_jetbrains_skia_Drawable__1nMakePictureSnapshot"] = wasmExports["org_jetbrains_skia_Drawable__1nMakePictureSnapshot"])(a0);
+
+var org_jetbrains_skia_Drawable__1nGetGenerationId = Module["org_jetbrains_skia_Drawable__1nGetGenerationId"] = a0 => (org_jetbrains_skia_Drawable__1nGetGenerationId = Module["org_jetbrains_skia_Drawable__1nGetGenerationId"] = wasmExports["org_jetbrains_skia_Drawable__1nGetGenerationId"])(a0);
+
+var org_jetbrains_skia_Drawable__1nNotifyDrawingChanged = Module["org_jetbrains_skia_Drawable__1nNotifyDrawingChanged"] = a0 => (org_jetbrains_skia_Drawable__1nNotifyDrawingChanged = Module["org_jetbrains_skia_Drawable__1nNotifyDrawingChanged"] = wasmExports["org_jetbrains_skia_Drawable__1nNotifyDrawingChanged"])(a0);
+
+var org_jetbrains_skia_FontStyleSet__1nMakeEmpty = Module["org_jetbrains_skia_FontStyleSet__1nMakeEmpty"] = () => (org_jetbrains_skia_FontStyleSet__1nMakeEmpty = Module["org_jetbrains_skia_FontStyleSet__1nMakeEmpty"] = wasmExports["org_jetbrains_skia_FontStyleSet__1nMakeEmpty"])();
+
+var org_jetbrains_skia_FontStyleSet__1nCount = Module["org_jetbrains_skia_FontStyleSet__1nCount"] = a0 => (org_jetbrains_skia_FontStyleSet__1nCount = Module["org_jetbrains_skia_FontStyleSet__1nCount"] = wasmExports["org_jetbrains_skia_FontStyleSet__1nCount"])(a0);
+
+var org_jetbrains_skia_FontStyleSet__1nGetStyle = Module["org_jetbrains_skia_FontStyleSet__1nGetStyle"] = (a0, a1) => (org_jetbrains_skia_FontStyleSet__1nGetStyle = Module["org_jetbrains_skia_FontStyleSet__1nGetStyle"] = wasmExports["org_jetbrains_skia_FontStyleSet__1nGetStyle"])(a0, a1);
+
+var org_jetbrains_skia_FontStyleSet__1nGetStyleName = Module["org_jetbrains_skia_FontStyleSet__1nGetStyleName"] = (a0, a1) => (org_jetbrains_skia_FontStyleSet__1nGetStyleName = Module["org_jetbrains_skia_FontStyleSet__1nGetStyleName"] = wasmExports["org_jetbrains_skia_FontStyleSet__1nGetStyleName"])(a0, a1);
+
+var org_jetbrains_skia_FontStyleSet__1nGetTypeface = Module["org_jetbrains_skia_FontStyleSet__1nGetTypeface"] = (a0, a1) => (org_jetbrains_skia_FontStyleSet__1nGetTypeface = Module["org_jetbrains_skia_FontStyleSet__1nGetTypeface"] = wasmExports["org_jetbrains_skia_FontStyleSet__1nGetTypeface"])(a0, a1);
+
+var org_jetbrains_skia_FontStyleSet__1nMatchStyle = Module["org_jetbrains_skia_FontStyleSet__1nMatchStyle"] = (a0, a1) => (org_jetbrains_skia_FontStyleSet__1nMatchStyle = Module["org_jetbrains_skia_FontStyleSet__1nMatchStyle"] = wasmExports["org_jetbrains_skia_FontStyleSet__1nMatchStyle"])(a0, a1);
+
+var org_jetbrains_skia_RuntimeEffect__1nMakeShader = Module["org_jetbrains_skia_RuntimeEffect__1nMakeShader"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_RuntimeEffect__1nMakeShader = Module["org_jetbrains_skia_RuntimeEffect__1nMakeShader"] = wasmExports["org_jetbrains_skia_RuntimeEffect__1nMakeShader"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skia_RuntimeEffect__1nMakeForShader = Module["org_jetbrains_skia_RuntimeEffect__1nMakeForShader"] = a0 => (org_jetbrains_skia_RuntimeEffect__1nMakeForShader = Module["org_jetbrains_skia_RuntimeEffect__1nMakeForShader"] = wasmExports["org_jetbrains_skia_RuntimeEffect__1nMakeForShader"])(a0);
+
+var org_jetbrains_skia_RuntimeEffect__1nMakeForColorFilter = Module["org_jetbrains_skia_RuntimeEffect__1nMakeForColorFilter"] = a0 => (org_jetbrains_skia_RuntimeEffect__1nMakeForColorFilter = Module["org_jetbrains_skia_RuntimeEffect__1nMakeForColorFilter"] = wasmExports["org_jetbrains_skia_RuntimeEffect__1nMakeForColorFilter"])(a0);
+
+var org_jetbrains_skia_RuntimeEffect__1Result_nGetPtr = Module["org_jetbrains_skia_RuntimeEffect__1Result_nGetPtr"] = a0 => (org_jetbrains_skia_RuntimeEffect__1Result_nGetPtr = Module["org_jetbrains_skia_RuntimeEffect__1Result_nGetPtr"] = wasmExports["org_jetbrains_skia_RuntimeEffect__1Result_nGetPtr"])(a0);
+
+var org_jetbrains_skia_RuntimeEffect__1Result_nGetError = Module["org_jetbrains_skia_RuntimeEffect__1Result_nGetError"] = a0 => (org_jetbrains_skia_RuntimeEffect__1Result_nGetError = Module["org_jetbrains_skia_RuntimeEffect__1Result_nGetError"] = wasmExports["org_jetbrains_skia_RuntimeEffect__1Result_nGetError"])(a0);
+
+var org_jetbrains_skia_RuntimeEffect__1Result_nDestroy = Module["org_jetbrains_skia_RuntimeEffect__1Result_nDestroy"] = a0 => (org_jetbrains_skia_RuntimeEffect__1Result_nDestroy = Module["org_jetbrains_skia_RuntimeEffect__1Result_nDestroy"] = wasmExports["org_jetbrains_skia_RuntimeEffect__1Result_nDestroy"])(a0);
+
+var org_jetbrains_skia_Typeface__1nGetFontStyle = Module["org_jetbrains_skia_Typeface__1nGetFontStyle"] = a0 => (org_jetbrains_skia_Typeface__1nGetFontStyle = Module["org_jetbrains_skia_Typeface__1nGetFontStyle"] = wasmExports["org_jetbrains_skia_Typeface__1nGetFontStyle"])(a0);
+
+var org_jetbrains_skia_Typeface__1nIsFixedPitch = Module["org_jetbrains_skia_Typeface__1nIsFixedPitch"] = a0 => (org_jetbrains_skia_Typeface__1nIsFixedPitch = Module["org_jetbrains_skia_Typeface__1nIsFixedPitch"] = wasmExports["org_jetbrains_skia_Typeface__1nIsFixedPitch"])(a0);
+
+var org_jetbrains_skia_Typeface__1nGetVariationsCount = Module["org_jetbrains_skia_Typeface__1nGetVariationsCount"] = a0 => (org_jetbrains_skia_Typeface__1nGetVariationsCount = Module["org_jetbrains_skia_Typeface__1nGetVariationsCount"] = wasmExports["org_jetbrains_skia_Typeface__1nGetVariationsCount"])(a0);
+
+var org_jetbrains_skia_Typeface__1nGetVariations = Module["org_jetbrains_skia_Typeface__1nGetVariations"] = (a0, a1, a2) => (org_jetbrains_skia_Typeface__1nGetVariations = Module["org_jetbrains_skia_Typeface__1nGetVariations"] = wasmExports["org_jetbrains_skia_Typeface__1nGetVariations"])(a0, a1, a2);
+
+var org_jetbrains_skia_Typeface__1nGetVariationAxesCount = Module["org_jetbrains_skia_Typeface__1nGetVariationAxesCount"] = a0 => (org_jetbrains_skia_Typeface__1nGetVariationAxesCount = Module["org_jetbrains_skia_Typeface__1nGetVariationAxesCount"] = wasmExports["org_jetbrains_skia_Typeface__1nGetVariationAxesCount"])(a0);
+
+var org_jetbrains_skia_Typeface__1nGetVariationAxes = Module["org_jetbrains_skia_Typeface__1nGetVariationAxes"] = (a0, a1, a2) => (org_jetbrains_skia_Typeface__1nGetVariationAxes = Module["org_jetbrains_skia_Typeface__1nGetVariationAxes"] = wasmExports["org_jetbrains_skia_Typeface__1nGetVariationAxes"])(a0, a1, a2);
+
+var org_jetbrains_skia_Typeface__1nGetUniqueId = Module["org_jetbrains_skia_Typeface__1nGetUniqueId"] = a0 => (org_jetbrains_skia_Typeface__1nGetUniqueId = Module["org_jetbrains_skia_Typeface__1nGetUniqueId"] = wasmExports["org_jetbrains_skia_Typeface__1nGetUniqueId"])(a0);
+
+var org_jetbrains_skia_Typeface__1nEquals = Module["org_jetbrains_skia_Typeface__1nEquals"] = (a0, a1) => (org_jetbrains_skia_Typeface__1nEquals = Module["org_jetbrains_skia_Typeface__1nEquals"] = wasmExports["org_jetbrains_skia_Typeface__1nEquals"])(a0, a1);
+
+var org_jetbrains_skia_Typeface__1nMakeClone = Module["org_jetbrains_skia_Typeface__1nMakeClone"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Typeface__1nMakeClone = Module["org_jetbrains_skia_Typeface__1nMakeClone"] = wasmExports["org_jetbrains_skia_Typeface__1nMakeClone"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_Typeface__1nGetUTF32Glyphs = Module["org_jetbrains_skia_Typeface__1nGetUTF32Glyphs"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Typeface__1nGetUTF32Glyphs = Module["org_jetbrains_skia_Typeface__1nGetUTF32Glyphs"] = wasmExports["org_jetbrains_skia_Typeface__1nGetUTF32Glyphs"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_Typeface__1nGetUTF32Glyph = Module["org_jetbrains_skia_Typeface__1nGetUTF32Glyph"] = (a0, a1) => (org_jetbrains_skia_Typeface__1nGetUTF32Glyph = Module["org_jetbrains_skia_Typeface__1nGetUTF32Glyph"] = wasmExports["org_jetbrains_skia_Typeface__1nGetUTF32Glyph"])(a0, a1);
+
+var org_jetbrains_skia_Typeface__1nGetGlyphsCount = Module["org_jetbrains_skia_Typeface__1nGetGlyphsCount"] = a0 => (org_jetbrains_skia_Typeface__1nGetGlyphsCount = Module["org_jetbrains_skia_Typeface__1nGetGlyphsCount"] = wasmExports["org_jetbrains_skia_Typeface__1nGetGlyphsCount"])(a0);
+
+var org_jetbrains_skia_Typeface__1nGetTablesCount = Module["org_jetbrains_skia_Typeface__1nGetTablesCount"] = a0 => (org_jetbrains_skia_Typeface__1nGetTablesCount = Module["org_jetbrains_skia_Typeface__1nGetTablesCount"] = wasmExports["org_jetbrains_skia_Typeface__1nGetTablesCount"])(a0);
+
+var org_jetbrains_skia_Typeface__1nGetTableTagsCount = Module["org_jetbrains_skia_Typeface__1nGetTableTagsCount"] = a0 => (org_jetbrains_skia_Typeface__1nGetTableTagsCount = Module["org_jetbrains_skia_Typeface__1nGetTableTagsCount"] = wasmExports["org_jetbrains_skia_Typeface__1nGetTableTagsCount"])(a0);
+
+var org_jetbrains_skia_Typeface__1nGetTableTags = Module["org_jetbrains_skia_Typeface__1nGetTableTags"] = (a0, a1, a2) => (org_jetbrains_skia_Typeface__1nGetTableTags = Module["org_jetbrains_skia_Typeface__1nGetTableTags"] = wasmExports["org_jetbrains_skia_Typeface__1nGetTableTags"])(a0, a1, a2);
+
+var org_jetbrains_skia_Typeface__1nGetTableSize = Module["org_jetbrains_skia_Typeface__1nGetTableSize"] = (a0, a1) => (org_jetbrains_skia_Typeface__1nGetTableSize = Module["org_jetbrains_skia_Typeface__1nGetTableSize"] = wasmExports["org_jetbrains_skia_Typeface__1nGetTableSize"])(a0, a1);
+
+var org_jetbrains_skia_Typeface__1nGetTableData = Module["org_jetbrains_skia_Typeface__1nGetTableData"] = (a0, a1) => (org_jetbrains_skia_Typeface__1nGetTableData = Module["org_jetbrains_skia_Typeface__1nGetTableData"] = wasmExports["org_jetbrains_skia_Typeface__1nGetTableData"])(a0, a1);
+
+var org_jetbrains_skia_Typeface__1nGetUnitsPerEm = Module["org_jetbrains_skia_Typeface__1nGetUnitsPerEm"] = a0 => (org_jetbrains_skia_Typeface__1nGetUnitsPerEm = Module["org_jetbrains_skia_Typeface__1nGetUnitsPerEm"] = wasmExports["org_jetbrains_skia_Typeface__1nGetUnitsPerEm"])(a0);
+
+var org_jetbrains_skia_Typeface__1nGetKerningPairAdjustments = Module["org_jetbrains_skia_Typeface__1nGetKerningPairAdjustments"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Typeface__1nGetKerningPairAdjustments = Module["org_jetbrains_skia_Typeface__1nGetKerningPairAdjustments"] = wasmExports["org_jetbrains_skia_Typeface__1nGetKerningPairAdjustments"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_Typeface__1nGetFamilyNames = Module["org_jetbrains_skia_Typeface__1nGetFamilyNames"] = a0 => (org_jetbrains_skia_Typeface__1nGetFamilyNames = Module["org_jetbrains_skia_Typeface__1nGetFamilyNames"] = wasmExports["org_jetbrains_skia_Typeface__1nGetFamilyNames"])(a0);
+
+var org_jetbrains_skia_Typeface__1nGetFamilyName = Module["org_jetbrains_skia_Typeface__1nGetFamilyName"] = a0 => (org_jetbrains_skia_Typeface__1nGetFamilyName = Module["org_jetbrains_skia_Typeface__1nGetFamilyName"] = wasmExports["org_jetbrains_skia_Typeface__1nGetFamilyName"])(a0);
+
+var org_jetbrains_skia_Typeface__1nGetBounds = Module["org_jetbrains_skia_Typeface__1nGetBounds"] = (a0, a1) => (org_jetbrains_skia_Typeface__1nGetBounds = Module["org_jetbrains_skia_Typeface__1nGetBounds"] = wasmExports["org_jetbrains_skia_Typeface__1nGetBounds"])(a0, a1);
+
+var org_jetbrains_skia_Typeface__1nMakeEmptyTypeface = Module["org_jetbrains_skia_Typeface__1nMakeEmptyTypeface"] = () => (org_jetbrains_skia_Typeface__1nMakeEmptyTypeface = Module["org_jetbrains_skia_Typeface__1nMakeEmptyTypeface"] = wasmExports["org_jetbrains_skia_Typeface__1nMakeEmptyTypeface"])();
+
+var org_jetbrains_skia_U16String__1nGetFinalizer = Module["org_jetbrains_skia_U16String__1nGetFinalizer"] = () => (org_jetbrains_skia_U16String__1nGetFinalizer = Module["org_jetbrains_skia_U16String__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_U16String__1nGetFinalizer"])();
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nMake = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nMake"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nMake = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nMake"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nMake"])(a0);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetLayerPaint = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetLayerPaint"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetLayerPaint = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetLayerPaint"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetLayerPaint"])(a0);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetLayerPaint = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetLayerPaint"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetLayerPaint = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetLayerPaint"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetLayerPaint"])(a0, a1);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetBounds = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetBounds"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetBounds = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetBounds"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetBounds"])(a0, a1);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetBounds = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetBounds"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetBounds = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetBounds"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetBounds"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetPivot = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetPivot"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetPivot = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetPivot"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetPivot"])(a0, a1);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetPivot = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetPivot"] = (a0, a1, a2) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetPivot = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetPivot"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetPivot"])(a0, a1, a2);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetAlpha = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetAlpha"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetAlpha = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetAlpha"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetAlpha"])(a0);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetAlpha = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetAlpha"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetAlpha = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetAlpha"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetAlpha"])(a0, a1);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetScaleX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetScaleX"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetScaleX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetScaleX"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetScaleX"])(a0);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetScaleX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetScaleX"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetScaleX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetScaleX"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetScaleX"])(a0, a1);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetScaleY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetScaleY"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetScaleY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetScaleY"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetScaleY"])(a0);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetScaleY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetScaleY"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetScaleY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetScaleY"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetScaleY"])(a0, a1);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetTranslationX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetTranslationX"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetTranslationX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetTranslationX"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetTranslationX"])(a0);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetTranslationX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetTranslationX"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetTranslationX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetTranslationX"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetTranslationX"])(a0, a1);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetTranslationY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetTranslationY"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetTranslationY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetTranslationY"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetTranslationY"])(a0);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetTranslationY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetTranslationY"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetTranslationY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetTranslationY"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetTranslationY"])(a0, a1);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetShadowElevation = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetShadowElevation"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetShadowElevation = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetShadowElevation"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetShadowElevation"])(a0);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetShadowElevation = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetShadowElevation"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetShadowElevation = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetShadowElevation"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetShadowElevation"])(a0, a1);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetAmbientShadowColor = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetAmbientShadowColor"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetAmbientShadowColor = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetAmbientShadowColor"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetAmbientShadowColor"])(a0);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetAmbientShadowColor = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetAmbientShadowColor"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetAmbientShadowColor = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetAmbientShadowColor"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetAmbientShadowColor"])(a0, a1);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetSpotShadowColor = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetSpotShadowColor"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetSpotShadowColor = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetSpotShadowColor"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetSpotShadowColor"])(a0);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetSpotShadowColor = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetSpotShadowColor"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetSpotShadowColor = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetSpotShadowColor"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetSpotShadowColor"])(a0, a1);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationX"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationX"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationX"])(a0);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationX"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationX"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationX"])(a0, a1);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationY"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationY"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationY"])(a0);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationY"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationY"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationY"])(a0, a1);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationZ = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationZ"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationZ = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationZ"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationZ"])(a0);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationZ = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationZ"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationZ = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationZ"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationZ"])(a0, a1);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetCameraDistance = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetCameraDistance"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetCameraDistance = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetCameraDistance"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetCameraDistance"])(a0);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetCameraDistance = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetCameraDistance"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetCameraDistance = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetCameraDistance"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetCameraDistance"])(a0, a1);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipRect = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipRect"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipRect = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipRect"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipRect"])(a0, a1, a2, a3, a4, a5, a6);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipRRect = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipRRect"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipRRect = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipRRect"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipRRect"])(a0, a1, a2, a3, a4, a5, a6, a7, a8);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipPath = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipPath"] = (a0, a1, a2, a3) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipPath = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipPath"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipPath"])(a0, a1, a2, a3);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetClip = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetClip"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetClip = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetClip"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetClip"])(a0);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClip = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClip"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClip = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClip"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClip"])(a0, a1);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nBeginRecording = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nBeginRecording"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nBeginRecording = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nBeginRecording"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nBeginRecording"])(a0);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nEndRecording = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nEndRecording"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nEndRecording = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nEndRecording"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nEndRecording"])(a0);
+
+var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nDrawInto = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nDrawInto"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nDrawInto = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nDrawInto"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nDrawInto"])(a0, a1);
+
+var org_jetbrains_skiko_node_RenderNodeContextKt_RenderNodeContext_1nMake = Module["org_jetbrains_skiko_node_RenderNodeContextKt_RenderNodeContext_1nMake"] = a0 => (org_jetbrains_skiko_node_RenderNodeContextKt_RenderNodeContext_1nMake = Module["org_jetbrains_skiko_node_RenderNodeContextKt_RenderNodeContext_1nMake"] = wasmExports["org_jetbrains_skiko_node_RenderNodeContextKt_RenderNodeContext_1nMake"])(a0);
+
+var org_jetbrains_skiko_node_RenderNodeContextKt_RenderNodeContext_1nSetLightingInfo = Module["org_jetbrains_skiko_node_RenderNodeContextKt_RenderNodeContext_1nSetLightingInfo"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skiko_node_RenderNodeContextKt_RenderNodeContext_1nSetLightingInfo = Module["org_jetbrains_skiko_node_RenderNodeContextKt_RenderNodeContext_1nSetLightingInfo"] = wasmExports["org_jetbrains_skiko_node_RenderNodeContextKt_RenderNodeContext_1nSetLightingInfo"])(a0, a1, a2, a3, a4, a5, a6);
+
+var org_jetbrains_skia_StdVectorDecoder__1nGetArraySize = Module["org_jetbrains_skia_StdVectorDecoder__1nGetArraySize"] = a0 => (org_jetbrains_skia_StdVectorDecoder__1nGetArraySize = Module["org_jetbrains_skia_StdVectorDecoder__1nGetArraySize"] = wasmExports["org_jetbrains_skia_StdVectorDecoder__1nGetArraySize"])(a0);
+
+var org_jetbrains_skia_StdVectorDecoder__1nReleaseElement = Module["org_jetbrains_skia_StdVectorDecoder__1nReleaseElement"] = (a0, a1) => (org_jetbrains_skia_StdVectorDecoder__1nReleaseElement = Module["org_jetbrains_skia_StdVectorDecoder__1nReleaseElement"] = wasmExports["org_jetbrains_skia_StdVectorDecoder__1nReleaseElement"])(a0, a1);
+
+var org_jetbrains_skia_StdVectorDecoder__1nDisposeArray = Module["org_jetbrains_skia_StdVectorDecoder__1nDisposeArray"] = (a0, a1) => (org_jetbrains_skia_StdVectorDecoder__1nDisposeArray = Module["org_jetbrains_skia_StdVectorDecoder__1nDisposeArray"] = wasmExports["org_jetbrains_skia_StdVectorDecoder__1nDisposeArray"])(a0, a1);
+
+var org_jetbrains_skia_ShadowUtils__1nDrawShadow = Module["org_jetbrains_skia_ShadowUtils__1nDrawShadow"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11) => (org_jetbrains_skia_ShadowUtils__1nDrawShadow = Module["org_jetbrains_skia_ShadowUtils__1nDrawShadow"] = wasmExports["org_jetbrains_skia_ShadowUtils__1nDrawShadow"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
+
+var org_jetbrains_skia_ShadowUtils__1nComputeTonalAmbientColor = Module["org_jetbrains_skia_ShadowUtils__1nComputeTonalAmbientColor"] = (a0, a1) => (org_jetbrains_skia_ShadowUtils__1nComputeTonalAmbientColor = Module["org_jetbrains_skia_ShadowUtils__1nComputeTonalAmbientColor"] = wasmExports["org_jetbrains_skia_ShadowUtils__1nComputeTonalAmbientColor"])(a0, a1);
+
+var org_jetbrains_skia_ShadowUtils__1nComputeTonalSpotColor = Module["org_jetbrains_skia_ShadowUtils__1nComputeTonalSpotColor"] = (a0, a1) => (org_jetbrains_skia_ShadowUtils__1nComputeTonalSpotColor = Module["org_jetbrains_skia_ShadowUtils__1nComputeTonalSpotColor"] = wasmExports["org_jetbrains_skia_ShadowUtils__1nComputeTonalSpotColor"])(a0, a1);
+
+var org_jetbrains_skia_OutputWStream__1nGetFinalizer = Module["org_jetbrains_skia_OutputWStream__1nGetFinalizer"] = () => (org_jetbrains_skia_OutputWStream__1nGetFinalizer = Module["org_jetbrains_skia_OutputWStream__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_OutputWStream__1nGetFinalizer"])();
+
+var org_jetbrains_skia_OutputWStream__1nMake = Module["org_jetbrains_skia_OutputWStream__1nMake"] = a0 => (org_jetbrains_skia_OutputWStream__1nMake = Module["org_jetbrains_skia_OutputWStream__1nMake"] = wasmExports["org_jetbrains_skia_OutputWStream__1nMake"])(a0);
+
+var org_jetbrains_skia_impl_Managed__invokeFinalizer = Module["org_jetbrains_skia_impl_Managed__invokeFinalizer"] = (a0, a1) => (org_jetbrains_skia_impl_Managed__invokeFinalizer = Module["org_jetbrains_skia_impl_Managed__invokeFinalizer"] = wasmExports["org_jetbrains_skia_impl_Managed__invokeFinalizer"])(a0, a1);
+
+var org_jetbrains_skia_Region__1nMake = Module["org_jetbrains_skia_Region__1nMake"] = () => (org_jetbrains_skia_Region__1nMake = Module["org_jetbrains_skia_Region__1nMake"] = wasmExports["org_jetbrains_skia_Region__1nMake"])();
+
+var org_jetbrains_skia_Region__1nGetFinalizer = Module["org_jetbrains_skia_Region__1nGetFinalizer"] = () => (org_jetbrains_skia_Region__1nGetFinalizer = Module["org_jetbrains_skia_Region__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_Region__1nGetFinalizer"])();
+
+var org_jetbrains_skia_Region__1nSet = Module["org_jetbrains_skia_Region__1nSet"] = (a0, a1) => (org_jetbrains_skia_Region__1nSet = Module["org_jetbrains_skia_Region__1nSet"] = wasmExports["org_jetbrains_skia_Region__1nSet"])(a0, a1);
+
+var org_jetbrains_skia_Region__1nIsEmpty = Module["org_jetbrains_skia_Region__1nIsEmpty"] = a0 => (org_jetbrains_skia_Region__1nIsEmpty = Module["org_jetbrains_skia_Region__1nIsEmpty"] = wasmExports["org_jetbrains_skia_Region__1nIsEmpty"])(a0);
+
+var org_jetbrains_skia_Region__1nIsRect = Module["org_jetbrains_skia_Region__1nIsRect"] = a0 => (org_jetbrains_skia_Region__1nIsRect = Module["org_jetbrains_skia_Region__1nIsRect"] = wasmExports["org_jetbrains_skia_Region__1nIsRect"])(a0);
+
+var org_jetbrains_skia_Region__1nIsComplex = Module["org_jetbrains_skia_Region__1nIsComplex"] = a0 => (org_jetbrains_skia_Region__1nIsComplex = Module["org_jetbrains_skia_Region__1nIsComplex"] = wasmExports["org_jetbrains_skia_Region__1nIsComplex"])(a0);
+
+var org_jetbrains_skia_Region__1nGetBounds = Module["org_jetbrains_skia_Region__1nGetBounds"] = (a0, a1) => (org_jetbrains_skia_Region__1nGetBounds = Module["org_jetbrains_skia_Region__1nGetBounds"] = wasmExports["org_jetbrains_skia_Region__1nGetBounds"])(a0, a1);
+
+var org_jetbrains_skia_Region__1nComputeRegionComplexity = Module["org_jetbrains_skia_Region__1nComputeRegionComplexity"] = a0 => (org_jetbrains_skia_Region__1nComputeRegionComplexity = Module["org_jetbrains_skia_Region__1nComputeRegionComplexity"] = wasmExports["org_jetbrains_skia_Region__1nComputeRegionComplexity"])(a0);
+
+var org_jetbrains_skia_Region__1nGetBoundaryPath = Module["org_jetbrains_skia_Region__1nGetBoundaryPath"] = (a0, a1) => (org_jetbrains_skia_Region__1nGetBoundaryPath = Module["org_jetbrains_skia_Region__1nGetBoundaryPath"] = wasmExports["org_jetbrains_skia_Region__1nGetBoundaryPath"])(a0, a1);
+
+var org_jetbrains_skia_Region__1nSetEmpty = Module["org_jetbrains_skia_Region__1nSetEmpty"] = a0 => (org_jetbrains_skia_Region__1nSetEmpty = Module["org_jetbrains_skia_Region__1nSetEmpty"] = wasmExports["org_jetbrains_skia_Region__1nSetEmpty"])(a0);
+
+var org_jetbrains_skia_Region__1nSetRect = Module["org_jetbrains_skia_Region__1nSetRect"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Region__1nSetRect = Module["org_jetbrains_skia_Region__1nSetRect"] = wasmExports["org_jetbrains_skia_Region__1nSetRect"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skia_Region__1nSetRects = Module["org_jetbrains_skia_Region__1nSetRects"] = (a0, a1, a2) => (org_jetbrains_skia_Region__1nSetRects = Module["org_jetbrains_skia_Region__1nSetRects"] = wasmExports["org_jetbrains_skia_Region__1nSetRects"])(a0, a1, a2);
+
+var org_jetbrains_skia_Region__1nSetRegion = Module["org_jetbrains_skia_Region__1nSetRegion"] = (a0, a1) => (org_jetbrains_skia_Region__1nSetRegion = Module["org_jetbrains_skia_Region__1nSetRegion"] = wasmExports["org_jetbrains_skia_Region__1nSetRegion"])(a0, a1);
+
+var org_jetbrains_skia_Region__1nSetPath = Module["org_jetbrains_skia_Region__1nSetPath"] = (a0, a1, a2) => (org_jetbrains_skia_Region__1nSetPath = Module["org_jetbrains_skia_Region__1nSetPath"] = wasmExports["org_jetbrains_skia_Region__1nSetPath"])(a0, a1, a2);
+
+var org_jetbrains_skia_Region__1nIntersectsIRect = Module["org_jetbrains_skia_Region__1nIntersectsIRect"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Region__1nIntersectsIRect = Module["org_jetbrains_skia_Region__1nIntersectsIRect"] = wasmExports["org_jetbrains_skia_Region__1nIntersectsIRect"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skia_Region__1nIntersectsRegion = Module["org_jetbrains_skia_Region__1nIntersectsRegion"] = (a0, a1) => (org_jetbrains_skia_Region__1nIntersectsRegion = Module["org_jetbrains_skia_Region__1nIntersectsRegion"] = wasmExports["org_jetbrains_skia_Region__1nIntersectsRegion"])(a0, a1);
+
+var org_jetbrains_skia_Region__1nContainsIPoint = Module["org_jetbrains_skia_Region__1nContainsIPoint"] = (a0, a1, a2) => (org_jetbrains_skia_Region__1nContainsIPoint = Module["org_jetbrains_skia_Region__1nContainsIPoint"] = wasmExports["org_jetbrains_skia_Region__1nContainsIPoint"])(a0, a1, a2);
+
+var org_jetbrains_skia_Region__1nContainsIRect = Module["org_jetbrains_skia_Region__1nContainsIRect"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Region__1nContainsIRect = Module["org_jetbrains_skia_Region__1nContainsIRect"] = wasmExports["org_jetbrains_skia_Region__1nContainsIRect"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skia_Region__1nContainsRegion = Module["org_jetbrains_skia_Region__1nContainsRegion"] = (a0, a1) => (org_jetbrains_skia_Region__1nContainsRegion = Module["org_jetbrains_skia_Region__1nContainsRegion"] = wasmExports["org_jetbrains_skia_Region__1nContainsRegion"])(a0, a1);
+
+var org_jetbrains_skia_Region__1nQuickContains = Module["org_jetbrains_skia_Region__1nQuickContains"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Region__1nQuickContains = Module["org_jetbrains_skia_Region__1nQuickContains"] = wasmExports["org_jetbrains_skia_Region__1nQuickContains"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skia_Region__1nQuickRejectIRect = Module["org_jetbrains_skia_Region__1nQuickRejectIRect"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Region__1nQuickRejectIRect = Module["org_jetbrains_skia_Region__1nQuickRejectIRect"] = wasmExports["org_jetbrains_skia_Region__1nQuickRejectIRect"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skia_Region__1nQuickRejectRegion = Module["org_jetbrains_skia_Region__1nQuickRejectRegion"] = (a0, a1) => (org_jetbrains_skia_Region__1nQuickRejectRegion = Module["org_jetbrains_skia_Region__1nQuickRejectRegion"] = wasmExports["org_jetbrains_skia_Region__1nQuickRejectRegion"])(a0, a1);
+
+var org_jetbrains_skia_Region__1nTranslate = Module["org_jetbrains_skia_Region__1nTranslate"] = (a0, a1, a2) => (org_jetbrains_skia_Region__1nTranslate = Module["org_jetbrains_skia_Region__1nTranslate"] = wasmExports["org_jetbrains_skia_Region__1nTranslate"])(a0, a1, a2);
+
+var org_jetbrains_skia_Region__1nOpIRect = Module["org_jetbrains_skia_Region__1nOpIRect"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Region__1nOpIRect = Module["org_jetbrains_skia_Region__1nOpIRect"] = wasmExports["org_jetbrains_skia_Region__1nOpIRect"])(a0, a1, a2, a3, a4, a5);
+
+var org_jetbrains_skia_Region__1nOpRegion = Module["org_jetbrains_skia_Region__1nOpRegion"] = (a0, a1, a2) => (org_jetbrains_skia_Region__1nOpRegion = Module["org_jetbrains_skia_Region__1nOpRegion"] = wasmExports["org_jetbrains_skia_Region__1nOpRegion"])(a0, a1, a2);
+
+var org_jetbrains_skia_Region__1nOpIRectRegion = Module["org_jetbrains_skia_Region__1nOpIRectRegion"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Region__1nOpIRectRegion = Module["org_jetbrains_skia_Region__1nOpIRectRegion"] = wasmExports["org_jetbrains_skia_Region__1nOpIRectRegion"])(a0, a1, a2, a3, a4, a5, a6);
+
+var org_jetbrains_skia_Region__1nOpRegionIRect = Module["org_jetbrains_skia_Region__1nOpRegionIRect"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Region__1nOpRegionIRect = Module["org_jetbrains_skia_Region__1nOpRegionIRect"] = wasmExports["org_jetbrains_skia_Region__1nOpRegionIRect"])(a0, a1, a2, a3, a4, a5, a6);
+
+var org_jetbrains_skia_Region__1nOpRegionRegion = Module["org_jetbrains_skia_Region__1nOpRegionRegion"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Region__1nOpRegionRegion = Module["org_jetbrains_skia_Region__1nOpRegionRegion"] = wasmExports["org_jetbrains_skia_Region__1nOpRegionRegion"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_PathMeasure__1nGetFinalizer = Module["org_jetbrains_skia_PathMeasure__1nGetFinalizer"] = () => (org_jetbrains_skia_PathMeasure__1nGetFinalizer = Module["org_jetbrains_skia_PathMeasure__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_PathMeasure__1nGetFinalizer"])();
+
+var org_jetbrains_skia_PathMeasure__1nMake = Module["org_jetbrains_skia_PathMeasure__1nMake"] = () => (org_jetbrains_skia_PathMeasure__1nMake = Module["org_jetbrains_skia_PathMeasure__1nMake"] = wasmExports["org_jetbrains_skia_PathMeasure__1nMake"])();
+
+var org_jetbrains_skia_PathMeasure__1nMakePath = Module["org_jetbrains_skia_PathMeasure__1nMakePath"] = (a0, a1, a2) => (org_jetbrains_skia_PathMeasure__1nMakePath = Module["org_jetbrains_skia_PathMeasure__1nMakePath"] = wasmExports["org_jetbrains_skia_PathMeasure__1nMakePath"])(a0, a1, a2);
+
+var org_jetbrains_skia_PathMeasure__1nSetPath = Module["org_jetbrains_skia_PathMeasure__1nSetPath"] = (a0, a1, a2) => (org_jetbrains_skia_PathMeasure__1nSetPath = Module["org_jetbrains_skia_PathMeasure__1nSetPath"] = wasmExports["org_jetbrains_skia_PathMeasure__1nSetPath"])(a0, a1, a2);
+
+var org_jetbrains_skia_PathMeasure__1nGetLength = Module["org_jetbrains_skia_PathMeasure__1nGetLength"] = a0 => (org_jetbrains_skia_PathMeasure__1nGetLength = Module["org_jetbrains_skia_PathMeasure__1nGetLength"] = wasmExports["org_jetbrains_skia_PathMeasure__1nGetLength"])(a0);
+
+var org_jetbrains_skia_PathMeasure__1nGetPosition = Module["org_jetbrains_skia_PathMeasure__1nGetPosition"] = (a0, a1, a2) => (org_jetbrains_skia_PathMeasure__1nGetPosition = Module["org_jetbrains_skia_PathMeasure__1nGetPosition"] = wasmExports["org_jetbrains_skia_PathMeasure__1nGetPosition"])(a0, a1, a2);
+
+var org_jetbrains_skia_PathMeasure__1nGetTangent = Module["org_jetbrains_skia_PathMeasure__1nGetTangent"] = (a0, a1, a2) => (org_jetbrains_skia_PathMeasure__1nGetTangent = Module["org_jetbrains_skia_PathMeasure__1nGetTangent"] = wasmExports["org_jetbrains_skia_PathMeasure__1nGetTangent"])(a0, a1, a2);
+
+var org_jetbrains_skia_PathMeasure__1nGetRSXform = Module["org_jetbrains_skia_PathMeasure__1nGetRSXform"] = (a0, a1, a2) => (org_jetbrains_skia_PathMeasure__1nGetRSXform = Module["org_jetbrains_skia_PathMeasure__1nGetRSXform"] = wasmExports["org_jetbrains_skia_PathMeasure__1nGetRSXform"])(a0, a1, a2);
+
+var org_jetbrains_skia_PathMeasure__1nGetMatrix = Module["org_jetbrains_skia_PathMeasure__1nGetMatrix"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_PathMeasure__1nGetMatrix = Module["org_jetbrains_skia_PathMeasure__1nGetMatrix"] = wasmExports["org_jetbrains_skia_PathMeasure__1nGetMatrix"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skia_PathMeasure__1nGetSegment = Module["org_jetbrains_skia_PathMeasure__1nGetSegment"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_PathMeasure__1nGetSegment = Module["org_jetbrains_skia_PathMeasure__1nGetSegment"] = wasmExports["org_jetbrains_skia_PathMeasure__1nGetSegment"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skia_PathMeasure__1nIsClosed = Module["org_jetbrains_skia_PathMeasure__1nIsClosed"] = a0 => (org_jetbrains_skia_PathMeasure__1nIsClosed = Module["org_jetbrains_skia_PathMeasure__1nIsClosed"] = wasmExports["org_jetbrains_skia_PathMeasure__1nIsClosed"])(a0);
+
+var org_jetbrains_skia_PathMeasure__1nNextContour = Module["org_jetbrains_skia_PathMeasure__1nNextContour"] = a0 => (org_jetbrains_skia_PathMeasure__1nNextContour = Module["org_jetbrains_skia_PathMeasure__1nNextContour"] = wasmExports["org_jetbrains_skia_PathMeasure__1nNextContour"])(a0);
+
+var org_jetbrains_skia_MaskFilter__1nMakeBlur = Module["org_jetbrains_skia_MaskFilter__1nMakeBlur"] = (a0, a1, a2) => (org_jetbrains_skia_MaskFilter__1nMakeBlur = Module["org_jetbrains_skia_MaskFilter__1nMakeBlur"] = wasmExports["org_jetbrains_skia_MaskFilter__1nMakeBlur"])(a0, a1, a2);
+
+var org_jetbrains_skia_MaskFilter__1nMakeShader = Module["org_jetbrains_skia_MaskFilter__1nMakeShader"] = a0 => (org_jetbrains_skia_MaskFilter__1nMakeShader = Module["org_jetbrains_skia_MaskFilter__1nMakeShader"] = wasmExports["org_jetbrains_skia_MaskFilter__1nMakeShader"])(a0);
+
+var org_jetbrains_skia_MaskFilter__1nMakeTable = Module["org_jetbrains_skia_MaskFilter__1nMakeTable"] = a0 => (org_jetbrains_skia_MaskFilter__1nMakeTable = Module["org_jetbrains_skia_MaskFilter__1nMakeTable"] = wasmExports["org_jetbrains_skia_MaskFilter__1nMakeTable"])(a0);
+
+var org_jetbrains_skia_MaskFilter__1nMakeGamma = Module["org_jetbrains_skia_MaskFilter__1nMakeGamma"] = a0 => (org_jetbrains_skia_MaskFilter__1nMakeGamma = Module["org_jetbrains_skia_MaskFilter__1nMakeGamma"] = wasmExports["org_jetbrains_skia_MaskFilter__1nMakeGamma"])(a0);
+
+var org_jetbrains_skia_MaskFilter__1nMakeClip = Module["org_jetbrains_skia_MaskFilter__1nMakeClip"] = (a0, a1) => (org_jetbrains_skia_MaskFilter__1nMakeClip = Module["org_jetbrains_skia_MaskFilter__1nMakeClip"] = wasmExports["org_jetbrains_skia_MaskFilter__1nMakeClip"])(a0, a1);
+
+var org_jetbrains_skia_RuntimeShaderBuilder__1nGetFinalizer = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nGetFinalizer"] = () => (org_jetbrains_skia_RuntimeShaderBuilder__1nGetFinalizer = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nGetFinalizer"])();
+
+var org_jetbrains_skia_RuntimeShaderBuilder__1nMakeFromRuntimeEffect = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nMakeFromRuntimeEffect"] = a0 => (org_jetbrains_skia_RuntimeShaderBuilder__1nMakeFromRuntimeEffect = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nMakeFromRuntimeEffect"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nMakeFromRuntimeEffect"])(a0);
+
+var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt"] = (a0, a1, a2) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt"])(a0, a1, a2);
+
+var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt2 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt2"] = (a0, a1, a2, a3) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt2 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt2"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt2"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt3 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt3"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt3 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt3"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt3"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt4 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt4"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt4 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt4"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformInt4"])(a0, a1, a2, a3, a4, a5);
+
+var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat"] = (a0, a1, a2) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat"])(a0, a1, a2);
+
+var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat2 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat2"] = (a0, a1, a2, a3) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat2 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat2"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat2"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat3 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat3"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat3 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat3"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat3"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat4 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat4"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat4 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat4"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloat4"])(a0, a1, a2, a3, a4, a5);
+
+var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatArray = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatArray"] = (a0, a1, a2, a3) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatArray = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatArray"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatArray"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix22 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix22"] = (a0, a1, a2) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix22 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix22"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix22"])(a0, a1, a2);
+
+var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix33 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix33"] = (a0, a1, a2) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix33 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix33"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix33"])(a0, a1, a2);
+
+var org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix44 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix44"] = (a0, a1, a2) => (org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix44 = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix44"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nUniformFloatMatrix44"])(a0, a1, a2);
+
+var org_jetbrains_skia_RuntimeShaderBuilder__1nChildShader = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nChildShader"] = (a0, a1, a2) => (org_jetbrains_skia_RuntimeShaderBuilder__1nChildShader = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nChildShader"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nChildShader"])(a0, a1, a2);
+
+var org_jetbrains_skia_RuntimeShaderBuilder__1nChildColorFilter = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nChildColorFilter"] = (a0, a1, a2) => (org_jetbrains_skia_RuntimeShaderBuilder__1nChildColorFilter = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nChildColorFilter"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nChildColorFilter"])(a0, a1, a2);
+
+var org_jetbrains_skia_RuntimeShaderBuilder__1nMakeShader = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nMakeShader"] = (a0, a1) => (org_jetbrains_skia_RuntimeShaderBuilder__1nMakeShader = Module["org_jetbrains_skia_RuntimeShaderBuilder__1nMakeShader"] = wasmExports["org_jetbrains_skia_RuntimeShaderBuilder__1nMakeShader"])(a0, a1);
+
+var org_jetbrains_skia_paragraph_ParagraphCache__1nAbandon = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nAbandon"] = a0 => (org_jetbrains_skia_paragraph_ParagraphCache__1nAbandon = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nAbandon"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphCache__1nAbandon"])(a0);
+
+var org_jetbrains_skia_paragraph_ParagraphCache__1nReset = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nReset"] = a0 => (org_jetbrains_skia_paragraph_ParagraphCache__1nReset = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nReset"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphCache__1nReset"])(a0);
+
+var org_jetbrains_skia_paragraph_ParagraphCache__1nUpdateParagraph = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nUpdateParagraph"] = (a0, a1) => (org_jetbrains_skia_paragraph_ParagraphCache__1nUpdateParagraph = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nUpdateParagraph"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphCache__1nUpdateParagraph"])(a0, a1);
+
+var org_jetbrains_skia_paragraph_ParagraphCache__1nFindParagraph = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nFindParagraph"] = (a0, a1) => (org_jetbrains_skia_paragraph_ParagraphCache__1nFindParagraph = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nFindParagraph"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphCache__1nFindParagraph"])(a0, a1);
+
+var org_jetbrains_skia_paragraph_ParagraphCache__1nPrintStatistics = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nPrintStatistics"] = (a0, a1) => (org_jetbrains_skia_paragraph_ParagraphCache__1nPrintStatistics = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nPrintStatistics"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphCache__1nPrintStatistics"])(a0, a1);
+
+var org_jetbrains_skia_paragraph_ParagraphCache__1nSetEnabled = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nSetEnabled"] = (a0, a1) => (org_jetbrains_skia_paragraph_ParagraphCache__1nSetEnabled = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nSetEnabled"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphCache__1nSetEnabled"])(a0, a1);
+
+var org_jetbrains_skia_paragraph_ParagraphCache__1nGetCount = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nGetCount"] = a0 => (org_jetbrains_skia_paragraph_ParagraphCache__1nGetCount = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nGetCount"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphCache__1nGetCount"])(a0);
 
 var org_jetbrains_skia_paragraph_Paragraph__1nGetFinalizer = Module["org_jetbrains_skia_paragraph_Paragraph__1nGetFinalizer"] = () => (org_jetbrains_skia_paragraph_Paragraph__1nGetFinalizer = Module["org_jetbrains_skia_paragraph_Paragraph__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_paragraph_Paragraph__1nGetFinalizer"])();
 
@@ -6453,99 +7283,63 @@ var org_jetbrains_skia_paragraph_Paragraph__1nUpdateForegroundPaint = Module["or
 
 var org_jetbrains_skia_paragraph_Paragraph__1nUpdateBackgroundPaint = Module["org_jetbrains_skia_paragraph_Paragraph__1nUpdateBackgroundPaint"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_paragraph_Paragraph__1nUpdateBackgroundPaint = Module["org_jetbrains_skia_paragraph_Paragraph__1nUpdateBackgroundPaint"] = wasmExports["org_jetbrains_skia_paragraph_Paragraph__1nUpdateBackgroundPaint"])(a0, a1, a2, a3, a4);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nMake = Module["org_jetbrains_skia_paragraph_TextStyle__1nMake"] = () => (org_jetbrains_skia_paragraph_TextStyle__1nMake = Module["org_jetbrains_skia_paragraph_TextStyle__1nMake"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nMake"])();
+var org_jetbrains_skia_paragraph_LineMetrics__1nGetArraySize = Module["org_jetbrains_skia_paragraph_LineMetrics__1nGetArraySize"] = a0 => (org_jetbrains_skia_paragraph_LineMetrics__1nGetArraySize = Module["org_jetbrains_skia_paragraph_LineMetrics__1nGetArraySize"] = wasmExports["org_jetbrains_skia_paragraph_LineMetrics__1nGetArraySize"])(a0);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nGetFinalizer = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFinalizer"] = () => (org_jetbrains_skia_paragraph_TextStyle__1nGetFinalizer = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetFinalizer"])();
+var org_jetbrains_skia_paragraph_LineMetrics__1nDisposeArray = Module["org_jetbrains_skia_paragraph_LineMetrics__1nDisposeArray"] = a0 => (org_jetbrains_skia_paragraph_LineMetrics__1nDisposeArray = Module["org_jetbrains_skia_paragraph_LineMetrics__1nDisposeArray"] = wasmExports["org_jetbrains_skia_paragraph_LineMetrics__1nDisposeArray"])(a0);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nEquals = Module["org_jetbrains_skia_paragraph_TextStyle__1nEquals"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nEquals = Module["org_jetbrains_skia_paragraph_TextStyle__1nEquals"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nEquals"])(a0, a1);
+var org_jetbrains_skia_paragraph_LineMetrics__1nGetArrayElement = Module["org_jetbrains_skia_paragraph_LineMetrics__1nGetArrayElement"] = (a0, a1, a2, a3) => (org_jetbrains_skia_paragraph_LineMetrics__1nGetArrayElement = Module["org_jetbrains_skia_paragraph_LineMetrics__1nGetArrayElement"] = wasmExports["org_jetbrains_skia_paragraph_LineMetrics__1nGetArrayElement"])(a0, a1, a2, a3);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nAttributeEquals = Module["org_jetbrains_skia_paragraph_TextStyle__1nAttributeEquals"] = (a0, a1, a2) => (org_jetbrains_skia_paragraph_TextStyle__1nAttributeEquals = Module["org_jetbrains_skia_paragraph_TextStyle__1nAttributeEquals"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nAttributeEquals"])(a0, a1, a2);
+var org_jetbrains_skia_paragraph_TextBox__1nGetArraySize = Module["org_jetbrains_skia_paragraph_TextBox__1nGetArraySize"] = a0 => (org_jetbrains_skia_paragraph_TextBox__1nGetArraySize = Module["org_jetbrains_skia_paragraph_TextBox__1nGetArraySize"] = wasmExports["org_jetbrains_skia_paragraph_TextBox__1nGetArraySize"])(a0);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nGetColor = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetColor"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetColor = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetColor"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetColor"])(a0);
+var org_jetbrains_skia_paragraph_TextBox__1nDisposeArray = Module["org_jetbrains_skia_paragraph_TextBox__1nDisposeArray"] = a0 => (org_jetbrains_skia_paragraph_TextBox__1nDisposeArray = Module["org_jetbrains_skia_paragraph_TextBox__1nDisposeArray"] = wasmExports["org_jetbrains_skia_paragraph_TextBox__1nDisposeArray"])(a0);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nSetColor = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetColor"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetColor = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetColor"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetColor"])(a0, a1);
+var org_jetbrains_skia_paragraph_TextBox__1nGetArrayElement = Module["org_jetbrains_skia_paragraph_TextBox__1nGetArrayElement"] = (a0, a1, a2, a3) => (org_jetbrains_skia_paragraph_TextBox__1nGetArrayElement = Module["org_jetbrains_skia_paragraph_TextBox__1nGetArrayElement"] = wasmExports["org_jetbrains_skia_paragraph_TextBox__1nGetArrayElement"])(a0, a1, a2, a3);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nGetForeground = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetForeground"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetForeground = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetForeground"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetForeground"])(a0);
+var org_jetbrains_skia_paragraph_TypefaceFontProvider__1nMake = Module["org_jetbrains_skia_paragraph_TypefaceFontProvider__1nMake"] = () => (org_jetbrains_skia_paragraph_TypefaceFontProvider__1nMake = Module["org_jetbrains_skia_paragraph_TypefaceFontProvider__1nMake"] = wasmExports["org_jetbrains_skia_paragraph_TypefaceFontProvider__1nMake"])();
 
-var org_jetbrains_skia_paragraph_TextStyle__1nSetForeground = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetForeground"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetForeground = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetForeground"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetForeground"])(a0, a1);
+var org_jetbrains_skia_paragraph_TypefaceFontProviderWithFallback__1nMakeAsFallbackProvider = Module["org_jetbrains_skia_paragraph_TypefaceFontProviderWithFallback__1nMakeAsFallbackProvider"] = () => (org_jetbrains_skia_paragraph_TypefaceFontProviderWithFallback__1nMakeAsFallbackProvider = Module["org_jetbrains_skia_paragraph_TypefaceFontProviderWithFallback__1nMakeAsFallbackProvider"] = wasmExports["org_jetbrains_skia_paragraph_TypefaceFontProviderWithFallback__1nMakeAsFallbackProvider"])();
 
-var org_jetbrains_skia_paragraph_TextStyle__1nGetBackground = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetBackground"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetBackground = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetBackground"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetBackground"])(a0);
+var org_jetbrains_skia_paragraph_TypefaceFontProvider__1nRegisterTypeface = Module["org_jetbrains_skia_paragraph_TypefaceFontProvider__1nRegisterTypeface"] = (a0, a1, a2) => (org_jetbrains_skia_paragraph_TypefaceFontProvider__1nRegisterTypeface = Module["org_jetbrains_skia_paragraph_TypefaceFontProvider__1nRegisterTypeface"] = wasmExports["org_jetbrains_skia_paragraph_TypefaceFontProvider__1nRegisterTypeface"])(a0, a1, a2);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nSetBackground = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetBackground"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetBackground = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetBackground"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetBackground"])(a0, a1);
+var org_jetbrains_skia_paragraph_TypefaceFontProviderWithFallback__1nRegisterTypefaceForFallback = Module["org_jetbrains_skia_paragraph_TypefaceFontProviderWithFallback__1nRegisterTypefaceForFallback"] = (a0, a1, a2) => (org_jetbrains_skia_paragraph_TypefaceFontProviderWithFallback__1nRegisterTypefaceForFallback = Module["org_jetbrains_skia_paragraph_TypefaceFontProviderWithFallback__1nRegisterTypefaceForFallback"] = wasmExports["org_jetbrains_skia_paragraph_TypefaceFontProviderWithFallback__1nRegisterTypefaceForFallback"])(a0, a1, a2);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nGetDecorationStyle = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetDecorationStyle"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nGetDecorationStyle = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetDecorationStyle"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetDecorationStyle"])(a0, a1);
+var org_jetbrains_skia_paragraph_ParagraphBuilder__1nMake = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nMake"] = (a0, a1) => (org_jetbrains_skia_paragraph_ParagraphBuilder__1nMake = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nMake"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphBuilder__1nMake"])(a0, a1);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nSetDecorationStyle = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetDecorationStyle"] = (a0, a1, a2, a3, a4, a5, a6, a7) => (org_jetbrains_skia_paragraph_TextStyle__1nSetDecorationStyle = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetDecorationStyle"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetDecorationStyle"])(a0, a1, a2, a3, a4, a5, a6, a7);
+var org_jetbrains_skia_paragraph_ParagraphBuilder__1nGetFinalizer = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nGetFinalizer"] = () => (org_jetbrains_skia_paragraph_ParagraphBuilder__1nGetFinalizer = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphBuilder__1nGetFinalizer"])();
 
-var org_jetbrains_skia_paragraph_TextStyle__1nGetFontStyle = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontStyle"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetFontStyle = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontStyle"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetFontStyle"])(a0);
+var org_jetbrains_skia_paragraph_ParagraphBuilder__1nPushStyle = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nPushStyle"] = (a0, a1) => (org_jetbrains_skia_paragraph_ParagraphBuilder__1nPushStyle = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nPushStyle"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphBuilder__1nPushStyle"])(a0, a1);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nSetFontStyle = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetFontStyle"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetFontStyle = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetFontStyle"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetFontStyle"])(a0, a1);
+var org_jetbrains_skia_paragraph_ParagraphBuilder__1nPopStyle = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nPopStyle"] = (a0, a1) => (org_jetbrains_skia_paragraph_ParagraphBuilder__1nPopStyle = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nPopStyle"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphBuilder__1nPopStyle"])(a0, a1);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nGetShadowsCount = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetShadowsCount"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetShadowsCount = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetShadowsCount"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetShadowsCount"])(a0);
+var org_jetbrains_skia_paragraph_ParagraphBuilder__1nAddText = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nAddText"] = (a0, a1) => (org_jetbrains_skia_paragraph_ParagraphBuilder__1nAddText = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nAddText"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphBuilder__1nAddText"])(a0, a1);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nGetShadows = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetShadows"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nGetShadows = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetShadows"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetShadows"])(a0, a1);
+var org_jetbrains_skia_paragraph_ParagraphBuilder__1nAddPlaceholder = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nAddPlaceholder"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_paragraph_ParagraphBuilder__1nAddPlaceholder = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nAddPlaceholder"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphBuilder__1nAddPlaceholder"])(a0, a1, a2, a3, a4, a5);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nAddShadow = Module["org_jetbrains_skia_paragraph_TextStyle__1nAddShadow"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_paragraph_TextStyle__1nAddShadow = Module["org_jetbrains_skia_paragraph_TextStyle__1nAddShadow"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nAddShadow"])(a0, a1, a2, a3, a4);
+var org_jetbrains_skia_paragraph_ParagraphBuilder__1nBuild = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nBuild"] = a0 => (org_jetbrains_skia_paragraph_ParagraphBuilder__1nBuild = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nBuild"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphBuilder__1nBuild"])(a0);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nClearShadows = Module["org_jetbrains_skia_paragraph_TextStyle__1nClearShadows"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nClearShadows = Module["org_jetbrains_skia_paragraph_TextStyle__1nClearShadows"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nClearShadows"])(a0);
+var org_jetbrains_skia_paragraph_FontCollection__1nMake = Module["org_jetbrains_skia_paragraph_FontCollection__1nMake"] = () => (org_jetbrains_skia_paragraph_FontCollection__1nMake = Module["org_jetbrains_skia_paragraph_FontCollection__1nMake"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nMake"])();
 
-var org_jetbrains_skia_paragraph_TextStyle__1nGetFontFeaturesSize = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontFeaturesSize"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetFontFeaturesSize = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontFeaturesSize"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetFontFeaturesSize"])(a0);
+var org_jetbrains_skia_paragraph_FontCollection__1nGetFontManagersCount = Module["org_jetbrains_skia_paragraph_FontCollection__1nGetFontManagersCount"] = a0 => (org_jetbrains_skia_paragraph_FontCollection__1nGetFontManagersCount = Module["org_jetbrains_skia_paragraph_FontCollection__1nGetFontManagersCount"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nGetFontManagersCount"])(a0);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nGetFontFeatures = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontFeatures"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nGetFontFeatures = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontFeatures"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetFontFeatures"])(a0, a1);
+var org_jetbrains_skia_paragraph_FontCollection__1nSetAssetFontManager = Module["org_jetbrains_skia_paragraph_FontCollection__1nSetAssetFontManager"] = (a0, a1, a2) => (org_jetbrains_skia_paragraph_FontCollection__1nSetAssetFontManager = Module["org_jetbrains_skia_paragraph_FontCollection__1nSetAssetFontManager"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nSetAssetFontManager"])(a0, a1, a2);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nAddFontFeature = Module["org_jetbrains_skia_paragraph_TextStyle__1nAddFontFeature"] = (a0, a1, a2) => (org_jetbrains_skia_paragraph_TextStyle__1nAddFontFeature = Module["org_jetbrains_skia_paragraph_TextStyle__1nAddFontFeature"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nAddFontFeature"])(a0, a1, a2);
+var org_jetbrains_skia_paragraph_FontCollection__1nSetDynamicFontManager = Module["org_jetbrains_skia_paragraph_FontCollection__1nSetDynamicFontManager"] = (a0, a1, a2) => (org_jetbrains_skia_paragraph_FontCollection__1nSetDynamicFontManager = Module["org_jetbrains_skia_paragraph_FontCollection__1nSetDynamicFontManager"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nSetDynamicFontManager"])(a0, a1, a2);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nClearFontFeatures = Module["org_jetbrains_skia_paragraph_TextStyle__1nClearFontFeatures"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nClearFontFeatures = Module["org_jetbrains_skia_paragraph_TextStyle__1nClearFontFeatures"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nClearFontFeatures"])(a0);
+var org_jetbrains_skia_paragraph_FontCollection__1nSetTestFontManager = Module["org_jetbrains_skia_paragraph_FontCollection__1nSetTestFontManager"] = (a0, a1, a2) => (org_jetbrains_skia_paragraph_FontCollection__1nSetTestFontManager = Module["org_jetbrains_skia_paragraph_FontCollection__1nSetTestFontManager"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nSetTestFontManager"])(a0, a1, a2);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nGetFontSize = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontSize"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetFontSize = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontSize"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetFontSize"])(a0);
+var org_jetbrains_skia_paragraph_FontCollection__1nSetDefaultFontManager = Module["org_jetbrains_skia_paragraph_FontCollection__1nSetDefaultFontManager"] = (a0, a1, a2) => (org_jetbrains_skia_paragraph_FontCollection__1nSetDefaultFontManager = Module["org_jetbrains_skia_paragraph_FontCollection__1nSetDefaultFontManager"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nSetDefaultFontManager"])(a0, a1, a2);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nSetFontSize = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetFontSize"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetFontSize = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetFontSize"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetFontSize"])(a0, a1);
+var org_jetbrains_skia_paragraph_FontCollection__1nGetFallbackManager = Module["org_jetbrains_skia_paragraph_FontCollection__1nGetFallbackManager"] = a0 => (org_jetbrains_skia_paragraph_FontCollection__1nGetFallbackManager = Module["org_jetbrains_skia_paragraph_FontCollection__1nGetFallbackManager"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nGetFallbackManager"])(a0);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nGetFontFamilies = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontFamilies"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetFontFamilies = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontFamilies"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetFontFamilies"])(a0);
+var org_jetbrains_skia_paragraph_FontCollection__1nFindTypefaces = Module["org_jetbrains_skia_paragraph_FontCollection__1nFindTypefaces"] = (a0, a1, a2, a3) => (org_jetbrains_skia_paragraph_FontCollection__1nFindTypefaces = Module["org_jetbrains_skia_paragraph_FontCollection__1nFindTypefaces"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nFindTypefaces"])(a0, a1, a2, a3);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nSetFontFamilies = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetFontFamilies"] = (a0, a1, a2) => (org_jetbrains_skia_paragraph_TextStyle__1nSetFontFamilies = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetFontFamilies"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetFontFamilies"])(a0, a1, a2);
+var org_jetbrains_skia_paragraph_FontCollection__1nDefaultFallbackChar = Module["org_jetbrains_skia_paragraph_FontCollection__1nDefaultFallbackChar"] = (a0, a1, a2, a3) => (org_jetbrains_skia_paragraph_FontCollection__1nDefaultFallbackChar = Module["org_jetbrains_skia_paragraph_FontCollection__1nDefaultFallbackChar"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nDefaultFallbackChar"])(a0, a1, a2, a3);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nGetHeight = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetHeight"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetHeight = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetHeight"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetHeight"])(a0);
+var org_jetbrains_skia_paragraph_FontCollection__1nDefaultFallback = Module["org_jetbrains_skia_paragraph_FontCollection__1nDefaultFallback"] = a0 => (org_jetbrains_skia_paragraph_FontCollection__1nDefaultFallback = Module["org_jetbrains_skia_paragraph_FontCollection__1nDefaultFallback"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nDefaultFallback"])(a0);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nSetHeight = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetHeight"] = (a0, a1, a2) => (org_jetbrains_skia_paragraph_TextStyle__1nSetHeight = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetHeight"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetHeight"])(a0, a1, a2);
+var org_jetbrains_skia_paragraph_FontCollection__1nSetEnableFallback = Module["org_jetbrains_skia_paragraph_FontCollection__1nSetEnableFallback"] = (a0, a1) => (org_jetbrains_skia_paragraph_FontCollection__1nSetEnableFallback = Module["org_jetbrains_skia_paragraph_FontCollection__1nSetEnableFallback"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nSetEnableFallback"])(a0, a1);
 
-var org_jetbrains_skia_paragraph_TextStyle__1nGetHalfLeading = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetHalfLeading"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetHalfLeading = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetHalfLeading"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetHalfLeading"])(a0);
-
-var org_jetbrains_skia_paragraph_TextStyle__1nSetHalfLeading = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetHalfLeading"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetHalfLeading = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetHalfLeading"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetHalfLeading"])(a0, a1);
-
-var org_jetbrains_skia_paragraph_TextStyle__1nGetTopRatio = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetTopRatio"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetTopRatio = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetTopRatio"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetTopRatio"])(a0);
-
-var org_jetbrains_skia_paragraph_TextStyle__1nSetTopRatio = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetTopRatio"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetTopRatio = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetTopRatio"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetTopRatio"])(a0, a1);
-
-var org_jetbrains_skia_paragraph_TextStyle__1nGetBaselineShift = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetBaselineShift"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetBaselineShift = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetBaselineShift"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetBaselineShift"])(a0);
-
-var org_jetbrains_skia_paragraph_TextStyle__1nSetBaselineShift = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetBaselineShift"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetBaselineShift = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetBaselineShift"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetBaselineShift"])(a0, a1);
-
-var org_jetbrains_skia_paragraph_TextStyle__1nGetLetterSpacing = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetLetterSpacing"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetLetterSpacing = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetLetterSpacing"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetLetterSpacing"])(a0);
-
-var org_jetbrains_skia_paragraph_TextStyle__1nSetLetterSpacing = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetLetterSpacing"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetLetterSpacing = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetLetterSpacing"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetLetterSpacing"])(a0, a1);
-
-var org_jetbrains_skia_paragraph_TextStyle__1nGetWordSpacing = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetWordSpacing"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetWordSpacing = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetWordSpacing"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetWordSpacing"])(a0);
-
-var org_jetbrains_skia_paragraph_TextStyle__1nSetWordSpacing = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetWordSpacing"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetWordSpacing = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetWordSpacing"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetWordSpacing"])(a0, a1);
-
-var org_jetbrains_skia_paragraph_TextStyle__1nGetTypeface = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetTypeface"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetTypeface = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetTypeface"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetTypeface"])(a0);
-
-var org_jetbrains_skia_paragraph_TextStyle__1nSetTypeface = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetTypeface"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetTypeface = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetTypeface"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetTypeface"])(a0, a1);
-
-var org_jetbrains_skia_paragraph_TextStyle__1nGetLocale = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetLocale"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetLocale = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetLocale"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetLocale"])(a0);
-
-var org_jetbrains_skia_paragraph_TextStyle__1nSetLocale = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetLocale"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetLocale = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetLocale"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetLocale"])(a0, a1);
-
-var org_jetbrains_skia_paragraph_TextStyle__1nGetBaselineMode = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetBaselineMode"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetBaselineMode = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetBaselineMode"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetBaselineMode"])(a0);
-
-var org_jetbrains_skia_paragraph_TextStyle__1nSetBaselineMode = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetBaselineMode"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetBaselineMode = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetBaselineMode"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetBaselineMode"])(a0, a1);
-
-var org_jetbrains_skia_paragraph_TextStyle__1nGetFontMetrics = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontMetrics"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nGetFontMetrics = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontMetrics"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetFontMetrics"])(a0, a1);
-
-var org_jetbrains_skia_paragraph_TextStyle__1nIsPlaceholder = Module["org_jetbrains_skia_paragraph_TextStyle__1nIsPlaceholder"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nIsPlaceholder = Module["org_jetbrains_skia_paragraph_TextStyle__1nIsPlaceholder"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nIsPlaceholder"])(a0);
-
-var org_jetbrains_skia_paragraph_TextStyle__1nSetPlaceholder = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetPlaceholder"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nSetPlaceholder = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetPlaceholder"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetPlaceholder"])(a0);
+var org_jetbrains_skia_paragraph_FontCollection__1nGetParagraphCache = Module["org_jetbrains_skia_paragraph_FontCollection__1nGetParagraphCache"] = a0 => (org_jetbrains_skia_paragraph_FontCollection__1nGetParagraphCache = Module["org_jetbrains_skia_paragraph_FontCollection__1nGetParagraphCache"] = wasmExports["org_jetbrains_skia_paragraph_FontCollection__1nGetParagraphCache"])(a0);
 
 var org_jetbrains_skia_paragraph_ParagraphStyle__1nGetFinalizer = Module["org_jetbrains_skia_paragraph_ParagraphStyle__1nGetFinalizer"] = () => (org_jetbrains_skia_paragraph_ParagraphStyle__1nGetFinalizer = Module["org_jetbrains_skia_paragraph_ParagraphStyle__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphStyle__1nGetFinalizer"])();
 
@@ -6657,273 +7451,147 @@ var org_jetbrains_skia_paragraph_StrutStyle__1nGetTopRatio = Module["org_jetbrai
 
 var org_jetbrains_skia_paragraph_StrutStyle__1nSetTopRatio = Module["org_jetbrains_skia_paragraph_StrutStyle__1nSetTopRatio"] = (a0, a1) => (org_jetbrains_skia_paragraph_StrutStyle__1nSetTopRatio = Module["org_jetbrains_skia_paragraph_StrutStyle__1nSetTopRatio"] = wasmExports["org_jetbrains_skia_paragraph_StrutStyle__1nSetTopRatio"])(a0, a1);
 
-var org_jetbrains_skia_paragraph_ParagraphCache__1nAbandon = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nAbandon"] = a0 => (org_jetbrains_skia_paragraph_ParagraphCache__1nAbandon = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nAbandon"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphCache__1nAbandon"])(a0);
+var org_jetbrains_skia_paragraph_TextStyle__1nMake = Module["org_jetbrains_skia_paragraph_TextStyle__1nMake"] = () => (org_jetbrains_skia_paragraph_TextStyle__1nMake = Module["org_jetbrains_skia_paragraph_TextStyle__1nMake"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nMake"])();
 
-var org_jetbrains_skia_paragraph_ParagraphCache__1nReset = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nReset"] = a0 => (org_jetbrains_skia_paragraph_ParagraphCache__1nReset = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nReset"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphCache__1nReset"])(a0);
+var org_jetbrains_skia_paragraph_TextStyle__1nGetFinalizer = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFinalizer"] = () => (org_jetbrains_skia_paragraph_TextStyle__1nGetFinalizer = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetFinalizer"])();
 
-var org_jetbrains_skia_paragraph_ParagraphCache__1nUpdateParagraph = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nUpdateParagraph"] = (a0, a1) => (org_jetbrains_skia_paragraph_ParagraphCache__1nUpdateParagraph = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nUpdateParagraph"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphCache__1nUpdateParagraph"])(a0, a1);
+var org_jetbrains_skia_paragraph_TextStyle__1nEquals = Module["org_jetbrains_skia_paragraph_TextStyle__1nEquals"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nEquals = Module["org_jetbrains_skia_paragraph_TextStyle__1nEquals"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nEquals"])(a0, a1);
 
-var org_jetbrains_skia_paragraph_ParagraphCache__1nFindParagraph = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nFindParagraph"] = (a0, a1) => (org_jetbrains_skia_paragraph_ParagraphCache__1nFindParagraph = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nFindParagraph"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphCache__1nFindParagraph"])(a0, a1);
+var org_jetbrains_skia_paragraph_TextStyle__1nAttributeEquals = Module["org_jetbrains_skia_paragraph_TextStyle__1nAttributeEquals"] = (a0, a1, a2) => (org_jetbrains_skia_paragraph_TextStyle__1nAttributeEquals = Module["org_jetbrains_skia_paragraph_TextStyle__1nAttributeEquals"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nAttributeEquals"])(a0, a1, a2);
 
-var org_jetbrains_skia_paragraph_ParagraphCache__1nPrintStatistics = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nPrintStatistics"] = (a0, a1) => (org_jetbrains_skia_paragraph_ParagraphCache__1nPrintStatistics = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nPrintStatistics"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphCache__1nPrintStatistics"])(a0, a1);
+var org_jetbrains_skia_paragraph_TextStyle__1nGetColor = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetColor"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetColor = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetColor"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetColor"])(a0);
 
-var org_jetbrains_skia_paragraph_ParagraphCache__1nSetEnabled = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nSetEnabled"] = (a0, a1) => (org_jetbrains_skia_paragraph_ParagraphCache__1nSetEnabled = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nSetEnabled"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphCache__1nSetEnabled"])(a0, a1);
+var org_jetbrains_skia_paragraph_TextStyle__1nSetColor = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetColor"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetColor = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetColor"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetColor"])(a0, a1);
 
-var org_jetbrains_skia_paragraph_ParagraphCache__1nGetCount = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nGetCount"] = a0 => (org_jetbrains_skia_paragraph_ParagraphCache__1nGetCount = Module["org_jetbrains_skia_paragraph_ParagraphCache__1nGetCount"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphCache__1nGetCount"])(a0);
+var org_jetbrains_skia_paragraph_TextStyle__1nGetForeground = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetForeground"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetForeground = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetForeground"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetForeground"])(a0);
 
-var org_jetbrains_skia_paragraph_LineMetrics__1nGetArraySize = Module["org_jetbrains_skia_paragraph_LineMetrics__1nGetArraySize"] = a0 => (org_jetbrains_skia_paragraph_LineMetrics__1nGetArraySize = Module["org_jetbrains_skia_paragraph_LineMetrics__1nGetArraySize"] = wasmExports["org_jetbrains_skia_paragraph_LineMetrics__1nGetArraySize"])(a0);
+var org_jetbrains_skia_paragraph_TextStyle__1nSetForeground = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetForeground"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetForeground = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetForeground"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetForeground"])(a0, a1);
 
-var org_jetbrains_skia_paragraph_LineMetrics__1nDisposeArray = Module["org_jetbrains_skia_paragraph_LineMetrics__1nDisposeArray"] = a0 => (org_jetbrains_skia_paragraph_LineMetrics__1nDisposeArray = Module["org_jetbrains_skia_paragraph_LineMetrics__1nDisposeArray"] = wasmExports["org_jetbrains_skia_paragraph_LineMetrics__1nDisposeArray"])(a0);
+var org_jetbrains_skia_paragraph_TextStyle__1nGetBackground = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetBackground"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetBackground = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetBackground"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetBackground"])(a0);
 
-var org_jetbrains_skia_paragraph_LineMetrics__1nGetArrayElement = Module["org_jetbrains_skia_paragraph_LineMetrics__1nGetArrayElement"] = (a0, a1, a2, a3) => (org_jetbrains_skia_paragraph_LineMetrics__1nGetArrayElement = Module["org_jetbrains_skia_paragraph_LineMetrics__1nGetArrayElement"] = wasmExports["org_jetbrains_skia_paragraph_LineMetrics__1nGetArrayElement"])(a0, a1, a2, a3);
+var org_jetbrains_skia_paragraph_TextStyle__1nSetBackground = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetBackground"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetBackground = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetBackground"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetBackground"])(a0, a1);
 
-var org_jetbrains_skia_paragraph_ParagraphBuilder__1nMake = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nMake"] = (a0, a1) => (org_jetbrains_skia_paragraph_ParagraphBuilder__1nMake = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nMake"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphBuilder__1nMake"])(a0, a1);
+var org_jetbrains_skia_paragraph_TextStyle__1nGetDecorationStyle = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetDecorationStyle"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nGetDecorationStyle = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetDecorationStyle"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetDecorationStyle"])(a0, a1);
 
-var org_jetbrains_skia_paragraph_ParagraphBuilder__1nGetFinalizer = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nGetFinalizer"] = () => (org_jetbrains_skia_paragraph_ParagraphBuilder__1nGetFinalizer = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphBuilder__1nGetFinalizer"])();
+var org_jetbrains_skia_paragraph_TextStyle__1nSetDecorationStyle = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetDecorationStyle"] = (a0, a1, a2, a3, a4, a5, a6, a7) => (org_jetbrains_skia_paragraph_TextStyle__1nSetDecorationStyle = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetDecorationStyle"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetDecorationStyle"])(a0, a1, a2, a3, a4, a5, a6, a7);
 
-var org_jetbrains_skia_paragraph_ParagraphBuilder__1nPushStyle = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nPushStyle"] = (a0, a1) => (org_jetbrains_skia_paragraph_ParagraphBuilder__1nPushStyle = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nPushStyle"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphBuilder__1nPushStyle"])(a0, a1);
+var org_jetbrains_skia_paragraph_TextStyle__1nGetFontStyle = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontStyle"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetFontStyle = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontStyle"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetFontStyle"])(a0);
 
-var org_jetbrains_skia_paragraph_ParagraphBuilder__1nPopStyle = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nPopStyle"] = (a0, a1) => (org_jetbrains_skia_paragraph_ParagraphBuilder__1nPopStyle = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nPopStyle"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphBuilder__1nPopStyle"])(a0, a1);
+var org_jetbrains_skia_paragraph_TextStyle__1nSetFontStyle = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetFontStyle"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetFontStyle = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetFontStyle"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetFontStyle"])(a0, a1);
 
-var org_jetbrains_skia_paragraph_ParagraphBuilder__1nAddText = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nAddText"] = (a0, a1) => (org_jetbrains_skia_paragraph_ParagraphBuilder__1nAddText = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nAddText"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphBuilder__1nAddText"])(a0, a1);
+var org_jetbrains_skia_paragraph_TextStyle__1nGetShadowsCount = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetShadowsCount"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetShadowsCount = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetShadowsCount"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetShadowsCount"])(a0);
 
-var org_jetbrains_skia_paragraph_ParagraphBuilder__1nAddPlaceholder = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nAddPlaceholder"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_paragraph_ParagraphBuilder__1nAddPlaceholder = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nAddPlaceholder"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphBuilder__1nAddPlaceholder"])(a0, a1, a2, a3, a4, a5);
+var org_jetbrains_skia_paragraph_TextStyle__1nGetShadows = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetShadows"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nGetShadows = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetShadows"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetShadows"])(a0, a1);
 
-var org_jetbrains_skia_paragraph_ParagraphBuilder__1nBuild = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nBuild"] = a0 => (org_jetbrains_skia_paragraph_ParagraphBuilder__1nBuild = Module["org_jetbrains_skia_paragraph_ParagraphBuilder__1nBuild"] = wasmExports["org_jetbrains_skia_paragraph_ParagraphBuilder__1nBuild"])(a0);
+var org_jetbrains_skia_paragraph_TextStyle__1nAddShadow = Module["org_jetbrains_skia_paragraph_TextStyle__1nAddShadow"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_paragraph_TextStyle__1nAddShadow = Module["org_jetbrains_skia_paragraph_TextStyle__1nAddShadow"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nAddShadow"])(a0, a1, a2, a3, a4);
 
-var org_jetbrains_skia_FontMgr__1nGetFamiliesCount = Module["org_jetbrains_skia_FontMgr__1nGetFamiliesCount"] = a0 => (org_jetbrains_skia_FontMgr__1nGetFamiliesCount = Module["org_jetbrains_skia_FontMgr__1nGetFamiliesCount"] = wasmExports["org_jetbrains_skia_FontMgr__1nGetFamiliesCount"])(a0);
+var org_jetbrains_skia_paragraph_TextStyle__1nClearShadows = Module["org_jetbrains_skia_paragraph_TextStyle__1nClearShadows"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nClearShadows = Module["org_jetbrains_skia_paragraph_TextStyle__1nClearShadows"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nClearShadows"])(a0);
 
-var org_jetbrains_skia_FontMgr__1nGetFamilyName = Module["org_jetbrains_skia_FontMgr__1nGetFamilyName"] = (a0, a1) => (org_jetbrains_skia_FontMgr__1nGetFamilyName = Module["org_jetbrains_skia_FontMgr__1nGetFamilyName"] = wasmExports["org_jetbrains_skia_FontMgr__1nGetFamilyName"])(a0, a1);
+var org_jetbrains_skia_paragraph_TextStyle__1nGetFontFeaturesSize = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontFeaturesSize"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetFontFeaturesSize = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontFeaturesSize"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetFontFeaturesSize"])(a0);
 
-var org_jetbrains_skia_FontMgr__1nMakeStyleSet = Module["org_jetbrains_skia_FontMgr__1nMakeStyleSet"] = (a0, a1) => (org_jetbrains_skia_FontMgr__1nMakeStyleSet = Module["org_jetbrains_skia_FontMgr__1nMakeStyleSet"] = wasmExports["org_jetbrains_skia_FontMgr__1nMakeStyleSet"])(a0, a1);
+var org_jetbrains_skia_paragraph_TextStyle__1nGetFontFeatures = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontFeatures"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nGetFontFeatures = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontFeatures"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetFontFeatures"])(a0, a1);
 
-var org_jetbrains_skia_FontMgr__1nMatchFamily = Module["org_jetbrains_skia_FontMgr__1nMatchFamily"] = (a0, a1) => (org_jetbrains_skia_FontMgr__1nMatchFamily = Module["org_jetbrains_skia_FontMgr__1nMatchFamily"] = wasmExports["org_jetbrains_skia_FontMgr__1nMatchFamily"])(a0, a1);
+var org_jetbrains_skia_paragraph_TextStyle__1nAddFontFeature = Module["org_jetbrains_skia_paragraph_TextStyle__1nAddFontFeature"] = (a0, a1, a2) => (org_jetbrains_skia_paragraph_TextStyle__1nAddFontFeature = Module["org_jetbrains_skia_paragraph_TextStyle__1nAddFontFeature"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nAddFontFeature"])(a0, a1, a2);
 
-var org_jetbrains_skia_FontMgr__1nMatchFamilyStyle = Module["org_jetbrains_skia_FontMgr__1nMatchFamilyStyle"] = (a0, a1, a2) => (org_jetbrains_skia_FontMgr__1nMatchFamilyStyle = Module["org_jetbrains_skia_FontMgr__1nMatchFamilyStyle"] = wasmExports["org_jetbrains_skia_FontMgr__1nMatchFamilyStyle"])(a0, a1, a2);
+var org_jetbrains_skia_paragraph_TextStyle__1nClearFontFeatures = Module["org_jetbrains_skia_paragraph_TextStyle__1nClearFontFeatures"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nClearFontFeatures = Module["org_jetbrains_skia_paragraph_TextStyle__1nClearFontFeatures"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nClearFontFeatures"])(a0);
 
-var org_jetbrains_skia_FontMgr__1nMatchFamilyStyleCharacter = Module["org_jetbrains_skia_FontMgr__1nMatchFamilyStyleCharacter"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_FontMgr__1nMatchFamilyStyleCharacter = Module["org_jetbrains_skia_FontMgr__1nMatchFamilyStyleCharacter"] = wasmExports["org_jetbrains_skia_FontMgr__1nMatchFamilyStyleCharacter"])(a0, a1, a2, a3, a4, a5);
+var org_jetbrains_skia_paragraph_TextStyle__1nGetFontSize = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontSize"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetFontSize = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontSize"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetFontSize"])(a0);
 
-var org_jetbrains_skia_FontMgr__1nMakeFromData = Module["org_jetbrains_skia_FontMgr__1nMakeFromData"] = (a0, a1, a2) => (org_jetbrains_skia_FontMgr__1nMakeFromData = Module["org_jetbrains_skia_FontMgr__1nMakeFromData"] = wasmExports["org_jetbrains_skia_FontMgr__1nMakeFromData"])(a0, a1, a2);
+var org_jetbrains_skia_paragraph_TextStyle__1nSetFontSize = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetFontSize"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetFontSize = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetFontSize"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetFontSize"])(a0, a1);
 
-var org_jetbrains_skia_FontMgr__1nMakeFromFile = Module["org_jetbrains_skia_FontMgr__1nMakeFromFile"] = (a0, a1, a2) => (org_jetbrains_skia_FontMgr__1nMakeFromFile = Module["org_jetbrains_skia_FontMgr__1nMakeFromFile"] = wasmExports["org_jetbrains_skia_FontMgr__1nMakeFromFile"])(a0, a1, a2);
+var org_jetbrains_skia_paragraph_TextStyle__1nGetFontFamilies = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontFamilies"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetFontFamilies = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontFamilies"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetFontFamilies"])(a0);
 
-var org_jetbrains_skia_FontMgr__1nLegacyMakeTypeface = Module["org_jetbrains_skia_FontMgr__1nLegacyMakeTypeface"] = (a0, a1, a2) => (org_jetbrains_skia_FontMgr__1nLegacyMakeTypeface = Module["org_jetbrains_skia_FontMgr__1nLegacyMakeTypeface"] = wasmExports["org_jetbrains_skia_FontMgr__1nLegacyMakeTypeface"])(a0, a1, a2);
+var org_jetbrains_skia_paragraph_TextStyle__1nSetFontFamilies = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetFontFamilies"] = (a0, a1, a2) => (org_jetbrains_skia_paragraph_TextStyle__1nSetFontFamilies = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetFontFamilies"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetFontFamilies"])(a0, a1, a2);
 
-var org_jetbrains_skia_FontMgr__1nDefault = Module["org_jetbrains_skia_FontMgr__1nDefault"] = () => (org_jetbrains_skia_FontMgr__1nDefault = Module["org_jetbrains_skia_FontMgr__1nDefault"] = wasmExports["org_jetbrains_skia_FontMgr__1nDefault"])();
+var org_jetbrains_skia_paragraph_TextStyle__1nGetHeight = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetHeight"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetHeight = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetHeight"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetHeight"])(a0);
 
-var org_jetbrains_skia_FontMgr__1nEmpty = Module["org_jetbrains_skia_FontMgr__1nEmpty"] = () => (org_jetbrains_skia_FontMgr__1nEmpty = Module["org_jetbrains_skia_FontMgr__1nEmpty"] = wasmExports["org_jetbrains_skia_FontMgr__1nEmpty"])();
+var org_jetbrains_skia_paragraph_TextStyle__1nSetHeight = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetHeight"] = (a0, a1, a2) => (org_jetbrains_skia_paragraph_TextStyle__1nSetHeight = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetHeight"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetHeight"])(a0, a1, a2);
 
-var org_jetbrains_skia_FontMgrWithFallback__1nDefaultWithFallbackFontProvider = Module["org_jetbrains_skia_FontMgrWithFallback__1nDefaultWithFallbackFontProvider"] = a0 => (org_jetbrains_skia_FontMgrWithFallback__1nDefaultWithFallbackFontProvider = Module["org_jetbrains_skia_FontMgrWithFallback__1nDefaultWithFallbackFontProvider"] = wasmExports["org_jetbrains_skia_FontMgrWithFallback__1nDefaultWithFallbackFontProvider"])(a0);
+var org_jetbrains_skia_paragraph_TextStyle__1nGetHalfLeading = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetHalfLeading"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetHalfLeading = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetHalfLeading"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetHalfLeading"])(a0);
 
-var org_jetbrains_skia_impl_Managed__invokeFinalizer = Module["org_jetbrains_skia_impl_Managed__invokeFinalizer"] = (a0, a1) => (org_jetbrains_skia_impl_Managed__invokeFinalizer = Module["org_jetbrains_skia_impl_Managed__invokeFinalizer"] = wasmExports["org_jetbrains_skia_impl_Managed__invokeFinalizer"])(a0, a1);
+var org_jetbrains_skia_paragraph_TextStyle__1nSetHalfLeading = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetHalfLeading"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetHalfLeading = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetHalfLeading"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetHalfLeading"])(a0, a1);
 
-var org_jetbrains_skia_Drawable__1nGetFinalizer = Module["org_jetbrains_skia_Drawable__1nGetFinalizer"] = () => (org_jetbrains_skia_Drawable__1nGetFinalizer = Module["org_jetbrains_skia_Drawable__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_Drawable__1nGetFinalizer"])();
+var org_jetbrains_skia_paragraph_TextStyle__1nGetTopRatio = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetTopRatio"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetTopRatio = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetTopRatio"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetTopRatio"])(a0);
 
-var org_jetbrains_skia_Drawable__1nSetBounds = Module["org_jetbrains_skia_Drawable__1nSetBounds"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Drawable__1nSetBounds = Module["org_jetbrains_skia_Drawable__1nSetBounds"] = wasmExports["org_jetbrains_skia_Drawable__1nSetBounds"])(a0, a1, a2, a3, a4);
+var org_jetbrains_skia_paragraph_TextStyle__1nSetTopRatio = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetTopRatio"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetTopRatio = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetTopRatio"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetTopRatio"])(a0, a1);
 
-var org_jetbrains_skia_Drawable__1nGetBounds = Module["org_jetbrains_skia_Drawable__1nGetBounds"] = (a0, a1) => (org_jetbrains_skia_Drawable__1nGetBounds = Module["org_jetbrains_skia_Drawable__1nGetBounds"] = wasmExports["org_jetbrains_skia_Drawable__1nGetBounds"])(a0, a1);
+var org_jetbrains_skia_paragraph_TextStyle__1nGetBaselineShift = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetBaselineShift"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetBaselineShift = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetBaselineShift"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetBaselineShift"])(a0);
 
-var org_jetbrains_skia_Drawable__1nGetOnDrawCanvas = Module["org_jetbrains_skia_Drawable__1nGetOnDrawCanvas"] = a0 => (org_jetbrains_skia_Drawable__1nGetOnDrawCanvas = Module["org_jetbrains_skia_Drawable__1nGetOnDrawCanvas"] = wasmExports["org_jetbrains_skia_Drawable__1nGetOnDrawCanvas"])(a0);
+var org_jetbrains_skia_paragraph_TextStyle__1nSetBaselineShift = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetBaselineShift"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetBaselineShift = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetBaselineShift"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetBaselineShift"])(a0, a1);
 
-var org_jetbrains_skia_Drawable__1nMake = Module["org_jetbrains_skia_Drawable__1nMake"] = () => (org_jetbrains_skia_Drawable__1nMake = Module["org_jetbrains_skia_Drawable__1nMake"] = wasmExports["org_jetbrains_skia_Drawable__1nMake"])();
+var org_jetbrains_skia_paragraph_TextStyle__1nGetLetterSpacing = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetLetterSpacing"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetLetterSpacing = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetLetterSpacing"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetLetterSpacing"])(a0);
 
-var org_jetbrains_skia_Drawable__1nInit = Module["org_jetbrains_skia_Drawable__1nInit"] = (a0, a1, a2) => (org_jetbrains_skia_Drawable__1nInit = Module["org_jetbrains_skia_Drawable__1nInit"] = wasmExports["org_jetbrains_skia_Drawable__1nInit"])(a0, a1, a2);
+var org_jetbrains_skia_paragraph_TextStyle__1nSetLetterSpacing = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetLetterSpacing"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetLetterSpacing = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetLetterSpacing"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetLetterSpacing"])(a0, a1);
 
-var org_jetbrains_skia_Drawable__1nDraw = Module["org_jetbrains_skia_Drawable__1nDraw"] = (a0, a1, a2) => (org_jetbrains_skia_Drawable__1nDraw = Module["org_jetbrains_skia_Drawable__1nDraw"] = wasmExports["org_jetbrains_skia_Drawable__1nDraw"])(a0, a1, a2);
+var org_jetbrains_skia_paragraph_TextStyle__1nGetWordSpacing = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetWordSpacing"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetWordSpacing = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetWordSpacing"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetWordSpacing"])(a0);
 
-var org_jetbrains_skia_Drawable__1nMakePictureSnapshot = Module["org_jetbrains_skia_Drawable__1nMakePictureSnapshot"] = a0 => (org_jetbrains_skia_Drawable__1nMakePictureSnapshot = Module["org_jetbrains_skia_Drawable__1nMakePictureSnapshot"] = wasmExports["org_jetbrains_skia_Drawable__1nMakePictureSnapshot"])(a0);
+var org_jetbrains_skia_paragraph_TextStyle__1nSetWordSpacing = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetWordSpacing"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetWordSpacing = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetWordSpacing"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetWordSpacing"])(a0, a1);
 
-var org_jetbrains_skia_Drawable__1nGetGenerationId = Module["org_jetbrains_skia_Drawable__1nGetGenerationId"] = a0 => (org_jetbrains_skia_Drawable__1nGetGenerationId = Module["org_jetbrains_skia_Drawable__1nGetGenerationId"] = wasmExports["org_jetbrains_skia_Drawable__1nGetGenerationId"])(a0);
+var org_jetbrains_skia_paragraph_TextStyle__1nGetTypeface = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetTypeface"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetTypeface = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetTypeface"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetTypeface"])(a0);
 
-var org_jetbrains_skia_Drawable__1nNotifyDrawingChanged = Module["org_jetbrains_skia_Drawable__1nNotifyDrawingChanged"] = a0 => (org_jetbrains_skia_Drawable__1nNotifyDrawingChanged = Module["org_jetbrains_skia_Drawable__1nNotifyDrawingChanged"] = wasmExports["org_jetbrains_skia_Drawable__1nNotifyDrawingChanged"])(a0);
+var org_jetbrains_skia_paragraph_TextStyle__1nSetTypeface = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetTypeface"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetTypeface = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetTypeface"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetTypeface"])(a0, a1);
 
-var org_jetbrains_skia_Data__1nGetFinalizer = Module["org_jetbrains_skia_Data__1nGetFinalizer"] = () => (org_jetbrains_skia_Data__1nGetFinalizer = Module["org_jetbrains_skia_Data__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_Data__1nGetFinalizer"])();
+var org_jetbrains_skia_paragraph_TextStyle__1nGetLocale = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetLocale"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetLocale = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetLocale"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetLocale"])(a0);
 
-var org_jetbrains_skia_Data__1nSize = Module["org_jetbrains_skia_Data__1nSize"] = a0 => (org_jetbrains_skia_Data__1nSize = Module["org_jetbrains_skia_Data__1nSize"] = wasmExports["org_jetbrains_skia_Data__1nSize"])(a0);
+var org_jetbrains_skia_paragraph_TextStyle__1nSetLocale = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetLocale"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetLocale = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetLocale"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetLocale"])(a0, a1);
 
-var org_jetbrains_skia_Data__1nBytes = Module["org_jetbrains_skia_Data__1nBytes"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Data__1nBytes = Module["org_jetbrains_skia_Data__1nBytes"] = wasmExports["org_jetbrains_skia_Data__1nBytes"])(a0, a1, a2, a3);
+var org_jetbrains_skia_paragraph_TextStyle__1nGetBaselineMode = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetBaselineMode"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nGetBaselineMode = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetBaselineMode"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetBaselineMode"])(a0);
 
-var org_jetbrains_skia_Data__1nEquals = Module["org_jetbrains_skia_Data__1nEquals"] = (a0, a1) => (org_jetbrains_skia_Data__1nEquals = Module["org_jetbrains_skia_Data__1nEquals"] = wasmExports["org_jetbrains_skia_Data__1nEquals"])(a0, a1);
+var org_jetbrains_skia_paragraph_TextStyle__1nSetBaselineMode = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetBaselineMode"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nSetBaselineMode = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetBaselineMode"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetBaselineMode"])(a0, a1);
 
-var org_jetbrains_skia_Data__1nMakeFromBytes = Module["org_jetbrains_skia_Data__1nMakeFromBytes"] = (a0, a1, a2) => (org_jetbrains_skia_Data__1nMakeFromBytes = Module["org_jetbrains_skia_Data__1nMakeFromBytes"] = wasmExports["org_jetbrains_skia_Data__1nMakeFromBytes"])(a0, a1, a2);
+var org_jetbrains_skia_paragraph_TextStyle__1nGetFontMetrics = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontMetrics"] = (a0, a1) => (org_jetbrains_skia_paragraph_TextStyle__1nGetFontMetrics = Module["org_jetbrains_skia_paragraph_TextStyle__1nGetFontMetrics"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nGetFontMetrics"])(a0, a1);
 
-var _malloc = a0 => (_malloc = wasmExports["malloc"])(a0);
+var org_jetbrains_skia_paragraph_TextStyle__1nIsPlaceholder = Module["org_jetbrains_skia_paragraph_TextStyle__1nIsPlaceholder"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nIsPlaceholder = Module["org_jetbrains_skia_paragraph_TextStyle__1nIsPlaceholder"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nIsPlaceholder"])(a0);
 
-var org_jetbrains_skia_Data__1nMakeWithoutCopy = Module["org_jetbrains_skia_Data__1nMakeWithoutCopy"] = (a0, a1) => (org_jetbrains_skia_Data__1nMakeWithoutCopy = Module["org_jetbrains_skia_Data__1nMakeWithoutCopy"] = wasmExports["org_jetbrains_skia_Data__1nMakeWithoutCopy"])(a0, a1);
+var org_jetbrains_skia_paragraph_TextStyle__1nSetPlaceholder = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetPlaceholder"] = a0 => (org_jetbrains_skia_paragraph_TextStyle__1nSetPlaceholder = Module["org_jetbrains_skia_paragraph_TextStyle__1nSetPlaceholder"] = wasmExports["org_jetbrains_skia_paragraph_TextStyle__1nSetPlaceholder"])(a0);
 
-var org_jetbrains_skia_Data__1nMakeFromFileName = Module["org_jetbrains_skia_Data__1nMakeFromFileName"] = a0 => (org_jetbrains_skia_Data__1nMakeFromFileName = Module["org_jetbrains_skia_Data__1nMakeFromFileName"] = wasmExports["org_jetbrains_skia_Data__1nMakeFromFileName"])(a0);
+var org_jetbrains_skia_Picture__1nMakeFromData = Module["org_jetbrains_skia_Picture__1nMakeFromData"] = a0 => (org_jetbrains_skia_Picture__1nMakeFromData = Module["org_jetbrains_skia_Picture__1nMakeFromData"] = wasmExports["org_jetbrains_skia_Picture__1nMakeFromData"])(a0);
 
-var org_jetbrains_skia_Data__1nMakeSubset = Module["org_jetbrains_skia_Data__1nMakeSubset"] = (a0, a1, a2) => (org_jetbrains_skia_Data__1nMakeSubset = Module["org_jetbrains_skia_Data__1nMakeSubset"] = wasmExports["org_jetbrains_skia_Data__1nMakeSubset"])(a0, a1, a2);
+var org_jetbrains_skia_Picture__1nPlayback = Module["org_jetbrains_skia_Picture__1nPlayback"] = (a0, a1, a2) => (org_jetbrains_skia_Picture__1nPlayback = Module["org_jetbrains_skia_Picture__1nPlayback"] = wasmExports["org_jetbrains_skia_Picture__1nPlayback"])(a0, a1, a2);
 
-var org_jetbrains_skia_Data__1nMakeEmpty = Module["org_jetbrains_skia_Data__1nMakeEmpty"] = () => (org_jetbrains_skia_Data__1nMakeEmpty = Module["org_jetbrains_skia_Data__1nMakeEmpty"] = wasmExports["org_jetbrains_skia_Data__1nMakeEmpty"])();
+var org_jetbrains_skia_Picture__1nGetCullRect = Module["org_jetbrains_skia_Picture__1nGetCullRect"] = (a0, a1) => (org_jetbrains_skia_Picture__1nGetCullRect = Module["org_jetbrains_skia_Picture__1nGetCullRect"] = wasmExports["org_jetbrains_skia_Picture__1nGetCullRect"])(a0, a1);
 
-var org_jetbrains_skia_Data__1nMakeUninitialized = Module["org_jetbrains_skia_Data__1nMakeUninitialized"] = a0 => (org_jetbrains_skia_Data__1nMakeUninitialized = Module["org_jetbrains_skia_Data__1nMakeUninitialized"] = wasmExports["org_jetbrains_skia_Data__1nMakeUninitialized"])(a0);
+var org_jetbrains_skia_Picture__1nGetUniqueId = Module["org_jetbrains_skia_Picture__1nGetUniqueId"] = a0 => (org_jetbrains_skia_Picture__1nGetUniqueId = Module["org_jetbrains_skia_Picture__1nGetUniqueId"] = wasmExports["org_jetbrains_skia_Picture__1nGetUniqueId"])(a0);
 
-var org_jetbrains_skia_Data__1nWritableData = Module["org_jetbrains_skia_Data__1nWritableData"] = a0 => (org_jetbrains_skia_Data__1nWritableData = Module["org_jetbrains_skia_Data__1nWritableData"] = wasmExports["org_jetbrains_skia_Data__1nWritableData"])(a0);
+var org_jetbrains_skia_Picture__1nSerializeToData = Module["org_jetbrains_skia_Picture__1nSerializeToData"] = a0 => (org_jetbrains_skia_Picture__1nSerializeToData = Module["org_jetbrains_skia_Picture__1nSerializeToData"] = wasmExports["org_jetbrains_skia_Picture__1nSerializeToData"])(a0);
 
-var org_jetbrains_skia_shaper_IcuBidiRunIterator__1nMake = Module["org_jetbrains_skia_shaper_IcuBidiRunIterator__1nMake"] = (a0, a1) => (org_jetbrains_skia_shaper_IcuBidiRunIterator__1nMake = Module["org_jetbrains_skia_shaper_IcuBidiRunIterator__1nMake"] = wasmExports["org_jetbrains_skia_shaper_IcuBidiRunIterator__1nMake"])(a0, a1);
+var org_jetbrains_skia_Picture__1nMakePlaceholder = Module["org_jetbrains_skia_Picture__1nMakePlaceholder"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Picture__1nMakePlaceholder = Module["org_jetbrains_skia_Picture__1nMakePlaceholder"] = wasmExports["org_jetbrains_skia_Picture__1nMakePlaceholder"])(a0, a1, a2, a3);
 
-var org_jetbrains_skia_shaper_IcuBidiRunIterator__1nGetCurrentLevel = Module["org_jetbrains_skia_shaper_IcuBidiRunIterator__1nGetCurrentLevel"] = a0 => (org_jetbrains_skia_shaper_IcuBidiRunIterator__1nGetCurrentLevel = Module["org_jetbrains_skia_shaper_IcuBidiRunIterator__1nGetCurrentLevel"] = wasmExports["org_jetbrains_skia_shaper_IcuBidiRunIterator__1nGetCurrentLevel"])(a0);
+var org_jetbrains_skia_Picture__1nGetApproximateOpCount = Module["org_jetbrains_skia_Picture__1nGetApproximateOpCount"] = a0 => (org_jetbrains_skia_Picture__1nGetApproximateOpCount = Module["org_jetbrains_skia_Picture__1nGetApproximateOpCount"] = wasmExports["org_jetbrains_skia_Picture__1nGetApproximateOpCount"])(a0);
 
-var org_jetbrains_skia_shaper_HbIcuScriptRunIterator__1nMake = Module["org_jetbrains_skia_shaper_HbIcuScriptRunIterator__1nMake"] = a0 => (org_jetbrains_skia_shaper_HbIcuScriptRunIterator__1nMake = Module["org_jetbrains_skia_shaper_HbIcuScriptRunIterator__1nMake"] = wasmExports["org_jetbrains_skia_shaper_HbIcuScriptRunIterator__1nMake"])(a0);
+var org_jetbrains_skia_Picture__1nGetApproximateBytesUsed = Module["org_jetbrains_skia_Picture__1nGetApproximateBytesUsed"] = a0 => (org_jetbrains_skia_Picture__1nGetApproximateBytesUsed = Module["org_jetbrains_skia_Picture__1nGetApproximateBytesUsed"] = wasmExports["org_jetbrains_skia_Picture__1nGetApproximateBytesUsed"])(a0);
 
-var org_jetbrains_skia_shaper_HbIcuScriptRunIterator__1nGetCurrentScriptTag = Module["org_jetbrains_skia_shaper_HbIcuScriptRunIterator__1nGetCurrentScriptTag"] = a0 => (org_jetbrains_skia_shaper_HbIcuScriptRunIterator__1nGetCurrentScriptTag = Module["org_jetbrains_skia_shaper_HbIcuScriptRunIterator__1nGetCurrentScriptTag"] = wasmExports["org_jetbrains_skia_shaper_HbIcuScriptRunIterator__1nGetCurrentScriptTag"])(a0);
+var org_jetbrains_skia_Picture__1nMakeShader = Module["org_jetbrains_skia_Picture__1nMakeShader"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) => (org_jetbrains_skia_Picture__1nMakeShader = Module["org_jetbrains_skia_Picture__1nMakeShader"] = wasmExports["org_jetbrains_skia_Picture__1nMakeShader"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
 
-var org_jetbrains_skia_shaper_FontMgrRunIterator__1nMake = Module["org_jetbrains_skia_shaper_FontMgrRunIterator__1nMake"] = (a0, a1, a2, a3) => (org_jetbrains_skia_shaper_FontMgrRunIterator__1nMake = Module["org_jetbrains_skia_shaper_FontMgrRunIterator__1nMake"] = wasmExports["org_jetbrains_skia_shaper_FontMgrRunIterator__1nMake"])(a0, a1, a2, a3);
+var org_jetbrains_skia_Shader__1nMakeWithColorFilter = Module["org_jetbrains_skia_Shader__1nMakeWithColorFilter"] = (a0, a1) => (org_jetbrains_skia_Shader__1nMakeWithColorFilter = Module["org_jetbrains_skia_Shader__1nMakeWithColorFilter"] = wasmExports["org_jetbrains_skia_Shader__1nMakeWithColorFilter"])(a0, a1);
 
-var org_jetbrains_skia_shaper_FontMgrRunIterator__1nGetCurrentFont = Module["org_jetbrains_skia_shaper_FontMgrRunIterator__1nGetCurrentFont"] = a0 => (org_jetbrains_skia_shaper_FontMgrRunIterator__1nGetCurrentFont = Module["org_jetbrains_skia_shaper_FontMgrRunIterator__1nGetCurrentFont"] = wasmExports["org_jetbrains_skia_shaper_FontMgrRunIterator__1nGetCurrentFont"])(a0);
+var org_jetbrains_skia_Shader__1nMakeLinearGradient = Module["org_jetbrains_skia_Shader__1nMakeLinearGradient"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) => (org_jetbrains_skia_Shader__1nMakeLinearGradient = Module["org_jetbrains_skia_Shader__1nMakeLinearGradient"] = wasmExports["org_jetbrains_skia_Shader__1nMakeLinearGradient"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
 
-var org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nGetFinalizer = Module["org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nGetFinalizer"] = () => (org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nGetFinalizer = Module["org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nGetFinalizer"])();
+var org_jetbrains_skia_Shader__1nMakeLinearGradientCS = Module["org_jetbrains_skia_Shader__1nMakeLinearGradientCS"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) => (org_jetbrains_skia_Shader__1nMakeLinearGradientCS = Module["org_jetbrains_skia_Shader__1nMakeLinearGradientCS"] = wasmExports["org_jetbrains_skia_Shader__1nMakeLinearGradientCS"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
 
-var org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nMake = Module["org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nMake"] = (a0, a1, a2) => (org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nMake = Module["org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nMake"] = wasmExports["org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nMake"])(a0, a1, a2);
+var org_jetbrains_skia_Shader__1nMakeRadialGradient = Module["org_jetbrains_skia_Shader__1nMakeRadialGradient"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8) => (org_jetbrains_skia_Shader__1nMakeRadialGradient = Module["org_jetbrains_skia_Shader__1nMakeRadialGradient"] = wasmExports["org_jetbrains_skia_Shader__1nMakeRadialGradient"])(a0, a1, a2, a3, a4, a5, a6, a7, a8);
 
-var org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nMakeBlob = Module["org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nMakeBlob"] = a0 => (org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nMakeBlob = Module["org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nMakeBlob"] = wasmExports["org_jetbrains_skia_shaper_TextBlobBuilderRunHandler__1nMakeBlob"])(a0);
+var org_jetbrains_skia_Shader__1nMakeRadialGradientCS = Module["org_jetbrains_skia_Shader__1nMakeRadialGradientCS"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) => (org_jetbrains_skia_Shader__1nMakeRadialGradientCS = Module["org_jetbrains_skia_Shader__1nMakeRadialGradientCS"] = wasmExports["org_jetbrains_skia_Shader__1nMakeRadialGradientCS"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
 
-var org_jetbrains_skia_shaper_ManagedRunIterator__1nGetFinalizer = Module["org_jetbrains_skia_shaper_ManagedRunIterator__1nGetFinalizer"] = () => (org_jetbrains_skia_shaper_ManagedRunIterator__1nGetFinalizer = Module["org_jetbrains_skia_shaper_ManagedRunIterator__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_shaper_ManagedRunIterator__1nGetFinalizer"])();
+var org_jetbrains_skia_Shader__1nMakeTwoPointConicalGradient = Module["org_jetbrains_skia_Shader__1nMakeTwoPointConicalGradient"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11) => (org_jetbrains_skia_Shader__1nMakeTwoPointConicalGradient = Module["org_jetbrains_skia_Shader__1nMakeTwoPointConicalGradient"] = wasmExports["org_jetbrains_skia_Shader__1nMakeTwoPointConicalGradient"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
 
-var org_jetbrains_skia_shaper_ManagedRunIterator__1nConsume = Module["org_jetbrains_skia_shaper_ManagedRunIterator__1nConsume"] = a0 => (org_jetbrains_skia_shaper_ManagedRunIterator__1nConsume = Module["org_jetbrains_skia_shaper_ManagedRunIterator__1nConsume"] = wasmExports["org_jetbrains_skia_shaper_ManagedRunIterator__1nConsume"])(a0);
+var org_jetbrains_skia_Shader__1nMakeTwoPointConicalGradientCS = Module["org_jetbrains_skia_Shader__1nMakeTwoPointConicalGradientCS"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12) => (org_jetbrains_skia_Shader__1nMakeTwoPointConicalGradientCS = Module["org_jetbrains_skia_Shader__1nMakeTwoPointConicalGradientCS"] = wasmExports["org_jetbrains_skia_Shader__1nMakeTwoPointConicalGradientCS"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
 
-var org_jetbrains_skia_shaper_ManagedRunIterator__1nGetEndOfCurrentRun = Module["org_jetbrains_skia_shaper_ManagedRunIterator__1nGetEndOfCurrentRun"] = (a0, a1) => (org_jetbrains_skia_shaper_ManagedRunIterator__1nGetEndOfCurrentRun = Module["org_jetbrains_skia_shaper_ManagedRunIterator__1nGetEndOfCurrentRun"] = wasmExports["org_jetbrains_skia_shaper_ManagedRunIterator__1nGetEndOfCurrentRun"])(a0, a1);
+var org_jetbrains_skia_Shader__1nMakeSweepGradient = Module["org_jetbrains_skia_Shader__1nMakeSweepGradient"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) => (org_jetbrains_skia_Shader__1nMakeSweepGradient = Module["org_jetbrains_skia_Shader__1nMakeSweepGradient"] = wasmExports["org_jetbrains_skia_Shader__1nMakeSweepGradient"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
 
-var org_jetbrains_skia_shaper_ManagedRunIterator__1nIsAtEnd = Module["org_jetbrains_skia_shaper_ManagedRunIterator__1nIsAtEnd"] = a0 => (org_jetbrains_skia_shaper_ManagedRunIterator__1nIsAtEnd = Module["org_jetbrains_skia_shaper_ManagedRunIterator__1nIsAtEnd"] = wasmExports["org_jetbrains_skia_shaper_ManagedRunIterator__1nIsAtEnd"])(a0);
+var org_jetbrains_skia_Shader__1nMakeSweepGradientCS = Module["org_jetbrains_skia_Shader__1nMakeSweepGradientCS"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) => (org_jetbrains_skia_Shader__1nMakeSweepGradientCS = Module["org_jetbrains_skia_Shader__1nMakeSweepGradientCS"] = wasmExports["org_jetbrains_skia_Shader__1nMakeSweepGradientCS"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
 
-var org_jetbrains_skia_shaper_Shaper__1nGetFinalizer = Module["org_jetbrains_skia_shaper_Shaper__1nGetFinalizer"] = () => (org_jetbrains_skia_shaper_Shaper__1nGetFinalizer = Module["org_jetbrains_skia_shaper_Shaper__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_shaper_Shaper__1nGetFinalizer"])();
+var org_jetbrains_skia_Shader__1nMakeEmpty = Module["org_jetbrains_skia_Shader__1nMakeEmpty"] = () => (org_jetbrains_skia_Shader__1nMakeEmpty = Module["org_jetbrains_skia_Shader__1nMakeEmpty"] = wasmExports["org_jetbrains_skia_Shader__1nMakeEmpty"])();
 
-var org_jetbrains_skia_shaper_Shaper__1nMakePrimitive = Module["org_jetbrains_skia_shaper_Shaper__1nMakePrimitive"] = () => (org_jetbrains_skia_shaper_Shaper__1nMakePrimitive = Module["org_jetbrains_skia_shaper_Shaper__1nMakePrimitive"] = wasmExports["org_jetbrains_skia_shaper_Shaper__1nMakePrimitive"])();
+var org_jetbrains_skia_Shader__1nMakeColor = Module["org_jetbrains_skia_Shader__1nMakeColor"] = a0 => (org_jetbrains_skia_Shader__1nMakeColor = Module["org_jetbrains_skia_Shader__1nMakeColor"] = wasmExports["org_jetbrains_skia_Shader__1nMakeColor"])(a0);
 
-var org_jetbrains_skia_shaper_Shaper__1nMakeShaperDrivenWrapper = Module["org_jetbrains_skia_shaper_Shaper__1nMakeShaperDrivenWrapper"] = a0 => (org_jetbrains_skia_shaper_Shaper__1nMakeShaperDrivenWrapper = Module["org_jetbrains_skia_shaper_Shaper__1nMakeShaperDrivenWrapper"] = wasmExports["org_jetbrains_skia_shaper_Shaper__1nMakeShaperDrivenWrapper"])(a0);
+var org_jetbrains_skia_Shader__1nMakeColorCS = Module["org_jetbrains_skia_Shader__1nMakeColorCS"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Shader__1nMakeColorCS = Module["org_jetbrains_skia_Shader__1nMakeColorCS"] = wasmExports["org_jetbrains_skia_Shader__1nMakeColorCS"])(a0, a1, a2, a3, a4);
 
-var org_jetbrains_skia_shaper_Shaper__1nMakeShapeThenWrap = Module["org_jetbrains_skia_shaper_Shaper__1nMakeShapeThenWrap"] = a0 => (org_jetbrains_skia_shaper_Shaper__1nMakeShapeThenWrap = Module["org_jetbrains_skia_shaper_Shaper__1nMakeShapeThenWrap"] = wasmExports["org_jetbrains_skia_shaper_Shaper__1nMakeShapeThenWrap"])(a0);
+var org_jetbrains_skia_Shader__1nMakeBlend = Module["org_jetbrains_skia_Shader__1nMakeBlend"] = (a0, a1, a2) => (org_jetbrains_skia_Shader__1nMakeBlend = Module["org_jetbrains_skia_Shader__1nMakeBlend"] = wasmExports["org_jetbrains_skia_Shader__1nMakeBlend"])(a0, a1, a2);
 
-var org_jetbrains_skia_shaper_Shaper__1nMakeShapeDontWrapOrReorder = Module["org_jetbrains_skia_shaper_Shaper__1nMakeShapeDontWrapOrReorder"] = a0 => (org_jetbrains_skia_shaper_Shaper__1nMakeShapeDontWrapOrReorder = Module["org_jetbrains_skia_shaper_Shaper__1nMakeShapeDontWrapOrReorder"] = wasmExports["org_jetbrains_skia_shaper_Shaper__1nMakeShapeDontWrapOrReorder"])(a0);
+var org_jetbrains_skia_Shader__1nMakeFractalNoise = Module["org_jetbrains_skia_Shader__1nMakeFractalNoise"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Shader__1nMakeFractalNoise = Module["org_jetbrains_skia_Shader__1nMakeFractalNoise"] = wasmExports["org_jetbrains_skia_Shader__1nMakeFractalNoise"])(a0, a1, a2, a3, a4, a5);
 
-var org_jetbrains_skia_shaper_Shaper__1nMakeCoreText = Module["org_jetbrains_skia_shaper_Shaper__1nMakeCoreText"] = () => (org_jetbrains_skia_shaper_Shaper__1nMakeCoreText = Module["org_jetbrains_skia_shaper_Shaper__1nMakeCoreText"] = wasmExports["org_jetbrains_skia_shaper_Shaper__1nMakeCoreText"])();
-
-var org_jetbrains_skia_shaper_Shaper__1nMake = Module["org_jetbrains_skia_shaper_Shaper__1nMake"] = a0 => (org_jetbrains_skia_shaper_Shaper__1nMake = Module["org_jetbrains_skia_shaper_Shaper__1nMake"] = wasmExports["org_jetbrains_skia_shaper_Shaper__1nMake"])(a0);
-
-var org_jetbrains_skia_shaper_Shaper__1nShapeBlob = Module["org_jetbrains_skia_shaper_Shaper__1nShapeBlob"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8) => (org_jetbrains_skia_shaper_Shaper__1nShapeBlob = Module["org_jetbrains_skia_shaper_Shaper__1nShapeBlob"] = wasmExports["org_jetbrains_skia_shaper_Shaper__1nShapeBlob"])(a0, a1, a2, a3, a4, a5, a6, a7, a8);
-
-var org_jetbrains_skia_shaper_Shaper__1nShapeLine = Module["org_jetbrains_skia_shaper_Shaper__1nShapeLine"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_shaper_Shaper__1nShapeLine = Module["org_jetbrains_skia_shaper_Shaper__1nShapeLine"] = wasmExports["org_jetbrains_skia_shaper_Shaper__1nShapeLine"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skia_shaper_Shaper__1nShape = Module["org_jetbrains_skia_shaper_Shaper__1nShape"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) => (org_jetbrains_skia_shaper_Shaper__1nShape = Module["org_jetbrains_skia_shaper_Shaper__1nShape"] = wasmExports["org_jetbrains_skia_shaper_Shaper__1nShape"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
-
-var org_jetbrains_skia_shaper_Shaper_RunIterator_1nGetFinalizer = Module["org_jetbrains_skia_shaper_Shaper_RunIterator_1nGetFinalizer"] = () => (org_jetbrains_skia_shaper_Shaper_RunIterator_1nGetFinalizer = Module["org_jetbrains_skia_shaper_Shaper_RunIterator_1nGetFinalizer"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunIterator_1nGetFinalizer"])();
-
-var org_jetbrains_skia_shaper_Shaper_RunIterator_1nCreateRunIterator = Module["org_jetbrains_skia_shaper_Shaper_RunIterator_1nCreateRunIterator"] = (a0, a1) => (org_jetbrains_skia_shaper_Shaper_RunIterator_1nCreateRunIterator = Module["org_jetbrains_skia_shaper_Shaper_RunIterator_1nCreateRunIterator"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunIterator_1nCreateRunIterator"])(a0, a1);
-
-var org_jetbrains_skia_shaper_Shaper_RunIterator_1nInitRunIterator = Module["org_jetbrains_skia_shaper_Shaper_RunIterator_1nInitRunIterator"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_shaper_Shaper_RunIterator_1nInitRunIterator = Module["org_jetbrains_skia_shaper_Shaper_RunIterator_1nInitRunIterator"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunIterator_1nInitRunIterator"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetFinalizer = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetFinalizer"] = () => (org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetFinalizer = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetFinalizer"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetFinalizer"])();
-
-var org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetRunInfo = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetRunInfo"] = (a0, a1) => (org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetRunInfo = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetRunInfo"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetRunInfo"])(a0, a1);
-
-var org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetGlyphs = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetGlyphs"] = (a0, a1) => (org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetGlyphs = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetGlyphs"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetGlyphs"])(a0, a1);
-
-var org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetPositions = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetPositions"] = (a0, a1) => (org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetPositions = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetPositions"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetPositions"])(a0, a1);
-
-var org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetClusters = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetClusters"] = (a0, a1) => (org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetClusters = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetClusters"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunHandler_1nGetClusters"])(a0, a1);
-
-var org_jetbrains_skia_shaper_Shaper_RunHandler_1nSetOffset = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nSetOffset"] = (a0, a1, a2) => (org_jetbrains_skia_shaper_Shaper_RunHandler_1nSetOffset = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nSetOffset"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunHandler_1nSetOffset"])(a0, a1, a2);
-
-var org_jetbrains_skia_shaper_Shaper_RunHandler_1nCreate = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nCreate"] = () => (org_jetbrains_skia_shaper_Shaper_RunHandler_1nCreate = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nCreate"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunHandler_1nCreate"])();
-
-var org_jetbrains_skia_shaper_Shaper_RunHandler_1nInit = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nInit"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_shaper_Shaper_RunHandler_1nInit = Module["org_jetbrains_skia_shaper_Shaper_RunHandler_1nInit"] = wasmExports["org_jetbrains_skia_shaper_Shaper_RunHandler_1nInit"])(a0, a1, a2, a3, a4, a5, a6);
-
-var org_jetbrains_skiko_RenderTargetsKt_makeGLRenderTargetNative = Module["org_jetbrains_skiko_RenderTargetsKt_makeGLRenderTargetNative"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skiko_RenderTargetsKt_makeGLRenderTargetNative = Module["org_jetbrains_skiko_RenderTargetsKt_makeGLRenderTargetNative"] = wasmExports["org_jetbrains_skiko_RenderTargetsKt_makeGLRenderTargetNative"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skiko_RenderTargetsKt_makeGLContextNative = Module["org_jetbrains_skiko_RenderTargetsKt_makeGLContextNative"] = () => (org_jetbrains_skiko_RenderTargetsKt_makeGLContextNative = Module["org_jetbrains_skiko_RenderTargetsKt_makeGLContextNative"] = wasmExports["org_jetbrains_skiko_RenderTargetsKt_makeGLContextNative"])();
-
-var org_jetbrains_skiko_RenderTargetsKt_makeMetalRenderTargetNative = Module["org_jetbrains_skiko_RenderTargetsKt_makeMetalRenderTargetNative"] = (a0, a1, a2) => (org_jetbrains_skiko_RenderTargetsKt_makeMetalRenderTargetNative = Module["org_jetbrains_skiko_RenderTargetsKt_makeMetalRenderTargetNative"] = wasmExports["org_jetbrains_skiko_RenderTargetsKt_makeMetalRenderTargetNative"])(a0, a1, a2);
-
-var org_jetbrains_skiko_RenderTargetsKt_makeMetalContextNative = Module["org_jetbrains_skiko_RenderTargetsKt_makeMetalContextNative"] = () => (org_jetbrains_skiko_RenderTargetsKt_makeMetalContextNative = Module["org_jetbrains_skiko_RenderTargetsKt_makeMetalContextNative"] = wasmExports["org_jetbrains_skiko_RenderTargetsKt_makeMetalContextNative"])();
-
-var org_jetbrains_skiko_node_RenderNodeContextKt_RenderNodeContext_1nMake = Module["org_jetbrains_skiko_node_RenderNodeContextKt_RenderNodeContext_1nMake"] = a0 => (org_jetbrains_skiko_node_RenderNodeContextKt_RenderNodeContext_1nMake = Module["org_jetbrains_skiko_node_RenderNodeContextKt_RenderNodeContext_1nMake"] = wasmExports["org_jetbrains_skiko_node_RenderNodeContextKt_RenderNodeContext_1nMake"])(a0);
-
-var org_jetbrains_skiko_node_RenderNodeContextKt_RenderNodeContext_1nSetLightingInfo = Module["org_jetbrains_skiko_node_RenderNodeContextKt_RenderNodeContext_1nSetLightingInfo"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skiko_node_RenderNodeContextKt_RenderNodeContext_1nSetLightingInfo = Module["org_jetbrains_skiko_node_RenderNodeContextKt_RenderNodeContext_1nSetLightingInfo"] = wasmExports["org_jetbrains_skiko_node_RenderNodeContextKt_RenderNodeContext_1nSetLightingInfo"])(a0, a1, a2, a3, a4, a5, a6);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nMake = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nMake"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nMake = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nMake"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nMake"])(a0);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetLayerPaint = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetLayerPaint"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetLayerPaint = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetLayerPaint"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetLayerPaint"])(a0);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetLayerPaint = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetLayerPaint"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetLayerPaint = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetLayerPaint"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetLayerPaint"])(a0, a1);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetBounds = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetBounds"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetBounds = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetBounds"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetBounds"])(a0, a1);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetBounds = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetBounds"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetBounds = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetBounds"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetBounds"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetPivot = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetPivot"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetPivot = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetPivot"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetPivot"])(a0, a1);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetPivot = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetPivot"] = (a0, a1, a2) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetPivot = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetPivot"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetPivot"])(a0, a1, a2);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetAlpha = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetAlpha"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetAlpha = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetAlpha"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetAlpha"])(a0);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetAlpha = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetAlpha"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetAlpha = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetAlpha"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetAlpha"])(a0, a1);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetScaleX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetScaleX"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetScaleX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetScaleX"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetScaleX"])(a0);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetScaleX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetScaleX"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetScaleX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetScaleX"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetScaleX"])(a0, a1);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetScaleY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetScaleY"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetScaleY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetScaleY"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetScaleY"])(a0);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetScaleY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetScaleY"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetScaleY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetScaleY"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetScaleY"])(a0, a1);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetTranslationX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetTranslationX"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetTranslationX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetTranslationX"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetTranslationX"])(a0);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetTranslationX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetTranslationX"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetTranslationX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetTranslationX"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetTranslationX"])(a0, a1);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetTranslationY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetTranslationY"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetTranslationY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetTranslationY"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetTranslationY"])(a0);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetTranslationY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetTranslationY"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetTranslationY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetTranslationY"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetTranslationY"])(a0, a1);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetShadowElevation = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetShadowElevation"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetShadowElevation = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetShadowElevation"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetShadowElevation"])(a0);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetShadowElevation = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetShadowElevation"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetShadowElevation = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetShadowElevation"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetShadowElevation"])(a0, a1);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetAmbientShadowColor = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetAmbientShadowColor"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetAmbientShadowColor = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetAmbientShadowColor"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetAmbientShadowColor"])(a0);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetAmbientShadowColor = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetAmbientShadowColor"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetAmbientShadowColor = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetAmbientShadowColor"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetAmbientShadowColor"])(a0, a1);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetSpotShadowColor = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetSpotShadowColor"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetSpotShadowColor = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetSpotShadowColor"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetSpotShadowColor"])(a0);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetSpotShadowColor = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetSpotShadowColor"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetSpotShadowColor = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetSpotShadowColor"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetSpotShadowColor"])(a0, a1);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationX"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationX"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationX"])(a0);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationX"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationX = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationX"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationX"])(a0, a1);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationY"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationY"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationY"])(a0);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationY"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationY = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationY"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationY"])(a0, a1);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationZ = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationZ"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationZ = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationZ"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetRotationZ"])(a0);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationZ = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationZ"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationZ = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationZ"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetRotationZ"])(a0, a1);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetCameraDistance = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetCameraDistance"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetCameraDistance = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetCameraDistance"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetCameraDistance"])(a0);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetCameraDistance = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetCameraDistance"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetCameraDistance = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetCameraDistance"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetCameraDistance"])(a0, a1);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipRect = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipRect"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipRect = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipRect"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipRect"])(a0, a1, a2, a3, a4, a5, a6);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipRRect = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipRRect"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipRRect = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipRRect"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipRRect"])(a0, a1, a2, a3, a4, a5, a6, a7, a8);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipPath = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipPath"] = (a0, a1, a2, a3) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipPath = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipPath"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClipPath"])(a0, a1, a2, a3);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetClip = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetClip"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetClip = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetClip"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nGetClip"])(a0);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClip = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClip"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClip = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClip"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nSetClip"])(a0, a1);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nBeginRecording = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nBeginRecording"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nBeginRecording = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nBeginRecording"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nBeginRecording"])(a0);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nEndRecording = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nEndRecording"] = a0 => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nEndRecording = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nEndRecording"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nEndRecording"])(a0);
-
-var org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nDrawInto = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nDrawInto"] = (a0, a1) => (org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nDrawInto = Module["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nDrawInto"] = wasmExports["org_jetbrains_skiko_node_RenderNodeKt_RenderNode_1nDrawInto"])(a0, a1);
-
-var org_jetbrains_skia_PaintFilterCanvas__1nInit = Module["org_jetbrains_skia_PaintFilterCanvas__1nInit"] = (a0, a1) => (org_jetbrains_skia_PaintFilterCanvas__1nInit = Module["org_jetbrains_skia_PaintFilterCanvas__1nInit"] = wasmExports["org_jetbrains_skia_PaintFilterCanvas__1nInit"])(a0, a1);
-
-var org_jetbrains_skia_PaintFilterCanvas__1nMake = Module["org_jetbrains_skia_PaintFilterCanvas__1nMake"] = (a0, a1) => (org_jetbrains_skia_PaintFilterCanvas__1nMake = Module["org_jetbrains_skia_PaintFilterCanvas__1nMake"] = wasmExports["org_jetbrains_skia_PaintFilterCanvas__1nMake"])(a0, a1);
-
-var org_jetbrains_skia_PaintFilterCanvas__1nGetOnFilterPaint = Module["org_jetbrains_skia_PaintFilterCanvas__1nGetOnFilterPaint"] = a0 => (org_jetbrains_skia_PaintFilterCanvas__1nGetOnFilterPaint = Module["org_jetbrains_skia_PaintFilterCanvas__1nGetOnFilterPaint"] = wasmExports["org_jetbrains_skia_PaintFilterCanvas__1nGetOnFilterPaint"])(a0);
+var org_jetbrains_skia_Shader__1nMakeTurbulence = Module["org_jetbrains_skia_Shader__1nMakeTurbulence"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Shader__1nMakeTurbulence = Module["org_jetbrains_skia_Shader__1nMakeTurbulence"] = wasmExports["org_jetbrains_skia_Shader__1nMakeTurbulence"])(a0, a1, a2, a3, a4, a5);
 
 var org_jetbrains_skia_DirectContext__1nMakeGL = Module["org_jetbrains_skia_DirectContext__1nMakeGL"] = () => (org_jetbrains_skia_DirectContext__1nMakeGL = Module["org_jetbrains_skia_DirectContext__1nMakeGL"] = wasmExports["org_jetbrains_skia_DirectContext__1nMakeGL"])();
 
@@ -6944,412 +7612,6 @@ var org_jetbrains_skia_DirectContext__1nSubmit = Module["org_jetbrains_skia_Dire
 var org_jetbrains_skia_DirectContext__1nReset = Module["org_jetbrains_skia_DirectContext__1nReset"] = (a0, a1) => (org_jetbrains_skia_DirectContext__1nReset = Module["org_jetbrains_skia_DirectContext__1nReset"] = wasmExports["org_jetbrains_skia_DirectContext__1nReset"])(a0, a1);
 
 var org_jetbrains_skia_DirectContext__1nAbandon = Module["org_jetbrains_skia_DirectContext__1nAbandon"] = (a0, a1) => (org_jetbrains_skia_DirectContext__1nAbandon = Module["org_jetbrains_skia_DirectContext__1nAbandon"] = wasmExports["org_jetbrains_skia_DirectContext__1nAbandon"])(a0, a1);
-
-var org_jetbrains_skia_Surface__1nMakeRasterDirect = Module["org_jetbrains_skia_Surface__1nMakeRasterDirect"] = (a0, a1, a2, a3, a4, a5, a6, a7) => (org_jetbrains_skia_Surface__1nMakeRasterDirect = Module["org_jetbrains_skia_Surface__1nMakeRasterDirect"] = wasmExports["org_jetbrains_skia_Surface__1nMakeRasterDirect"])(a0, a1, a2, a3, a4, a5, a6, a7);
-
-var org_jetbrains_skia_Surface__1nMakeRasterDirectWithPixmap = Module["org_jetbrains_skia_Surface__1nMakeRasterDirectWithPixmap"] = (a0, a1) => (org_jetbrains_skia_Surface__1nMakeRasterDirectWithPixmap = Module["org_jetbrains_skia_Surface__1nMakeRasterDirectWithPixmap"] = wasmExports["org_jetbrains_skia_Surface__1nMakeRasterDirectWithPixmap"])(a0, a1);
-
-var org_jetbrains_skia_Surface__1nMakeRaster = Module["org_jetbrains_skia_Surface__1nMakeRaster"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Surface__1nMakeRaster = Module["org_jetbrains_skia_Surface__1nMakeRaster"] = wasmExports["org_jetbrains_skia_Surface__1nMakeRaster"])(a0, a1, a2, a3, a4, a5, a6);
-
-var org_jetbrains_skia_Surface__1nMakeRasterN32Premul = Module["org_jetbrains_skia_Surface__1nMakeRasterN32Premul"] = (a0, a1) => (org_jetbrains_skia_Surface__1nMakeRasterN32Premul = Module["org_jetbrains_skia_Surface__1nMakeRasterN32Premul"] = wasmExports["org_jetbrains_skia_Surface__1nMakeRasterN32Premul"])(a0, a1);
-
-var org_jetbrains_skia_Surface__1nMakeFromBackendRenderTarget = Module["org_jetbrains_skia_Surface__1nMakeFromBackendRenderTarget"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Surface__1nMakeFromBackendRenderTarget = Module["org_jetbrains_skia_Surface__1nMakeFromBackendRenderTarget"] = wasmExports["org_jetbrains_skia_Surface__1nMakeFromBackendRenderTarget"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skia_Surface__1nMakeFromMTKView = Module["org_jetbrains_skia_Surface__1nMakeFromMTKView"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Surface__1nMakeFromMTKView = Module["org_jetbrains_skia_Surface__1nMakeFromMTKView"] = wasmExports["org_jetbrains_skia_Surface__1nMakeFromMTKView"])(a0, a1, a2, a3, a4, a5, a6);
-
-var org_jetbrains_skia_Surface__1nMakeRenderTarget = Module["org_jetbrains_skia_Surface__1nMakeRenderTarget"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) => (org_jetbrains_skia_Surface__1nMakeRenderTarget = Module["org_jetbrains_skia_Surface__1nMakeRenderTarget"] = wasmExports["org_jetbrains_skia_Surface__1nMakeRenderTarget"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
-
-var org_jetbrains_skia_Surface__1nMakeNull = Module["org_jetbrains_skia_Surface__1nMakeNull"] = (a0, a1) => (org_jetbrains_skia_Surface__1nMakeNull = Module["org_jetbrains_skia_Surface__1nMakeNull"] = wasmExports["org_jetbrains_skia_Surface__1nMakeNull"])(a0, a1);
-
-var org_jetbrains_skia_Surface__1nGetCanvas = Module["org_jetbrains_skia_Surface__1nGetCanvas"] = a0 => (org_jetbrains_skia_Surface__1nGetCanvas = Module["org_jetbrains_skia_Surface__1nGetCanvas"] = wasmExports["org_jetbrains_skia_Surface__1nGetCanvas"])(a0);
-
-var org_jetbrains_skia_Surface__1nGetWidth = Module["org_jetbrains_skia_Surface__1nGetWidth"] = a0 => (org_jetbrains_skia_Surface__1nGetWidth = Module["org_jetbrains_skia_Surface__1nGetWidth"] = wasmExports["org_jetbrains_skia_Surface__1nGetWidth"])(a0);
-
-var org_jetbrains_skia_Surface__1nGetHeight = Module["org_jetbrains_skia_Surface__1nGetHeight"] = a0 => (org_jetbrains_skia_Surface__1nGetHeight = Module["org_jetbrains_skia_Surface__1nGetHeight"] = wasmExports["org_jetbrains_skia_Surface__1nGetHeight"])(a0);
-
-var org_jetbrains_skia_Surface__1nMakeImageSnapshot = Module["org_jetbrains_skia_Surface__1nMakeImageSnapshot"] = a0 => (org_jetbrains_skia_Surface__1nMakeImageSnapshot = Module["org_jetbrains_skia_Surface__1nMakeImageSnapshot"] = wasmExports["org_jetbrains_skia_Surface__1nMakeImageSnapshot"])(a0);
-
-var org_jetbrains_skia_Surface__1nMakeImageSnapshotR = Module["org_jetbrains_skia_Surface__1nMakeImageSnapshotR"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Surface__1nMakeImageSnapshotR = Module["org_jetbrains_skia_Surface__1nMakeImageSnapshotR"] = wasmExports["org_jetbrains_skia_Surface__1nMakeImageSnapshotR"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skia_Surface__1nGenerationId = Module["org_jetbrains_skia_Surface__1nGenerationId"] = a0 => (org_jetbrains_skia_Surface__1nGenerationId = Module["org_jetbrains_skia_Surface__1nGenerationId"] = wasmExports["org_jetbrains_skia_Surface__1nGenerationId"])(a0);
-
-var org_jetbrains_skia_Surface__1nReadPixelsToPixmap = Module["org_jetbrains_skia_Surface__1nReadPixelsToPixmap"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Surface__1nReadPixelsToPixmap = Module["org_jetbrains_skia_Surface__1nReadPixelsToPixmap"] = wasmExports["org_jetbrains_skia_Surface__1nReadPixelsToPixmap"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_Surface__1nReadPixels = Module["org_jetbrains_skia_Surface__1nReadPixels"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Surface__1nReadPixels = Module["org_jetbrains_skia_Surface__1nReadPixels"] = wasmExports["org_jetbrains_skia_Surface__1nReadPixels"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_Surface__1nWritePixelsFromPixmap = Module["org_jetbrains_skia_Surface__1nWritePixelsFromPixmap"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Surface__1nWritePixelsFromPixmap = Module["org_jetbrains_skia_Surface__1nWritePixelsFromPixmap"] = wasmExports["org_jetbrains_skia_Surface__1nWritePixelsFromPixmap"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_Surface__1nWritePixels = Module["org_jetbrains_skia_Surface__1nWritePixels"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Surface__1nWritePixels = Module["org_jetbrains_skia_Surface__1nWritePixels"] = wasmExports["org_jetbrains_skia_Surface__1nWritePixels"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_Surface__1nUnique = Module["org_jetbrains_skia_Surface__1nUnique"] = a0 => (org_jetbrains_skia_Surface__1nUnique = Module["org_jetbrains_skia_Surface__1nUnique"] = wasmExports["org_jetbrains_skia_Surface__1nUnique"])(a0);
-
-var org_jetbrains_skia_Surface__1nGetImageInfo = Module["org_jetbrains_skia_Surface__1nGetImageInfo"] = (a0, a1, a2) => (org_jetbrains_skia_Surface__1nGetImageInfo = Module["org_jetbrains_skia_Surface__1nGetImageInfo"] = wasmExports["org_jetbrains_skia_Surface__1nGetImageInfo"])(a0, a1, a2);
-
-var org_jetbrains_skia_Surface__1nMakeSurface = Module["org_jetbrains_skia_Surface__1nMakeSurface"] = (a0, a1, a2) => (org_jetbrains_skia_Surface__1nMakeSurface = Module["org_jetbrains_skia_Surface__1nMakeSurface"] = wasmExports["org_jetbrains_skia_Surface__1nMakeSurface"])(a0, a1, a2);
-
-var org_jetbrains_skia_Surface__1nMakeSurfaceI = Module["org_jetbrains_skia_Surface__1nMakeSurfaceI"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Surface__1nMakeSurfaceI = Module["org_jetbrains_skia_Surface__1nMakeSurfaceI"] = wasmExports["org_jetbrains_skia_Surface__1nMakeSurfaceI"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skia_Surface__1nDraw = Module["org_jetbrains_skia_Surface__1nDraw"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Surface__1nDraw = Module["org_jetbrains_skia_Surface__1nDraw"] = wasmExports["org_jetbrains_skia_Surface__1nDraw"])(a0, a1, a2, a3, a4, a5, a6);
-
-var org_jetbrains_skia_Surface__1nPeekPixels = Module["org_jetbrains_skia_Surface__1nPeekPixels"] = (a0, a1) => (org_jetbrains_skia_Surface__1nPeekPixels = Module["org_jetbrains_skia_Surface__1nPeekPixels"] = wasmExports["org_jetbrains_skia_Surface__1nPeekPixels"])(a0, a1);
-
-var org_jetbrains_skia_Surface__1nNotifyContentWillChange = Module["org_jetbrains_skia_Surface__1nNotifyContentWillChange"] = (a0, a1) => (org_jetbrains_skia_Surface__1nNotifyContentWillChange = Module["org_jetbrains_skia_Surface__1nNotifyContentWillChange"] = wasmExports["org_jetbrains_skia_Surface__1nNotifyContentWillChange"])(a0, a1);
-
-var org_jetbrains_skia_Surface__1nGetRecordingContext = Module["org_jetbrains_skia_Surface__1nGetRecordingContext"] = a0 => (org_jetbrains_skia_Surface__1nGetRecordingContext = Module["org_jetbrains_skia_Surface__1nGetRecordingContext"] = wasmExports["org_jetbrains_skia_Surface__1nGetRecordingContext"])(a0);
-
-var org_jetbrains_skia_TextLine__1nGetFinalizer = Module["org_jetbrains_skia_TextLine__1nGetFinalizer"] = () => (org_jetbrains_skia_TextLine__1nGetFinalizer = Module["org_jetbrains_skia_TextLine__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_TextLine__1nGetFinalizer"])();
-
-var org_jetbrains_skia_TextLine__1nGetAscent = Module["org_jetbrains_skia_TextLine__1nGetAscent"] = a0 => (org_jetbrains_skia_TextLine__1nGetAscent = Module["org_jetbrains_skia_TextLine__1nGetAscent"] = wasmExports["org_jetbrains_skia_TextLine__1nGetAscent"])(a0);
-
-var org_jetbrains_skia_TextLine__1nGetCapHeight = Module["org_jetbrains_skia_TextLine__1nGetCapHeight"] = a0 => (org_jetbrains_skia_TextLine__1nGetCapHeight = Module["org_jetbrains_skia_TextLine__1nGetCapHeight"] = wasmExports["org_jetbrains_skia_TextLine__1nGetCapHeight"])(a0);
-
-var org_jetbrains_skia_TextLine__1nGetXHeight = Module["org_jetbrains_skia_TextLine__1nGetXHeight"] = a0 => (org_jetbrains_skia_TextLine__1nGetXHeight = Module["org_jetbrains_skia_TextLine__1nGetXHeight"] = wasmExports["org_jetbrains_skia_TextLine__1nGetXHeight"])(a0);
-
-var org_jetbrains_skia_TextLine__1nGetDescent = Module["org_jetbrains_skia_TextLine__1nGetDescent"] = a0 => (org_jetbrains_skia_TextLine__1nGetDescent = Module["org_jetbrains_skia_TextLine__1nGetDescent"] = wasmExports["org_jetbrains_skia_TextLine__1nGetDescent"])(a0);
-
-var org_jetbrains_skia_TextLine__1nGetLeading = Module["org_jetbrains_skia_TextLine__1nGetLeading"] = a0 => (org_jetbrains_skia_TextLine__1nGetLeading = Module["org_jetbrains_skia_TextLine__1nGetLeading"] = wasmExports["org_jetbrains_skia_TextLine__1nGetLeading"])(a0);
-
-var org_jetbrains_skia_TextLine__1nGetWidth = Module["org_jetbrains_skia_TextLine__1nGetWidth"] = a0 => (org_jetbrains_skia_TextLine__1nGetWidth = Module["org_jetbrains_skia_TextLine__1nGetWidth"] = wasmExports["org_jetbrains_skia_TextLine__1nGetWidth"])(a0);
-
-var org_jetbrains_skia_TextLine__1nGetHeight = Module["org_jetbrains_skia_TextLine__1nGetHeight"] = a0 => (org_jetbrains_skia_TextLine__1nGetHeight = Module["org_jetbrains_skia_TextLine__1nGetHeight"] = wasmExports["org_jetbrains_skia_TextLine__1nGetHeight"])(a0);
-
-var org_jetbrains_skia_TextLine__1nGetTextBlob = Module["org_jetbrains_skia_TextLine__1nGetTextBlob"] = a0 => (org_jetbrains_skia_TextLine__1nGetTextBlob = Module["org_jetbrains_skia_TextLine__1nGetTextBlob"] = wasmExports["org_jetbrains_skia_TextLine__1nGetTextBlob"])(a0);
-
-var org_jetbrains_skia_TextLine__1nGetGlyphsLength = Module["org_jetbrains_skia_TextLine__1nGetGlyphsLength"] = a0 => (org_jetbrains_skia_TextLine__1nGetGlyphsLength = Module["org_jetbrains_skia_TextLine__1nGetGlyphsLength"] = wasmExports["org_jetbrains_skia_TextLine__1nGetGlyphsLength"])(a0);
-
-var org_jetbrains_skia_TextLine__1nGetGlyphs = Module["org_jetbrains_skia_TextLine__1nGetGlyphs"] = (a0, a1, a2) => (org_jetbrains_skia_TextLine__1nGetGlyphs = Module["org_jetbrains_skia_TextLine__1nGetGlyphs"] = wasmExports["org_jetbrains_skia_TextLine__1nGetGlyphs"])(a0, a1, a2);
-
-var org_jetbrains_skia_TextLine__1nGetPositions = Module["org_jetbrains_skia_TextLine__1nGetPositions"] = (a0, a1) => (org_jetbrains_skia_TextLine__1nGetPositions = Module["org_jetbrains_skia_TextLine__1nGetPositions"] = wasmExports["org_jetbrains_skia_TextLine__1nGetPositions"])(a0, a1);
-
-var org_jetbrains_skia_TextLine__1nGetRunPositionsCount = Module["org_jetbrains_skia_TextLine__1nGetRunPositionsCount"] = a0 => (org_jetbrains_skia_TextLine__1nGetRunPositionsCount = Module["org_jetbrains_skia_TextLine__1nGetRunPositionsCount"] = wasmExports["org_jetbrains_skia_TextLine__1nGetRunPositionsCount"])(a0);
-
-var org_jetbrains_skia_TextLine__1nGetRunPositions = Module["org_jetbrains_skia_TextLine__1nGetRunPositions"] = (a0, a1) => (org_jetbrains_skia_TextLine__1nGetRunPositions = Module["org_jetbrains_skia_TextLine__1nGetRunPositions"] = wasmExports["org_jetbrains_skia_TextLine__1nGetRunPositions"])(a0, a1);
-
-var org_jetbrains_skia_TextLine__1nGetBreakPositionsCount = Module["org_jetbrains_skia_TextLine__1nGetBreakPositionsCount"] = a0 => (org_jetbrains_skia_TextLine__1nGetBreakPositionsCount = Module["org_jetbrains_skia_TextLine__1nGetBreakPositionsCount"] = wasmExports["org_jetbrains_skia_TextLine__1nGetBreakPositionsCount"])(a0);
-
-var org_jetbrains_skia_TextLine__1nGetBreakPositions = Module["org_jetbrains_skia_TextLine__1nGetBreakPositions"] = (a0, a1) => (org_jetbrains_skia_TextLine__1nGetBreakPositions = Module["org_jetbrains_skia_TextLine__1nGetBreakPositions"] = wasmExports["org_jetbrains_skia_TextLine__1nGetBreakPositions"])(a0, a1);
-
-var org_jetbrains_skia_TextLine__1nGetBreakOffsetsCount = Module["org_jetbrains_skia_TextLine__1nGetBreakOffsetsCount"] = a0 => (org_jetbrains_skia_TextLine__1nGetBreakOffsetsCount = Module["org_jetbrains_skia_TextLine__1nGetBreakOffsetsCount"] = wasmExports["org_jetbrains_skia_TextLine__1nGetBreakOffsetsCount"])(a0);
-
-var org_jetbrains_skia_TextLine__1nGetBreakOffsets = Module["org_jetbrains_skia_TextLine__1nGetBreakOffsets"] = (a0, a1) => (org_jetbrains_skia_TextLine__1nGetBreakOffsets = Module["org_jetbrains_skia_TextLine__1nGetBreakOffsets"] = wasmExports["org_jetbrains_skia_TextLine__1nGetBreakOffsets"])(a0, a1);
-
-var org_jetbrains_skia_TextLine__1nGetOffsetAtCoord = Module["org_jetbrains_skia_TextLine__1nGetOffsetAtCoord"] = (a0, a1) => (org_jetbrains_skia_TextLine__1nGetOffsetAtCoord = Module["org_jetbrains_skia_TextLine__1nGetOffsetAtCoord"] = wasmExports["org_jetbrains_skia_TextLine__1nGetOffsetAtCoord"])(a0, a1);
-
-var org_jetbrains_skia_TextLine__1nGetLeftOffsetAtCoord = Module["org_jetbrains_skia_TextLine__1nGetLeftOffsetAtCoord"] = (a0, a1) => (org_jetbrains_skia_TextLine__1nGetLeftOffsetAtCoord = Module["org_jetbrains_skia_TextLine__1nGetLeftOffsetAtCoord"] = wasmExports["org_jetbrains_skia_TextLine__1nGetLeftOffsetAtCoord"])(a0, a1);
-
-var org_jetbrains_skia_TextLine__1nGetCoordAtOffset = Module["org_jetbrains_skia_TextLine__1nGetCoordAtOffset"] = (a0, a1) => (org_jetbrains_skia_TextLine__1nGetCoordAtOffset = Module["org_jetbrains_skia_TextLine__1nGetCoordAtOffset"] = wasmExports["org_jetbrains_skia_TextLine__1nGetCoordAtOffset"])(a0, a1);
-
-var org_jetbrains_skia_TextBlob__1nGetFinalizer = Module["org_jetbrains_skia_TextBlob__1nGetFinalizer"] = () => (org_jetbrains_skia_TextBlob__1nGetFinalizer = Module["org_jetbrains_skia_TextBlob__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetFinalizer"])();
-
-var org_jetbrains_skia_TextBlob__1nBounds = Module["org_jetbrains_skia_TextBlob__1nBounds"] = (a0, a1) => (org_jetbrains_skia_TextBlob__1nBounds = Module["org_jetbrains_skia_TextBlob__1nBounds"] = wasmExports["org_jetbrains_skia_TextBlob__1nBounds"])(a0, a1);
-
-var org_jetbrains_skia_TextBlob__1nGetUniqueId = Module["org_jetbrains_skia_TextBlob__1nGetUniqueId"] = a0 => (org_jetbrains_skia_TextBlob__1nGetUniqueId = Module["org_jetbrains_skia_TextBlob__1nGetUniqueId"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetUniqueId"])(a0);
-
-var org_jetbrains_skia_TextBlob__1nGetInterceptsLength = Module["org_jetbrains_skia_TextBlob__1nGetInterceptsLength"] = (a0, a1, a2, a3) => (org_jetbrains_skia_TextBlob__1nGetInterceptsLength = Module["org_jetbrains_skia_TextBlob__1nGetInterceptsLength"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetInterceptsLength"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_TextBlob__1nGetIntercepts = Module["org_jetbrains_skia_TextBlob__1nGetIntercepts"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_TextBlob__1nGetIntercepts = Module["org_jetbrains_skia_TextBlob__1nGetIntercepts"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetIntercepts"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skia_TextBlob__1nMakeFromPosH = Module["org_jetbrains_skia_TextBlob__1nMakeFromPosH"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_TextBlob__1nMakeFromPosH = Module["org_jetbrains_skia_TextBlob__1nMakeFromPosH"] = wasmExports["org_jetbrains_skia_TextBlob__1nMakeFromPosH"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skia_TextBlob__1nMakeFromPos = Module["org_jetbrains_skia_TextBlob__1nMakeFromPos"] = (a0, a1, a2, a3) => (org_jetbrains_skia_TextBlob__1nMakeFromPos = Module["org_jetbrains_skia_TextBlob__1nMakeFromPos"] = wasmExports["org_jetbrains_skia_TextBlob__1nMakeFromPos"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_TextBlob__1nMakeFromRSXform = Module["org_jetbrains_skia_TextBlob__1nMakeFromRSXform"] = (a0, a1, a2, a3) => (org_jetbrains_skia_TextBlob__1nMakeFromRSXform = Module["org_jetbrains_skia_TextBlob__1nMakeFromRSXform"] = wasmExports["org_jetbrains_skia_TextBlob__1nMakeFromRSXform"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_TextBlob__1nSerializeToData = Module["org_jetbrains_skia_TextBlob__1nSerializeToData"] = a0 => (org_jetbrains_skia_TextBlob__1nSerializeToData = Module["org_jetbrains_skia_TextBlob__1nSerializeToData"] = wasmExports["org_jetbrains_skia_TextBlob__1nSerializeToData"])(a0);
-
-var org_jetbrains_skia_TextBlob__1nMakeFromData = Module["org_jetbrains_skia_TextBlob__1nMakeFromData"] = a0 => (org_jetbrains_skia_TextBlob__1nMakeFromData = Module["org_jetbrains_skia_TextBlob__1nMakeFromData"] = wasmExports["org_jetbrains_skia_TextBlob__1nMakeFromData"])(a0);
-
-var org_jetbrains_skia_TextBlob__1nGetGlyphsLength = Module["org_jetbrains_skia_TextBlob__1nGetGlyphsLength"] = a0 => (org_jetbrains_skia_TextBlob__1nGetGlyphsLength = Module["org_jetbrains_skia_TextBlob__1nGetGlyphsLength"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetGlyphsLength"])(a0);
-
-var org_jetbrains_skia_TextBlob__1nGetGlyphs = Module["org_jetbrains_skia_TextBlob__1nGetGlyphs"] = (a0, a1) => (org_jetbrains_skia_TextBlob__1nGetGlyphs = Module["org_jetbrains_skia_TextBlob__1nGetGlyphs"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetGlyphs"])(a0, a1);
-
-var org_jetbrains_skia_TextBlob__1nGetPositionsLength = Module["org_jetbrains_skia_TextBlob__1nGetPositionsLength"] = a0 => (org_jetbrains_skia_TextBlob__1nGetPositionsLength = Module["org_jetbrains_skia_TextBlob__1nGetPositionsLength"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetPositionsLength"])(a0);
-
-var org_jetbrains_skia_TextBlob__1nGetPositions = Module["org_jetbrains_skia_TextBlob__1nGetPositions"] = (a0, a1) => (org_jetbrains_skia_TextBlob__1nGetPositions = Module["org_jetbrains_skia_TextBlob__1nGetPositions"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetPositions"])(a0, a1);
-
-var org_jetbrains_skia_TextBlob__1nGetClustersLength = Module["org_jetbrains_skia_TextBlob__1nGetClustersLength"] = a0 => (org_jetbrains_skia_TextBlob__1nGetClustersLength = Module["org_jetbrains_skia_TextBlob__1nGetClustersLength"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetClustersLength"])(a0);
-
-var org_jetbrains_skia_TextBlob__1nGetClusters = Module["org_jetbrains_skia_TextBlob__1nGetClusters"] = (a0, a1) => (org_jetbrains_skia_TextBlob__1nGetClusters = Module["org_jetbrains_skia_TextBlob__1nGetClusters"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetClusters"])(a0, a1);
-
-var org_jetbrains_skia_TextBlob__1nGetTightBounds = Module["org_jetbrains_skia_TextBlob__1nGetTightBounds"] = (a0, a1) => (org_jetbrains_skia_TextBlob__1nGetTightBounds = Module["org_jetbrains_skia_TextBlob__1nGetTightBounds"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetTightBounds"])(a0, a1);
-
-var org_jetbrains_skia_TextBlob__1nGetBlockBounds = Module["org_jetbrains_skia_TextBlob__1nGetBlockBounds"] = (a0, a1) => (org_jetbrains_skia_TextBlob__1nGetBlockBounds = Module["org_jetbrains_skia_TextBlob__1nGetBlockBounds"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetBlockBounds"])(a0, a1);
-
-var org_jetbrains_skia_TextBlob__1nGetFirstBaseline = Module["org_jetbrains_skia_TextBlob__1nGetFirstBaseline"] = (a0, a1) => (org_jetbrains_skia_TextBlob__1nGetFirstBaseline = Module["org_jetbrains_skia_TextBlob__1nGetFirstBaseline"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetFirstBaseline"])(a0, a1);
-
-var org_jetbrains_skia_TextBlob__1nGetLastBaseline = Module["org_jetbrains_skia_TextBlob__1nGetLastBaseline"] = (a0, a1) => (org_jetbrains_skia_TextBlob__1nGetLastBaseline = Module["org_jetbrains_skia_TextBlob__1nGetLastBaseline"] = wasmExports["org_jetbrains_skia_TextBlob__1nGetLastBaseline"])(a0, a1);
-
-var org_jetbrains_skia_TextBlob_Iter__1nCreate = Module["org_jetbrains_skia_TextBlob_Iter__1nCreate"] = a0 => (org_jetbrains_skia_TextBlob_Iter__1nCreate = Module["org_jetbrains_skia_TextBlob_Iter__1nCreate"] = wasmExports["org_jetbrains_skia_TextBlob_Iter__1nCreate"])(a0);
-
-var org_jetbrains_skia_TextBlob_Iter__1nGetFinalizer = Module["org_jetbrains_skia_TextBlob_Iter__1nGetFinalizer"] = () => (org_jetbrains_skia_TextBlob_Iter__1nGetFinalizer = Module["org_jetbrains_skia_TextBlob_Iter__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_TextBlob_Iter__1nGetFinalizer"])();
-
-var org_jetbrains_skia_TextBlob_Iter__1nFetch = Module["org_jetbrains_skia_TextBlob_Iter__1nFetch"] = a0 => (org_jetbrains_skia_TextBlob_Iter__1nFetch = Module["org_jetbrains_skia_TextBlob_Iter__1nFetch"] = wasmExports["org_jetbrains_skia_TextBlob_Iter__1nFetch"])(a0);
-
-var org_jetbrains_skia_TextBlob_Iter__1nHasNext = Module["org_jetbrains_skia_TextBlob_Iter__1nHasNext"] = a0 => (org_jetbrains_skia_TextBlob_Iter__1nHasNext = Module["org_jetbrains_skia_TextBlob_Iter__1nHasNext"] = wasmExports["org_jetbrains_skia_TextBlob_Iter__1nHasNext"])(a0);
-
-var org_jetbrains_skia_TextBlob_Iter__1nGetTypeface = Module["org_jetbrains_skia_TextBlob_Iter__1nGetTypeface"] = a0 => (org_jetbrains_skia_TextBlob_Iter__1nGetTypeface = Module["org_jetbrains_skia_TextBlob_Iter__1nGetTypeface"] = wasmExports["org_jetbrains_skia_TextBlob_Iter__1nGetTypeface"])(a0);
-
-var org_jetbrains_skia_TextBlob_Iter__1nGetGlyphCount = Module["org_jetbrains_skia_TextBlob_Iter__1nGetGlyphCount"] = a0 => (org_jetbrains_skia_TextBlob_Iter__1nGetGlyphCount = Module["org_jetbrains_skia_TextBlob_Iter__1nGetGlyphCount"] = wasmExports["org_jetbrains_skia_TextBlob_Iter__1nGetGlyphCount"])(a0);
-
-var org_jetbrains_skia_TextBlob_Iter__1nGetGlyphs = Module["org_jetbrains_skia_TextBlob_Iter__1nGetGlyphs"] = (a0, a1, a2) => (org_jetbrains_skia_TextBlob_Iter__1nGetGlyphs = Module["org_jetbrains_skia_TextBlob_Iter__1nGetGlyphs"] = wasmExports["org_jetbrains_skia_TextBlob_Iter__1nGetGlyphs"])(a0, a1, a2);
-
-var org_jetbrains_skia_Bitmap__1nGetFinalizer = Module["org_jetbrains_skia_Bitmap__1nGetFinalizer"] = () => (org_jetbrains_skia_Bitmap__1nGetFinalizer = Module["org_jetbrains_skia_Bitmap__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_Bitmap__1nGetFinalizer"])();
-
-var org_jetbrains_skia_Bitmap__1nMake = Module["org_jetbrains_skia_Bitmap__1nMake"] = () => (org_jetbrains_skia_Bitmap__1nMake = Module["org_jetbrains_skia_Bitmap__1nMake"] = wasmExports["org_jetbrains_skia_Bitmap__1nMake"])();
-
-var org_jetbrains_skia_Bitmap__1nMakeClone = Module["org_jetbrains_skia_Bitmap__1nMakeClone"] = a0 => (org_jetbrains_skia_Bitmap__1nMakeClone = Module["org_jetbrains_skia_Bitmap__1nMakeClone"] = wasmExports["org_jetbrains_skia_Bitmap__1nMakeClone"])(a0);
-
-var org_jetbrains_skia_Bitmap__1nSwap = Module["org_jetbrains_skia_Bitmap__1nSwap"] = (a0, a1) => (org_jetbrains_skia_Bitmap__1nSwap = Module["org_jetbrains_skia_Bitmap__1nSwap"] = wasmExports["org_jetbrains_skia_Bitmap__1nSwap"])(a0, a1);
-
-var org_jetbrains_skia_Bitmap__1nGetImageInfo = Module["org_jetbrains_skia_Bitmap__1nGetImageInfo"] = (a0, a1, a2) => (org_jetbrains_skia_Bitmap__1nGetImageInfo = Module["org_jetbrains_skia_Bitmap__1nGetImageInfo"] = wasmExports["org_jetbrains_skia_Bitmap__1nGetImageInfo"])(a0, a1, a2);
-
-var org_jetbrains_skia_Bitmap__1nGetRowBytesAsPixels = Module["org_jetbrains_skia_Bitmap__1nGetRowBytesAsPixels"] = a0 => (org_jetbrains_skia_Bitmap__1nGetRowBytesAsPixels = Module["org_jetbrains_skia_Bitmap__1nGetRowBytesAsPixels"] = wasmExports["org_jetbrains_skia_Bitmap__1nGetRowBytesAsPixels"])(a0);
-
-var org_jetbrains_skia_Bitmap__1nIsNull = Module["org_jetbrains_skia_Bitmap__1nIsNull"] = a0 => (org_jetbrains_skia_Bitmap__1nIsNull = Module["org_jetbrains_skia_Bitmap__1nIsNull"] = wasmExports["org_jetbrains_skia_Bitmap__1nIsNull"])(a0);
-
-var org_jetbrains_skia_Bitmap__1nGetRowBytes = Module["org_jetbrains_skia_Bitmap__1nGetRowBytes"] = a0 => (org_jetbrains_skia_Bitmap__1nGetRowBytes = Module["org_jetbrains_skia_Bitmap__1nGetRowBytes"] = wasmExports["org_jetbrains_skia_Bitmap__1nGetRowBytes"])(a0);
-
-var org_jetbrains_skia_Bitmap__1nSetAlphaType = Module["org_jetbrains_skia_Bitmap__1nSetAlphaType"] = (a0, a1) => (org_jetbrains_skia_Bitmap__1nSetAlphaType = Module["org_jetbrains_skia_Bitmap__1nSetAlphaType"] = wasmExports["org_jetbrains_skia_Bitmap__1nSetAlphaType"])(a0, a1);
-
-var org_jetbrains_skia_Bitmap__1nComputeByteSize = Module["org_jetbrains_skia_Bitmap__1nComputeByteSize"] = a0 => (org_jetbrains_skia_Bitmap__1nComputeByteSize = Module["org_jetbrains_skia_Bitmap__1nComputeByteSize"] = wasmExports["org_jetbrains_skia_Bitmap__1nComputeByteSize"])(a0);
-
-var org_jetbrains_skia_Bitmap__1nIsImmutable = Module["org_jetbrains_skia_Bitmap__1nIsImmutable"] = a0 => (org_jetbrains_skia_Bitmap__1nIsImmutable = Module["org_jetbrains_skia_Bitmap__1nIsImmutable"] = wasmExports["org_jetbrains_skia_Bitmap__1nIsImmutable"])(a0);
-
-var org_jetbrains_skia_Bitmap__1nSetImmutable = Module["org_jetbrains_skia_Bitmap__1nSetImmutable"] = a0 => (org_jetbrains_skia_Bitmap__1nSetImmutable = Module["org_jetbrains_skia_Bitmap__1nSetImmutable"] = wasmExports["org_jetbrains_skia_Bitmap__1nSetImmutable"])(a0);
-
-var org_jetbrains_skia_Bitmap__1nReset = Module["org_jetbrains_skia_Bitmap__1nReset"] = a0 => (org_jetbrains_skia_Bitmap__1nReset = Module["org_jetbrains_skia_Bitmap__1nReset"] = wasmExports["org_jetbrains_skia_Bitmap__1nReset"])(a0);
-
-var org_jetbrains_skia_Bitmap__1nComputeIsOpaque = Module["org_jetbrains_skia_Bitmap__1nComputeIsOpaque"] = a0 => (org_jetbrains_skia_Bitmap__1nComputeIsOpaque = Module["org_jetbrains_skia_Bitmap__1nComputeIsOpaque"] = wasmExports["org_jetbrains_skia_Bitmap__1nComputeIsOpaque"])(a0);
-
-var org_jetbrains_skia_Bitmap__1nSetImageInfo = Module["org_jetbrains_skia_Bitmap__1nSetImageInfo"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Bitmap__1nSetImageInfo = Module["org_jetbrains_skia_Bitmap__1nSetImageInfo"] = wasmExports["org_jetbrains_skia_Bitmap__1nSetImageInfo"])(a0, a1, a2, a3, a4, a5, a6);
-
-var org_jetbrains_skia_Bitmap__1nAllocPixelsFlags = Module["org_jetbrains_skia_Bitmap__1nAllocPixelsFlags"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Bitmap__1nAllocPixelsFlags = Module["org_jetbrains_skia_Bitmap__1nAllocPixelsFlags"] = wasmExports["org_jetbrains_skia_Bitmap__1nAllocPixelsFlags"])(a0, a1, a2, a3, a4, a5, a6);
-
-var org_jetbrains_skia_Bitmap__1nAllocPixelsRowBytes = Module["org_jetbrains_skia_Bitmap__1nAllocPixelsRowBytes"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Bitmap__1nAllocPixelsRowBytes = Module["org_jetbrains_skia_Bitmap__1nAllocPixelsRowBytes"] = wasmExports["org_jetbrains_skia_Bitmap__1nAllocPixelsRowBytes"])(a0, a1, a2, a3, a4, a5, a6);
-
-var _free = a0 => (_free = wasmExports["free"])(a0);
-
-var org_jetbrains_skia_Bitmap__1nInstallPixels = Module["org_jetbrains_skia_Bitmap__1nInstallPixels"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8) => (org_jetbrains_skia_Bitmap__1nInstallPixels = Module["org_jetbrains_skia_Bitmap__1nInstallPixels"] = wasmExports["org_jetbrains_skia_Bitmap__1nInstallPixels"])(a0, a1, a2, a3, a4, a5, a6, a7, a8);
-
-var org_jetbrains_skia_Bitmap__1nAllocPixels = Module["org_jetbrains_skia_Bitmap__1nAllocPixels"] = a0 => (org_jetbrains_skia_Bitmap__1nAllocPixels = Module["org_jetbrains_skia_Bitmap__1nAllocPixels"] = wasmExports["org_jetbrains_skia_Bitmap__1nAllocPixels"])(a0);
-
-var org_jetbrains_skia_Bitmap__1nGetPixelRef = Module["org_jetbrains_skia_Bitmap__1nGetPixelRef"] = a0 => (org_jetbrains_skia_Bitmap__1nGetPixelRef = Module["org_jetbrains_skia_Bitmap__1nGetPixelRef"] = wasmExports["org_jetbrains_skia_Bitmap__1nGetPixelRef"])(a0);
-
-var org_jetbrains_skia_Bitmap__1nGetPixelRefOriginX = Module["org_jetbrains_skia_Bitmap__1nGetPixelRefOriginX"] = a0 => (org_jetbrains_skia_Bitmap__1nGetPixelRefOriginX = Module["org_jetbrains_skia_Bitmap__1nGetPixelRefOriginX"] = wasmExports["org_jetbrains_skia_Bitmap__1nGetPixelRefOriginX"])(a0);
-
-var org_jetbrains_skia_Bitmap__1nGetPixelRefOriginY = Module["org_jetbrains_skia_Bitmap__1nGetPixelRefOriginY"] = a0 => (org_jetbrains_skia_Bitmap__1nGetPixelRefOriginY = Module["org_jetbrains_skia_Bitmap__1nGetPixelRefOriginY"] = wasmExports["org_jetbrains_skia_Bitmap__1nGetPixelRefOriginY"])(a0);
-
-var org_jetbrains_skia_Bitmap__1nSetPixelRef = Module["org_jetbrains_skia_Bitmap__1nSetPixelRef"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Bitmap__1nSetPixelRef = Module["org_jetbrains_skia_Bitmap__1nSetPixelRef"] = wasmExports["org_jetbrains_skia_Bitmap__1nSetPixelRef"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_Bitmap__1nIsReadyToDraw = Module["org_jetbrains_skia_Bitmap__1nIsReadyToDraw"] = a0 => (org_jetbrains_skia_Bitmap__1nIsReadyToDraw = Module["org_jetbrains_skia_Bitmap__1nIsReadyToDraw"] = wasmExports["org_jetbrains_skia_Bitmap__1nIsReadyToDraw"])(a0);
-
-var org_jetbrains_skia_Bitmap__1nGetGenerationId = Module["org_jetbrains_skia_Bitmap__1nGetGenerationId"] = a0 => (org_jetbrains_skia_Bitmap__1nGetGenerationId = Module["org_jetbrains_skia_Bitmap__1nGetGenerationId"] = wasmExports["org_jetbrains_skia_Bitmap__1nGetGenerationId"])(a0);
-
-var org_jetbrains_skia_Bitmap__1nNotifyPixelsChanged = Module["org_jetbrains_skia_Bitmap__1nNotifyPixelsChanged"] = a0 => (org_jetbrains_skia_Bitmap__1nNotifyPixelsChanged = Module["org_jetbrains_skia_Bitmap__1nNotifyPixelsChanged"] = wasmExports["org_jetbrains_skia_Bitmap__1nNotifyPixelsChanged"])(a0);
-
-var org_jetbrains_skia_Bitmap__1nEraseColor = Module["org_jetbrains_skia_Bitmap__1nEraseColor"] = (a0, a1) => (org_jetbrains_skia_Bitmap__1nEraseColor = Module["org_jetbrains_skia_Bitmap__1nEraseColor"] = wasmExports["org_jetbrains_skia_Bitmap__1nEraseColor"])(a0, a1);
-
-var org_jetbrains_skia_Bitmap__1nErase = Module["org_jetbrains_skia_Bitmap__1nErase"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Bitmap__1nErase = Module["org_jetbrains_skia_Bitmap__1nErase"] = wasmExports["org_jetbrains_skia_Bitmap__1nErase"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skia_Bitmap__1nGetColor = Module["org_jetbrains_skia_Bitmap__1nGetColor"] = (a0, a1, a2) => (org_jetbrains_skia_Bitmap__1nGetColor = Module["org_jetbrains_skia_Bitmap__1nGetColor"] = wasmExports["org_jetbrains_skia_Bitmap__1nGetColor"])(a0, a1, a2);
-
-var org_jetbrains_skia_Bitmap__1nGetAlphaf = Module["org_jetbrains_skia_Bitmap__1nGetAlphaf"] = (a0, a1, a2) => (org_jetbrains_skia_Bitmap__1nGetAlphaf = Module["org_jetbrains_skia_Bitmap__1nGetAlphaf"] = wasmExports["org_jetbrains_skia_Bitmap__1nGetAlphaf"])(a0, a1, a2);
-
-var org_jetbrains_skia_Bitmap__1nExtractSubset = Module["org_jetbrains_skia_Bitmap__1nExtractSubset"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Bitmap__1nExtractSubset = Module["org_jetbrains_skia_Bitmap__1nExtractSubset"] = wasmExports["org_jetbrains_skia_Bitmap__1nExtractSubset"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skia_Bitmap__1nReadPixels = Module["org_jetbrains_skia_Bitmap__1nReadPixels"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) => (org_jetbrains_skia_Bitmap__1nReadPixels = Module["org_jetbrains_skia_Bitmap__1nReadPixels"] = wasmExports["org_jetbrains_skia_Bitmap__1nReadPixels"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
-
-var org_jetbrains_skia_Bitmap__1nExtractAlpha = Module["org_jetbrains_skia_Bitmap__1nExtractAlpha"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Bitmap__1nExtractAlpha = Module["org_jetbrains_skia_Bitmap__1nExtractAlpha"] = wasmExports["org_jetbrains_skia_Bitmap__1nExtractAlpha"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_Bitmap__1nPeekPixels = Module["org_jetbrains_skia_Bitmap__1nPeekPixels"] = a0 => (org_jetbrains_skia_Bitmap__1nPeekPixels = Module["org_jetbrains_skia_Bitmap__1nPeekPixels"] = wasmExports["org_jetbrains_skia_Bitmap__1nPeekPixels"])(a0);
-
-var org_jetbrains_skia_Bitmap__1nMakeShader = Module["org_jetbrains_skia_Bitmap__1nMakeShader"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Bitmap__1nMakeShader = Module["org_jetbrains_skia_Bitmap__1nMakeShader"] = wasmExports["org_jetbrains_skia_Bitmap__1nMakeShader"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skia_icu_Unicode__1nCharDirection = Module["org_jetbrains_skia_icu_Unicode__1nCharDirection"] = a0 => (org_jetbrains_skia_icu_Unicode__1nCharDirection = Module["org_jetbrains_skia_icu_Unicode__1nCharDirection"] = wasmExports["org_jetbrains_skia_icu_Unicode__1nCharDirection"])(a0);
-
-var org_jetbrains_skia_icu_Unicode__1nCodePointHasBinaryProperty = Module["org_jetbrains_skia_icu_Unicode__1nCodePointHasBinaryProperty"] = (a0, a1) => (org_jetbrains_skia_icu_Unicode__1nCodePointHasBinaryProperty = Module["org_jetbrains_skia_icu_Unicode__1nCodePointHasBinaryProperty"] = wasmExports["org_jetbrains_skia_icu_Unicode__1nCodePointHasBinaryProperty"])(a0, a1);
-
-var org_jetbrains_skia_MaskFilter__1nMakeBlur = Module["org_jetbrains_skia_MaskFilter__1nMakeBlur"] = (a0, a1, a2) => (org_jetbrains_skia_MaskFilter__1nMakeBlur = Module["org_jetbrains_skia_MaskFilter__1nMakeBlur"] = wasmExports["org_jetbrains_skia_MaskFilter__1nMakeBlur"])(a0, a1, a2);
-
-var org_jetbrains_skia_MaskFilter__1nMakeShader = Module["org_jetbrains_skia_MaskFilter__1nMakeShader"] = a0 => (org_jetbrains_skia_MaskFilter__1nMakeShader = Module["org_jetbrains_skia_MaskFilter__1nMakeShader"] = wasmExports["org_jetbrains_skia_MaskFilter__1nMakeShader"])(a0);
-
-var org_jetbrains_skia_MaskFilter__1nMakeTable = Module["org_jetbrains_skia_MaskFilter__1nMakeTable"] = a0 => (org_jetbrains_skia_MaskFilter__1nMakeTable = Module["org_jetbrains_skia_MaskFilter__1nMakeTable"] = wasmExports["org_jetbrains_skia_MaskFilter__1nMakeTable"])(a0);
-
-var org_jetbrains_skia_MaskFilter__1nMakeGamma = Module["org_jetbrains_skia_MaskFilter__1nMakeGamma"] = a0 => (org_jetbrains_skia_MaskFilter__1nMakeGamma = Module["org_jetbrains_skia_MaskFilter__1nMakeGamma"] = wasmExports["org_jetbrains_skia_MaskFilter__1nMakeGamma"])(a0);
-
-var org_jetbrains_skia_MaskFilter__1nMakeClip = Module["org_jetbrains_skia_MaskFilter__1nMakeClip"] = (a0, a1) => (org_jetbrains_skia_MaskFilter__1nMakeClip = Module["org_jetbrains_skia_MaskFilter__1nMakeClip"] = wasmExports["org_jetbrains_skia_MaskFilter__1nMakeClip"])(a0, a1);
-
-var org_jetbrains_skia_PixelRef__1nGetWidth = Module["org_jetbrains_skia_PixelRef__1nGetWidth"] = a0 => (org_jetbrains_skia_PixelRef__1nGetWidth = Module["org_jetbrains_skia_PixelRef__1nGetWidth"] = wasmExports["org_jetbrains_skia_PixelRef__1nGetWidth"])(a0);
-
-var org_jetbrains_skia_PixelRef__1nGetHeight = Module["org_jetbrains_skia_PixelRef__1nGetHeight"] = a0 => (org_jetbrains_skia_PixelRef__1nGetHeight = Module["org_jetbrains_skia_PixelRef__1nGetHeight"] = wasmExports["org_jetbrains_skia_PixelRef__1nGetHeight"])(a0);
-
-var org_jetbrains_skia_PixelRef__1nGetRowBytes = Module["org_jetbrains_skia_PixelRef__1nGetRowBytes"] = a0 => (org_jetbrains_skia_PixelRef__1nGetRowBytes = Module["org_jetbrains_skia_PixelRef__1nGetRowBytes"] = wasmExports["org_jetbrains_skia_PixelRef__1nGetRowBytes"])(a0);
-
-var org_jetbrains_skia_PixelRef__1nGetGenerationId = Module["org_jetbrains_skia_PixelRef__1nGetGenerationId"] = a0 => (org_jetbrains_skia_PixelRef__1nGetGenerationId = Module["org_jetbrains_skia_PixelRef__1nGetGenerationId"] = wasmExports["org_jetbrains_skia_PixelRef__1nGetGenerationId"])(a0);
-
-var org_jetbrains_skia_PixelRef__1nNotifyPixelsChanged = Module["org_jetbrains_skia_PixelRef__1nNotifyPixelsChanged"] = a0 => (org_jetbrains_skia_PixelRef__1nNotifyPixelsChanged = Module["org_jetbrains_skia_PixelRef__1nNotifyPixelsChanged"] = wasmExports["org_jetbrains_skia_PixelRef__1nNotifyPixelsChanged"])(a0);
-
-var org_jetbrains_skia_PixelRef__1nIsImmutable = Module["org_jetbrains_skia_PixelRef__1nIsImmutable"] = a0 => (org_jetbrains_skia_PixelRef__1nIsImmutable = Module["org_jetbrains_skia_PixelRef__1nIsImmutable"] = wasmExports["org_jetbrains_skia_PixelRef__1nIsImmutable"])(a0);
-
-var org_jetbrains_skia_PixelRef__1nSetImmutable = Module["org_jetbrains_skia_PixelRef__1nSetImmutable"] = a0 => (org_jetbrains_skia_PixelRef__1nSetImmutable = Module["org_jetbrains_skia_PixelRef__1nSetImmutable"] = wasmExports["org_jetbrains_skia_PixelRef__1nSetImmutable"])(a0);
-
-var org_jetbrains_skia_StdVectorDecoder__1nGetArraySize = Module["org_jetbrains_skia_StdVectorDecoder__1nGetArraySize"] = a0 => (org_jetbrains_skia_StdVectorDecoder__1nGetArraySize = Module["org_jetbrains_skia_StdVectorDecoder__1nGetArraySize"] = wasmExports["org_jetbrains_skia_StdVectorDecoder__1nGetArraySize"])(a0);
-
-var org_jetbrains_skia_StdVectorDecoder__1nReleaseElement = Module["org_jetbrains_skia_StdVectorDecoder__1nReleaseElement"] = (a0, a1) => (org_jetbrains_skia_StdVectorDecoder__1nReleaseElement = Module["org_jetbrains_skia_StdVectorDecoder__1nReleaseElement"] = wasmExports["org_jetbrains_skia_StdVectorDecoder__1nReleaseElement"])(a0, a1);
-
-var org_jetbrains_skia_StdVectorDecoder__1nDisposeArray = Module["org_jetbrains_skia_StdVectorDecoder__1nDisposeArray"] = (a0, a1) => (org_jetbrains_skia_StdVectorDecoder__1nDisposeArray = Module["org_jetbrains_skia_StdVectorDecoder__1nDisposeArray"] = wasmExports["org_jetbrains_skia_StdVectorDecoder__1nDisposeArray"])(a0, a1);
-
-var org_jetbrains_skia_FontStyleSet__1nMakeEmpty = Module["org_jetbrains_skia_FontStyleSet__1nMakeEmpty"] = () => (org_jetbrains_skia_FontStyleSet__1nMakeEmpty = Module["org_jetbrains_skia_FontStyleSet__1nMakeEmpty"] = wasmExports["org_jetbrains_skia_FontStyleSet__1nMakeEmpty"])();
-
-var org_jetbrains_skia_FontStyleSet__1nCount = Module["org_jetbrains_skia_FontStyleSet__1nCount"] = a0 => (org_jetbrains_skia_FontStyleSet__1nCount = Module["org_jetbrains_skia_FontStyleSet__1nCount"] = wasmExports["org_jetbrains_skia_FontStyleSet__1nCount"])(a0);
-
-var org_jetbrains_skia_FontStyleSet__1nGetStyle = Module["org_jetbrains_skia_FontStyleSet__1nGetStyle"] = (a0, a1) => (org_jetbrains_skia_FontStyleSet__1nGetStyle = Module["org_jetbrains_skia_FontStyleSet__1nGetStyle"] = wasmExports["org_jetbrains_skia_FontStyleSet__1nGetStyle"])(a0, a1);
-
-var org_jetbrains_skia_FontStyleSet__1nGetStyleName = Module["org_jetbrains_skia_FontStyleSet__1nGetStyleName"] = (a0, a1) => (org_jetbrains_skia_FontStyleSet__1nGetStyleName = Module["org_jetbrains_skia_FontStyleSet__1nGetStyleName"] = wasmExports["org_jetbrains_skia_FontStyleSet__1nGetStyleName"])(a0, a1);
-
-var org_jetbrains_skia_FontStyleSet__1nGetTypeface = Module["org_jetbrains_skia_FontStyleSet__1nGetTypeface"] = (a0, a1) => (org_jetbrains_skia_FontStyleSet__1nGetTypeface = Module["org_jetbrains_skia_FontStyleSet__1nGetTypeface"] = wasmExports["org_jetbrains_skia_FontStyleSet__1nGetTypeface"])(a0, a1);
-
-var org_jetbrains_skia_FontStyleSet__1nMatchStyle = Module["org_jetbrains_skia_FontStyleSet__1nMatchStyle"] = (a0, a1) => (org_jetbrains_skia_FontStyleSet__1nMatchStyle = Module["org_jetbrains_skia_FontStyleSet__1nMatchStyle"] = wasmExports["org_jetbrains_skia_FontStyleSet__1nMatchStyle"])(a0, a1);
-
-var org_jetbrains_skia_Typeface__1nGetFontStyle = Module["org_jetbrains_skia_Typeface__1nGetFontStyle"] = a0 => (org_jetbrains_skia_Typeface__1nGetFontStyle = Module["org_jetbrains_skia_Typeface__1nGetFontStyle"] = wasmExports["org_jetbrains_skia_Typeface__1nGetFontStyle"])(a0);
-
-var org_jetbrains_skia_Typeface__1nIsFixedPitch = Module["org_jetbrains_skia_Typeface__1nIsFixedPitch"] = a0 => (org_jetbrains_skia_Typeface__1nIsFixedPitch = Module["org_jetbrains_skia_Typeface__1nIsFixedPitch"] = wasmExports["org_jetbrains_skia_Typeface__1nIsFixedPitch"])(a0);
-
-var org_jetbrains_skia_Typeface__1nGetVariationsCount = Module["org_jetbrains_skia_Typeface__1nGetVariationsCount"] = a0 => (org_jetbrains_skia_Typeface__1nGetVariationsCount = Module["org_jetbrains_skia_Typeface__1nGetVariationsCount"] = wasmExports["org_jetbrains_skia_Typeface__1nGetVariationsCount"])(a0);
-
-var org_jetbrains_skia_Typeface__1nGetVariations = Module["org_jetbrains_skia_Typeface__1nGetVariations"] = (a0, a1, a2) => (org_jetbrains_skia_Typeface__1nGetVariations = Module["org_jetbrains_skia_Typeface__1nGetVariations"] = wasmExports["org_jetbrains_skia_Typeface__1nGetVariations"])(a0, a1, a2);
-
-var org_jetbrains_skia_Typeface__1nGetVariationAxesCount = Module["org_jetbrains_skia_Typeface__1nGetVariationAxesCount"] = a0 => (org_jetbrains_skia_Typeface__1nGetVariationAxesCount = Module["org_jetbrains_skia_Typeface__1nGetVariationAxesCount"] = wasmExports["org_jetbrains_skia_Typeface__1nGetVariationAxesCount"])(a0);
-
-var org_jetbrains_skia_Typeface__1nGetVariationAxes = Module["org_jetbrains_skia_Typeface__1nGetVariationAxes"] = (a0, a1, a2) => (org_jetbrains_skia_Typeface__1nGetVariationAxes = Module["org_jetbrains_skia_Typeface__1nGetVariationAxes"] = wasmExports["org_jetbrains_skia_Typeface__1nGetVariationAxes"])(a0, a1, a2);
-
-var org_jetbrains_skia_Typeface__1nGetUniqueId = Module["org_jetbrains_skia_Typeface__1nGetUniqueId"] = a0 => (org_jetbrains_skia_Typeface__1nGetUniqueId = Module["org_jetbrains_skia_Typeface__1nGetUniqueId"] = wasmExports["org_jetbrains_skia_Typeface__1nGetUniqueId"])(a0);
-
-var org_jetbrains_skia_Typeface__1nEquals = Module["org_jetbrains_skia_Typeface__1nEquals"] = (a0, a1) => (org_jetbrains_skia_Typeface__1nEquals = Module["org_jetbrains_skia_Typeface__1nEquals"] = wasmExports["org_jetbrains_skia_Typeface__1nEquals"])(a0, a1);
-
-var org_jetbrains_skia_Typeface__1nMakeClone = Module["org_jetbrains_skia_Typeface__1nMakeClone"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Typeface__1nMakeClone = Module["org_jetbrains_skia_Typeface__1nMakeClone"] = wasmExports["org_jetbrains_skia_Typeface__1nMakeClone"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_Typeface__1nGetUTF32Glyphs = Module["org_jetbrains_skia_Typeface__1nGetUTF32Glyphs"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Typeface__1nGetUTF32Glyphs = Module["org_jetbrains_skia_Typeface__1nGetUTF32Glyphs"] = wasmExports["org_jetbrains_skia_Typeface__1nGetUTF32Glyphs"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_Typeface__1nGetUTF32Glyph = Module["org_jetbrains_skia_Typeface__1nGetUTF32Glyph"] = (a0, a1) => (org_jetbrains_skia_Typeface__1nGetUTF32Glyph = Module["org_jetbrains_skia_Typeface__1nGetUTF32Glyph"] = wasmExports["org_jetbrains_skia_Typeface__1nGetUTF32Glyph"])(a0, a1);
-
-var org_jetbrains_skia_Typeface__1nGetGlyphsCount = Module["org_jetbrains_skia_Typeface__1nGetGlyphsCount"] = a0 => (org_jetbrains_skia_Typeface__1nGetGlyphsCount = Module["org_jetbrains_skia_Typeface__1nGetGlyphsCount"] = wasmExports["org_jetbrains_skia_Typeface__1nGetGlyphsCount"])(a0);
-
-var org_jetbrains_skia_Typeface__1nGetTablesCount = Module["org_jetbrains_skia_Typeface__1nGetTablesCount"] = a0 => (org_jetbrains_skia_Typeface__1nGetTablesCount = Module["org_jetbrains_skia_Typeface__1nGetTablesCount"] = wasmExports["org_jetbrains_skia_Typeface__1nGetTablesCount"])(a0);
-
-var org_jetbrains_skia_Typeface__1nGetTableTagsCount = Module["org_jetbrains_skia_Typeface__1nGetTableTagsCount"] = a0 => (org_jetbrains_skia_Typeface__1nGetTableTagsCount = Module["org_jetbrains_skia_Typeface__1nGetTableTagsCount"] = wasmExports["org_jetbrains_skia_Typeface__1nGetTableTagsCount"])(a0);
-
-var org_jetbrains_skia_Typeface__1nGetTableTags = Module["org_jetbrains_skia_Typeface__1nGetTableTags"] = (a0, a1, a2) => (org_jetbrains_skia_Typeface__1nGetTableTags = Module["org_jetbrains_skia_Typeface__1nGetTableTags"] = wasmExports["org_jetbrains_skia_Typeface__1nGetTableTags"])(a0, a1, a2);
-
-var org_jetbrains_skia_Typeface__1nGetTableSize = Module["org_jetbrains_skia_Typeface__1nGetTableSize"] = (a0, a1) => (org_jetbrains_skia_Typeface__1nGetTableSize = Module["org_jetbrains_skia_Typeface__1nGetTableSize"] = wasmExports["org_jetbrains_skia_Typeface__1nGetTableSize"])(a0, a1);
-
-var org_jetbrains_skia_Typeface__1nGetTableData = Module["org_jetbrains_skia_Typeface__1nGetTableData"] = (a0, a1) => (org_jetbrains_skia_Typeface__1nGetTableData = Module["org_jetbrains_skia_Typeface__1nGetTableData"] = wasmExports["org_jetbrains_skia_Typeface__1nGetTableData"])(a0, a1);
-
-var org_jetbrains_skia_Typeface__1nGetUnitsPerEm = Module["org_jetbrains_skia_Typeface__1nGetUnitsPerEm"] = a0 => (org_jetbrains_skia_Typeface__1nGetUnitsPerEm = Module["org_jetbrains_skia_Typeface__1nGetUnitsPerEm"] = wasmExports["org_jetbrains_skia_Typeface__1nGetUnitsPerEm"])(a0);
-
-var org_jetbrains_skia_Typeface__1nGetKerningPairAdjustments = Module["org_jetbrains_skia_Typeface__1nGetKerningPairAdjustments"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Typeface__1nGetKerningPairAdjustments = Module["org_jetbrains_skia_Typeface__1nGetKerningPairAdjustments"] = wasmExports["org_jetbrains_skia_Typeface__1nGetKerningPairAdjustments"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_Typeface__1nGetFamilyNames = Module["org_jetbrains_skia_Typeface__1nGetFamilyNames"] = a0 => (org_jetbrains_skia_Typeface__1nGetFamilyNames = Module["org_jetbrains_skia_Typeface__1nGetFamilyNames"] = wasmExports["org_jetbrains_skia_Typeface__1nGetFamilyNames"])(a0);
-
-var org_jetbrains_skia_Typeface__1nGetFamilyName = Module["org_jetbrains_skia_Typeface__1nGetFamilyName"] = a0 => (org_jetbrains_skia_Typeface__1nGetFamilyName = Module["org_jetbrains_skia_Typeface__1nGetFamilyName"] = wasmExports["org_jetbrains_skia_Typeface__1nGetFamilyName"])(a0);
-
-var org_jetbrains_skia_Typeface__1nGetBounds = Module["org_jetbrains_skia_Typeface__1nGetBounds"] = (a0, a1) => (org_jetbrains_skia_Typeface__1nGetBounds = Module["org_jetbrains_skia_Typeface__1nGetBounds"] = wasmExports["org_jetbrains_skia_Typeface__1nGetBounds"])(a0, a1);
-
-var org_jetbrains_skia_Typeface__1nMakeEmptyTypeface = Module["org_jetbrains_skia_Typeface__1nMakeEmptyTypeface"] = () => (org_jetbrains_skia_Typeface__1nMakeEmptyTypeface = Module["org_jetbrains_skia_Typeface__1nMakeEmptyTypeface"] = wasmExports["org_jetbrains_skia_Typeface__1nMakeEmptyTypeface"])();
-
-var org_jetbrains_skia_ColorType__1nIsAlwaysOpaque = Module["org_jetbrains_skia_ColorType__1nIsAlwaysOpaque"] = a0 => (org_jetbrains_skia_ColorType__1nIsAlwaysOpaque = Module["org_jetbrains_skia_ColorType__1nIsAlwaysOpaque"] = wasmExports["org_jetbrains_skia_ColorType__1nIsAlwaysOpaque"])(a0);
-
-var org_jetbrains_skia_RTreeFactory__1nMake = Module["org_jetbrains_skia_RTreeFactory__1nMake"] = () => (org_jetbrains_skia_RTreeFactory__1nMake = Module["org_jetbrains_skia_RTreeFactory__1nMake"] = wasmExports["org_jetbrains_skia_RTreeFactory__1nMake"])();
-
-var org_jetbrains_skia_BBHFactory__1nGetFinalizer = Module["org_jetbrains_skia_BBHFactory__1nGetFinalizer"] = () => (org_jetbrains_skia_BBHFactory__1nGetFinalizer = Module["org_jetbrains_skia_BBHFactory__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_BBHFactory__1nGetFinalizer"])();
-
-var org_jetbrains_skia_ShadowUtils__1nDrawShadow = Module["org_jetbrains_skia_ShadowUtils__1nDrawShadow"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11) => (org_jetbrains_skia_ShadowUtils__1nDrawShadow = Module["org_jetbrains_skia_ShadowUtils__1nDrawShadow"] = wasmExports["org_jetbrains_skia_ShadowUtils__1nDrawShadow"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
-
-var org_jetbrains_skia_ShadowUtils__1nComputeTonalAmbientColor = Module["org_jetbrains_skia_ShadowUtils__1nComputeTonalAmbientColor"] = (a0, a1) => (org_jetbrains_skia_ShadowUtils__1nComputeTonalAmbientColor = Module["org_jetbrains_skia_ShadowUtils__1nComputeTonalAmbientColor"] = wasmExports["org_jetbrains_skia_ShadowUtils__1nComputeTonalAmbientColor"])(a0, a1);
-
-var org_jetbrains_skia_ShadowUtils__1nComputeTonalSpotColor = Module["org_jetbrains_skia_ShadowUtils__1nComputeTonalSpotColor"] = (a0, a1) => (org_jetbrains_skia_ShadowUtils__1nComputeTonalSpotColor = Module["org_jetbrains_skia_ShadowUtils__1nComputeTonalSpotColor"] = wasmExports["org_jetbrains_skia_ShadowUtils__1nComputeTonalSpotColor"])(a0, a1);
-
-var org_jetbrains_skia_sksg_InvalidationController_nGetFinalizer = Module["org_jetbrains_skia_sksg_InvalidationController_nGetFinalizer"] = () => (org_jetbrains_skia_sksg_InvalidationController_nGetFinalizer = Module["org_jetbrains_skia_sksg_InvalidationController_nGetFinalizer"] = wasmExports["org_jetbrains_skia_sksg_InvalidationController_nGetFinalizer"])();
-
-var org_jetbrains_skia_sksg_InvalidationController_nMake = Module["org_jetbrains_skia_sksg_InvalidationController_nMake"] = () => (org_jetbrains_skia_sksg_InvalidationController_nMake = Module["org_jetbrains_skia_sksg_InvalidationController_nMake"] = wasmExports["org_jetbrains_skia_sksg_InvalidationController_nMake"])();
-
-var org_jetbrains_skia_sksg_InvalidationController_nInvalidate = Module["org_jetbrains_skia_sksg_InvalidationController_nInvalidate"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_sksg_InvalidationController_nInvalidate = Module["org_jetbrains_skia_sksg_InvalidationController_nInvalidate"] = wasmExports["org_jetbrains_skia_sksg_InvalidationController_nInvalidate"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skia_sksg_InvalidationController_nGetBounds = Module["org_jetbrains_skia_sksg_InvalidationController_nGetBounds"] = (a0, a1) => (org_jetbrains_skia_sksg_InvalidationController_nGetBounds = Module["org_jetbrains_skia_sksg_InvalidationController_nGetBounds"] = wasmExports["org_jetbrains_skia_sksg_InvalidationController_nGetBounds"])(a0, a1);
-
-var org_jetbrains_skia_sksg_InvalidationController_nReset = Module["org_jetbrains_skia_sksg_InvalidationController_nReset"] = a0 => (org_jetbrains_skia_sksg_InvalidationController_nReset = Module["org_jetbrains_skia_sksg_InvalidationController_nReset"] = wasmExports["org_jetbrains_skia_sksg_InvalidationController_nReset"])(a0);
-
-var org_jetbrains_skia_impl_RefCnt__getFinalizer = Module["org_jetbrains_skia_impl_RefCnt__getFinalizer"] = () => (org_jetbrains_skia_impl_RefCnt__getFinalizer = Module["org_jetbrains_skia_impl_RefCnt__getFinalizer"] = wasmExports["org_jetbrains_skia_impl_RefCnt__getFinalizer"])();
-
-var org_jetbrains_skia_impl_RefCnt__getRefCount = Module["org_jetbrains_skia_impl_RefCnt__getRefCount"] = a0 => (org_jetbrains_skia_impl_RefCnt__getRefCount = Module["org_jetbrains_skia_impl_RefCnt__getRefCount"] = wasmExports["org_jetbrains_skia_impl_RefCnt__getRefCount"])(a0);
-
-var org_jetbrains_skia_ImageFilter__1nMakeArithmetic = Module["org_jetbrains_skia_ImageFilter__1nMakeArithmetic"] = (a0, a1, a2, a3, a4, a5, a6, a7) => (org_jetbrains_skia_ImageFilter__1nMakeArithmetic = Module["org_jetbrains_skia_ImageFilter__1nMakeArithmetic"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeArithmetic"])(a0, a1, a2, a3, a4, a5, a6, a7);
-
-var org_jetbrains_skia_ImageFilter__1nMakeBlend = Module["org_jetbrains_skia_ImageFilter__1nMakeBlend"] = (a0, a1, a2, a3) => (org_jetbrains_skia_ImageFilter__1nMakeBlend = Module["org_jetbrains_skia_ImageFilter__1nMakeBlend"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeBlend"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_ImageFilter__1nMakeBlur = Module["org_jetbrains_skia_ImageFilter__1nMakeBlur"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_ImageFilter__1nMakeBlur = Module["org_jetbrains_skia_ImageFilter__1nMakeBlur"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeBlur"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skia_ImageFilter__1nMakeColorFilter = Module["org_jetbrains_skia_ImageFilter__1nMakeColorFilter"] = (a0, a1, a2) => (org_jetbrains_skia_ImageFilter__1nMakeColorFilter = Module["org_jetbrains_skia_ImageFilter__1nMakeColorFilter"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeColorFilter"])(a0, a1, a2);
-
-var org_jetbrains_skia_ImageFilter__1nMakeCompose = Module["org_jetbrains_skia_ImageFilter__1nMakeCompose"] = (a0, a1) => (org_jetbrains_skia_ImageFilter__1nMakeCompose = Module["org_jetbrains_skia_ImageFilter__1nMakeCompose"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeCompose"])(a0, a1);
-
-var org_jetbrains_skia_ImageFilter__1nMakeDisplacementMap = Module["org_jetbrains_skia_ImageFilter__1nMakeDisplacementMap"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_ImageFilter__1nMakeDisplacementMap = Module["org_jetbrains_skia_ImageFilter__1nMakeDisplacementMap"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeDisplacementMap"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skia_ImageFilter__1nMakeDropShadow = Module["org_jetbrains_skia_ImageFilter__1nMakeDropShadow"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_ImageFilter__1nMakeDropShadow = Module["org_jetbrains_skia_ImageFilter__1nMakeDropShadow"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeDropShadow"])(a0, a1, a2, a3, a4, a5, a6);
-
-var org_jetbrains_skia_ImageFilter__1nMakeDropShadowOnly = Module["org_jetbrains_skia_ImageFilter__1nMakeDropShadowOnly"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_ImageFilter__1nMakeDropShadowOnly = Module["org_jetbrains_skia_ImageFilter__1nMakeDropShadowOnly"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeDropShadowOnly"])(a0, a1, a2, a3, a4, a5, a6);
-
-var org_jetbrains_skia_ImageFilter__1nMakeImage = Module["org_jetbrains_skia_ImageFilter__1nMakeImage"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) => (org_jetbrains_skia_ImageFilter__1nMakeImage = Module["org_jetbrains_skia_ImageFilter__1nMakeImage"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeImage"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
-
-var org_jetbrains_skia_ImageFilter__1nMakeMagnifier = Module["org_jetbrains_skia_ImageFilter__1nMakeMagnifier"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) => (org_jetbrains_skia_ImageFilter__1nMakeMagnifier = Module["org_jetbrains_skia_ImageFilter__1nMakeMagnifier"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeMagnifier"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
-
-var org_jetbrains_skia_ImageFilter__1nMakeMatrixConvolution = Module["org_jetbrains_skia_ImageFilter__1nMakeMatrixConvolution"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) => (org_jetbrains_skia_ImageFilter__1nMakeMatrixConvolution = Module["org_jetbrains_skia_ImageFilter__1nMakeMatrixConvolution"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeMatrixConvolution"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
-
-var org_jetbrains_skia_ImageFilter__1nMakeMatrixTransform = Module["org_jetbrains_skia_ImageFilter__1nMakeMatrixTransform"] = (a0, a1, a2, a3) => (org_jetbrains_skia_ImageFilter__1nMakeMatrixTransform = Module["org_jetbrains_skia_ImageFilter__1nMakeMatrixTransform"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeMatrixTransform"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_ImageFilter__1nMakeMerge = Module["org_jetbrains_skia_ImageFilter__1nMakeMerge"] = (a0, a1, a2) => (org_jetbrains_skia_ImageFilter__1nMakeMerge = Module["org_jetbrains_skia_ImageFilter__1nMakeMerge"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeMerge"])(a0, a1, a2);
-
-var org_jetbrains_skia_ImageFilter__1nMakeOffset = Module["org_jetbrains_skia_ImageFilter__1nMakeOffset"] = (a0, a1, a2, a3) => (org_jetbrains_skia_ImageFilter__1nMakeOffset = Module["org_jetbrains_skia_ImageFilter__1nMakeOffset"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeOffset"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_ImageFilter__1nMakeShader = Module["org_jetbrains_skia_ImageFilter__1nMakeShader"] = (a0, a1, a2) => (org_jetbrains_skia_ImageFilter__1nMakeShader = Module["org_jetbrains_skia_ImageFilter__1nMakeShader"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeShader"])(a0, a1, a2);
-
-var org_jetbrains_skia_ImageFilter__1nMakePicture = Module["org_jetbrains_skia_ImageFilter__1nMakePicture"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_ImageFilter__1nMakePicture = Module["org_jetbrains_skia_ImageFilter__1nMakePicture"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakePicture"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skia_ImageFilter__1nMakeRuntimeShader = Module["org_jetbrains_skia_ImageFilter__1nMakeRuntimeShader"] = (a0, a1, a2) => (org_jetbrains_skia_ImageFilter__1nMakeRuntimeShader = Module["org_jetbrains_skia_ImageFilter__1nMakeRuntimeShader"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeRuntimeShader"])(a0, a1, a2);
-
-var org_jetbrains_skia_ImageFilter__1nMakeRuntimeShaderFromArray = Module["org_jetbrains_skia_ImageFilter__1nMakeRuntimeShaderFromArray"] = (a0, a1, a2, a3) => (org_jetbrains_skia_ImageFilter__1nMakeRuntimeShaderFromArray = Module["org_jetbrains_skia_ImageFilter__1nMakeRuntimeShaderFromArray"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeRuntimeShaderFromArray"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_ImageFilter__1nMakeTile = Module["org_jetbrains_skia_ImageFilter__1nMakeTile"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8) => (org_jetbrains_skia_ImageFilter__1nMakeTile = Module["org_jetbrains_skia_ImageFilter__1nMakeTile"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeTile"])(a0, a1, a2, a3, a4, a5, a6, a7, a8);
-
-var org_jetbrains_skia_ImageFilter__1nMakeDilate = Module["org_jetbrains_skia_ImageFilter__1nMakeDilate"] = (a0, a1, a2, a3) => (org_jetbrains_skia_ImageFilter__1nMakeDilate = Module["org_jetbrains_skia_ImageFilter__1nMakeDilate"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeDilate"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_ImageFilter__1nMakeErode = Module["org_jetbrains_skia_ImageFilter__1nMakeErode"] = (a0, a1, a2, a3) => (org_jetbrains_skia_ImageFilter__1nMakeErode = Module["org_jetbrains_skia_ImageFilter__1nMakeErode"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeErode"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_ImageFilter__1nMakeDistantLitDiffuse = Module["org_jetbrains_skia_ImageFilter__1nMakeDistantLitDiffuse"] = (a0, a1, a2, a3, a4, a5, a6, a7) => (org_jetbrains_skia_ImageFilter__1nMakeDistantLitDiffuse = Module["org_jetbrains_skia_ImageFilter__1nMakeDistantLitDiffuse"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeDistantLitDiffuse"])(a0, a1, a2, a3, a4, a5, a6, a7);
-
-var org_jetbrains_skia_ImageFilter__1nMakePointLitDiffuse = Module["org_jetbrains_skia_ImageFilter__1nMakePointLitDiffuse"] = (a0, a1, a2, a3, a4, a5, a6, a7) => (org_jetbrains_skia_ImageFilter__1nMakePointLitDiffuse = Module["org_jetbrains_skia_ImageFilter__1nMakePointLitDiffuse"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakePointLitDiffuse"])(a0, a1, a2, a3, a4, a5, a6, a7);
-
-var org_jetbrains_skia_ImageFilter__1nMakeSpotLitDiffuse = Module["org_jetbrains_skia_ImageFilter__1nMakeSpotLitDiffuse"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12) => (org_jetbrains_skia_ImageFilter__1nMakeSpotLitDiffuse = Module["org_jetbrains_skia_ImageFilter__1nMakeSpotLitDiffuse"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeSpotLitDiffuse"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
-
-var org_jetbrains_skia_ImageFilter__1nMakeDistantLitSpecular = Module["org_jetbrains_skia_ImageFilter__1nMakeDistantLitSpecular"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8) => (org_jetbrains_skia_ImageFilter__1nMakeDistantLitSpecular = Module["org_jetbrains_skia_ImageFilter__1nMakeDistantLitSpecular"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeDistantLitSpecular"])(a0, a1, a2, a3, a4, a5, a6, a7, a8);
-
-var org_jetbrains_skia_ImageFilter__1nMakePointLitSpecular = Module["org_jetbrains_skia_ImageFilter__1nMakePointLitSpecular"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8) => (org_jetbrains_skia_ImageFilter__1nMakePointLitSpecular = Module["org_jetbrains_skia_ImageFilter__1nMakePointLitSpecular"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakePointLitSpecular"])(a0, a1, a2, a3, a4, a5, a6, a7, a8);
-
-var org_jetbrains_skia_ImageFilter__1nMakeSpotLitSpecular = Module["org_jetbrains_skia_ImageFilter__1nMakeSpotLitSpecular"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13) => (org_jetbrains_skia_ImageFilter__1nMakeSpotLitSpecular = Module["org_jetbrains_skia_ImageFilter__1nMakeSpotLitSpecular"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeSpotLitSpecular"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13);
-
-var org_jetbrains_skia_PictureRecorder__1nMake = Module["org_jetbrains_skia_PictureRecorder__1nMake"] = () => (org_jetbrains_skia_PictureRecorder__1nMake = Module["org_jetbrains_skia_PictureRecorder__1nMake"] = wasmExports["org_jetbrains_skia_PictureRecorder__1nMake"])();
-
-var org_jetbrains_skia_PictureRecorder__1nGetFinalizer = Module["org_jetbrains_skia_PictureRecorder__1nGetFinalizer"] = () => (org_jetbrains_skia_PictureRecorder__1nGetFinalizer = Module["org_jetbrains_skia_PictureRecorder__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_PictureRecorder__1nGetFinalizer"])();
-
-var org_jetbrains_skia_PictureRecorder__1nBeginRecording = Module["org_jetbrains_skia_PictureRecorder__1nBeginRecording"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_PictureRecorder__1nBeginRecording = Module["org_jetbrains_skia_PictureRecorder__1nBeginRecording"] = wasmExports["org_jetbrains_skia_PictureRecorder__1nBeginRecording"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skia_PictureRecorder__1nGetRecordingCanvas = Module["org_jetbrains_skia_PictureRecorder__1nGetRecordingCanvas"] = a0 => (org_jetbrains_skia_PictureRecorder__1nGetRecordingCanvas = Module["org_jetbrains_skia_PictureRecorder__1nGetRecordingCanvas"] = wasmExports["org_jetbrains_skia_PictureRecorder__1nGetRecordingCanvas"])(a0);
-
-var org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsPicture = Module["org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsPicture"] = a0 => (org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsPicture = Module["org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsPicture"] = wasmExports["org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsPicture"])(a0);
-
-var org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsPictureWithCull = Module["org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsPictureWithCull"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsPictureWithCull = Module["org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsPictureWithCull"] = wasmExports["org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsPictureWithCull"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsDrawable = Module["org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsDrawable"] = a0 => (org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsDrawable = Module["org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsDrawable"] = wasmExports["org_jetbrains_skia_PictureRecorder__1nFinishRecordingAsDrawable"])(a0);
 
 var org_jetbrains_skia_Canvas__1nGetFinalizer = Module["org_jetbrains_skia_Canvas__1nGetFinalizer"] = () => (org_jetbrains_skia_Canvas__1nGetFinalizer = Module["org_jetbrains_skia_Canvas__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_Canvas__1nGetFinalizer"])();
 
@@ -7441,131 +7703,269 @@ var org_jetbrains_skia_Canvas__1nRestore = Module["org_jetbrains_skia_Canvas__1n
 
 var org_jetbrains_skia_Canvas__1nRestoreToCount = Module["org_jetbrains_skia_Canvas__1nRestoreToCount"] = (a0, a1) => (org_jetbrains_skia_Canvas__1nRestoreToCount = Module["org_jetbrains_skia_Canvas__1nRestoreToCount"] = wasmExports["org_jetbrains_skia_Canvas__1nRestoreToCount"])(a0, a1);
 
-var org_jetbrains_skia_skottie_AnimationBuilder__1nGetFinalizer = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nGetFinalizer"] = () => (org_jetbrains_skia_skottie_AnimationBuilder__1nGetFinalizer = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_skottie_AnimationBuilder__1nGetFinalizer"])();
+var org_jetbrains_skia_ColorType__1nIsAlwaysOpaque = Module["org_jetbrains_skia_ColorType__1nIsAlwaysOpaque"] = a0 => (org_jetbrains_skia_ColorType__1nIsAlwaysOpaque = Module["org_jetbrains_skia_ColorType__1nIsAlwaysOpaque"] = wasmExports["org_jetbrains_skia_ColorType__1nIsAlwaysOpaque"])(a0);
 
-var org_jetbrains_skia_skottie_AnimationBuilder__1nMake = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nMake"] = a0 => (org_jetbrains_skia_skottie_AnimationBuilder__1nMake = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nMake"] = wasmExports["org_jetbrains_skia_skottie_AnimationBuilder__1nMake"])(a0);
+var org_jetbrains_skia_ImageFilter__1nMakeArithmetic = Module["org_jetbrains_skia_ImageFilter__1nMakeArithmetic"] = (a0, a1, a2, a3, a4, a5, a6, a7) => (org_jetbrains_skia_ImageFilter__1nMakeArithmetic = Module["org_jetbrains_skia_ImageFilter__1nMakeArithmetic"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeArithmetic"])(a0, a1, a2, a3, a4, a5, a6, a7);
 
-var org_jetbrains_skia_skottie_AnimationBuilder__1nSetFontManager = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nSetFontManager"] = (a0, a1) => (org_jetbrains_skia_skottie_AnimationBuilder__1nSetFontManager = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nSetFontManager"] = wasmExports["org_jetbrains_skia_skottie_AnimationBuilder__1nSetFontManager"])(a0, a1);
+var org_jetbrains_skia_ImageFilter__1nMakeBlend = Module["org_jetbrains_skia_ImageFilter__1nMakeBlend"] = (a0, a1, a2, a3) => (org_jetbrains_skia_ImageFilter__1nMakeBlend = Module["org_jetbrains_skia_ImageFilter__1nMakeBlend"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeBlend"])(a0, a1, a2, a3);
 
-var org_jetbrains_skia_skottie_AnimationBuilder__1nSetLogger = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nSetLogger"] = (a0, a1) => (org_jetbrains_skia_skottie_AnimationBuilder__1nSetLogger = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nSetLogger"] = wasmExports["org_jetbrains_skia_skottie_AnimationBuilder__1nSetLogger"])(a0, a1);
+var org_jetbrains_skia_ImageFilter__1nMakeBlur = Module["org_jetbrains_skia_ImageFilter__1nMakeBlur"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_ImageFilter__1nMakeBlur = Module["org_jetbrains_skia_ImageFilter__1nMakeBlur"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeBlur"])(a0, a1, a2, a3, a4);
 
-var org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromString = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromString"] = (a0, a1) => (org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromString = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromString"] = wasmExports["org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromString"])(a0, a1);
+var org_jetbrains_skia_ImageFilter__1nMakeColorFilter = Module["org_jetbrains_skia_ImageFilter__1nMakeColorFilter"] = (a0, a1, a2) => (org_jetbrains_skia_ImageFilter__1nMakeColorFilter = Module["org_jetbrains_skia_ImageFilter__1nMakeColorFilter"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeColorFilter"])(a0, a1, a2);
 
-var org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromFile = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromFile"] = (a0, a1) => (org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromFile = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromFile"] = wasmExports["org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromFile"])(a0, a1);
+var org_jetbrains_skia_ImageFilter__1nMakeCompose = Module["org_jetbrains_skia_ImageFilter__1nMakeCompose"] = (a0, a1) => (org_jetbrains_skia_ImageFilter__1nMakeCompose = Module["org_jetbrains_skia_ImageFilter__1nMakeCompose"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeCompose"])(a0, a1);
 
-var org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromData = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromData"] = (a0, a1) => (org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromData = Module["org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromData"] = wasmExports["org_jetbrains_skia_skottie_AnimationBuilder__1nBuildFromData"])(a0, a1);
+var org_jetbrains_skia_ImageFilter__1nMakeDisplacementMap = Module["org_jetbrains_skia_ImageFilter__1nMakeDisplacementMap"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_ImageFilter__1nMakeDisplacementMap = Module["org_jetbrains_skia_ImageFilter__1nMakeDisplacementMap"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeDisplacementMap"])(a0, a1, a2, a3, a4, a5);
 
-var org_jetbrains_skia_skottie_Logger__1nMake = Module["org_jetbrains_skia_skottie_Logger__1nMake"] = () => (org_jetbrains_skia_skottie_Logger__1nMake = Module["org_jetbrains_skia_skottie_Logger__1nMake"] = wasmExports["org_jetbrains_skia_skottie_Logger__1nMake"])();
+var org_jetbrains_skia_ImageFilter__1nMakeDropShadow = Module["org_jetbrains_skia_ImageFilter__1nMakeDropShadow"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_ImageFilter__1nMakeDropShadow = Module["org_jetbrains_skia_ImageFilter__1nMakeDropShadow"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeDropShadow"])(a0, a1, a2, a3, a4, a5, a6);
 
-var org_jetbrains_skia_skottie_Logger__1nInit = Module["org_jetbrains_skia_skottie_Logger__1nInit"] = (a0, a1) => (org_jetbrains_skia_skottie_Logger__1nInit = Module["org_jetbrains_skia_skottie_Logger__1nInit"] = wasmExports["org_jetbrains_skia_skottie_Logger__1nInit"])(a0, a1);
+var org_jetbrains_skia_ImageFilter__1nMakeDropShadowOnly = Module["org_jetbrains_skia_ImageFilter__1nMakeDropShadowOnly"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_ImageFilter__1nMakeDropShadowOnly = Module["org_jetbrains_skia_ImageFilter__1nMakeDropShadowOnly"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeDropShadowOnly"])(a0, a1, a2, a3, a4, a5, a6);
 
-var org_jetbrains_skia_skottie_Logger__1nGetLogMessage = Module["org_jetbrains_skia_skottie_Logger__1nGetLogMessage"] = a0 => (org_jetbrains_skia_skottie_Logger__1nGetLogMessage = Module["org_jetbrains_skia_skottie_Logger__1nGetLogMessage"] = wasmExports["org_jetbrains_skia_skottie_Logger__1nGetLogMessage"])(a0);
+var org_jetbrains_skia_ImageFilter__1nMakeImage = Module["org_jetbrains_skia_ImageFilter__1nMakeImage"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) => (org_jetbrains_skia_ImageFilter__1nMakeImage = Module["org_jetbrains_skia_ImageFilter__1nMakeImage"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeImage"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
 
-var org_jetbrains_skia_skottie_Logger__1nGetLogJson = Module["org_jetbrains_skia_skottie_Logger__1nGetLogJson"] = a0 => (org_jetbrains_skia_skottie_Logger__1nGetLogJson = Module["org_jetbrains_skia_skottie_Logger__1nGetLogJson"] = wasmExports["org_jetbrains_skia_skottie_Logger__1nGetLogJson"])(a0);
+var org_jetbrains_skia_ImageFilter__1nMakeMagnifier = Module["org_jetbrains_skia_ImageFilter__1nMakeMagnifier"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) => (org_jetbrains_skia_ImageFilter__1nMakeMagnifier = Module["org_jetbrains_skia_ImageFilter__1nMakeMagnifier"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeMagnifier"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
 
-var org_jetbrains_skia_skottie_Logger__1nGetLogLevel = Module["org_jetbrains_skia_skottie_Logger__1nGetLogLevel"] = a0 => (org_jetbrains_skia_skottie_Logger__1nGetLogLevel = Module["org_jetbrains_skia_skottie_Logger__1nGetLogLevel"] = wasmExports["org_jetbrains_skia_skottie_Logger__1nGetLogLevel"])(a0);
+var org_jetbrains_skia_ImageFilter__1nMakeMatrixConvolution = Module["org_jetbrains_skia_ImageFilter__1nMakeMatrixConvolution"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) => (org_jetbrains_skia_ImageFilter__1nMakeMatrixConvolution = Module["org_jetbrains_skia_ImageFilter__1nMakeMatrixConvolution"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeMatrixConvolution"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
 
-var org_jetbrains_skia_skottie_Animation__1nGetFinalizer = Module["org_jetbrains_skia_skottie_Animation__1nGetFinalizer"] = () => (org_jetbrains_skia_skottie_Animation__1nGetFinalizer = Module["org_jetbrains_skia_skottie_Animation__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nGetFinalizer"])();
+var org_jetbrains_skia_ImageFilter__1nMakeMatrixTransform = Module["org_jetbrains_skia_ImageFilter__1nMakeMatrixTransform"] = (a0, a1, a2, a3) => (org_jetbrains_skia_ImageFilter__1nMakeMatrixTransform = Module["org_jetbrains_skia_ImageFilter__1nMakeMatrixTransform"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeMatrixTransform"])(a0, a1, a2, a3);
 
-var org_jetbrains_skia_skottie_Animation__1nMakeFromString = Module["org_jetbrains_skia_skottie_Animation__1nMakeFromString"] = a0 => (org_jetbrains_skia_skottie_Animation__1nMakeFromString = Module["org_jetbrains_skia_skottie_Animation__1nMakeFromString"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nMakeFromString"])(a0);
+var org_jetbrains_skia_ImageFilter__1nMakeMerge = Module["org_jetbrains_skia_ImageFilter__1nMakeMerge"] = (a0, a1, a2) => (org_jetbrains_skia_ImageFilter__1nMakeMerge = Module["org_jetbrains_skia_ImageFilter__1nMakeMerge"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeMerge"])(a0, a1, a2);
 
-var org_jetbrains_skia_skottie_Animation__1nMakeFromFile = Module["org_jetbrains_skia_skottie_Animation__1nMakeFromFile"] = a0 => (org_jetbrains_skia_skottie_Animation__1nMakeFromFile = Module["org_jetbrains_skia_skottie_Animation__1nMakeFromFile"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nMakeFromFile"])(a0);
+var org_jetbrains_skia_ImageFilter__1nMakeOffset = Module["org_jetbrains_skia_ImageFilter__1nMakeOffset"] = (a0, a1, a2, a3) => (org_jetbrains_skia_ImageFilter__1nMakeOffset = Module["org_jetbrains_skia_ImageFilter__1nMakeOffset"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeOffset"])(a0, a1, a2, a3);
 
-var org_jetbrains_skia_skottie_Animation__1nMakeFromData = Module["org_jetbrains_skia_skottie_Animation__1nMakeFromData"] = a0 => (org_jetbrains_skia_skottie_Animation__1nMakeFromData = Module["org_jetbrains_skia_skottie_Animation__1nMakeFromData"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nMakeFromData"])(a0);
+var org_jetbrains_skia_ImageFilter__1nMakeShader = Module["org_jetbrains_skia_ImageFilter__1nMakeShader"] = (a0, a1, a2) => (org_jetbrains_skia_ImageFilter__1nMakeShader = Module["org_jetbrains_skia_ImageFilter__1nMakeShader"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeShader"])(a0, a1, a2);
 
-var org_jetbrains_skia_skottie_Animation__1nRender = Module["org_jetbrains_skia_skottie_Animation__1nRender"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_skottie_Animation__1nRender = Module["org_jetbrains_skia_skottie_Animation__1nRender"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nRender"])(a0, a1, a2, a3, a4, a5, a6);
+var org_jetbrains_skia_ImageFilter__1nMakePicture = Module["org_jetbrains_skia_ImageFilter__1nMakePicture"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_ImageFilter__1nMakePicture = Module["org_jetbrains_skia_ImageFilter__1nMakePicture"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakePicture"])(a0, a1, a2, a3, a4);
 
-var org_jetbrains_skia_skottie_Animation__1nSeek = Module["org_jetbrains_skia_skottie_Animation__1nSeek"] = (a0, a1, a2) => (org_jetbrains_skia_skottie_Animation__1nSeek = Module["org_jetbrains_skia_skottie_Animation__1nSeek"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nSeek"])(a0, a1, a2);
+var org_jetbrains_skia_ImageFilter__1nMakeRuntimeShader = Module["org_jetbrains_skia_ImageFilter__1nMakeRuntimeShader"] = (a0, a1, a2) => (org_jetbrains_skia_ImageFilter__1nMakeRuntimeShader = Module["org_jetbrains_skia_ImageFilter__1nMakeRuntimeShader"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeRuntimeShader"])(a0, a1, a2);
 
-var org_jetbrains_skia_skottie_Animation__1nSeekFrame = Module["org_jetbrains_skia_skottie_Animation__1nSeekFrame"] = (a0, a1, a2) => (org_jetbrains_skia_skottie_Animation__1nSeekFrame = Module["org_jetbrains_skia_skottie_Animation__1nSeekFrame"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nSeekFrame"])(a0, a1, a2);
+var org_jetbrains_skia_ImageFilter__1nMakeRuntimeShaderFromArray = Module["org_jetbrains_skia_ImageFilter__1nMakeRuntimeShaderFromArray"] = (a0, a1, a2, a3) => (org_jetbrains_skia_ImageFilter__1nMakeRuntimeShaderFromArray = Module["org_jetbrains_skia_ImageFilter__1nMakeRuntimeShaderFromArray"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeRuntimeShaderFromArray"])(a0, a1, a2, a3);
 
-var org_jetbrains_skia_skottie_Animation__1nSeekFrameTime = Module["org_jetbrains_skia_skottie_Animation__1nSeekFrameTime"] = (a0, a1, a2) => (org_jetbrains_skia_skottie_Animation__1nSeekFrameTime = Module["org_jetbrains_skia_skottie_Animation__1nSeekFrameTime"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nSeekFrameTime"])(a0, a1, a2);
+var org_jetbrains_skia_ImageFilter__1nMakeTile = Module["org_jetbrains_skia_ImageFilter__1nMakeTile"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8) => (org_jetbrains_skia_ImageFilter__1nMakeTile = Module["org_jetbrains_skia_ImageFilter__1nMakeTile"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeTile"])(a0, a1, a2, a3, a4, a5, a6, a7, a8);
 
-var org_jetbrains_skia_skottie_Animation__1nGetDuration = Module["org_jetbrains_skia_skottie_Animation__1nGetDuration"] = a0 => (org_jetbrains_skia_skottie_Animation__1nGetDuration = Module["org_jetbrains_skia_skottie_Animation__1nGetDuration"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nGetDuration"])(a0);
+var org_jetbrains_skia_ImageFilter__1nMakeDilate = Module["org_jetbrains_skia_ImageFilter__1nMakeDilate"] = (a0, a1, a2, a3) => (org_jetbrains_skia_ImageFilter__1nMakeDilate = Module["org_jetbrains_skia_ImageFilter__1nMakeDilate"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeDilate"])(a0, a1, a2, a3);
 
-var org_jetbrains_skia_skottie_Animation__1nGetFPS = Module["org_jetbrains_skia_skottie_Animation__1nGetFPS"] = a0 => (org_jetbrains_skia_skottie_Animation__1nGetFPS = Module["org_jetbrains_skia_skottie_Animation__1nGetFPS"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nGetFPS"])(a0);
+var org_jetbrains_skia_ImageFilter__1nMakeErode = Module["org_jetbrains_skia_ImageFilter__1nMakeErode"] = (a0, a1, a2, a3) => (org_jetbrains_skia_ImageFilter__1nMakeErode = Module["org_jetbrains_skia_ImageFilter__1nMakeErode"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeErode"])(a0, a1, a2, a3);
 
-var org_jetbrains_skia_skottie_Animation__1nGetInPoint = Module["org_jetbrains_skia_skottie_Animation__1nGetInPoint"] = a0 => (org_jetbrains_skia_skottie_Animation__1nGetInPoint = Module["org_jetbrains_skia_skottie_Animation__1nGetInPoint"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nGetInPoint"])(a0);
+var org_jetbrains_skia_ImageFilter__1nMakeDistantLitDiffuse = Module["org_jetbrains_skia_ImageFilter__1nMakeDistantLitDiffuse"] = (a0, a1, a2, a3, a4, a5, a6, a7) => (org_jetbrains_skia_ImageFilter__1nMakeDistantLitDiffuse = Module["org_jetbrains_skia_ImageFilter__1nMakeDistantLitDiffuse"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeDistantLitDiffuse"])(a0, a1, a2, a3, a4, a5, a6, a7);
 
-var org_jetbrains_skia_skottie_Animation__1nGetOutPoint = Module["org_jetbrains_skia_skottie_Animation__1nGetOutPoint"] = a0 => (org_jetbrains_skia_skottie_Animation__1nGetOutPoint = Module["org_jetbrains_skia_skottie_Animation__1nGetOutPoint"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nGetOutPoint"])(a0);
+var org_jetbrains_skia_ImageFilter__1nMakePointLitDiffuse = Module["org_jetbrains_skia_ImageFilter__1nMakePointLitDiffuse"] = (a0, a1, a2, a3, a4, a5, a6, a7) => (org_jetbrains_skia_ImageFilter__1nMakePointLitDiffuse = Module["org_jetbrains_skia_ImageFilter__1nMakePointLitDiffuse"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakePointLitDiffuse"])(a0, a1, a2, a3, a4, a5, a6, a7);
 
-var org_jetbrains_skia_skottie_Animation__1nGetVersion = Module["org_jetbrains_skia_skottie_Animation__1nGetVersion"] = a0 => (org_jetbrains_skia_skottie_Animation__1nGetVersion = Module["org_jetbrains_skia_skottie_Animation__1nGetVersion"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nGetVersion"])(a0);
+var org_jetbrains_skia_ImageFilter__1nMakeSpotLitDiffuse = Module["org_jetbrains_skia_ImageFilter__1nMakeSpotLitDiffuse"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12) => (org_jetbrains_skia_ImageFilter__1nMakeSpotLitDiffuse = Module["org_jetbrains_skia_ImageFilter__1nMakeSpotLitDiffuse"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeSpotLitDiffuse"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
 
-var org_jetbrains_skia_skottie_Animation__1nGetSize = Module["org_jetbrains_skia_skottie_Animation__1nGetSize"] = (a0, a1) => (org_jetbrains_skia_skottie_Animation__1nGetSize = Module["org_jetbrains_skia_skottie_Animation__1nGetSize"] = wasmExports["org_jetbrains_skia_skottie_Animation__1nGetSize"])(a0, a1);
+var org_jetbrains_skia_ImageFilter__1nMakeDistantLitSpecular = Module["org_jetbrains_skia_ImageFilter__1nMakeDistantLitSpecular"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8) => (org_jetbrains_skia_ImageFilter__1nMakeDistantLitSpecular = Module["org_jetbrains_skia_ImageFilter__1nMakeDistantLitSpecular"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeDistantLitSpecular"])(a0, a1, a2, a3, a4, a5, a6, a7, a8);
 
-var org_jetbrains_skia_PathMeasure__1nGetFinalizer = Module["org_jetbrains_skia_PathMeasure__1nGetFinalizer"] = () => (org_jetbrains_skia_PathMeasure__1nGetFinalizer = Module["org_jetbrains_skia_PathMeasure__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_PathMeasure__1nGetFinalizer"])();
+var org_jetbrains_skia_ImageFilter__1nMakePointLitSpecular = Module["org_jetbrains_skia_ImageFilter__1nMakePointLitSpecular"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8) => (org_jetbrains_skia_ImageFilter__1nMakePointLitSpecular = Module["org_jetbrains_skia_ImageFilter__1nMakePointLitSpecular"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakePointLitSpecular"])(a0, a1, a2, a3, a4, a5, a6, a7, a8);
 
-var org_jetbrains_skia_PathMeasure__1nMake = Module["org_jetbrains_skia_PathMeasure__1nMake"] = () => (org_jetbrains_skia_PathMeasure__1nMake = Module["org_jetbrains_skia_PathMeasure__1nMake"] = wasmExports["org_jetbrains_skia_PathMeasure__1nMake"])();
+var org_jetbrains_skia_ImageFilter__1nMakeSpotLitSpecular = Module["org_jetbrains_skia_ImageFilter__1nMakeSpotLitSpecular"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13) => (org_jetbrains_skia_ImageFilter__1nMakeSpotLitSpecular = Module["org_jetbrains_skia_ImageFilter__1nMakeSpotLitSpecular"] = wasmExports["org_jetbrains_skia_ImageFilter__1nMakeSpotLitSpecular"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13);
 
-var org_jetbrains_skia_PathMeasure__1nMakePath = Module["org_jetbrains_skia_PathMeasure__1nMakePath"] = (a0, a1, a2) => (org_jetbrains_skia_PathMeasure__1nMakePath = Module["org_jetbrains_skia_PathMeasure__1nMakePath"] = wasmExports["org_jetbrains_skia_PathMeasure__1nMakePath"])(a0, a1, a2);
+var org_jetbrains_skia_icu_Unicode__1nCharDirection = Module["org_jetbrains_skia_icu_Unicode__1nCharDirection"] = a0 => (org_jetbrains_skia_icu_Unicode__1nCharDirection = Module["org_jetbrains_skia_icu_Unicode__1nCharDirection"] = wasmExports["org_jetbrains_skia_icu_Unicode__1nCharDirection"])(a0);
 
-var org_jetbrains_skia_PathMeasure__1nSetPath = Module["org_jetbrains_skia_PathMeasure__1nSetPath"] = (a0, a1, a2) => (org_jetbrains_skia_PathMeasure__1nSetPath = Module["org_jetbrains_skia_PathMeasure__1nSetPath"] = wasmExports["org_jetbrains_skia_PathMeasure__1nSetPath"])(a0, a1, a2);
+var org_jetbrains_skia_icu_Unicode__1nCodePointHasBinaryProperty = Module["org_jetbrains_skia_icu_Unicode__1nCodePointHasBinaryProperty"] = (a0, a1) => (org_jetbrains_skia_icu_Unicode__1nCodePointHasBinaryProperty = Module["org_jetbrains_skia_icu_Unicode__1nCodePointHasBinaryProperty"] = wasmExports["org_jetbrains_skia_icu_Unicode__1nCodePointHasBinaryProperty"])(a0, a1);
 
-var org_jetbrains_skia_PathMeasure__1nGetLength = Module["org_jetbrains_skia_PathMeasure__1nGetLength"] = a0 => (org_jetbrains_skia_PathMeasure__1nGetLength = Module["org_jetbrains_skia_PathMeasure__1nGetLength"] = wasmExports["org_jetbrains_skia_PathMeasure__1nGetLength"])(a0);
+var org_jetbrains_skia_Pixmap__1nGetFinalizer = Module["org_jetbrains_skia_Pixmap__1nGetFinalizer"] = () => (org_jetbrains_skia_Pixmap__1nGetFinalizer = Module["org_jetbrains_skia_Pixmap__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_Pixmap__1nGetFinalizer"])();
 
-var org_jetbrains_skia_PathMeasure__1nGetPosition = Module["org_jetbrains_skia_PathMeasure__1nGetPosition"] = (a0, a1, a2) => (org_jetbrains_skia_PathMeasure__1nGetPosition = Module["org_jetbrains_skia_PathMeasure__1nGetPosition"] = wasmExports["org_jetbrains_skia_PathMeasure__1nGetPosition"])(a0, a1, a2);
+var org_jetbrains_skia_Pixmap__1nMakeNull = Module["org_jetbrains_skia_Pixmap__1nMakeNull"] = () => (org_jetbrains_skia_Pixmap__1nMakeNull = Module["org_jetbrains_skia_Pixmap__1nMakeNull"] = wasmExports["org_jetbrains_skia_Pixmap__1nMakeNull"])();
 
-var org_jetbrains_skia_PathMeasure__1nGetTangent = Module["org_jetbrains_skia_PathMeasure__1nGetTangent"] = (a0, a1, a2) => (org_jetbrains_skia_PathMeasure__1nGetTangent = Module["org_jetbrains_skia_PathMeasure__1nGetTangent"] = wasmExports["org_jetbrains_skia_PathMeasure__1nGetTangent"])(a0, a1, a2);
+var org_jetbrains_skia_Pixmap__1nMake = Module["org_jetbrains_skia_Pixmap__1nMake"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Pixmap__1nMake = Module["org_jetbrains_skia_Pixmap__1nMake"] = wasmExports["org_jetbrains_skia_Pixmap__1nMake"])(a0, a1, a2, a3, a4, a5, a6);
 
-var org_jetbrains_skia_PathMeasure__1nGetRSXform = Module["org_jetbrains_skia_PathMeasure__1nGetRSXform"] = (a0, a1, a2) => (org_jetbrains_skia_PathMeasure__1nGetRSXform = Module["org_jetbrains_skia_PathMeasure__1nGetRSXform"] = wasmExports["org_jetbrains_skia_PathMeasure__1nGetRSXform"])(a0, a1, a2);
+var org_jetbrains_skia_Pixmap__1nReset = Module["org_jetbrains_skia_Pixmap__1nReset"] = a0 => (org_jetbrains_skia_Pixmap__1nReset = Module["org_jetbrains_skia_Pixmap__1nReset"] = wasmExports["org_jetbrains_skia_Pixmap__1nReset"])(a0);
 
-var org_jetbrains_skia_PathMeasure__1nGetMatrix = Module["org_jetbrains_skia_PathMeasure__1nGetMatrix"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_PathMeasure__1nGetMatrix = Module["org_jetbrains_skia_PathMeasure__1nGetMatrix"] = wasmExports["org_jetbrains_skia_PathMeasure__1nGetMatrix"])(a0, a1, a2, a3, a4);
+var org_jetbrains_skia_Pixmap__1nResetWithInfo = Module["org_jetbrains_skia_Pixmap__1nResetWithInfo"] = (a0, a1, a2, a3, a4, a5, a6, a7) => (org_jetbrains_skia_Pixmap__1nResetWithInfo = Module["org_jetbrains_skia_Pixmap__1nResetWithInfo"] = wasmExports["org_jetbrains_skia_Pixmap__1nResetWithInfo"])(a0, a1, a2, a3, a4, a5, a6, a7);
 
-var org_jetbrains_skia_PathMeasure__1nGetSegment = Module["org_jetbrains_skia_PathMeasure__1nGetSegment"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_PathMeasure__1nGetSegment = Module["org_jetbrains_skia_PathMeasure__1nGetSegment"] = wasmExports["org_jetbrains_skia_PathMeasure__1nGetSegment"])(a0, a1, a2, a3, a4);
+var org_jetbrains_skia_Pixmap__1nSetColorSpace = Module["org_jetbrains_skia_Pixmap__1nSetColorSpace"] = (a0, a1) => (org_jetbrains_skia_Pixmap__1nSetColorSpace = Module["org_jetbrains_skia_Pixmap__1nSetColorSpace"] = wasmExports["org_jetbrains_skia_Pixmap__1nSetColorSpace"])(a0, a1);
 
-var org_jetbrains_skia_PathMeasure__1nIsClosed = Module["org_jetbrains_skia_PathMeasure__1nIsClosed"] = a0 => (org_jetbrains_skia_PathMeasure__1nIsClosed = Module["org_jetbrains_skia_PathMeasure__1nIsClosed"] = wasmExports["org_jetbrains_skia_PathMeasure__1nIsClosed"])(a0);
+var org_jetbrains_skia_Pixmap__1nExtractSubset = Module["org_jetbrains_skia_Pixmap__1nExtractSubset"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Pixmap__1nExtractSubset = Module["org_jetbrains_skia_Pixmap__1nExtractSubset"] = wasmExports["org_jetbrains_skia_Pixmap__1nExtractSubset"])(a0, a1, a2, a3, a4, a5);
 
-var org_jetbrains_skia_PathMeasure__1nNextContour = Module["org_jetbrains_skia_PathMeasure__1nNextContour"] = a0 => (org_jetbrains_skia_PathMeasure__1nNextContour = Module["org_jetbrains_skia_PathMeasure__1nNextContour"] = wasmExports["org_jetbrains_skia_PathMeasure__1nNextContour"])(a0);
+var org_jetbrains_skia_Pixmap__1nGetInfo = Module["org_jetbrains_skia_Pixmap__1nGetInfo"] = (a0, a1, a2) => (org_jetbrains_skia_Pixmap__1nGetInfo = Module["org_jetbrains_skia_Pixmap__1nGetInfo"] = wasmExports["org_jetbrains_skia_Pixmap__1nGetInfo"])(a0, a1, a2);
 
-var org_jetbrains_skia_PathSegmentIterator__1nMake = Module["org_jetbrains_skia_PathSegmentIterator__1nMake"] = (a0, a1) => (org_jetbrains_skia_PathSegmentIterator__1nMake = Module["org_jetbrains_skia_PathSegmentIterator__1nMake"] = wasmExports["org_jetbrains_skia_PathSegmentIterator__1nMake"])(a0, a1);
+var org_jetbrains_skia_Pixmap__1nGetRowBytes = Module["org_jetbrains_skia_Pixmap__1nGetRowBytes"] = a0 => (org_jetbrains_skia_Pixmap__1nGetRowBytes = Module["org_jetbrains_skia_Pixmap__1nGetRowBytes"] = wasmExports["org_jetbrains_skia_Pixmap__1nGetRowBytes"])(a0);
 
-var org_jetbrains_skia_PathSegmentIterator__1nGetFinalizer = Module["org_jetbrains_skia_PathSegmentIterator__1nGetFinalizer"] = () => (org_jetbrains_skia_PathSegmentIterator__1nGetFinalizer = Module["org_jetbrains_skia_PathSegmentIterator__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_PathSegmentIterator__1nGetFinalizer"])();
+var org_jetbrains_skia_Pixmap__1nGetAddr = Module["org_jetbrains_skia_Pixmap__1nGetAddr"] = a0 => (org_jetbrains_skia_Pixmap__1nGetAddr = Module["org_jetbrains_skia_Pixmap__1nGetAddr"] = wasmExports["org_jetbrains_skia_Pixmap__1nGetAddr"])(a0);
 
-var org_jetbrains_skia_PathSegmentIterator__1nNext = Module["org_jetbrains_skia_PathSegmentIterator__1nNext"] = (a0, a1) => (org_jetbrains_skia_PathSegmentIterator__1nNext = Module["org_jetbrains_skia_PathSegmentIterator__1nNext"] = wasmExports["org_jetbrains_skia_PathSegmentIterator__1nNext"])(a0, a1);
+var org_jetbrains_skia_Pixmap__1nGetRowBytesAsPixels = Module["org_jetbrains_skia_Pixmap__1nGetRowBytesAsPixels"] = a0 => (org_jetbrains_skia_Pixmap__1nGetRowBytesAsPixels = Module["org_jetbrains_skia_Pixmap__1nGetRowBytesAsPixels"] = wasmExports["org_jetbrains_skia_Pixmap__1nGetRowBytesAsPixels"])(a0);
 
-var org_jetbrains_skia_ManagedString__1nGetFinalizer = Module["org_jetbrains_skia_ManagedString__1nGetFinalizer"] = () => (org_jetbrains_skia_ManagedString__1nGetFinalizer = Module["org_jetbrains_skia_ManagedString__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_ManagedString__1nGetFinalizer"])();
+var org_jetbrains_skia_Pixmap__1nComputeByteSize = Module["org_jetbrains_skia_Pixmap__1nComputeByteSize"] = a0 => (org_jetbrains_skia_Pixmap__1nComputeByteSize = Module["org_jetbrains_skia_Pixmap__1nComputeByteSize"] = wasmExports["org_jetbrains_skia_Pixmap__1nComputeByteSize"])(a0);
 
-var org_jetbrains_skia_ManagedString__1nMake = Module["org_jetbrains_skia_ManagedString__1nMake"] = a0 => (org_jetbrains_skia_ManagedString__1nMake = Module["org_jetbrains_skia_ManagedString__1nMake"] = wasmExports["org_jetbrains_skia_ManagedString__1nMake"])(a0);
+var org_jetbrains_skia_Pixmap__1nComputeIsOpaque = Module["org_jetbrains_skia_Pixmap__1nComputeIsOpaque"] = a0 => (org_jetbrains_skia_Pixmap__1nComputeIsOpaque = Module["org_jetbrains_skia_Pixmap__1nComputeIsOpaque"] = wasmExports["org_jetbrains_skia_Pixmap__1nComputeIsOpaque"])(a0);
 
-var org_jetbrains_skia_ManagedString__nStringSize = Module["org_jetbrains_skia_ManagedString__nStringSize"] = a0 => (org_jetbrains_skia_ManagedString__nStringSize = Module["org_jetbrains_skia_ManagedString__nStringSize"] = wasmExports["org_jetbrains_skia_ManagedString__nStringSize"])(a0);
+var org_jetbrains_skia_Pixmap__1nGetColor = Module["org_jetbrains_skia_Pixmap__1nGetColor"] = (a0, a1, a2) => (org_jetbrains_skia_Pixmap__1nGetColor = Module["org_jetbrains_skia_Pixmap__1nGetColor"] = wasmExports["org_jetbrains_skia_Pixmap__1nGetColor"])(a0, a1, a2);
 
-var org_jetbrains_skia_ManagedString__nStringData = Module["org_jetbrains_skia_ManagedString__nStringData"] = (a0, a1, a2) => (org_jetbrains_skia_ManagedString__nStringData = Module["org_jetbrains_skia_ManagedString__nStringData"] = wasmExports["org_jetbrains_skia_ManagedString__nStringData"])(a0, a1, a2);
+var org_jetbrains_skia_Pixmap__1nGetAlphaF = Module["org_jetbrains_skia_Pixmap__1nGetAlphaF"] = (a0, a1, a2) => (org_jetbrains_skia_Pixmap__1nGetAlphaF = Module["org_jetbrains_skia_Pixmap__1nGetAlphaF"] = wasmExports["org_jetbrains_skia_Pixmap__1nGetAlphaF"])(a0, a1, a2);
 
-var org_jetbrains_skia_ManagedString__1nInsert = Module["org_jetbrains_skia_ManagedString__1nInsert"] = (a0, a1, a2) => (org_jetbrains_skia_ManagedString__1nInsert = Module["org_jetbrains_skia_ManagedString__1nInsert"] = wasmExports["org_jetbrains_skia_ManagedString__1nInsert"])(a0, a1, a2);
+var org_jetbrains_skia_Pixmap__1nGetAddrAt = Module["org_jetbrains_skia_Pixmap__1nGetAddrAt"] = (a0, a1, a2) => (org_jetbrains_skia_Pixmap__1nGetAddrAt = Module["org_jetbrains_skia_Pixmap__1nGetAddrAt"] = wasmExports["org_jetbrains_skia_Pixmap__1nGetAddrAt"])(a0, a1, a2);
 
-var org_jetbrains_skia_ManagedString__1nAppend = Module["org_jetbrains_skia_ManagedString__1nAppend"] = (a0, a1) => (org_jetbrains_skia_ManagedString__1nAppend = Module["org_jetbrains_skia_ManagedString__1nAppend"] = wasmExports["org_jetbrains_skia_ManagedString__1nAppend"])(a0, a1);
+var org_jetbrains_skia_Pixmap__1nReadPixels = Module["org_jetbrains_skia_Pixmap__1nReadPixels"] = (a0, a1, a2, a3, a4, a5, a6, a7) => (org_jetbrains_skia_Pixmap__1nReadPixels = Module["org_jetbrains_skia_Pixmap__1nReadPixels"] = wasmExports["org_jetbrains_skia_Pixmap__1nReadPixels"])(a0, a1, a2, a3, a4, a5, a6, a7);
 
-var org_jetbrains_skia_ManagedString__1nRemoveSuffix = Module["org_jetbrains_skia_ManagedString__1nRemoveSuffix"] = (a0, a1) => (org_jetbrains_skia_ManagedString__1nRemoveSuffix = Module["org_jetbrains_skia_ManagedString__1nRemoveSuffix"] = wasmExports["org_jetbrains_skia_ManagedString__1nRemoveSuffix"])(a0, a1);
+var org_jetbrains_skia_Pixmap__1nReadPixelsFromPoint = Module["org_jetbrains_skia_Pixmap__1nReadPixelsFromPoint"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) => (org_jetbrains_skia_Pixmap__1nReadPixelsFromPoint = Module["org_jetbrains_skia_Pixmap__1nReadPixelsFromPoint"] = wasmExports["org_jetbrains_skia_Pixmap__1nReadPixelsFromPoint"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
 
-var org_jetbrains_skia_ManagedString__1nRemove = Module["org_jetbrains_skia_ManagedString__1nRemove"] = (a0, a1, a2) => (org_jetbrains_skia_ManagedString__1nRemove = Module["org_jetbrains_skia_ManagedString__1nRemove"] = wasmExports["org_jetbrains_skia_ManagedString__1nRemove"])(a0, a1, a2);
+var org_jetbrains_skia_Pixmap__1nReadPixelsToPixmap = Module["org_jetbrains_skia_Pixmap__1nReadPixelsToPixmap"] = (a0, a1) => (org_jetbrains_skia_Pixmap__1nReadPixelsToPixmap = Module["org_jetbrains_skia_Pixmap__1nReadPixelsToPixmap"] = wasmExports["org_jetbrains_skia_Pixmap__1nReadPixelsToPixmap"])(a0, a1);
 
-var org_jetbrains_skia_GraphicsKt__1nGetFontCacheLimit = Module["org_jetbrains_skia_GraphicsKt__1nGetFontCacheLimit"] = () => (org_jetbrains_skia_GraphicsKt__1nGetFontCacheLimit = Module["org_jetbrains_skia_GraphicsKt__1nGetFontCacheLimit"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nGetFontCacheLimit"])();
+var org_jetbrains_skia_Pixmap__1nReadPixelsToPixmapFromPoint = Module["org_jetbrains_skia_Pixmap__1nReadPixelsToPixmapFromPoint"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Pixmap__1nReadPixelsToPixmapFromPoint = Module["org_jetbrains_skia_Pixmap__1nReadPixelsToPixmapFromPoint"] = wasmExports["org_jetbrains_skia_Pixmap__1nReadPixelsToPixmapFromPoint"])(a0, a1, a2, a3);
 
-var org_jetbrains_skia_GraphicsKt__1nSetFontCacheLimit = Module["org_jetbrains_skia_GraphicsKt__1nSetFontCacheLimit"] = a0 => (org_jetbrains_skia_GraphicsKt__1nSetFontCacheLimit = Module["org_jetbrains_skia_GraphicsKt__1nSetFontCacheLimit"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nSetFontCacheLimit"])(a0);
+var org_jetbrains_skia_Pixmap__1nScalePixels = Module["org_jetbrains_skia_Pixmap__1nScalePixels"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Pixmap__1nScalePixels = Module["org_jetbrains_skia_Pixmap__1nScalePixels"] = wasmExports["org_jetbrains_skia_Pixmap__1nScalePixels"])(a0, a1, a2, a3);
 
-var org_jetbrains_skia_GraphicsKt__1nGetFontCacheUsed = Module["org_jetbrains_skia_GraphicsKt__1nGetFontCacheUsed"] = () => (org_jetbrains_skia_GraphicsKt__1nGetFontCacheUsed = Module["org_jetbrains_skia_GraphicsKt__1nGetFontCacheUsed"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nGetFontCacheUsed"])();
+var org_jetbrains_skia_Pixmap__1nErase = Module["org_jetbrains_skia_Pixmap__1nErase"] = (a0, a1) => (org_jetbrains_skia_Pixmap__1nErase = Module["org_jetbrains_skia_Pixmap__1nErase"] = wasmExports["org_jetbrains_skia_Pixmap__1nErase"])(a0, a1);
 
-var org_jetbrains_skia_GraphicsKt__1nGetFontCacheCountLimit = Module["org_jetbrains_skia_GraphicsKt__1nGetFontCacheCountLimit"] = () => (org_jetbrains_skia_GraphicsKt__1nGetFontCacheCountLimit = Module["org_jetbrains_skia_GraphicsKt__1nGetFontCacheCountLimit"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nGetFontCacheCountLimit"])();
+var org_jetbrains_skia_Pixmap__1nEraseSubset = Module["org_jetbrains_skia_Pixmap__1nEraseSubset"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Pixmap__1nEraseSubset = Module["org_jetbrains_skia_Pixmap__1nEraseSubset"] = wasmExports["org_jetbrains_skia_Pixmap__1nEraseSubset"])(a0, a1, a2, a3, a4, a5);
 
-var org_jetbrains_skia_GraphicsKt__1nSetFontCacheCountLimit = Module["org_jetbrains_skia_GraphicsKt__1nSetFontCacheCountLimit"] = a0 => (org_jetbrains_skia_GraphicsKt__1nSetFontCacheCountLimit = Module["org_jetbrains_skia_GraphicsKt__1nSetFontCacheCountLimit"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nSetFontCacheCountLimit"])(a0);
+var org_jetbrains_skia_TextBlobBuilder__1nGetFinalizer = Module["org_jetbrains_skia_TextBlobBuilder__1nGetFinalizer"] = () => (org_jetbrains_skia_TextBlobBuilder__1nGetFinalizer = Module["org_jetbrains_skia_TextBlobBuilder__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_TextBlobBuilder__1nGetFinalizer"])();
 
-var org_jetbrains_skia_GraphicsKt__1nGetFontCacheCountUsed = Module["org_jetbrains_skia_GraphicsKt__1nGetFontCacheCountUsed"] = () => (org_jetbrains_skia_GraphicsKt__1nGetFontCacheCountUsed = Module["org_jetbrains_skia_GraphicsKt__1nGetFontCacheCountUsed"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nGetFontCacheCountUsed"])();
+var org_jetbrains_skia_TextBlobBuilder__1nMake = Module["org_jetbrains_skia_TextBlobBuilder__1nMake"] = () => (org_jetbrains_skia_TextBlobBuilder__1nMake = Module["org_jetbrains_skia_TextBlobBuilder__1nMake"] = wasmExports["org_jetbrains_skia_TextBlobBuilder__1nMake"])();
 
-var org_jetbrains_skia_GraphicsKt__1nGetResourceCacheTotalByteLimit = Module["org_jetbrains_skia_GraphicsKt__1nGetResourceCacheTotalByteLimit"] = () => (org_jetbrains_skia_GraphicsKt__1nGetResourceCacheTotalByteLimit = Module["org_jetbrains_skia_GraphicsKt__1nGetResourceCacheTotalByteLimit"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nGetResourceCacheTotalByteLimit"])();
+var org_jetbrains_skia_TextBlobBuilder__1nBuild = Module["org_jetbrains_skia_TextBlobBuilder__1nBuild"] = a0 => (org_jetbrains_skia_TextBlobBuilder__1nBuild = Module["org_jetbrains_skia_TextBlobBuilder__1nBuild"] = wasmExports["org_jetbrains_skia_TextBlobBuilder__1nBuild"])(a0);
 
-var org_jetbrains_skia_GraphicsKt__1nSetResourceCacheTotalByteLimit = Module["org_jetbrains_skia_GraphicsKt__1nSetResourceCacheTotalByteLimit"] = a0 => (org_jetbrains_skia_GraphicsKt__1nSetResourceCacheTotalByteLimit = Module["org_jetbrains_skia_GraphicsKt__1nSetResourceCacheTotalByteLimit"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nSetResourceCacheTotalByteLimit"])(a0);
+var org_jetbrains_skia_TextBlobBuilder__1nAppendRun = Module["org_jetbrains_skia_TextBlobBuilder__1nAppendRun"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_TextBlobBuilder__1nAppendRun = Module["org_jetbrains_skia_TextBlobBuilder__1nAppendRun"] = wasmExports["org_jetbrains_skia_TextBlobBuilder__1nAppendRun"])(a0, a1, a2, a3, a4, a5, a6);
 
-var org_jetbrains_skia_GraphicsKt__1nGetResourceCacheSingleAllocationByteLimit = Module["org_jetbrains_skia_GraphicsKt__1nGetResourceCacheSingleAllocationByteLimit"] = () => (org_jetbrains_skia_GraphicsKt__1nGetResourceCacheSingleAllocationByteLimit = Module["org_jetbrains_skia_GraphicsKt__1nGetResourceCacheSingleAllocationByteLimit"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nGetResourceCacheSingleAllocationByteLimit"])();
+var org_jetbrains_skia_TextBlobBuilder__1nAppendRunPosH = Module["org_jetbrains_skia_TextBlobBuilder__1nAppendRunPosH"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_TextBlobBuilder__1nAppendRunPosH = Module["org_jetbrains_skia_TextBlobBuilder__1nAppendRunPosH"] = wasmExports["org_jetbrains_skia_TextBlobBuilder__1nAppendRunPosH"])(a0, a1, a2, a3, a4, a5, a6);
 
-var org_jetbrains_skia_GraphicsKt__1nSetResourceCacheSingleAllocationByteLimit = Module["org_jetbrains_skia_GraphicsKt__1nSetResourceCacheSingleAllocationByteLimit"] = a0 => (org_jetbrains_skia_GraphicsKt__1nSetResourceCacheSingleAllocationByteLimit = Module["org_jetbrains_skia_GraphicsKt__1nSetResourceCacheSingleAllocationByteLimit"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nSetResourceCacheSingleAllocationByteLimit"])(a0);
+var org_jetbrains_skia_TextBlobBuilder__1nAppendRunPos = Module["org_jetbrains_skia_TextBlobBuilder__1nAppendRunPos"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_TextBlobBuilder__1nAppendRunPos = Module["org_jetbrains_skia_TextBlobBuilder__1nAppendRunPos"] = wasmExports["org_jetbrains_skia_TextBlobBuilder__1nAppendRunPos"])(a0, a1, a2, a3, a4, a5);
 
-var org_jetbrains_skia_GraphicsKt__1nGetResourceCacheTotalBytesUsed = Module["org_jetbrains_skia_GraphicsKt__1nGetResourceCacheTotalBytesUsed"] = () => (org_jetbrains_skia_GraphicsKt__1nGetResourceCacheTotalBytesUsed = Module["org_jetbrains_skia_GraphicsKt__1nGetResourceCacheTotalBytesUsed"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nGetResourceCacheTotalBytesUsed"])();
+var org_jetbrains_skia_TextBlobBuilder__1nAppendRunRSXform = Module["org_jetbrains_skia_TextBlobBuilder__1nAppendRunRSXform"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_TextBlobBuilder__1nAppendRunRSXform = Module["org_jetbrains_skia_TextBlobBuilder__1nAppendRunRSXform"] = wasmExports["org_jetbrains_skia_TextBlobBuilder__1nAppendRunRSXform"])(a0, a1, a2, a3, a4);
 
-var org_jetbrains_skia_GraphicsKt__1nPurgeFontCache = Module["org_jetbrains_skia_GraphicsKt__1nPurgeFontCache"] = () => (org_jetbrains_skia_GraphicsKt__1nPurgeFontCache = Module["org_jetbrains_skia_GraphicsKt__1nPurgeFontCache"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nPurgeFontCache"])();
+var org_jetbrains_skia_TextLine__1nGetFinalizer = Module["org_jetbrains_skia_TextLine__1nGetFinalizer"] = () => (org_jetbrains_skia_TextLine__1nGetFinalizer = Module["org_jetbrains_skia_TextLine__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_TextLine__1nGetFinalizer"])();
 
-var org_jetbrains_skia_GraphicsKt__1nPurgeResourceCache = Module["org_jetbrains_skia_GraphicsKt__1nPurgeResourceCache"] = () => (org_jetbrains_skia_GraphicsKt__1nPurgeResourceCache = Module["org_jetbrains_skia_GraphicsKt__1nPurgeResourceCache"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nPurgeResourceCache"])();
+var org_jetbrains_skia_TextLine__1nGetAscent = Module["org_jetbrains_skia_TextLine__1nGetAscent"] = a0 => (org_jetbrains_skia_TextLine__1nGetAscent = Module["org_jetbrains_skia_TextLine__1nGetAscent"] = wasmExports["org_jetbrains_skia_TextLine__1nGetAscent"])(a0);
 
-var org_jetbrains_skia_GraphicsKt__1nPurgeAllCaches = Module["org_jetbrains_skia_GraphicsKt__1nPurgeAllCaches"] = () => (org_jetbrains_skia_GraphicsKt__1nPurgeAllCaches = Module["org_jetbrains_skia_GraphicsKt__1nPurgeAllCaches"] = wasmExports["org_jetbrains_skia_GraphicsKt__1nPurgeAllCaches"])();
+var org_jetbrains_skia_TextLine__1nGetCapHeight = Module["org_jetbrains_skia_TextLine__1nGetCapHeight"] = a0 => (org_jetbrains_skia_TextLine__1nGetCapHeight = Module["org_jetbrains_skia_TextLine__1nGetCapHeight"] = wasmExports["org_jetbrains_skia_TextLine__1nGetCapHeight"])(a0);
+
+var org_jetbrains_skia_TextLine__1nGetXHeight = Module["org_jetbrains_skia_TextLine__1nGetXHeight"] = a0 => (org_jetbrains_skia_TextLine__1nGetXHeight = Module["org_jetbrains_skia_TextLine__1nGetXHeight"] = wasmExports["org_jetbrains_skia_TextLine__1nGetXHeight"])(a0);
+
+var org_jetbrains_skia_TextLine__1nGetDescent = Module["org_jetbrains_skia_TextLine__1nGetDescent"] = a0 => (org_jetbrains_skia_TextLine__1nGetDescent = Module["org_jetbrains_skia_TextLine__1nGetDescent"] = wasmExports["org_jetbrains_skia_TextLine__1nGetDescent"])(a0);
+
+var org_jetbrains_skia_TextLine__1nGetLeading = Module["org_jetbrains_skia_TextLine__1nGetLeading"] = a0 => (org_jetbrains_skia_TextLine__1nGetLeading = Module["org_jetbrains_skia_TextLine__1nGetLeading"] = wasmExports["org_jetbrains_skia_TextLine__1nGetLeading"])(a0);
+
+var org_jetbrains_skia_TextLine__1nGetWidth = Module["org_jetbrains_skia_TextLine__1nGetWidth"] = a0 => (org_jetbrains_skia_TextLine__1nGetWidth = Module["org_jetbrains_skia_TextLine__1nGetWidth"] = wasmExports["org_jetbrains_skia_TextLine__1nGetWidth"])(a0);
+
+var org_jetbrains_skia_TextLine__1nGetHeight = Module["org_jetbrains_skia_TextLine__1nGetHeight"] = a0 => (org_jetbrains_skia_TextLine__1nGetHeight = Module["org_jetbrains_skia_TextLine__1nGetHeight"] = wasmExports["org_jetbrains_skia_TextLine__1nGetHeight"])(a0);
+
+var org_jetbrains_skia_TextLine__1nGetTextBlob = Module["org_jetbrains_skia_TextLine__1nGetTextBlob"] = a0 => (org_jetbrains_skia_TextLine__1nGetTextBlob = Module["org_jetbrains_skia_TextLine__1nGetTextBlob"] = wasmExports["org_jetbrains_skia_TextLine__1nGetTextBlob"])(a0);
+
+var org_jetbrains_skia_TextLine__1nGetGlyphsLength = Module["org_jetbrains_skia_TextLine__1nGetGlyphsLength"] = a0 => (org_jetbrains_skia_TextLine__1nGetGlyphsLength = Module["org_jetbrains_skia_TextLine__1nGetGlyphsLength"] = wasmExports["org_jetbrains_skia_TextLine__1nGetGlyphsLength"])(a0);
+
+var org_jetbrains_skia_TextLine__1nGetGlyphs = Module["org_jetbrains_skia_TextLine__1nGetGlyphs"] = (a0, a1, a2) => (org_jetbrains_skia_TextLine__1nGetGlyphs = Module["org_jetbrains_skia_TextLine__1nGetGlyphs"] = wasmExports["org_jetbrains_skia_TextLine__1nGetGlyphs"])(a0, a1, a2);
+
+var org_jetbrains_skia_TextLine__1nGetPositions = Module["org_jetbrains_skia_TextLine__1nGetPositions"] = (a0, a1) => (org_jetbrains_skia_TextLine__1nGetPositions = Module["org_jetbrains_skia_TextLine__1nGetPositions"] = wasmExports["org_jetbrains_skia_TextLine__1nGetPositions"])(a0, a1);
+
+var org_jetbrains_skia_TextLine__1nGetRunPositionsCount = Module["org_jetbrains_skia_TextLine__1nGetRunPositionsCount"] = a0 => (org_jetbrains_skia_TextLine__1nGetRunPositionsCount = Module["org_jetbrains_skia_TextLine__1nGetRunPositionsCount"] = wasmExports["org_jetbrains_skia_TextLine__1nGetRunPositionsCount"])(a0);
+
+var org_jetbrains_skia_TextLine__1nGetRunPositions = Module["org_jetbrains_skia_TextLine__1nGetRunPositions"] = (a0, a1) => (org_jetbrains_skia_TextLine__1nGetRunPositions = Module["org_jetbrains_skia_TextLine__1nGetRunPositions"] = wasmExports["org_jetbrains_skia_TextLine__1nGetRunPositions"])(a0, a1);
+
+var org_jetbrains_skia_TextLine__1nGetBreakPositionsCount = Module["org_jetbrains_skia_TextLine__1nGetBreakPositionsCount"] = a0 => (org_jetbrains_skia_TextLine__1nGetBreakPositionsCount = Module["org_jetbrains_skia_TextLine__1nGetBreakPositionsCount"] = wasmExports["org_jetbrains_skia_TextLine__1nGetBreakPositionsCount"])(a0);
+
+var org_jetbrains_skia_TextLine__1nGetBreakPositions = Module["org_jetbrains_skia_TextLine__1nGetBreakPositions"] = (a0, a1) => (org_jetbrains_skia_TextLine__1nGetBreakPositions = Module["org_jetbrains_skia_TextLine__1nGetBreakPositions"] = wasmExports["org_jetbrains_skia_TextLine__1nGetBreakPositions"])(a0, a1);
+
+var org_jetbrains_skia_TextLine__1nGetBreakOffsetsCount = Module["org_jetbrains_skia_TextLine__1nGetBreakOffsetsCount"] = a0 => (org_jetbrains_skia_TextLine__1nGetBreakOffsetsCount = Module["org_jetbrains_skia_TextLine__1nGetBreakOffsetsCount"] = wasmExports["org_jetbrains_skia_TextLine__1nGetBreakOffsetsCount"])(a0);
+
+var org_jetbrains_skia_TextLine__1nGetBreakOffsets = Module["org_jetbrains_skia_TextLine__1nGetBreakOffsets"] = (a0, a1) => (org_jetbrains_skia_TextLine__1nGetBreakOffsets = Module["org_jetbrains_skia_TextLine__1nGetBreakOffsets"] = wasmExports["org_jetbrains_skia_TextLine__1nGetBreakOffsets"])(a0, a1);
+
+var org_jetbrains_skia_TextLine__1nGetOffsetAtCoord = Module["org_jetbrains_skia_TextLine__1nGetOffsetAtCoord"] = (a0, a1) => (org_jetbrains_skia_TextLine__1nGetOffsetAtCoord = Module["org_jetbrains_skia_TextLine__1nGetOffsetAtCoord"] = wasmExports["org_jetbrains_skia_TextLine__1nGetOffsetAtCoord"])(a0, a1);
+
+var org_jetbrains_skia_TextLine__1nGetLeftOffsetAtCoord = Module["org_jetbrains_skia_TextLine__1nGetLeftOffsetAtCoord"] = (a0, a1) => (org_jetbrains_skia_TextLine__1nGetLeftOffsetAtCoord = Module["org_jetbrains_skia_TextLine__1nGetLeftOffsetAtCoord"] = wasmExports["org_jetbrains_skia_TextLine__1nGetLeftOffsetAtCoord"])(a0, a1);
+
+var org_jetbrains_skia_TextLine__1nGetCoordAtOffset = Module["org_jetbrains_skia_TextLine__1nGetCoordAtOffset"] = (a0, a1) => (org_jetbrains_skia_TextLine__1nGetCoordAtOffset = Module["org_jetbrains_skia_TextLine__1nGetCoordAtOffset"] = wasmExports["org_jetbrains_skia_TextLine__1nGetCoordAtOffset"])(a0, a1);
+
+var org_jetbrains_skia_ColorSpace__1nGetFinalizer = Module["org_jetbrains_skia_ColorSpace__1nGetFinalizer"] = () => (org_jetbrains_skia_ColorSpace__1nGetFinalizer = Module["org_jetbrains_skia_ColorSpace__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_ColorSpace__1nGetFinalizer"])();
+
+var org_jetbrains_skia_ColorSpace__1nMakeSRGB = Module["org_jetbrains_skia_ColorSpace__1nMakeSRGB"] = () => (org_jetbrains_skia_ColorSpace__1nMakeSRGB = Module["org_jetbrains_skia_ColorSpace__1nMakeSRGB"] = wasmExports["org_jetbrains_skia_ColorSpace__1nMakeSRGB"])();
+
+var org_jetbrains_skia_ColorSpace__1nMakeSRGBLinear = Module["org_jetbrains_skia_ColorSpace__1nMakeSRGBLinear"] = () => (org_jetbrains_skia_ColorSpace__1nMakeSRGBLinear = Module["org_jetbrains_skia_ColorSpace__1nMakeSRGBLinear"] = wasmExports["org_jetbrains_skia_ColorSpace__1nMakeSRGBLinear"])();
+
+var org_jetbrains_skia_ColorSpace__1nMakeDisplayP3 = Module["org_jetbrains_skia_ColorSpace__1nMakeDisplayP3"] = () => (org_jetbrains_skia_ColorSpace__1nMakeDisplayP3 = Module["org_jetbrains_skia_ColorSpace__1nMakeDisplayP3"] = wasmExports["org_jetbrains_skia_ColorSpace__1nMakeDisplayP3"])();
+
+var org_jetbrains_skia_ColorSpace__nConvert = Module["org_jetbrains_skia_ColorSpace__nConvert"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_ColorSpace__nConvert = Module["org_jetbrains_skia_ColorSpace__nConvert"] = wasmExports["org_jetbrains_skia_ColorSpace__nConvert"])(a0, a1, a2, a3, a4, a5, a6);
+
+var org_jetbrains_skia_ColorSpace__1nIsGammaCloseToSRGB = Module["org_jetbrains_skia_ColorSpace__1nIsGammaCloseToSRGB"] = a0 => (org_jetbrains_skia_ColorSpace__1nIsGammaCloseToSRGB = Module["org_jetbrains_skia_ColorSpace__1nIsGammaCloseToSRGB"] = wasmExports["org_jetbrains_skia_ColorSpace__1nIsGammaCloseToSRGB"])(a0);
+
+var org_jetbrains_skia_ColorSpace__1nIsGammaLinear = Module["org_jetbrains_skia_ColorSpace__1nIsGammaLinear"] = a0 => (org_jetbrains_skia_ColorSpace__1nIsGammaLinear = Module["org_jetbrains_skia_ColorSpace__1nIsGammaLinear"] = wasmExports["org_jetbrains_skia_ColorSpace__1nIsGammaLinear"])(a0);
+
+var org_jetbrains_skia_ColorSpace__1nIsSRGB = Module["org_jetbrains_skia_ColorSpace__1nIsSRGB"] = a0 => (org_jetbrains_skia_ColorSpace__1nIsSRGB = Module["org_jetbrains_skia_ColorSpace__1nIsSRGB"] = wasmExports["org_jetbrains_skia_ColorSpace__1nIsSRGB"])(a0);
+
+var org_jetbrains_skia_Surface__1nMakeRasterDirect = Module["org_jetbrains_skia_Surface__1nMakeRasterDirect"] = (a0, a1, a2, a3, a4, a5, a6, a7) => (org_jetbrains_skia_Surface__1nMakeRasterDirect = Module["org_jetbrains_skia_Surface__1nMakeRasterDirect"] = wasmExports["org_jetbrains_skia_Surface__1nMakeRasterDirect"])(a0, a1, a2, a3, a4, a5, a6, a7);
+
+var org_jetbrains_skia_Surface__1nMakeRasterDirectWithPixmap = Module["org_jetbrains_skia_Surface__1nMakeRasterDirectWithPixmap"] = (a0, a1) => (org_jetbrains_skia_Surface__1nMakeRasterDirectWithPixmap = Module["org_jetbrains_skia_Surface__1nMakeRasterDirectWithPixmap"] = wasmExports["org_jetbrains_skia_Surface__1nMakeRasterDirectWithPixmap"])(a0, a1);
+
+var org_jetbrains_skia_Surface__1nMakeRaster = Module["org_jetbrains_skia_Surface__1nMakeRaster"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Surface__1nMakeRaster = Module["org_jetbrains_skia_Surface__1nMakeRaster"] = wasmExports["org_jetbrains_skia_Surface__1nMakeRaster"])(a0, a1, a2, a3, a4, a5, a6);
+
+var org_jetbrains_skia_Surface__1nMakeRasterN32Premul = Module["org_jetbrains_skia_Surface__1nMakeRasterN32Premul"] = (a0, a1) => (org_jetbrains_skia_Surface__1nMakeRasterN32Premul = Module["org_jetbrains_skia_Surface__1nMakeRasterN32Premul"] = wasmExports["org_jetbrains_skia_Surface__1nMakeRasterN32Premul"])(a0, a1);
+
+var org_jetbrains_skia_Surface__1nMakeFromBackendRenderTarget = Module["org_jetbrains_skia_Surface__1nMakeFromBackendRenderTarget"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Surface__1nMakeFromBackendRenderTarget = Module["org_jetbrains_skia_Surface__1nMakeFromBackendRenderTarget"] = wasmExports["org_jetbrains_skia_Surface__1nMakeFromBackendRenderTarget"])(a0, a1, a2, a3, a4, a5);
+
+var org_jetbrains_skia_Surface__1nMakeFromMTKView = Module["org_jetbrains_skia_Surface__1nMakeFromMTKView"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Surface__1nMakeFromMTKView = Module["org_jetbrains_skia_Surface__1nMakeFromMTKView"] = wasmExports["org_jetbrains_skia_Surface__1nMakeFromMTKView"])(a0, a1, a2, a3, a4, a5, a6);
+
+var org_jetbrains_skia_Surface__1nMakeRenderTarget = Module["org_jetbrains_skia_Surface__1nMakeRenderTarget"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) => (org_jetbrains_skia_Surface__1nMakeRenderTarget = Module["org_jetbrains_skia_Surface__1nMakeRenderTarget"] = wasmExports["org_jetbrains_skia_Surface__1nMakeRenderTarget"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+
+var org_jetbrains_skia_Surface__1nMakeNull = Module["org_jetbrains_skia_Surface__1nMakeNull"] = (a0, a1) => (org_jetbrains_skia_Surface__1nMakeNull = Module["org_jetbrains_skia_Surface__1nMakeNull"] = wasmExports["org_jetbrains_skia_Surface__1nMakeNull"])(a0, a1);
+
+var org_jetbrains_skia_Surface__1nGetCanvas = Module["org_jetbrains_skia_Surface__1nGetCanvas"] = a0 => (org_jetbrains_skia_Surface__1nGetCanvas = Module["org_jetbrains_skia_Surface__1nGetCanvas"] = wasmExports["org_jetbrains_skia_Surface__1nGetCanvas"])(a0);
+
+var org_jetbrains_skia_Surface__1nGetWidth = Module["org_jetbrains_skia_Surface__1nGetWidth"] = a0 => (org_jetbrains_skia_Surface__1nGetWidth = Module["org_jetbrains_skia_Surface__1nGetWidth"] = wasmExports["org_jetbrains_skia_Surface__1nGetWidth"])(a0);
+
+var org_jetbrains_skia_Surface__1nGetHeight = Module["org_jetbrains_skia_Surface__1nGetHeight"] = a0 => (org_jetbrains_skia_Surface__1nGetHeight = Module["org_jetbrains_skia_Surface__1nGetHeight"] = wasmExports["org_jetbrains_skia_Surface__1nGetHeight"])(a0);
+
+var org_jetbrains_skia_Surface__1nMakeImageSnapshot = Module["org_jetbrains_skia_Surface__1nMakeImageSnapshot"] = a0 => (org_jetbrains_skia_Surface__1nMakeImageSnapshot = Module["org_jetbrains_skia_Surface__1nMakeImageSnapshot"] = wasmExports["org_jetbrains_skia_Surface__1nMakeImageSnapshot"])(a0);
+
+var org_jetbrains_skia_Surface__1nMakeImageSnapshotR = Module["org_jetbrains_skia_Surface__1nMakeImageSnapshotR"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Surface__1nMakeImageSnapshotR = Module["org_jetbrains_skia_Surface__1nMakeImageSnapshotR"] = wasmExports["org_jetbrains_skia_Surface__1nMakeImageSnapshotR"])(a0, a1, a2, a3, a4);
+
+var org_jetbrains_skia_Surface__1nGenerationId = Module["org_jetbrains_skia_Surface__1nGenerationId"] = a0 => (org_jetbrains_skia_Surface__1nGenerationId = Module["org_jetbrains_skia_Surface__1nGenerationId"] = wasmExports["org_jetbrains_skia_Surface__1nGenerationId"])(a0);
+
+var org_jetbrains_skia_Surface__1nReadPixelsToPixmap = Module["org_jetbrains_skia_Surface__1nReadPixelsToPixmap"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Surface__1nReadPixelsToPixmap = Module["org_jetbrains_skia_Surface__1nReadPixelsToPixmap"] = wasmExports["org_jetbrains_skia_Surface__1nReadPixelsToPixmap"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_Surface__1nReadPixels = Module["org_jetbrains_skia_Surface__1nReadPixels"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Surface__1nReadPixels = Module["org_jetbrains_skia_Surface__1nReadPixels"] = wasmExports["org_jetbrains_skia_Surface__1nReadPixels"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_Surface__1nWritePixelsFromPixmap = Module["org_jetbrains_skia_Surface__1nWritePixelsFromPixmap"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Surface__1nWritePixelsFromPixmap = Module["org_jetbrains_skia_Surface__1nWritePixelsFromPixmap"] = wasmExports["org_jetbrains_skia_Surface__1nWritePixelsFromPixmap"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_Surface__1nWritePixels = Module["org_jetbrains_skia_Surface__1nWritePixels"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Surface__1nWritePixels = Module["org_jetbrains_skia_Surface__1nWritePixels"] = wasmExports["org_jetbrains_skia_Surface__1nWritePixels"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_Surface__1nUnique = Module["org_jetbrains_skia_Surface__1nUnique"] = a0 => (org_jetbrains_skia_Surface__1nUnique = Module["org_jetbrains_skia_Surface__1nUnique"] = wasmExports["org_jetbrains_skia_Surface__1nUnique"])(a0);
+
+var org_jetbrains_skia_Surface__1nGetImageInfo = Module["org_jetbrains_skia_Surface__1nGetImageInfo"] = (a0, a1, a2) => (org_jetbrains_skia_Surface__1nGetImageInfo = Module["org_jetbrains_skia_Surface__1nGetImageInfo"] = wasmExports["org_jetbrains_skia_Surface__1nGetImageInfo"])(a0, a1, a2);
+
+var org_jetbrains_skia_Surface__1nMakeSurface = Module["org_jetbrains_skia_Surface__1nMakeSurface"] = (a0, a1, a2) => (org_jetbrains_skia_Surface__1nMakeSurface = Module["org_jetbrains_skia_Surface__1nMakeSurface"] = wasmExports["org_jetbrains_skia_Surface__1nMakeSurface"])(a0, a1, a2);
+
+var org_jetbrains_skia_Surface__1nMakeSurfaceI = Module["org_jetbrains_skia_Surface__1nMakeSurfaceI"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Surface__1nMakeSurfaceI = Module["org_jetbrains_skia_Surface__1nMakeSurfaceI"] = wasmExports["org_jetbrains_skia_Surface__1nMakeSurfaceI"])(a0, a1, a2, a3, a4, a5);
+
+var org_jetbrains_skia_Surface__1nDraw = Module["org_jetbrains_skia_Surface__1nDraw"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Surface__1nDraw = Module["org_jetbrains_skia_Surface__1nDraw"] = wasmExports["org_jetbrains_skia_Surface__1nDraw"])(a0, a1, a2, a3, a4, a5, a6);
+
+var org_jetbrains_skia_Surface__1nPeekPixels = Module["org_jetbrains_skia_Surface__1nPeekPixels"] = (a0, a1) => (org_jetbrains_skia_Surface__1nPeekPixels = Module["org_jetbrains_skia_Surface__1nPeekPixels"] = wasmExports["org_jetbrains_skia_Surface__1nPeekPixels"])(a0, a1);
+
+var org_jetbrains_skia_Surface__1nNotifyContentWillChange = Module["org_jetbrains_skia_Surface__1nNotifyContentWillChange"] = (a0, a1) => (org_jetbrains_skia_Surface__1nNotifyContentWillChange = Module["org_jetbrains_skia_Surface__1nNotifyContentWillChange"] = wasmExports["org_jetbrains_skia_Surface__1nNotifyContentWillChange"])(a0, a1);
+
+var org_jetbrains_skia_Surface__1nGetRecordingContext = Module["org_jetbrains_skia_Surface__1nGetRecordingContext"] = a0 => (org_jetbrains_skia_Surface__1nGetRecordingContext = Module["org_jetbrains_skia_Surface__1nGetRecordingContext"] = wasmExports["org_jetbrains_skia_Surface__1nGetRecordingContext"])(a0);
+
+var org_jetbrains_skia_Codec__1nGetFinalizer = Module["org_jetbrains_skia_Codec__1nGetFinalizer"] = () => (org_jetbrains_skia_Codec__1nGetFinalizer = Module["org_jetbrains_skia_Codec__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_Codec__1nGetFinalizer"])();
+
+var org_jetbrains_skia_Codec__1nMakeFromData = Module["org_jetbrains_skia_Codec__1nMakeFromData"] = a0 => (org_jetbrains_skia_Codec__1nMakeFromData = Module["org_jetbrains_skia_Codec__1nMakeFromData"] = wasmExports["org_jetbrains_skia_Codec__1nMakeFromData"])(a0);
+
+var org_jetbrains_skia_Codec__1nGetImageInfo = Module["org_jetbrains_skia_Codec__1nGetImageInfo"] = (a0, a1, a2) => (org_jetbrains_skia_Codec__1nGetImageInfo = Module["org_jetbrains_skia_Codec__1nGetImageInfo"] = wasmExports["org_jetbrains_skia_Codec__1nGetImageInfo"])(a0, a1, a2);
+
+var org_jetbrains_skia_Codec__1nGetSizeWidth = Module["org_jetbrains_skia_Codec__1nGetSizeWidth"] = a0 => (org_jetbrains_skia_Codec__1nGetSizeWidth = Module["org_jetbrains_skia_Codec__1nGetSizeWidth"] = wasmExports["org_jetbrains_skia_Codec__1nGetSizeWidth"])(a0);
+
+var org_jetbrains_skia_Codec__1nGetSizeHeight = Module["org_jetbrains_skia_Codec__1nGetSizeHeight"] = a0 => (org_jetbrains_skia_Codec__1nGetSizeHeight = Module["org_jetbrains_skia_Codec__1nGetSizeHeight"] = wasmExports["org_jetbrains_skia_Codec__1nGetSizeHeight"])(a0);
+
+var org_jetbrains_skia_Codec__1nGetEncodedOrigin = Module["org_jetbrains_skia_Codec__1nGetEncodedOrigin"] = a0 => (org_jetbrains_skia_Codec__1nGetEncodedOrigin = Module["org_jetbrains_skia_Codec__1nGetEncodedOrigin"] = wasmExports["org_jetbrains_skia_Codec__1nGetEncodedOrigin"])(a0);
+
+var org_jetbrains_skia_Codec__1nGetEncodedImageFormat = Module["org_jetbrains_skia_Codec__1nGetEncodedImageFormat"] = a0 => (org_jetbrains_skia_Codec__1nGetEncodedImageFormat = Module["org_jetbrains_skia_Codec__1nGetEncodedImageFormat"] = wasmExports["org_jetbrains_skia_Codec__1nGetEncodedImageFormat"])(a0);
+
+var org_jetbrains_skia_Codec__1nReadPixels = Module["org_jetbrains_skia_Codec__1nReadPixels"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Codec__1nReadPixels = Module["org_jetbrains_skia_Codec__1nReadPixels"] = wasmExports["org_jetbrains_skia_Codec__1nReadPixels"])(a0, a1, a2, a3);
+
+var org_jetbrains_skia_Codec__1nGetFrameCount = Module["org_jetbrains_skia_Codec__1nGetFrameCount"] = a0 => (org_jetbrains_skia_Codec__1nGetFrameCount = Module["org_jetbrains_skia_Codec__1nGetFrameCount"] = wasmExports["org_jetbrains_skia_Codec__1nGetFrameCount"])(a0);
+
+var org_jetbrains_skia_Codec__1nGetFrameInfo = Module["org_jetbrains_skia_Codec__1nGetFrameInfo"] = (a0, a1, a2) => (org_jetbrains_skia_Codec__1nGetFrameInfo = Module["org_jetbrains_skia_Codec__1nGetFrameInfo"] = wasmExports["org_jetbrains_skia_Codec__1nGetFrameInfo"])(a0, a1, a2);
+
+var org_jetbrains_skia_Codec__1nGetFramesInfo = Module["org_jetbrains_skia_Codec__1nGetFramesInfo"] = a0 => (org_jetbrains_skia_Codec__1nGetFramesInfo = Module["org_jetbrains_skia_Codec__1nGetFramesInfo"] = wasmExports["org_jetbrains_skia_Codec__1nGetFramesInfo"])(a0);
+
+var org_jetbrains_skia_Codec__1nFramesInfo_Delete = Module["org_jetbrains_skia_Codec__1nFramesInfo_Delete"] = a0 => (org_jetbrains_skia_Codec__1nFramesInfo_Delete = Module["org_jetbrains_skia_Codec__1nFramesInfo_Delete"] = wasmExports["org_jetbrains_skia_Codec__1nFramesInfo_Delete"])(a0);
+
+var org_jetbrains_skia_Codec__1nFramesInfo_GetSize = Module["org_jetbrains_skia_Codec__1nFramesInfo_GetSize"] = a0 => (org_jetbrains_skia_Codec__1nFramesInfo_GetSize = Module["org_jetbrains_skia_Codec__1nFramesInfo_GetSize"] = wasmExports["org_jetbrains_skia_Codec__1nFramesInfo_GetSize"])(a0);
+
+var org_jetbrains_skia_Codec__1nFramesInfo_GetInfos = Module["org_jetbrains_skia_Codec__1nFramesInfo_GetInfos"] = (a0, a1) => (org_jetbrains_skia_Codec__1nFramesInfo_GetInfos = Module["org_jetbrains_skia_Codec__1nFramesInfo_GetInfos"] = wasmExports["org_jetbrains_skia_Codec__1nFramesInfo_GetInfos"])(a0, a1);
+
+var org_jetbrains_skia_Codec__1nGetRepetitionCount = Module["org_jetbrains_skia_Codec__1nGetRepetitionCount"] = a0 => (org_jetbrains_skia_Codec__1nGetRepetitionCount = Module["org_jetbrains_skia_Codec__1nGetRepetitionCount"] = wasmExports["org_jetbrains_skia_Codec__1nGetRepetitionCount"])(a0);
+
+var org_jetbrains_skia_impl_RefCnt__getFinalizer = Module["org_jetbrains_skia_impl_RefCnt__getFinalizer"] = () => (org_jetbrains_skia_impl_RefCnt__getFinalizer = Module["org_jetbrains_skia_impl_RefCnt__getFinalizer"] = wasmExports["org_jetbrains_skia_impl_RefCnt__getFinalizer"])();
+
+var org_jetbrains_skia_impl_RefCnt__getRefCount = Module["org_jetbrains_skia_impl_RefCnt__getRefCount"] = a0 => (org_jetbrains_skia_impl_RefCnt__getRefCount = Module["org_jetbrains_skia_impl_RefCnt__getRefCount"] = wasmExports["org_jetbrains_skia_impl_RefCnt__getRefCount"])(a0);
 
 var org_jetbrains_skia_Path__1nGetFinalizer = Module["org_jetbrains_skia_Path__1nGetFinalizer"] = () => (org_jetbrains_skia_Path__1nGetFinalizer = Module["org_jetbrains_skia_Path__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_Path__1nGetFinalizer"])();
 
@@ -7715,260 +8115,6 @@ var org_jetbrains_skia_Path__1nGetGenerationId = Module["org_jetbrains_skia_Path
 
 var org_jetbrains_skia_Path__1nIsValid = Module["org_jetbrains_skia_Path__1nIsValid"] = a0 => (org_jetbrains_skia_Path__1nIsValid = Module["org_jetbrains_skia_Path__1nIsValid"] = wasmExports["org_jetbrains_skia_Path__1nIsValid"])(a0);
 
-var org_jetbrains_skia_Pixmap__1nGetFinalizer = Module["org_jetbrains_skia_Pixmap__1nGetFinalizer"] = () => (org_jetbrains_skia_Pixmap__1nGetFinalizer = Module["org_jetbrains_skia_Pixmap__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_Pixmap__1nGetFinalizer"])();
-
-var org_jetbrains_skia_Pixmap__1nMakeNull = Module["org_jetbrains_skia_Pixmap__1nMakeNull"] = () => (org_jetbrains_skia_Pixmap__1nMakeNull = Module["org_jetbrains_skia_Pixmap__1nMakeNull"] = wasmExports["org_jetbrains_skia_Pixmap__1nMakeNull"])();
-
-var org_jetbrains_skia_Pixmap__1nMake = Module["org_jetbrains_skia_Pixmap__1nMake"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Pixmap__1nMake = Module["org_jetbrains_skia_Pixmap__1nMake"] = wasmExports["org_jetbrains_skia_Pixmap__1nMake"])(a0, a1, a2, a3, a4, a5, a6);
-
-var org_jetbrains_skia_Pixmap__1nReset = Module["org_jetbrains_skia_Pixmap__1nReset"] = a0 => (org_jetbrains_skia_Pixmap__1nReset = Module["org_jetbrains_skia_Pixmap__1nReset"] = wasmExports["org_jetbrains_skia_Pixmap__1nReset"])(a0);
-
-var org_jetbrains_skia_Pixmap__1nResetWithInfo = Module["org_jetbrains_skia_Pixmap__1nResetWithInfo"] = (a0, a1, a2, a3, a4, a5, a6, a7) => (org_jetbrains_skia_Pixmap__1nResetWithInfo = Module["org_jetbrains_skia_Pixmap__1nResetWithInfo"] = wasmExports["org_jetbrains_skia_Pixmap__1nResetWithInfo"])(a0, a1, a2, a3, a4, a5, a6, a7);
-
-var org_jetbrains_skia_Pixmap__1nSetColorSpace = Module["org_jetbrains_skia_Pixmap__1nSetColorSpace"] = (a0, a1) => (org_jetbrains_skia_Pixmap__1nSetColorSpace = Module["org_jetbrains_skia_Pixmap__1nSetColorSpace"] = wasmExports["org_jetbrains_skia_Pixmap__1nSetColorSpace"])(a0, a1);
-
-var org_jetbrains_skia_Pixmap__1nExtractSubset = Module["org_jetbrains_skia_Pixmap__1nExtractSubset"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Pixmap__1nExtractSubset = Module["org_jetbrains_skia_Pixmap__1nExtractSubset"] = wasmExports["org_jetbrains_skia_Pixmap__1nExtractSubset"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skia_Pixmap__1nGetInfo = Module["org_jetbrains_skia_Pixmap__1nGetInfo"] = (a0, a1, a2) => (org_jetbrains_skia_Pixmap__1nGetInfo = Module["org_jetbrains_skia_Pixmap__1nGetInfo"] = wasmExports["org_jetbrains_skia_Pixmap__1nGetInfo"])(a0, a1, a2);
-
-var org_jetbrains_skia_Pixmap__1nGetRowBytes = Module["org_jetbrains_skia_Pixmap__1nGetRowBytes"] = a0 => (org_jetbrains_skia_Pixmap__1nGetRowBytes = Module["org_jetbrains_skia_Pixmap__1nGetRowBytes"] = wasmExports["org_jetbrains_skia_Pixmap__1nGetRowBytes"])(a0);
-
-var org_jetbrains_skia_Pixmap__1nGetAddr = Module["org_jetbrains_skia_Pixmap__1nGetAddr"] = a0 => (org_jetbrains_skia_Pixmap__1nGetAddr = Module["org_jetbrains_skia_Pixmap__1nGetAddr"] = wasmExports["org_jetbrains_skia_Pixmap__1nGetAddr"])(a0);
-
-var org_jetbrains_skia_Pixmap__1nGetRowBytesAsPixels = Module["org_jetbrains_skia_Pixmap__1nGetRowBytesAsPixels"] = a0 => (org_jetbrains_skia_Pixmap__1nGetRowBytesAsPixels = Module["org_jetbrains_skia_Pixmap__1nGetRowBytesAsPixels"] = wasmExports["org_jetbrains_skia_Pixmap__1nGetRowBytesAsPixels"])(a0);
-
-var org_jetbrains_skia_Pixmap__1nComputeByteSize = Module["org_jetbrains_skia_Pixmap__1nComputeByteSize"] = a0 => (org_jetbrains_skia_Pixmap__1nComputeByteSize = Module["org_jetbrains_skia_Pixmap__1nComputeByteSize"] = wasmExports["org_jetbrains_skia_Pixmap__1nComputeByteSize"])(a0);
-
-var org_jetbrains_skia_Pixmap__1nComputeIsOpaque = Module["org_jetbrains_skia_Pixmap__1nComputeIsOpaque"] = a0 => (org_jetbrains_skia_Pixmap__1nComputeIsOpaque = Module["org_jetbrains_skia_Pixmap__1nComputeIsOpaque"] = wasmExports["org_jetbrains_skia_Pixmap__1nComputeIsOpaque"])(a0);
-
-var org_jetbrains_skia_Pixmap__1nGetColor = Module["org_jetbrains_skia_Pixmap__1nGetColor"] = (a0, a1, a2) => (org_jetbrains_skia_Pixmap__1nGetColor = Module["org_jetbrains_skia_Pixmap__1nGetColor"] = wasmExports["org_jetbrains_skia_Pixmap__1nGetColor"])(a0, a1, a2);
-
-var org_jetbrains_skia_Pixmap__1nGetAlphaF = Module["org_jetbrains_skia_Pixmap__1nGetAlphaF"] = (a0, a1, a2) => (org_jetbrains_skia_Pixmap__1nGetAlphaF = Module["org_jetbrains_skia_Pixmap__1nGetAlphaF"] = wasmExports["org_jetbrains_skia_Pixmap__1nGetAlphaF"])(a0, a1, a2);
-
-var org_jetbrains_skia_Pixmap__1nGetAddrAt = Module["org_jetbrains_skia_Pixmap__1nGetAddrAt"] = (a0, a1, a2) => (org_jetbrains_skia_Pixmap__1nGetAddrAt = Module["org_jetbrains_skia_Pixmap__1nGetAddrAt"] = wasmExports["org_jetbrains_skia_Pixmap__1nGetAddrAt"])(a0, a1, a2);
-
-var org_jetbrains_skia_Pixmap__1nReadPixels = Module["org_jetbrains_skia_Pixmap__1nReadPixels"] = (a0, a1, a2, a3, a4, a5, a6, a7) => (org_jetbrains_skia_Pixmap__1nReadPixels = Module["org_jetbrains_skia_Pixmap__1nReadPixels"] = wasmExports["org_jetbrains_skia_Pixmap__1nReadPixels"])(a0, a1, a2, a3, a4, a5, a6, a7);
-
-var org_jetbrains_skia_Pixmap__1nReadPixelsFromPoint = Module["org_jetbrains_skia_Pixmap__1nReadPixelsFromPoint"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) => (org_jetbrains_skia_Pixmap__1nReadPixelsFromPoint = Module["org_jetbrains_skia_Pixmap__1nReadPixelsFromPoint"] = wasmExports["org_jetbrains_skia_Pixmap__1nReadPixelsFromPoint"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
-
-var org_jetbrains_skia_Pixmap__1nReadPixelsToPixmap = Module["org_jetbrains_skia_Pixmap__1nReadPixelsToPixmap"] = (a0, a1) => (org_jetbrains_skia_Pixmap__1nReadPixelsToPixmap = Module["org_jetbrains_skia_Pixmap__1nReadPixelsToPixmap"] = wasmExports["org_jetbrains_skia_Pixmap__1nReadPixelsToPixmap"])(a0, a1);
-
-var org_jetbrains_skia_Pixmap__1nReadPixelsToPixmapFromPoint = Module["org_jetbrains_skia_Pixmap__1nReadPixelsToPixmapFromPoint"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Pixmap__1nReadPixelsToPixmapFromPoint = Module["org_jetbrains_skia_Pixmap__1nReadPixelsToPixmapFromPoint"] = wasmExports["org_jetbrains_skia_Pixmap__1nReadPixelsToPixmapFromPoint"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_Pixmap__1nScalePixels = Module["org_jetbrains_skia_Pixmap__1nScalePixels"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Pixmap__1nScalePixels = Module["org_jetbrains_skia_Pixmap__1nScalePixels"] = wasmExports["org_jetbrains_skia_Pixmap__1nScalePixels"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_Pixmap__1nErase = Module["org_jetbrains_skia_Pixmap__1nErase"] = (a0, a1) => (org_jetbrains_skia_Pixmap__1nErase = Module["org_jetbrains_skia_Pixmap__1nErase"] = wasmExports["org_jetbrains_skia_Pixmap__1nErase"])(a0, a1);
-
-var org_jetbrains_skia_Pixmap__1nEraseSubset = Module["org_jetbrains_skia_Pixmap__1nEraseSubset"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Pixmap__1nEraseSubset = Module["org_jetbrains_skia_Pixmap__1nEraseSubset"] = wasmExports["org_jetbrains_skia_Pixmap__1nEraseSubset"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skia_ColorSpace__1nGetFinalizer = Module["org_jetbrains_skia_ColorSpace__1nGetFinalizer"] = () => (org_jetbrains_skia_ColorSpace__1nGetFinalizer = Module["org_jetbrains_skia_ColorSpace__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_ColorSpace__1nGetFinalizer"])();
-
-var org_jetbrains_skia_ColorSpace__1nMakeSRGB = Module["org_jetbrains_skia_ColorSpace__1nMakeSRGB"] = () => (org_jetbrains_skia_ColorSpace__1nMakeSRGB = Module["org_jetbrains_skia_ColorSpace__1nMakeSRGB"] = wasmExports["org_jetbrains_skia_ColorSpace__1nMakeSRGB"])();
-
-var org_jetbrains_skia_ColorSpace__1nMakeSRGBLinear = Module["org_jetbrains_skia_ColorSpace__1nMakeSRGBLinear"] = () => (org_jetbrains_skia_ColorSpace__1nMakeSRGBLinear = Module["org_jetbrains_skia_ColorSpace__1nMakeSRGBLinear"] = wasmExports["org_jetbrains_skia_ColorSpace__1nMakeSRGBLinear"])();
-
-var org_jetbrains_skia_ColorSpace__1nMakeDisplayP3 = Module["org_jetbrains_skia_ColorSpace__1nMakeDisplayP3"] = () => (org_jetbrains_skia_ColorSpace__1nMakeDisplayP3 = Module["org_jetbrains_skia_ColorSpace__1nMakeDisplayP3"] = wasmExports["org_jetbrains_skia_ColorSpace__1nMakeDisplayP3"])();
-
-var org_jetbrains_skia_ColorSpace__nConvert = Module["org_jetbrains_skia_ColorSpace__nConvert"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_ColorSpace__nConvert = Module["org_jetbrains_skia_ColorSpace__nConvert"] = wasmExports["org_jetbrains_skia_ColorSpace__nConvert"])(a0, a1, a2, a3, a4, a5, a6);
-
-var org_jetbrains_skia_ColorSpace__1nIsGammaCloseToSRGB = Module["org_jetbrains_skia_ColorSpace__1nIsGammaCloseToSRGB"] = a0 => (org_jetbrains_skia_ColorSpace__1nIsGammaCloseToSRGB = Module["org_jetbrains_skia_ColorSpace__1nIsGammaCloseToSRGB"] = wasmExports["org_jetbrains_skia_ColorSpace__1nIsGammaCloseToSRGB"])(a0);
-
-var org_jetbrains_skia_ColorSpace__1nIsGammaLinear = Module["org_jetbrains_skia_ColorSpace__1nIsGammaLinear"] = a0 => (org_jetbrains_skia_ColorSpace__1nIsGammaLinear = Module["org_jetbrains_skia_ColorSpace__1nIsGammaLinear"] = wasmExports["org_jetbrains_skia_ColorSpace__1nIsGammaLinear"])(a0);
-
-var org_jetbrains_skia_ColorSpace__1nIsSRGB = Module["org_jetbrains_skia_ColorSpace__1nIsSRGB"] = a0 => (org_jetbrains_skia_ColorSpace__1nIsSRGB = Module["org_jetbrains_skia_ColorSpace__1nIsSRGB"] = wasmExports["org_jetbrains_skia_ColorSpace__1nIsSRGB"])(a0);
-
-var org_jetbrains_skia_Shader__1nMakeWithColorFilter = Module["org_jetbrains_skia_Shader__1nMakeWithColorFilter"] = (a0, a1) => (org_jetbrains_skia_Shader__1nMakeWithColorFilter = Module["org_jetbrains_skia_Shader__1nMakeWithColorFilter"] = wasmExports["org_jetbrains_skia_Shader__1nMakeWithColorFilter"])(a0, a1);
-
-var org_jetbrains_skia_Shader__1nMakeLinearGradient = Module["org_jetbrains_skia_Shader__1nMakeLinearGradient"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) => (org_jetbrains_skia_Shader__1nMakeLinearGradient = Module["org_jetbrains_skia_Shader__1nMakeLinearGradient"] = wasmExports["org_jetbrains_skia_Shader__1nMakeLinearGradient"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
-
-var org_jetbrains_skia_Shader__1nMakeLinearGradientCS = Module["org_jetbrains_skia_Shader__1nMakeLinearGradientCS"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) => (org_jetbrains_skia_Shader__1nMakeLinearGradientCS = Module["org_jetbrains_skia_Shader__1nMakeLinearGradientCS"] = wasmExports["org_jetbrains_skia_Shader__1nMakeLinearGradientCS"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
-
-var org_jetbrains_skia_Shader__1nMakeRadialGradient = Module["org_jetbrains_skia_Shader__1nMakeRadialGradient"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8) => (org_jetbrains_skia_Shader__1nMakeRadialGradient = Module["org_jetbrains_skia_Shader__1nMakeRadialGradient"] = wasmExports["org_jetbrains_skia_Shader__1nMakeRadialGradient"])(a0, a1, a2, a3, a4, a5, a6, a7, a8);
-
-var org_jetbrains_skia_Shader__1nMakeRadialGradientCS = Module["org_jetbrains_skia_Shader__1nMakeRadialGradientCS"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) => (org_jetbrains_skia_Shader__1nMakeRadialGradientCS = Module["org_jetbrains_skia_Shader__1nMakeRadialGradientCS"] = wasmExports["org_jetbrains_skia_Shader__1nMakeRadialGradientCS"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
-
-var org_jetbrains_skia_Shader__1nMakeTwoPointConicalGradient = Module["org_jetbrains_skia_Shader__1nMakeTwoPointConicalGradient"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11) => (org_jetbrains_skia_Shader__1nMakeTwoPointConicalGradient = Module["org_jetbrains_skia_Shader__1nMakeTwoPointConicalGradient"] = wasmExports["org_jetbrains_skia_Shader__1nMakeTwoPointConicalGradient"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11);
-
-var org_jetbrains_skia_Shader__1nMakeTwoPointConicalGradientCS = Module["org_jetbrains_skia_Shader__1nMakeTwoPointConicalGradientCS"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12) => (org_jetbrains_skia_Shader__1nMakeTwoPointConicalGradientCS = Module["org_jetbrains_skia_Shader__1nMakeTwoPointConicalGradientCS"] = wasmExports["org_jetbrains_skia_Shader__1nMakeTwoPointConicalGradientCS"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12);
-
-var org_jetbrains_skia_Shader__1nMakeSweepGradient = Module["org_jetbrains_skia_Shader__1nMakeSweepGradient"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) => (org_jetbrains_skia_Shader__1nMakeSweepGradient = Module["org_jetbrains_skia_Shader__1nMakeSweepGradient"] = wasmExports["org_jetbrains_skia_Shader__1nMakeSweepGradient"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
-
-var org_jetbrains_skia_Shader__1nMakeSweepGradientCS = Module["org_jetbrains_skia_Shader__1nMakeSweepGradientCS"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10) => (org_jetbrains_skia_Shader__1nMakeSweepGradientCS = Module["org_jetbrains_skia_Shader__1nMakeSweepGradientCS"] = wasmExports["org_jetbrains_skia_Shader__1nMakeSweepGradientCS"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10);
-
-var org_jetbrains_skia_Shader__1nMakeEmpty = Module["org_jetbrains_skia_Shader__1nMakeEmpty"] = () => (org_jetbrains_skia_Shader__1nMakeEmpty = Module["org_jetbrains_skia_Shader__1nMakeEmpty"] = wasmExports["org_jetbrains_skia_Shader__1nMakeEmpty"])();
-
-var org_jetbrains_skia_Shader__1nMakeColor = Module["org_jetbrains_skia_Shader__1nMakeColor"] = a0 => (org_jetbrains_skia_Shader__1nMakeColor = Module["org_jetbrains_skia_Shader__1nMakeColor"] = wasmExports["org_jetbrains_skia_Shader__1nMakeColor"])(a0);
-
-var org_jetbrains_skia_Shader__1nMakeColorCS = Module["org_jetbrains_skia_Shader__1nMakeColorCS"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Shader__1nMakeColorCS = Module["org_jetbrains_skia_Shader__1nMakeColorCS"] = wasmExports["org_jetbrains_skia_Shader__1nMakeColorCS"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skia_Shader__1nMakeBlend = Module["org_jetbrains_skia_Shader__1nMakeBlend"] = (a0, a1, a2) => (org_jetbrains_skia_Shader__1nMakeBlend = Module["org_jetbrains_skia_Shader__1nMakeBlend"] = wasmExports["org_jetbrains_skia_Shader__1nMakeBlend"])(a0, a1, a2);
-
-var org_jetbrains_skia_Shader__1nMakeFractalNoise = Module["org_jetbrains_skia_Shader__1nMakeFractalNoise"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Shader__1nMakeFractalNoise = Module["org_jetbrains_skia_Shader__1nMakeFractalNoise"] = wasmExports["org_jetbrains_skia_Shader__1nMakeFractalNoise"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skia_Shader__1nMakeTurbulence = Module["org_jetbrains_skia_Shader__1nMakeTurbulence"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Shader__1nMakeTurbulence = Module["org_jetbrains_skia_Shader__1nMakeTurbulence"] = wasmExports["org_jetbrains_skia_Shader__1nMakeTurbulence"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skia_TextBlobBuilder__1nGetFinalizer = Module["org_jetbrains_skia_TextBlobBuilder__1nGetFinalizer"] = () => (org_jetbrains_skia_TextBlobBuilder__1nGetFinalizer = Module["org_jetbrains_skia_TextBlobBuilder__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_TextBlobBuilder__1nGetFinalizer"])();
-
-var org_jetbrains_skia_TextBlobBuilder__1nMake = Module["org_jetbrains_skia_TextBlobBuilder__1nMake"] = () => (org_jetbrains_skia_TextBlobBuilder__1nMake = Module["org_jetbrains_skia_TextBlobBuilder__1nMake"] = wasmExports["org_jetbrains_skia_TextBlobBuilder__1nMake"])();
-
-var org_jetbrains_skia_TextBlobBuilder__1nBuild = Module["org_jetbrains_skia_TextBlobBuilder__1nBuild"] = a0 => (org_jetbrains_skia_TextBlobBuilder__1nBuild = Module["org_jetbrains_skia_TextBlobBuilder__1nBuild"] = wasmExports["org_jetbrains_skia_TextBlobBuilder__1nBuild"])(a0);
-
-var org_jetbrains_skia_TextBlobBuilder__1nAppendRun = Module["org_jetbrains_skia_TextBlobBuilder__1nAppendRun"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_TextBlobBuilder__1nAppendRun = Module["org_jetbrains_skia_TextBlobBuilder__1nAppendRun"] = wasmExports["org_jetbrains_skia_TextBlobBuilder__1nAppendRun"])(a0, a1, a2, a3, a4, a5, a6);
-
-var org_jetbrains_skia_TextBlobBuilder__1nAppendRunPosH = Module["org_jetbrains_skia_TextBlobBuilder__1nAppendRunPosH"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_TextBlobBuilder__1nAppendRunPosH = Module["org_jetbrains_skia_TextBlobBuilder__1nAppendRunPosH"] = wasmExports["org_jetbrains_skia_TextBlobBuilder__1nAppendRunPosH"])(a0, a1, a2, a3, a4, a5, a6);
-
-var org_jetbrains_skia_TextBlobBuilder__1nAppendRunPos = Module["org_jetbrains_skia_TextBlobBuilder__1nAppendRunPos"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_TextBlobBuilder__1nAppendRunPos = Module["org_jetbrains_skia_TextBlobBuilder__1nAppendRunPos"] = wasmExports["org_jetbrains_skia_TextBlobBuilder__1nAppendRunPos"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skia_TextBlobBuilder__1nAppendRunRSXform = Module["org_jetbrains_skia_TextBlobBuilder__1nAppendRunRSXform"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_TextBlobBuilder__1nAppendRunRSXform = Module["org_jetbrains_skia_TextBlobBuilder__1nAppendRunRSXform"] = wasmExports["org_jetbrains_skia_TextBlobBuilder__1nAppendRunRSXform"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skia_Font__1nGetFinalizer = Module["org_jetbrains_skia_Font__1nGetFinalizer"] = () => (org_jetbrains_skia_Font__1nGetFinalizer = Module["org_jetbrains_skia_Font__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_Font__1nGetFinalizer"])();
-
-var org_jetbrains_skia_Font__1nMakeDefault = Module["org_jetbrains_skia_Font__1nMakeDefault"] = () => (org_jetbrains_skia_Font__1nMakeDefault = Module["org_jetbrains_skia_Font__1nMakeDefault"] = wasmExports["org_jetbrains_skia_Font__1nMakeDefault"])();
-
-var org_jetbrains_skia_Font__1nMakeTypeface = Module["org_jetbrains_skia_Font__1nMakeTypeface"] = a0 => (org_jetbrains_skia_Font__1nMakeTypeface = Module["org_jetbrains_skia_Font__1nMakeTypeface"] = wasmExports["org_jetbrains_skia_Font__1nMakeTypeface"])(a0);
-
-var org_jetbrains_skia_Font__1nMakeTypefaceSize = Module["org_jetbrains_skia_Font__1nMakeTypefaceSize"] = (a0, a1) => (org_jetbrains_skia_Font__1nMakeTypefaceSize = Module["org_jetbrains_skia_Font__1nMakeTypefaceSize"] = wasmExports["org_jetbrains_skia_Font__1nMakeTypefaceSize"])(a0, a1);
-
-var org_jetbrains_skia_Font__1nMakeTypefaceSizeScaleSkew = Module["org_jetbrains_skia_Font__1nMakeTypefaceSizeScaleSkew"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Font__1nMakeTypefaceSizeScaleSkew = Module["org_jetbrains_skia_Font__1nMakeTypefaceSizeScaleSkew"] = wasmExports["org_jetbrains_skia_Font__1nMakeTypefaceSizeScaleSkew"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_Font__1nMakeClone = Module["org_jetbrains_skia_Font__1nMakeClone"] = a0 => (org_jetbrains_skia_Font__1nMakeClone = Module["org_jetbrains_skia_Font__1nMakeClone"] = wasmExports["org_jetbrains_skia_Font__1nMakeClone"])(a0);
-
-var org_jetbrains_skia_Font__1nEquals = Module["org_jetbrains_skia_Font__1nEquals"] = (a0, a1) => (org_jetbrains_skia_Font__1nEquals = Module["org_jetbrains_skia_Font__1nEquals"] = wasmExports["org_jetbrains_skia_Font__1nEquals"])(a0, a1);
-
-var org_jetbrains_skia_Font__1nIsAutoHintingForced = Module["org_jetbrains_skia_Font__1nIsAutoHintingForced"] = a0 => (org_jetbrains_skia_Font__1nIsAutoHintingForced = Module["org_jetbrains_skia_Font__1nIsAutoHintingForced"] = wasmExports["org_jetbrains_skia_Font__1nIsAutoHintingForced"])(a0);
-
-var org_jetbrains_skia_Font__1nAreBitmapsEmbedded = Module["org_jetbrains_skia_Font__1nAreBitmapsEmbedded"] = a0 => (org_jetbrains_skia_Font__1nAreBitmapsEmbedded = Module["org_jetbrains_skia_Font__1nAreBitmapsEmbedded"] = wasmExports["org_jetbrains_skia_Font__1nAreBitmapsEmbedded"])(a0);
-
-var org_jetbrains_skia_Font__1nIsSubpixel = Module["org_jetbrains_skia_Font__1nIsSubpixel"] = a0 => (org_jetbrains_skia_Font__1nIsSubpixel = Module["org_jetbrains_skia_Font__1nIsSubpixel"] = wasmExports["org_jetbrains_skia_Font__1nIsSubpixel"])(a0);
-
-var org_jetbrains_skia_Font__1nIsLinearMetrics = Module["org_jetbrains_skia_Font__1nIsLinearMetrics"] = a0 => (org_jetbrains_skia_Font__1nIsLinearMetrics = Module["org_jetbrains_skia_Font__1nIsLinearMetrics"] = wasmExports["org_jetbrains_skia_Font__1nIsLinearMetrics"])(a0);
-
-var org_jetbrains_skia_Font__1nIsEmboldened = Module["org_jetbrains_skia_Font__1nIsEmboldened"] = a0 => (org_jetbrains_skia_Font__1nIsEmboldened = Module["org_jetbrains_skia_Font__1nIsEmboldened"] = wasmExports["org_jetbrains_skia_Font__1nIsEmboldened"])(a0);
-
-var org_jetbrains_skia_Font__1nIsBaselineSnapped = Module["org_jetbrains_skia_Font__1nIsBaselineSnapped"] = a0 => (org_jetbrains_skia_Font__1nIsBaselineSnapped = Module["org_jetbrains_skia_Font__1nIsBaselineSnapped"] = wasmExports["org_jetbrains_skia_Font__1nIsBaselineSnapped"])(a0);
-
-var org_jetbrains_skia_Font__1nSetAutoHintingForced = Module["org_jetbrains_skia_Font__1nSetAutoHintingForced"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetAutoHintingForced = Module["org_jetbrains_skia_Font__1nSetAutoHintingForced"] = wasmExports["org_jetbrains_skia_Font__1nSetAutoHintingForced"])(a0, a1);
-
-var org_jetbrains_skia_Font__1nSetBitmapsEmbedded = Module["org_jetbrains_skia_Font__1nSetBitmapsEmbedded"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetBitmapsEmbedded = Module["org_jetbrains_skia_Font__1nSetBitmapsEmbedded"] = wasmExports["org_jetbrains_skia_Font__1nSetBitmapsEmbedded"])(a0, a1);
-
-var org_jetbrains_skia_Font__1nSetSubpixel = Module["org_jetbrains_skia_Font__1nSetSubpixel"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetSubpixel = Module["org_jetbrains_skia_Font__1nSetSubpixel"] = wasmExports["org_jetbrains_skia_Font__1nSetSubpixel"])(a0, a1);
-
-var org_jetbrains_skia_Font__1nSetLinearMetrics = Module["org_jetbrains_skia_Font__1nSetLinearMetrics"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetLinearMetrics = Module["org_jetbrains_skia_Font__1nSetLinearMetrics"] = wasmExports["org_jetbrains_skia_Font__1nSetLinearMetrics"])(a0, a1);
-
-var org_jetbrains_skia_Font__1nSetEmboldened = Module["org_jetbrains_skia_Font__1nSetEmboldened"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetEmboldened = Module["org_jetbrains_skia_Font__1nSetEmboldened"] = wasmExports["org_jetbrains_skia_Font__1nSetEmboldened"])(a0, a1);
-
-var org_jetbrains_skia_Font__1nSetBaselineSnapped = Module["org_jetbrains_skia_Font__1nSetBaselineSnapped"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetBaselineSnapped = Module["org_jetbrains_skia_Font__1nSetBaselineSnapped"] = wasmExports["org_jetbrains_skia_Font__1nSetBaselineSnapped"])(a0, a1);
-
-var org_jetbrains_skia_Font__1nGetEdging = Module["org_jetbrains_skia_Font__1nGetEdging"] = a0 => (org_jetbrains_skia_Font__1nGetEdging = Module["org_jetbrains_skia_Font__1nGetEdging"] = wasmExports["org_jetbrains_skia_Font__1nGetEdging"])(a0);
-
-var org_jetbrains_skia_Font__1nSetEdging = Module["org_jetbrains_skia_Font__1nSetEdging"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetEdging = Module["org_jetbrains_skia_Font__1nSetEdging"] = wasmExports["org_jetbrains_skia_Font__1nSetEdging"])(a0, a1);
-
-var org_jetbrains_skia_Font__1nGetHinting = Module["org_jetbrains_skia_Font__1nGetHinting"] = a0 => (org_jetbrains_skia_Font__1nGetHinting = Module["org_jetbrains_skia_Font__1nGetHinting"] = wasmExports["org_jetbrains_skia_Font__1nGetHinting"])(a0);
-
-var org_jetbrains_skia_Font__1nSetHinting = Module["org_jetbrains_skia_Font__1nSetHinting"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetHinting = Module["org_jetbrains_skia_Font__1nSetHinting"] = wasmExports["org_jetbrains_skia_Font__1nSetHinting"])(a0, a1);
-
-var org_jetbrains_skia_Font__1nGetTypeface = Module["org_jetbrains_skia_Font__1nGetTypeface"] = a0 => (org_jetbrains_skia_Font__1nGetTypeface = Module["org_jetbrains_skia_Font__1nGetTypeface"] = wasmExports["org_jetbrains_skia_Font__1nGetTypeface"])(a0);
-
-var org_jetbrains_skia_Font__1nGetSize = Module["org_jetbrains_skia_Font__1nGetSize"] = a0 => (org_jetbrains_skia_Font__1nGetSize = Module["org_jetbrains_skia_Font__1nGetSize"] = wasmExports["org_jetbrains_skia_Font__1nGetSize"])(a0);
-
-var org_jetbrains_skia_Font__1nGetScaleX = Module["org_jetbrains_skia_Font__1nGetScaleX"] = a0 => (org_jetbrains_skia_Font__1nGetScaleX = Module["org_jetbrains_skia_Font__1nGetScaleX"] = wasmExports["org_jetbrains_skia_Font__1nGetScaleX"])(a0);
-
-var org_jetbrains_skia_Font__1nGetSkewX = Module["org_jetbrains_skia_Font__1nGetSkewX"] = a0 => (org_jetbrains_skia_Font__1nGetSkewX = Module["org_jetbrains_skia_Font__1nGetSkewX"] = wasmExports["org_jetbrains_skia_Font__1nGetSkewX"])(a0);
-
-var org_jetbrains_skia_Font__1nSetTypeface = Module["org_jetbrains_skia_Font__1nSetTypeface"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetTypeface = Module["org_jetbrains_skia_Font__1nSetTypeface"] = wasmExports["org_jetbrains_skia_Font__1nSetTypeface"])(a0, a1);
-
-var org_jetbrains_skia_Font__1nSetSize = Module["org_jetbrains_skia_Font__1nSetSize"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetSize = Module["org_jetbrains_skia_Font__1nSetSize"] = wasmExports["org_jetbrains_skia_Font__1nSetSize"])(a0, a1);
-
-var org_jetbrains_skia_Font__1nSetScaleX = Module["org_jetbrains_skia_Font__1nSetScaleX"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetScaleX = Module["org_jetbrains_skia_Font__1nSetScaleX"] = wasmExports["org_jetbrains_skia_Font__1nSetScaleX"])(a0, a1);
-
-var org_jetbrains_skia_Font__1nSetSkewX = Module["org_jetbrains_skia_Font__1nSetSkewX"] = (a0, a1) => (org_jetbrains_skia_Font__1nSetSkewX = Module["org_jetbrains_skia_Font__1nSetSkewX"] = wasmExports["org_jetbrains_skia_Font__1nSetSkewX"])(a0, a1);
-
-var org_jetbrains_skia_Font__1nGetUTF32Glyphs = Module["org_jetbrains_skia_Font__1nGetUTF32Glyphs"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Font__1nGetUTF32Glyphs = Module["org_jetbrains_skia_Font__1nGetUTF32Glyphs"] = wasmExports["org_jetbrains_skia_Font__1nGetUTF32Glyphs"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_Font__1nGetUTF32Glyph = Module["org_jetbrains_skia_Font__1nGetUTF32Glyph"] = (a0, a1) => (org_jetbrains_skia_Font__1nGetUTF32Glyph = Module["org_jetbrains_skia_Font__1nGetUTF32Glyph"] = wasmExports["org_jetbrains_skia_Font__1nGetUTF32Glyph"])(a0, a1);
-
-var org_jetbrains_skia_Font__1nGetStringGlyphsCount = Module["org_jetbrains_skia_Font__1nGetStringGlyphsCount"] = (a0, a1, a2) => (org_jetbrains_skia_Font__1nGetStringGlyphsCount = Module["org_jetbrains_skia_Font__1nGetStringGlyphsCount"] = wasmExports["org_jetbrains_skia_Font__1nGetStringGlyphsCount"])(a0, a1, a2);
-
-var org_jetbrains_skia_Font__1nMeasureText = Module["org_jetbrains_skia_Font__1nMeasureText"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Font__1nMeasureText = Module["org_jetbrains_skia_Font__1nMeasureText"] = wasmExports["org_jetbrains_skia_Font__1nMeasureText"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skia_Font__1nMeasureTextWidth = Module["org_jetbrains_skia_Font__1nMeasureTextWidth"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Font__1nMeasureTextWidth = Module["org_jetbrains_skia_Font__1nMeasureTextWidth"] = wasmExports["org_jetbrains_skia_Font__1nMeasureTextWidth"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_Font__1nGetWidths = Module["org_jetbrains_skia_Font__1nGetWidths"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Font__1nGetWidths = Module["org_jetbrains_skia_Font__1nGetWidths"] = wasmExports["org_jetbrains_skia_Font__1nGetWidths"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_Font__1nGetBounds = Module["org_jetbrains_skia_Font__1nGetBounds"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Font__1nGetBounds = Module["org_jetbrains_skia_Font__1nGetBounds"] = wasmExports["org_jetbrains_skia_Font__1nGetBounds"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skia_Font__1nGetPositions = Module["org_jetbrains_skia_Font__1nGetPositions"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Font__1nGetPositions = Module["org_jetbrains_skia_Font__1nGetPositions"] = wasmExports["org_jetbrains_skia_Font__1nGetPositions"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skia_Font__1nGetXPositions = Module["org_jetbrains_skia_Font__1nGetXPositions"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Font__1nGetXPositions = Module["org_jetbrains_skia_Font__1nGetXPositions"] = wasmExports["org_jetbrains_skia_Font__1nGetXPositions"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skia_Font__1nGetPath = Module["org_jetbrains_skia_Font__1nGetPath"] = (a0, a1) => (org_jetbrains_skia_Font__1nGetPath = Module["org_jetbrains_skia_Font__1nGetPath"] = wasmExports["org_jetbrains_skia_Font__1nGetPath"])(a0, a1);
-
-var org_jetbrains_skia_Font__1nGetPaths = Module["org_jetbrains_skia_Font__1nGetPaths"] = (a0, a1, a2) => (org_jetbrains_skia_Font__1nGetPaths = Module["org_jetbrains_skia_Font__1nGetPaths"] = wasmExports["org_jetbrains_skia_Font__1nGetPaths"])(a0, a1, a2);
-
-var org_jetbrains_skia_Font__1nGetMetrics = Module["org_jetbrains_skia_Font__1nGetMetrics"] = (a0, a1) => (org_jetbrains_skia_Font__1nGetMetrics = Module["org_jetbrains_skia_Font__1nGetMetrics"] = wasmExports["org_jetbrains_skia_Font__1nGetMetrics"])(a0, a1);
-
-var org_jetbrains_skia_Font__1nGetSpacing = Module["org_jetbrains_skia_Font__1nGetSpacing"] = a0 => (org_jetbrains_skia_Font__1nGetSpacing = Module["org_jetbrains_skia_Font__1nGetSpacing"] = wasmExports["org_jetbrains_skia_Font__1nGetSpacing"])(a0);
-
-var org_jetbrains_skia_PathUtils__1nFillPathWithPaint = Module["org_jetbrains_skia_PathUtils__1nFillPathWithPaint"] = (a0, a1, a2) => (org_jetbrains_skia_PathUtils__1nFillPathWithPaint = Module["org_jetbrains_skia_PathUtils__1nFillPathWithPaint"] = wasmExports["org_jetbrains_skia_PathUtils__1nFillPathWithPaint"])(a0, a1, a2);
-
-var org_jetbrains_skia_PathUtils__1nFillPathWithPaintCull = Module["org_jetbrains_skia_PathUtils__1nFillPathWithPaintCull"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_PathUtils__1nFillPathWithPaintCull = Module["org_jetbrains_skia_PathUtils__1nFillPathWithPaintCull"] = wasmExports["org_jetbrains_skia_PathUtils__1nFillPathWithPaintCull"])(a0, a1, a2, a3, a4, a5, a6);
-
-var org_jetbrains_skia_Region__1nMake = Module["org_jetbrains_skia_Region__1nMake"] = () => (org_jetbrains_skia_Region__1nMake = Module["org_jetbrains_skia_Region__1nMake"] = wasmExports["org_jetbrains_skia_Region__1nMake"])();
-
-var org_jetbrains_skia_Region__1nGetFinalizer = Module["org_jetbrains_skia_Region__1nGetFinalizer"] = () => (org_jetbrains_skia_Region__1nGetFinalizer = Module["org_jetbrains_skia_Region__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_Region__1nGetFinalizer"])();
-
-var org_jetbrains_skia_Region__1nSet = Module["org_jetbrains_skia_Region__1nSet"] = (a0, a1) => (org_jetbrains_skia_Region__1nSet = Module["org_jetbrains_skia_Region__1nSet"] = wasmExports["org_jetbrains_skia_Region__1nSet"])(a0, a1);
-
-var org_jetbrains_skia_Region__1nIsEmpty = Module["org_jetbrains_skia_Region__1nIsEmpty"] = a0 => (org_jetbrains_skia_Region__1nIsEmpty = Module["org_jetbrains_skia_Region__1nIsEmpty"] = wasmExports["org_jetbrains_skia_Region__1nIsEmpty"])(a0);
-
-var org_jetbrains_skia_Region__1nIsRect = Module["org_jetbrains_skia_Region__1nIsRect"] = a0 => (org_jetbrains_skia_Region__1nIsRect = Module["org_jetbrains_skia_Region__1nIsRect"] = wasmExports["org_jetbrains_skia_Region__1nIsRect"])(a0);
-
-var org_jetbrains_skia_Region__1nIsComplex = Module["org_jetbrains_skia_Region__1nIsComplex"] = a0 => (org_jetbrains_skia_Region__1nIsComplex = Module["org_jetbrains_skia_Region__1nIsComplex"] = wasmExports["org_jetbrains_skia_Region__1nIsComplex"])(a0);
-
-var org_jetbrains_skia_Region__1nGetBounds = Module["org_jetbrains_skia_Region__1nGetBounds"] = (a0, a1) => (org_jetbrains_skia_Region__1nGetBounds = Module["org_jetbrains_skia_Region__1nGetBounds"] = wasmExports["org_jetbrains_skia_Region__1nGetBounds"])(a0, a1);
-
-var org_jetbrains_skia_Region__1nComputeRegionComplexity = Module["org_jetbrains_skia_Region__1nComputeRegionComplexity"] = a0 => (org_jetbrains_skia_Region__1nComputeRegionComplexity = Module["org_jetbrains_skia_Region__1nComputeRegionComplexity"] = wasmExports["org_jetbrains_skia_Region__1nComputeRegionComplexity"])(a0);
-
-var org_jetbrains_skia_Region__1nGetBoundaryPath = Module["org_jetbrains_skia_Region__1nGetBoundaryPath"] = (a0, a1) => (org_jetbrains_skia_Region__1nGetBoundaryPath = Module["org_jetbrains_skia_Region__1nGetBoundaryPath"] = wasmExports["org_jetbrains_skia_Region__1nGetBoundaryPath"])(a0, a1);
-
-var org_jetbrains_skia_Region__1nSetEmpty = Module["org_jetbrains_skia_Region__1nSetEmpty"] = a0 => (org_jetbrains_skia_Region__1nSetEmpty = Module["org_jetbrains_skia_Region__1nSetEmpty"] = wasmExports["org_jetbrains_skia_Region__1nSetEmpty"])(a0);
-
-var org_jetbrains_skia_Region__1nSetRect = Module["org_jetbrains_skia_Region__1nSetRect"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Region__1nSetRect = Module["org_jetbrains_skia_Region__1nSetRect"] = wasmExports["org_jetbrains_skia_Region__1nSetRect"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skia_Region__1nSetRects = Module["org_jetbrains_skia_Region__1nSetRects"] = (a0, a1, a2) => (org_jetbrains_skia_Region__1nSetRects = Module["org_jetbrains_skia_Region__1nSetRects"] = wasmExports["org_jetbrains_skia_Region__1nSetRects"])(a0, a1, a2);
-
-var org_jetbrains_skia_Region__1nSetRegion = Module["org_jetbrains_skia_Region__1nSetRegion"] = (a0, a1) => (org_jetbrains_skia_Region__1nSetRegion = Module["org_jetbrains_skia_Region__1nSetRegion"] = wasmExports["org_jetbrains_skia_Region__1nSetRegion"])(a0, a1);
-
-var org_jetbrains_skia_Region__1nSetPath = Module["org_jetbrains_skia_Region__1nSetPath"] = (a0, a1, a2) => (org_jetbrains_skia_Region__1nSetPath = Module["org_jetbrains_skia_Region__1nSetPath"] = wasmExports["org_jetbrains_skia_Region__1nSetPath"])(a0, a1, a2);
-
-var org_jetbrains_skia_Region__1nIntersectsIRect = Module["org_jetbrains_skia_Region__1nIntersectsIRect"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Region__1nIntersectsIRect = Module["org_jetbrains_skia_Region__1nIntersectsIRect"] = wasmExports["org_jetbrains_skia_Region__1nIntersectsIRect"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skia_Region__1nIntersectsRegion = Module["org_jetbrains_skia_Region__1nIntersectsRegion"] = (a0, a1) => (org_jetbrains_skia_Region__1nIntersectsRegion = Module["org_jetbrains_skia_Region__1nIntersectsRegion"] = wasmExports["org_jetbrains_skia_Region__1nIntersectsRegion"])(a0, a1);
-
-var org_jetbrains_skia_Region__1nContainsIPoint = Module["org_jetbrains_skia_Region__1nContainsIPoint"] = (a0, a1, a2) => (org_jetbrains_skia_Region__1nContainsIPoint = Module["org_jetbrains_skia_Region__1nContainsIPoint"] = wasmExports["org_jetbrains_skia_Region__1nContainsIPoint"])(a0, a1, a2);
-
-var org_jetbrains_skia_Region__1nContainsIRect = Module["org_jetbrains_skia_Region__1nContainsIRect"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Region__1nContainsIRect = Module["org_jetbrains_skia_Region__1nContainsIRect"] = wasmExports["org_jetbrains_skia_Region__1nContainsIRect"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skia_Region__1nContainsRegion = Module["org_jetbrains_skia_Region__1nContainsRegion"] = (a0, a1) => (org_jetbrains_skia_Region__1nContainsRegion = Module["org_jetbrains_skia_Region__1nContainsRegion"] = wasmExports["org_jetbrains_skia_Region__1nContainsRegion"])(a0, a1);
-
-var org_jetbrains_skia_Region__1nQuickContains = Module["org_jetbrains_skia_Region__1nQuickContains"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Region__1nQuickContains = Module["org_jetbrains_skia_Region__1nQuickContains"] = wasmExports["org_jetbrains_skia_Region__1nQuickContains"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skia_Region__1nQuickRejectIRect = Module["org_jetbrains_skia_Region__1nQuickRejectIRect"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Region__1nQuickRejectIRect = Module["org_jetbrains_skia_Region__1nQuickRejectIRect"] = wasmExports["org_jetbrains_skia_Region__1nQuickRejectIRect"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skia_Region__1nQuickRejectRegion = Module["org_jetbrains_skia_Region__1nQuickRejectRegion"] = (a0, a1) => (org_jetbrains_skia_Region__1nQuickRejectRegion = Module["org_jetbrains_skia_Region__1nQuickRejectRegion"] = wasmExports["org_jetbrains_skia_Region__1nQuickRejectRegion"])(a0, a1);
-
-var org_jetbrains_skia_Region__1nTranslate = Module["org_jetbrains_skia_Region__1nTranslate"] = (a0, a1, a2) => (org_jetbrains_skia_Region__1nTranslate = Module["org_jetbrains_skia_Region__1nTranslate"] = wasmExports["org_jetbrains_skia_Region__1nTranslate"])(a0, a1, a2);
-
-var org_jetbrains_skia_Region__1nOpIRect = Module["org_jetbrains_skia_Region__1nOpIRect"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Region__1nOpIRect = Module["org_jetbrains_skia_Region__1nOpIRect"] = wasmExports["org_jetbrains_skia_Region__1nOpIRect"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skia_Region__1nOpRegion = Module["org_jetbrains_skia_Region__1nOpRegion"] = (a0, a1, a2) => (org_jetbrains_skia_Region__1nOpRegion = Module["org_jetbrains_skia_Region__1nOpRegion"] = wasmExports["org_jetbrains_skia_Region__1nOpRegion"])(a0, a1, a2);
-
-var org_jetbrains_skia_Region__1nOpIRectRegion = Module["org_jetbrains_skia_Region__1nOpIRectRegion"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Region__1nOpIRectRegion = Module["org_jetbrains_skia_Region__1nOpIRectRegion"] = wasmExports["org_jetbrains_skia_Region__1nOpIRectRegion"])(a0, a1, a2, a3, a4, a5, a6);
-
-var org_jetbrains_skia_Region__1nOpRegionIRect = Module["org_jetbrains_skia_Region__1nOpRegionIRect"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Region__1nOpRegionIRect = Module["org_jetbrains_skia_Region__1nOpRegionIRect"] = wasmExports["org_jetbrains_skia_Region__1nOpRegionIRect"])(a0, a1, a2, a3, a4, a5, a6);
-
-var org_jetbrains_skia_Region__1nOpRegionRegion = Module["org_jetbrains_skia_Region__1nOpRegionRegion"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Region__1nOpRegionRegion = Module["org_jetbrains_skia_Region__1nOpRegionRegion"] = wasmExports["org_jetbrains_skia_Region__1nOpRegionRegion"])(a0, a1, a2, a3);
-
 var org_jetbrains_skia_PathEffect__1nMakeSum = Module["org_jetbrains_skia_PathEffect__1nMakeSum"] = (a0, a1) => (org_jetbrains_skia_PathEffect__1nMakeSum = Module["org_jetbrains_skia_PathEffect__1nMakeSum"] = wasmExports["org_jetbrains_skia_PathEffect__1nMakeSum"])(a0, a1);
 
 var org_jetbrains_skia_PathEffect__1nMakeCompose = Module["org_jetbrains_skia_PathEffect__1nMakeCompose"] = (a0, a1) => (org_jetbrains_skia_PathEffect__1nMakeCompose = Module["org_jetbrains_skia_PathEffect__1nMakeCompose"] = wasmExports["org_jetbrains_skia_PathEffect__1nMakeCompose"])(a0, a1);
@@ -7985,152 +8131,6 @@ var org_jetbrains_skia_PathEffect__1nMakeDash = Module["org_jetbrains_skia_PathE
 
 var org_jetbrains_skia_PathEffect__1nMakeDiscrete = Module["org_jetbrains_skia_PathEffect__1nMakeDiscrete"] = (a0, a1, a2) => (org_jetbrains_skia_PathEffect__1nMakeDiscrete = Module["org_jetbrains_skia_PathEffect__1nMakeDiscrete"] = wasmExports["org_jetbrains_skia_PathEffect__1nMakeDiscrete"])(a0, a1, a2);
 
-var org_jetbrains_skia_OutputWStream__1nGetFinalizer = Module["org_jetbrains_skia_OutputWStream__1nGetFinalizer"] = () => (org_jetbrains_skia_OutputWStream__1nGetFinalizer = Module["org_jetbrains_skia_OutputWStream__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_OutputWStream__1nGetFinalizer"])();
-
-var org_jetbrains_skia_OutputWStream__1nMake = Module["org_jetbrains_skia_OutputWStream__1nMake"] = a0 => (org_jetbrains_skia_OutputWStream__1nMake = Module["org_jetbrains_skia_OutputWStream__1nMake"] = wasmExports["org_jetbrains_skia_OutputWStream__1nMake"])(a0);
-
-var org_jetbrains_skia_Codec__1nGetFinalizer = Module["org_jetbrains_skia_Codec__1nGetFinalizer"] = () => (org_jetbrains_skia_Codec__1nGetFinalizer = Module["org_jetbrains_skia_Codec__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_Codec__1nGetFinalizer"])();
-
-var org_jetbrains_skia_Codec__1nMakeFromData = Module["org_jetbrains_skia_Codec__1nMakeFromData"] = a0 => (org_jetbrains_skia_Codec__1nMakeFromData = Module["org_jetbrains_skia_Codec__1nMakeFromData"] = wasmExports["org_jetbrains_skia_Codec__1nMakeFromData"])(a0);
-
-var org_jetbrains_skia_Codec__1nGetImageInfo = Module["org_jetbrains_skia_Codec__1nGetImageInfo"] = (a0, a1, a2) => (org_jetbrains_skia_Codec__1nGetImageInfo = Module["org_jetbrains_skia_Codec__1nGetImageInfo"] = wasmExports["org_jetbrains_skia_Codec__1nGetImageInfo"])(a0, a1, a2);
-
-var org_jetbrains_skia_Codec__1nGetSizeWidth = Module["org_jetbrains_skia_Codec__1nGetSizeWidth"] = a0 => (org_jetbrains_skia_Codec__1nGetSizeWidth = Module["org_jetbrains_skia_Codec__1nGetSizeWidth"] = wasmExports["org_jetbrains_skia_Codec__1nGetSizeWidth"])(a0);
-
-var org_jetbrains_skia_Codec__1nGetSizeHeight = Module["org_jetbrains_skia_Codec__1nGetSizeHeight"] = a0 => (org_jetbrains_skia_Codec__1nGetSizeHeight = Module["org_jetbrains_skia_Codec__1nGetSizeHeight"] = wasmExports["org_jetbrains_skia_Codec__1nGetSizeHeight"])(a0);
-
-var org_jetbrains_skia_Codec__1nGetEncodedOrigin = Module["org_jetbrains_skia_Codec__1nGetEncodedOrigin"] = a0 => (org_jetbrains_skia_Codec__1nGetEncodedOrigin = Module["org_jetbrains_skia_Codec__1nGetEncodedOrigin"] = wasmExports["org_jetbrains_skia_Codec__1nGetEncodedOrigin"])(a0);
-
-var org_jetbrains_skia_Codec__1nGetEncodedImageFormat = Module["org_jetbrains_skia_Codec__1nGetEncodedImageFormat"] = a0 => (org_jetbrains_skia_Codec__1nGetEncodedImageFormat = Module["org_jetbrains_skia_Codec__1nGetEncodedImageFormat"] = wasmExports["org_jetbrains_skia_Codec__1nGetEncodedImageFormat"])(a0);
-
-var org_jetbrains_skia_Codec__1nReadPixels = Module["org_jetbrains_skia_Codec__1nReadPixels"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Codec__1nReadPixels = Module["org_jetbrains_skia_Codec__1nReadPixels"] = wasmExports["org_jetbrains_skia_Codec__1nReadPixels"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_Codec__1nGetFrameCount = Module["org_jetbrains_skia_Codec__1nGetFrameCount"] = a0 => (org_jetbrains_skia_Codec__1nGetFrameCount = Module["org_jetbrains_skia_Codec__1nGetFrameCount"] = wasmExports["org_jetbrains_skia_Codec__1nGetFrameCount"])(a0);
-
-var org_jetbrains_skia_Codec__1nGetFrameInfo = Module["org_jetbrains_skia_Codec__1nGetFrameInfo"] = (a0, a1, a2) => (org_jetbrains_skia_Codec__1nGetFrameInfo = Module["org_jetbrains_skia_Codec__1nGetFrameInfo"] = wasmExports["org_jetbrains_skia_Codec__1nGetFrameInfo"])(a0, a1, a2);
-
-var org_jetbrains_skia_Codec__1nGetFramesInfo = Module["org_jetbrains_skia_Codec__1nGetFramesInfo"] = a0 => (org_jetbrains_skia_Codec__1nGetFramesInfo = Module["org_jetbrains_skia_Codec__1nGetFramesInfo"] = wasmExports["org_jetbrains_skia_Codec__1nGetFramesInfo"])(a0);
-
-var org_jetbrains_skia_Codec__1nFramesInfo_Delete = Module["org_jetbrains_skia_Codec__1nFramesInfo_Delete"] = a0 => (org_jetbrains_skia_Codec__1nFramesInfo_Delete = Module["org_jetbrains_skia_Codec__1nFramesInfo_Delete"] = wasmExports["org_jetbrains_skia_Codec__1nFramesInfo_Delete"])(a0);
-
-var org_jetbrains_skia_Codec__1nFramesInfo_GetSize = Module["org_jetbrains_skia_Codec__1nFramesInfo_GetSize"] = a0 => (org_jetbrains_skia_Codec__1nFramesInfo_GetSize = Module["org_jetbrains_skia_Codec__1nFramesInfo_GetSize"] = wasmExports["org_jetbrains_skia_Codec__1nFramesInfo_GetSize"])(a0);
-
-var org_jetbrains_skia_Codec__1nFramesInfo_GetInfos = Module["org_jetbrains_skia_Codec__1nFramesInfo_GetInfos"] = (a0, a1) => (org_jetbrains_skia_Codec__1nFramesInfo_GetInfos = Module["org_jetbrains_skia_Codec__1nFramesInfo_GetInfos"] = wasmExports["org_jetbrains_skia_Codec__1nFramesInfo_GetInfos"])(a0, a1);
-
-var org_jetbrains_skia_Codec__1nGetRepetitionCount = Module["org_jetbrains_skia_Codec__1nGetRepetitionCount"] = a0 => (org_jetbrains_skia_Codec__1nGetRepetitionCount = Module["org_jetbrains_skia_Codec__1nGetRepetitionCount"] = wasmExports["org_jetbrains_skia_Codec__1nGetRepetitionCount"])(a0);
-
-var org_jetbrains_skia_svg_SVGCanvas__1nMake = Module["org_jetbrains_skia_svg_SVGCanvas__1nMake"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_svg_SVGCanvas__1nMake = Module["org_jetbrains_skia_svg_SVGCanvas__1nMake"] = wasmExports["org_jetbrains_skia_svg_SVGCanvas__1nMake"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skia_svg_SVGSVG__1nGetTag = Module["org_jetbrains_skia_svg_SVGSVG__1nGetTag"] = a0 => (org_jetbrains_skia_svg_SVGSVG__1nGetTag = Module["org_jetbrains_skia_svg_SVGSVG__1nGetTag"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nGetTag"])(a0);
-
-var org_jetbrains_skia_svg_SVGSVG__1nGetX = Module["org_jetbrains_skia_svg_SVGSVG__1nGetX"] = (a0, a1) => (org_jetbrains_skia_svg_SVGSVG__1nGetX = Module["org_jetbrains_skia_svg_SVGSVG__1nGetX"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nGetX"])(a0, a1);
-
-var org_jetbrains_skia_svg_SVGSVG__1nGetY = Module["org_jetbrains_skia_svg_SVGSVG__1nGetY"] = (a0, a1) => (org_jetbrains_skia_svg_SVGSVG__1nGetY = Module["org_jetbrains_skia_svg_SVGSVG__1nGetY"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nGetY"])(a0, a1);
-
-var org_jetbrains_skia_svg_SVGSVG__1nGetHeight = Module["org_jetbrains_skia_svg_SVGSVG__1nGetHeight"] = (a0, a1) => (org_jetbrains_skia_svg_SVGSVG__1nGetHeight = Module["org_jetbrains_skia_svg_SVGSVG__1nGetHeight"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nGetHeight"])(a0, a1);
-
-var org_jetbrains_skia_svg_SVGSVG__1nGetWidth = Module["org_jetbrains_skia_svg_SVGSVG__1nGetWidth"] = (a0, a1) => (org_jetbrains_skia_svg_SVGSVG__1nGetWidth = Module["org_jetbrains_skia_svg_SVGSVG__1nGetWidth"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nGetWidth"])(a0, a1);
-
-var org_jetbrains_skia_svg_SVGSVG__1nGetPreserveAspectRatio = Module["org_jetbrains_skia_svg_SVGSVG__1nGetPreserveAspectRatio"] = (a0, a1) => (org_jetbrains_skia_svg_SVGSVG__1nGetPreserveAspectRatio = Module["org_jetbrains_skia_svg_SVGSVG__1nGetPreserveAspectRatio"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nGetPreserveAspectRatio"])(a0, a1);
-
-var org_jetbrains_skia_svg_SVGSVG__1nGetViewBox = Module["org_jetbrains_skia_svg_SVGSVG__1nGetViewBox"] = (a0, a1) => (org_jetbrains_skia_svg_SVGSVG__1nGetViewBox = Module["org_jetbrains_skia_svg_SVGSVG__1nGetViewBox"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nGetViewBox"])(a0, a1);
-
-var org_jetbrains_skia_svg_SVGSVG__1nGetIntrinsicSize = Module["org_jetbrains_skia_svg_SVGSVG__1nGetIntrinsicSize"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_svg_SVGSVG__1nGetIntrinsicSize = Module["org_jetbrains_skia_svg_SVGSVG__1nGetIntrinsicSize"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nGetIntrinsicSize"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skia_svg_SVGSVG__1nSetX = Module["org_jetbrains_skia_svg_SVGSVG__1nSetX"] = (a0, a1, a2) => (org_jetbrains_skia_svg_SVGSVG__1nSetX = Module["org_jetbrains_skia_svg_SVGSVG__1nSetX"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nSetX"])(a0, a1, a2);
-
-var org_jetbrains_skia_svg_SVGSVG__1nSetY = Module["org_jetbrains_skia_svg_SVGSVG__1nSetY"] = (a0, a1, a2) => (org_jetbrains_skia_svg_SVGSVG__1nSetY = Module["org_jetbrains_skia_svg_SVGSVG__1nSetY"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nSetY"])(a0, a1, a2);
-
-var org_jetbrains_skia_svg_SVGSVG__1nSetWidth = Module["org_jetbrains_skia_svg_SVGSVG__1nSetWidth"] = (a0, a1, a2) => (org_jetbrains_skia_svg_SVGSVG__1nSetWidth = Module["org_jetbrains_skia_svg_SVGSVG__1nSetWidth"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nSetWidth"])(a0, a1, a2);
-
-var org_jetbrains_skia_svg_SVGSVG__1nSetHeight = Module["org_jetbrains_skia_svg_SVGSVG__1nSetHeight"] = (a0, a1, a2) => (org_jetbrains_skia_svg_SVGSVG__1nSetHeight = Module["org_jetbrains_skia_svg_SVGSVG__1nSetHeight"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nSetHeight"])(a0, a1, a2);
-
-var org_jetbrains_skia_svg_SVGSVG__1nSetPreserveAspectRatio = Module["org_jetbrains_skia_svg_SVGSVG__1nSetPreserveAspectRatio"] = (a0, a1, a2) => (org_jetbrains_skia_svg_SVGSVG__1nSetPreserveAspectRatio = Module["org_jetbrains_skia_svg_SVGSVG__1nSetPreserveAspectRatio"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nSetPreserveAspectRatio"])(a0, a1, a2);
-
-var org_jetbrains_skia_svg_SVGSVG__1nSetViewBox = Module["org_jetbrains_skia_svg_SVGSVG__1nSetViewBox"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_svg_SVGSVG__1nSetViewBox = Module["org_jetbrains_skia_svg_SVGSVG__1nSetViewBox"] = wasmExports["org_jetbrains_skia_svg_SVGSVG__1nSetViewBox"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skia_svg_SVGDOM__1nMakeFromData = Module["org_jetbrains_skia_svg_SVGDOM__1nMakeFromData"] = a0 => (org_jetbrains_skia_svg_SVGDOM__1nMakeFromData = Module["org_jetbrains_skia_svg_SVGDOM__1nMakeFromData"] = wasmExports["org_jetbrains_skia_svg_SVGDOM__1nMakeFromData"])(a0);
-
-var org_jetbrains_skia_svg_SVGDOM__1nGetRoot = Module["org_jetbrains_skia_svg_SVGDOM__1nGetRoot"] = a0 => (org_jetbrains_skia_svg_SVGDOM__1nGetRoot = Module["org_jetbrains_skia_svg_SVGDOM__1nGetRoot"] = wasmExports["org_jetbrains_skia_svg_SVGDOM__1nGetRoot"])(a0);
-
-var org_jetbrains_skia_svg_SVGDOM__1nGetContainerSize = Module["org_jetbrains_skia_svg_SVGDOM__1nGetContainerSize"] = (a0, a1) => (org_jetbrains_skia_svg_SVGDOM__1nGetContainerSize = Module["org_jetbrains_skia_svg_SVGDOM__1nGetContainerSize"] = wasmExports["org_jetbrains_skia_svg_SVGDOM__1nGetContainerSize"])(a0, a1);
-
-var org_jetbrains_skia_svg_SVGDOM__1nSetContainerSize = Module["org_jetbrains_skia_svg_SVGDOM__1nSetContainerSize"] = (a0, a1, a2) => (org_jetbrains_skia_svg_SVGDOM__1nSetContainerSize = Module["org_jetbrains_skia_svg_SVGDOM__1nSetContainerSize"] = wasmExports["org_jetbrains_skia_svg_SVGDOM__1nSetContainerSize"])(a0, a1, a2);
-
-var org_jetbrains_skia_svg_SVGDOM__1nRender = Module["org_jetbrains_skia_svg_SVGDOM__1nRender"] = (a0, a1) => (org_jetbrains_skia_svg_SVGDOM__1nRender = Module["org_jetbrains_skia_svg_SVGDOM__1nRender"] = wasmExports["org_jetbrains_skia_svg_SVGDOM__1nRender"])(a0, a1);
-
-var org_jetbrains_skia_svg_SVGNode__1nGetTag = Module["org_jetbrains_skia_svg_SVGNode__1nGetTag"] = a0 => (org_jetbrains_skia_svg_SVGNode__1nGetTag = Module["org_jetbrains_skia_svg_SVGNode__1nGetTag"] = wasmExports["org_jetbrains_skia_svg_SVGNode__1nGetTag"])(a0);
-
-var org_jetbrains_skia_U16String__1nGetFinalizer = Module["org_jetbrains_skia_U16String__1nGetFinalizer"] = () => (org_jetbrains_skia_U16String__1nGetFinalizer = Module["org_jetbrains_skia_U16String__1nGetFinalizer"] = wasmExports["org_jetbrains_skia_U16String__1nGetFinalizer"])();
-
-var org_jetbrains_skia_Image__1nMakeRaster = Module["org_jetbrains_skia_Image__1nMakeRaster"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Image__1nMakeRaster = Module["org_jetbrains_skia_Image__1nMakeRaster"] = wasmExports["org_jetbrains_skia_Image__1nMakeRaster"])(a0, a1, a2, a3, a4, a5, a6);
-
-var org_jetbrains_skia_Image__1nMakeRasterData = Module["org_jetbrains_skia_Image__1nMakeRasterData"] = (a0, a1, a2, a3, a4, a5, a6) => (org_jetbrains_skia_Image__1nMakeRasterData = Module["org_jetbrains_skia_Image__1nMakeRasterData"] = wasmExports["org_jetbrains_skia_Image__1nMakeRasterData"])(a0, a1, a2, a3, a4, a5, a6);
-
-var org_jetbrains_skia_Image__1nMakeFromBitmap = Module["org_jetbrains_skia_Image__1nMakeFromBitmap"] = a0 => (org_jetbrains_skia_Image__1nMakeFromBitmap = Module["org_jetbrains_skia_Image__1nMakeFromBitmap"] = wasmExports["org_jetbrains_skia_Image__1nMakeFromBitmap"])(a0);
-
-var org_jetbrains_skia_Image__1nMakeFromPixmap = Module["org_jetbrains_skia_Image__1nMakeFromPixmap"] = a0 => (org_jetbrains_skia_Image__1nMakeFromPixmap = Module["org_jetbrains_skia_Image__1nMakeFromPixmap"] = wasmExports["org_jetbrains_skia_Image__1nMakeFromPixmap"])(a0);
-
-var org_jetbrains_skia_Image__1nMakeFromEncoded = Module["org_jetbrains_skia_Image__1nMakeFromEncoded"] = (a0, a1) => (org_jetbrains_skia_Image__1nMakeFromEncoded = Module["org_jetbrains_skia_Image__1nMakeFromEncoded"] = wasmExports["org_jetbrains_skia_Image__1nMakeFromEncoded"])(a0, a1);
-
-var org_jetbrains_skia_Image__1nGetImageInfo = Module["org_jetbrains_skia_Image__1nGetImageInfo"] = (a0, a1, a2) => (org_jetbrains_skia_Image__1nGetImageInfo = Module["org_jetbrains_skia_Image__1nGetImageInfo"] = wasmExports["org_jetbrains_skia_Image__1nGetImageInfo"])(a0, a1, a2);
-
-var org_jetbrains_skia_Image__1nEncodeToData = Module["org_jetbrains_skia_Image__1nEncodeToData"] = (a0, a1, a2) => (org_jetbrains_skia_Image__1nEncodeToData = Module["org_jetbrains_skia_Image__1nEncodeToData"] = wasmExports["org_jetbrains_skia_Image__1nEncodeToData"])(a0, a1, a2);
-
-var org_jetbrains_skia_Image__1nMakeShader = Module["org_jetbrains_skia_Image__1nMakeShader"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Image__1nMakeShader = Module["org_jetbrains_skia_Image__1nMakeShader"] = wasmExports["org_jetbrains_skia_Image__1nMakeShader"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skia_Image__1nPeekPixels = Module["org_jetbrains_skia_Image__1nPeekPixels"] = a0 => (org_jetbrains_skia_Image__1nPeekPixels = Module["org_jetbrains_skia_Image__1nPeekPixels"] = wasmExports["org_jetbrains_skia_Image__1nPeekPixels"])(a0);
-
-var org_jetbrains_skia_Image__1nPeekPixelsToPixmap = Module["org_jetbrains_skia_Image__1nPeekPixelsToPixmap"] = (a0, a1) => (org_jetbrains_skia_Image__1nPeekPixelsToPixmap = Module["org_jetbrains_skia_Image__1nPeekPixelsToPixmap"] = wasmExports["org_jetbrains_skia_Image__1nPeekPixelsToPixmap"])(a0, a1);
-
-var org_jetbrains_skia_Image__1nReadPixelsBitmap = Module["org_jetbrains_skia_Image__1nReadPixelsBitmap"] = (a0, a1, a2, a3, a4, a5) => (org_jetbrains_skia_Image__1nReadPixelsBitmap = Module["org_jetbrains_skia_Image__1nReadPixelsBitmap"] = wasmExports["org_jetbrains_skia_Image__1nReadPixelsBitmap"])(a0, a1, a2, a3, a4, a5);
-
-var org_jetbrains_skia_Image__1nReadPixelsPixmap = Module["org_jetbrains_skia_Image__1nReadPixelsPixmap"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Image__1nReadPixelsPixmap = Module["org_jetbrains_skia_Image__1nReadPixelsPixmap"] = wasmExports["org_jetbrains_skia_Image__1nReadPixelsPixmap"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skia_Image__1nScalePixels = Module["org_jetbrains_skia_Image__1nScalePixels"] = (a0, a1, a2, a3, a4) => (org_jetbrains_skia_Image__1nScalePixels = Module["org_jetbrains_skia_Image__1nScalePixels"] = wasmExports["org_jetbrains_skia_Image__1nScalePixels"])(a0, a1, a2, a3, a4);
-
-var org_jetbrains_skia_Picture__1nMakeFromData = Module["org_jetbrains_skia_Picture__1nMakeFromData"] = a0 => (org_jetbrains_skia_Picture__1nMakeFromData = Module["org_jetbrains_skia_Picture__1nMakeFromData"] = wasmExports["org_jetbrains_skia_Picture__1nMakeFromData"])(a0);
-
-var org_jetbrains_skia_Picture__1nPlayback = Module["org_jetbrains_skia_Picture__1nPlayback"] = (a0, a1, a2) => (org_jetbrains_skia_Picture__1nPlayback = Module["org_jetbrains_skia_Picture__1nPlayback"] = wasmExports["org_jetbrains_skia_Picture__1nPlayback"])(a0, a1, a2);
-
-var org_jetbrains_skia_Picture__1nGetCullRect = Module["org_jetbrains_skia_Picture__1nGetCullRect"] = (a0, a1) => (org_jetbrains_skia_Picture__1nGetCullRect = Module["org_jetbrains_skia_Picture__1nGetCullRect"] = wasmExports["org_jetbrains_skia_Picture__1nGetCullRect"])(a0, a1);
-
-var org_jetbrains_skia_Picture__1nGetUniqueId = Module["org_jetbrains_skia_Picture__1nGetUniqueId"] = a0 => (org_jetbrains_skia_Picture__1nGetUniqueId = Module["org_jetbrains_skia_Picture__1nGetUniqueId"] = wasmExports["org_jetbrains_skia_Picture__1nGetUniqueId"])(a0);
-
-var org_jetbrains_skia_Picture__1nSerializeToData = Module["org_jetbrains_skia_Picture__1nSerializeToData"] = a0 => (org_jetbrains_skia_Picture__1nSerializeToData = Module["org_jetbrains_skia_Picture__1nSerializeToData"] = wasmExports["org_jetbrains_skia_Picture__1nSerializeToData"])(a0);
-
-var org_jetbrains_skia_Picture__1nMakePlaceholder = Module["org_jetbrains_skia_Picture__1nMakePlaceholder"] = (a0, a1, a2, a3) => (org_jetbrains_skia_Picture__1nMakePlaceholder = Module["org_jetbrains_skia_Picture__1nMakePlaceholder"] = wasmExports["org_jetbrains_skia_Picture__1nMakePlaceholder"])(a0, a1, a2, a3);
-
-var org_jetbrains_skia_Picture__1nGetApproximateOpCount = Module["org_jetbrains_skia_Picture__1nGetApproximateOpCount"] = a0 => (org_jetbrains_skia_Picture__1nGetApproximateOpCount = Module["org_jetbrains_skia_Picture__1nGetApproximateOpCount"] = wasmExports["org_jetbrains_skia_Picture__1nGetApproximateOpCount"])(a0);
-
-var org_jetbrains_skia_Picture__1nGetApproximateBytesUsed = Module["org_jetbrains_skia_Picture__1nGetApproximateBytesUsed"] = a0 => (org_jetbrains_skia_Picture__1nGetApproximateBytesUsed = Module["org_jetbrains_skia_Picture__1nGetApproximateBytesUsed"] = wasmExports["org_jetbrains_skia_Picture__1nGetApproximateBytesUsed"])(a0);
-
-var org_jetbrains_skia_Picture__1nMakeShader = Module["org_jetbrains_skia_Picture__1nMakeShader"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) => (org_jetbrains_skia_Picture__1nMakeShader = Module["org_jetbrains_skia_Picture__1nMakeShader"] = wasmExports["org_jetbrains_skia_Picture__1nMakeShader"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
-
-var _skia_memGetByte = Module["_skia_memGetByte"] = a0 => (_skia_memGetByte = Module["_skia_memGetByte"] = wasmExports["skia_memGetByte"])(a0);
-
-var _skia_memSetByte = Module["_skia_memSetByte"] = (a0, a1) => (_skia_memSetByte = Module["_skia_memSetByte"] = wasmExports["skia_memSetByte"])(a0, a1);
-
-var _skia_memGetChar = Module["_skia_memGetChar"] = a0 => (_skia_memGetChar = Module["_skia_memGetChar"] = wasmExports["skia_memGetChar"])(a0);
-
-var _skia_memSetChar = Module["_skia_memSetChar"] = (a0, a1) => (_skia_memSetChar = Module["_skia_memSetChar"] = wasmExports["skia_memSetChar"])(a0, a1);
-
-var _skia_memGetShort = Module["_skia_memGetShort"] = a0 => (_skia_memGetShort = Module["_skia_memGetShort"] = wasmExports["skia_memGetShort"])(a0);
-
-var _skia_memSetShort = Module["_skia_memSetShort"] = (a0, a1) => (_skia_memSetShort = Module["_skia_memSetShort"] = wasmExports["skia_memSetShort"])(a0, a1);
-
-var _skia_memGetInt = Module["_skia_memGetInt"] = a0 => (_skia_memGetInt = Module["_skia_memGetInt"] = wasmExports["skia_memGetInt"])(a0);
-
-var _skia_memSetInt = Module["_skia_memSetInt"] = (a0, a1) => (_skia_memSetInt = Module["_skia_memSetInt"] = wasmExports["skia_memSetInt"])(a0, a1);
-
-var _skia_memGetFloat = Module["_skia_memGetFloat"] = a0 => (_skia_memGetFloat = Module["_skia_memGetFloat"] = wasmExports["skia_memGetFloat"])(a0);
-
-var _skia_memSetFloat = Module["_skia_memSetFloat"] = (a0, a1) => (_skia_memSetFloat = Module["_skia_memSetFloat"] = wasmExports["skia_memSetFloat"])(a0, a1);
-
-var _skia_memGetDouble = Module["_skia_memGetDouble"] = a0 => (_skia_memGetDouble = Module["_skia_memGetDouble"] = wasmExports["skia_memGetDouble"])(a0);
-
-var _skia_memSetDouble = Module["_skia_memSetDouble"] = (a0, a1) => (_skia_memSetDouble = Module["_skia_memSetDouble"] = wasmExports["skia_memSetDouble"])(a0, a1);
-
 var ___errno_location = () => (___errno_location = wasmExports["__errno_location"])();
 
 var _emscripten_builtin_memalign = (a0, a1) => (_emscripten_builtin_memalign = wasmExports["emscripten_builtin_memalign"])(a0, a1);
@@ -8143,8 +8143,6 @@ var stackRestore = a0 => (stackRestore = wasmExports["stackRestore"])(a0);
 
 var stackAlloc = a0 => (stackAlloc = wasmExports["stackAlloc"])(a0);
 
-var dynCall_iiiji = Module["dynCall_iiiji"] = (a0, a1, a2, a3, a4, a5) => (dynCall_iiiji = Module["dynCall_iiiji"] = wasmExports["dynCall_iiiji"])(a0, a1, a2, a3, a4, a5);
-
 var dynCall_ji = Module["dynCall_ji"] = (a0, a1) => (dynCall_ji = Module["dynCall_ji"] = wasmExports["dynCall_ji"])(a0, a1);
 
 var dynCall_iiji = Module["dynCall_iiji"] = (a0, a1, a2, a3, a4) => (dynCall_iiji = Module["dynCall_iiji"] = wasmExports["dynCall_iiji"])(a0, a1, a2, a3, a4);
@@ -8154,6 +8152,8 @@ var dynCall_iijjiii = Module["dynCall_iijjiii"] = (a0, a1, a2, a3, a4, a5, a6, a
 var dynCall_iij = Module["dynCall_iij"] = (a0, a1, a2, a3) => (dynCall_iij = Module["dynCall_iij"] = wasmExports["dynCall_iij"])(a0, a1, a2, a3);
 
 var dynCall_vijjjii = Module["dynCall_vijjjii"] = (a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) => (dynCall_vijjjii = Module["dynCall_vijjjii"] = wasmExports["dynCall_vijjjii"])(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9);
+
+var dynCall_iiiji = Module["dynCall_iiiji"] = (a0, a1, a2, a3, a4, a5) => (dynCall_iiiji = Module["dynCall_iiiji"] = wasmExports["dynCall_iiiji"])(a0, a1, a2, a3, a4, a5);
 
 var dynCall_viji = Module["dynCall_viji"] = (a0, a1, a2, a3, a4) => (dynCall_viji = Module["dynCall_viji"] = wasmExports["dynCall_viji"])(a0, a1, a2, a3, a4);
 
@@ -8165,13 +8165,13 @@ var dynCall_jii = Module["dynCall_jii"] = (a0, a1, a2) => (dynCall_jii = Module[
 
 var dynCall_vij = Module["dynCall_vij"] = (a0, a1, a2, a3) => (dynCall_vij = Module["dynCall_vij"] = wasmExports["dynCall_vij"])(a0, a1, a2, a3);
 
+var dynCall_jiiiii = Module["dynCall_jiiiii"] = (a0, a1, a2, a3, a4, a5) => (dynCall_jiiiii = Module["dynCall_jiiiii"] = wasmExports["dynCall_jiiiii"])(a0, a1, a2, a3, a4, a5);
+
 var dynCall_jiiiiii = Module["dynCall_jiiiiii"] = (a0, a1, a2, a3, a4, a5, a6) => (dynCall_jiiiiii = Module["dynCall_jiiiiii"] = wasmExports["dynCall_jiiiiii"])(a0, a1, a2, a3, a4, a5, a6);
 
 var dynCall_jiiiiji = Module["dynCall_jiiiiji"] = (a0, a1, a2, a3, a4, a5, a6, a7) => (dynCall_jiiiiji = Module["dynCall_jiiiiji"] = wasmExports["dynCall_jiiiiji"])(a0, a1, a2, a3, a4, a5, a6, a7);
 
 var dynCall_iijj = Module["dynCall_iijj"] = (a0, a1, a2, a3, a4, a5) => (dynCall_iijj = Module["dynCall_iijj"] = wasmExports["dynCall_iijj"])(a0, a1, a2, a3, a4, a5);
-
-var dynCall_jiiiii = Module["dynCall_jiiiii"] = (a0, a1, a2, a3, a4, a5) => (dynCall_jiiiii = Module["dynCall_jiiiii"] = wasmExports["dynCall_jiiiii"])(a0, a1, a2, a3, a4, a5);
 
 var dynCall_jiji = Module["dynCall_jiji"] = (a0, a1, a2, a3, a4) => (dynCall_jiji = Module["dynCall_jiji"] = wasmExports["dynCall_jiji"])(a0, a1, a2, a3, a4);
 

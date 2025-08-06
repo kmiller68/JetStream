@@ -9,9 +9,14 @@ BUILD_LOG="$(realpath build.log)"
 echo -e "Built on $(date --rfc-3339=seconds)" | tee "$BUILD_LOG"
 
 # Build the benchmark from source.
-git clone https://github.com/JetBrains/compose-multiplatform.git |& tee -a "$BUILD_LOG"
+# FIXME: Use main branch and remove hotfix patch below, once
+# https://youtrack.jetbrains.com/issue/SKIKO-1040 is resolved upstream.
+# See https://github.com/WebKit/JetStream/pull/84#discussion_r2252418900.
+git clone -b ok/jetstream3_hotfix https://github.com/JetBrains/compose-multiplatform.git |& tee -a "$BUILD_LOG"
 pushd compose-multiplatform/
 git log -1 --oneline | tee -a "$BUILD_LOG"
+# FIXME: Use stable 2.3 Kotlin/Wasm toolchain, once available.
+git apply ../register-hotfix.patch | tee -a "$BUILD_LOG"
 pushd benchmarks/multiplatform
 ./gradlew :benchmarks:wasmJsProductionExecutableCompileSync
 # For building polyfills and JavaScript launcher to run in d8 (which inspires the benchmark.js launcher here):

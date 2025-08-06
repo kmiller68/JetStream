@@ -14,14 +14,7 @@ export async function instantiate(imports={}, runInitializer=true) {
     const _ref_QGpzLWpvZGEvY29yZQ_ = imports['@js-joda/core'];
     
     const js_code = {
-        'kotlin.captureStackTrace' : () => new Error().stack,
-        'kotlin.wasm.internal.throwJsError' : (message, wasmTypeName, stack) => { 
-            const error = new Error();
-            error.message = message;
-            error.name = wasmTypeName;
-            error.stack = stack;
-            throw error;
-             },
+        'kotlin.createJsError' : (message, cause) => new Error(message, { cause }),
         'kotlin.wasm.internal.stringLength' : (x) => x.length,
         'kotlin.wasm.internal.jsExportStringToWasm' : (src, srcOffset, srcLength, dstAddr) => { 
             const mem16 = new Uint16Array(wasmExports.memory.buffer, dstAddr, srcLength);
@@ -38,8 +31,8 @@ export async function instantiate(imports={}, runInitializer=true) {
             const str = String.fromCharCode.apply(null, mem16);
             return (prefix == null) ? str : prefix + str;
              },
-        'kotlin.wasm.internal.intToExternref' : (x) => x,
         'kotlin.wasm.internal.externrefToBoolean' : (ref) => Boolean(ref),
+        'kotlin.wasm.internal.intToExternref' : (x) => x,
         'kotlin.wasm.internal.getJsEmptyString' : () => '',
         'kotlin.wasm.internal.externrefToString' : (ref) => String(ref),
         'kotlin.wasm.internal.externrefEquals' : (lhs, rhs) => lhs === rhs,
@@ -111,17 +104,23 @@ export async function instantiate(imports={}, runInitializer=true) {
              },
         'kotlin.js.__convertKotlinClosureToJsClosure_(()->Unit)' : (f) => getCachedJsObject(f, () => wasmExports['__callFunction_(()->Unit)'](f, )),
         'kotlin.js.jsThrow' : (e) => { throw e; },
-        'kotlin.io.printError' : (error) => printErr(error),
         'kotlin.io.printlnImpl' : (message) => print(message),
+        'kotlin.io.printError' : (error) => printErr(error),
         'kotlin.js.jsArrayGet' : (array, index) => array[index],
         'kotlin.js.jsArraySet' : (array, index, value) => { array[index] = value },
         'kotlin.js.JsArray_$external_fun' : () => new Array(),
         'kotlin.js.length_$external_prop_getter' : (_this) => _this.length,
         'kotlin.js.JsArray_$external_class_instanceof' : (x) => x instanceof Array,
+        'kotlin.js.JsArray_$external_class_get' : () => Array,
         'kotlin.js.stackPlaceHolder_js_code' : () => (''),
         'kotlin.js.message_$external_prop_getter' : (_this) => _this.message,
+        'kotlin.js.name_$external_prop_setter' : (_this, v) => _this.name = v,
         'kotlin.js.stack_$external_prop_getter' : (_this) => _this.stack,
+        'kotlin.js.kotlinException_$external_prop_getter' : (_this) => _this.kotlinException,
+        'kotlin.js.kotlinException_$external_prop_setter' : (_this, v) => _this.kotlinException = v,
         'kotlin.js.JsError_$external_class_instanceof' : (x) => x instanceof Error,
+        'kotlin.js.JsString_$external_class_instanceof' : (x) => typeof x === 'string',
+        'kotlin.js.JsString_$external_class_get' : () => JsString,
         'kotlin.js.Promise_$external_fun' : (p0) => new Promise(p0),
         'kotlin.js.__callJsClosure_((Js?)->Unit)' : (f, p0) => f(p0),
         'kotlin.js.__callJsClosure_((Js)->Unit)' : (f, p0) => f(p0),
@@ -131,6 +130,8 @@ export async function instantiate(imports={}, runInitializer=true) {
         'kotlin.js.then_$external_fun_1' : (_this, p0, p1) => _this.then(p0, p1),
         'kotlin.js.__convertKotlinClosureToJsClosure_((Js)->Js?)' : (f) => getCachedJsObject(f, (p0) => wasmExports['__callFunction_((Js)->Js?)'](f, p0)),
         'kotlin.js.catch_$external_fun' : (_this, p0) => _this.catch(p0),
+        'kotlin.js.Promise_$external_class_instanceof' : (x) => x instanceof Promise,
+        'kotlin.js.Promise_$external_class_get' : () => Promise,
         'kotlin.random.initialSeed' : () => ((Math.random() * Math.pow(2, 32)) | 0),
         'kotlin.wasm.internal.getJsClassName' : (jsKlass) => jsKlass.name,
         'kotlin.wasm.internal.instanceOf' : (ref, jsKlass) => ref instanceof jsKlass,
@@ -138,27 +139,6 @@ export async function instantiate(imports={}, runInitializer=true) {
         'kotlin.time.tryGetPerformance' : () => typeof globalThis !== 'undefined' && typeof globalThis.performance !== 'undefined' ? globalThis.performance : null,
         'kotlin.time.getPerformanceNow' : (performance) => performance.now(),
         'kotlin.time.dateNow' : () => Date.now(),
-        'kotlinx.coroutines.tryGetProcess' : () => (typeof(process) !== 'undefined' && typeof(process.nextTick) === 'function') ? process : null,
-        'kotlinx.coroutines.tryGetWindow' : () => (typeof(window) !== 'undefined' && window != null && typeof(window.addEventListener) === 'function') ? window : null,
-        'kotlinx.coroutines.nextTick_$external_fun' : (_this, p0) => _this.nextTick(p0),
-        'kotlinx.coroutines.error_$external_fun' : (_this, p0) => _this.error(p0),
-        'kotlinx.coroutines.console_$external_prop_getter' : () => console,
-        'kotlinx.coroutines.createScheduleMessagePoster' : (process) => () => Promise.resolve(0).then(process),
-        'kotlinx.coroutines.__callJsClosure_(()->Unit)' : (f, ) => f(),
-        'kotlinx.coroutines.createRescheduleMessagePoster' : (window) => () => window.postMessage('dispatchCoroutine', '*'),
-        'kotlinx.coroutines.subscribeToWindowMessages' : (window, process) => {
-            const handler = (event) => {
-                if (event.source == window && event.data == 'dispatchCoroutine') {
-                    event.stopPropagation();
-                    process();
-                }
-            }
-            window.addEventListener('message', handler, true);
-        },
-        'kotlinx.coroutines.setTimeout' : (window, handler, timeout) => window.setTimeout(handler, timeout),
-        'kotlinx.coroutines.clearTimeout' : (handle) => { if (typeof clearTimeout !== 'undefined') clearTimeout(handle); },
-        'kotlinx.coroutines.setTimeout_$external_fun' : (p0, p1) => setTimeout(p0, p1),
-        'kotlinx.coroutines.promiseSetDeferred' : (promise, deferred) => promise.deferred = deferred,
         'kotlinx.browser.window_$external_prop_getter' : () => window,
         'kotlinx.browser.document_$external_prop_getter' : () => document,
         'org.w3c.dom.length_$external_prop_getter' : (_this) => _this.length,
@@ -182,32 +162,33 @@ export async function instantiate(imports={}, runInitializer=true) {
         'org.w3c.dom.events.type_$external_prop_getter' : (_this) => _this.type,
         'org.w3c.dom.events.preventDefault_$external_fun' : (_this, ) => _this.preventDefault(),
         'org.w3c.dom.events.Event_$external_class_instanceof' : (x) => x instanceof Event,
+        'org.w3c.dom.events.Event_$external_class_get' : () => Event,
         'org.w3c.dom.events.key_$external_prop_getter' : (_this) => _this.key,
         'org.w3c.dom.events.KeyboardEvent_$external_class_instanceof' : (x) => x instanceof KeyboardEvent,
         'org.w3c.dom.location_$external_prop_getter' : (_this) => _this.location,
         'org.w3c.dom.navigator_$external_prop_getter' : (_this) => _this.navigator,
         'org.w3c.dom.devicePixelRatio_$external_prop_getter' : (_this) => _this.devicePixelRatio,
         'org.w3c.dom.matchMedia_$external_fun' : (_this, p0) => _this.matchMedia(p0),
-        'org.w3c.dom.clearTimeout_$external_fun' : (_this, p0, isDefault0) => _this.clearTimeout(isDefault0 ? undefined : p0, ),
-        'org.w3c.dom.fetch_$external_fun' : (_this, p0, p1, isDefault0) => _this.fetch(p0, isDefault0 ? undefined : p1, ),
-        'org.w3c.dom.documentElement_$external_prop_getter' : (_this) => _this.documentElement,
+        'org.w3c.dom.matches_$external_prop_getter' : (_this) => _this.matches,
         'org.w3c.dom.protocol_$external_prop_getter' : (_this) => _this.protocol,
         'org.w3c.dom.hostname_$external_prop_getter' : (_this) => _this.hostname,
         'org.w3c.dom.search_$external_prop_getter' : (_this) => _this.search,
+        'org.w3c.dom.getData_$external_fun' : (_this, p0) => _this.getData(p0),
+        'org.w3c.dom.setData_$external_fun' : (_this, p0, p1) => _this.setData(p0, p1),
+        'org.w3c.dom.language_$external_prop_getter' : (_this) => _this.language,
+        'org.w3c.dom.clearTimeout_$external_fun' : (_this, p0, isDefault0) => _this.clearTimeout(isDefault0 ? undefined : p0, ),
+        'org.w3c.dom.fetch_$external_fun' : (_this, p0, p1, isDefault0) => _this.fetch(p0, isDefault0 ? undefined : p1, ),
+        'org.w3c.dom.documentElement_$external_prop_getter' : (_this) => _this.documentElement,
         'org.w3c.dom.namespaceURI_$external_prop_getter' : (_this) => _this.namespaceURI,
         'org.w3c.dom.localName_$external_prop_getter' : (_this) => _this.localName,
         'org.w3c.dom.getAttribute_$external_fun' : (_this, p0) => _this.getAttribute(p0),
         'org.w3c.dom.getAttributeNS_$external_fun' : (_this, p0, p1) => _this.getAttributeNS(p0, p1),
         'org.w3c.dom.Element_$external_class_instanceof' : (x) => x instanceof Element,
-        'org.w3c.dom.matches_$external_prop_getter' : (_this) => _this.matches,
         'org.w3c.dom.data_$external_prop_getter' : (_this) => _this.data,
         'org.w3c.dom.nodeName_$external_prop_getter' : (_this) => _this.nodeName,
         'org.w3c.dom.childNodes_$external_prop_getter' : (_this) => _this.childNodes,
         'org.w3c.dom.lookupPrefix_$external_fun' : (_this, p0) => _this.lookupPrefix(p0),
         'org.w3c.dom.item_$external_fun' : (_this, p0) => _this.item(p0),
-        'org.w3c.dom.language_$external_prop_getter' : (_this) => _this.language,
-        'org.w3c.dom.getData_$external_fun' : (_this, p0) => _this.getData(p0),
-        'org.w3c.dom.setData_$external_fun' : (_this, p0, p1) => _this.setData(p0, p1),
         'org.w3c.dom.binaryType_$external_prop_setter' : (_this, v) => _this.binaryType = v,
         'org.w3c.dom.close_$external_fun' : (_this, p0, p1, isDefault0, isDefault1) => _this.close(isDefault0 ? undefined : p0, isDefault1 ? undefined : p1, ),
         'org.w3c.dom.send_$external_fun' : (_this, p0) => _this.send(p0),
@@ -226,13 +207,34 @@ export async function instantiate(imports={}, runInitializer=true) {
         'org.w3c.fetch.body_$external_prop_getter' : (_this) => _this.body,
         'org.w3c.fetch.blob_$external_fun' : (_this, ) => _this.blob(),
         'org.w3c.fetch.get_$external_fun' : (_this, p0) => _this.get(p0),
-        'org.w3c.performance.performance_$external_prop_getter' : (_this) => _this.performance,
         'org.w3c.performance.now_$external_fun' : (_this, ) => _this.now(),
+        'org.w3c.performance.performance_$external_prop_getter' : (_this) => _this.performance,
         'org.w3c.xhr.XMLHttpRequest_$external_fun' : () => new XMLHttpRequest(),
         'org.w3c.xhr.status_$external_prop_getter' : (_this) => _this.status,
         'org.w3c.xhr.open_$external_fun' : (_this, p0, p1, p2, p3, p4, isDefault0, isDefault1) => _this.open(p0, p1, p2, isDefault0 ? undefined : p3, isDefault1 ? undefined : p4, ),
         'org.w3c.xhr.send_$external_fun' : (_this, ) => _this.send(),
         'org.w3c.xhr.overrideMimeType_$external_fun' : (_this, p0) => _this.overrideMimeType(p0),
+        'kotlinx.coroutines.tryGetProcess' : () => (typeof(process) !== 'undefined' && typeof(process.nextTick) === 'function') ? process : null,
+        'kotlinx.coroutines.tryGetWindow' : () => (typeof(window) !== 'undefined' && window != null && typeof(window.addEventListener) === 'function') ? window : null,
+        'kotlinx.coroutines.nextTick_$external_fun' : (_this, p0) => _this.nextTick(p0),
+        'kotlinx.coroutines.error_$external_fun' : (_this, p0) => _this.error(p0),
+        'kotlinx.coroutines.console_$external_prop_getter' : () => console,
+        'kotlinx.coroutines.createScheduleMessagePoster' : (process) => () => Promise.resolve(0).then(process),
+        'kotlinx.coroutines.__callJsClosure_(()->Unit)' : (f, ) => f(),
+        'kotlinx.coroutines.createRescheduleMessagePoster' : (window) => () => window.postMessage('dispatchCoroutine', '*'),
+        'kotlinx.coroutines.subscribeToWindowMessages' : (window, process) => {
+            const handler = (event) => {
+                if (event.source == window && event.data == 'dispatchCoroutine') {
+                    event.stopPropagation();
+                    process();
+                }
+            }
+            window.addEventListener('message', handler, true);
+        },
+        'kotlinx.coroutines.setTimeout' : (window, handler, timeout) => window.setTimeout(handler, timeout),
+        'kotlinx.coroutines.clearTimeout' : (handle) => { if (typeof clearTimeout !== 'undefined') clearTimeout(handle); },
+        'kotlinx.coroutines.setTimeout_$external_fun' : (p0, p1) => setTimeout(p0, p1),
+        'kotlinx.coroutines.promiseSetDeferred' : (promise, deferred) => promise.deferred = deferred,
         'androidx.compose.runtime.internal.weakMap_js_code' : () => (new WeakMap()),
         'androidx.compose.runtime.internal.set_$external_fun' : (_this, p0, p1) => _this.set(p0, p1),
         'androidx.compose.runtime.internal.get_$external_fun' : (_this, p0) => _this.get(p0),
@@ -244,7 +246,7 @@ export async function instantiate(imports={}, runInitializer=true) {
         'org.jetbrains.skiko.w3c.window_$external_object_getInstance' : () => window,
         'org.jetbrains.skiko.w3c.now_$external_fun' : (_this, ) => _this.now(),
         'org.jetbrains.skia.impl.FinalizationRegistry_$external_fun' : (p0) => new FinalizationRegistry(p0),
-        'org.jetbrains.skia.impl.register_$external_fun' : (_this, p0, p1) => _this.register(p0, p1),
+        'org.jetbrains.skia.impl.register_$external_fun' : (_this, p0, p1, p2) => _this.register(p0, p1, p2),
         'org.jetbrains.skia.impl.unregister_$external_fun' : (_this, p0) => _this.unregister(p0),
         'org.jetbrains.skia.impl._releaseLocalCallbackScope_$external_fun' : () => _ref_Li9za2lrby5tanM_._releaseLocalCallbackScope(),
         'org.jetbrains.skiko.getNavigatorInfo' : () => navigator.userAgentData ? navigator.userAgentData.platform : navigator.platform,
@@ -263,6 +265,8 @@ export async function instantiate(imports={}, runInitializer=true) {
         'androidx.compose.ui.platform.emptyClipboardItems' : () => [new ClipboardItem({'text/plain': new Blob([''], { type: 'text/plain' })})],
         'androidx.compose.ui.platform.read_$external_fun' : (_this, ) => _this.read(),
         'androidx.compose.ui.platform.write_$external_fun' : (_this, p0) => _this.write(p0),
+        'androidx.compose.ui.platform.W3CTemporaryClipboard_$external_class_instanceof' : (x) => x instanceof Clipboard,
+        'androidx.compose.ui.platform.W3CTemporaryClipboard_$external_class_get' : () => Clipboard,
         'androidx.compose.ui.platform.types_$external_prop_getter' : (_this) => _this.types,
         'androidx.compose.ui.platform.getType_$external_fun' : (_this, p0) => _this.getType(p0),
         'androidx.compose.foundation.internal.doesJsArrayContainValue' : (jsArray, value) => jsArray.includes(value),
@@ -376,12 +380,15 @@ export async function instantiate(imports={}, runInitializer=true) {
     if (!isNodeJs && !isDeno && !isStandaloneJsVM && !isBrowser) {
       throw "Supported JS engine not detected";
     }
-    
+
     const wasmFilePath = './compose-benchmarks-benchmarks.wasm';
+
+    const wasmTag = WebAssembly.JSTag ?? new WebAssembly.Tag({ parameters: ['externref'] });
+
     const importObject = {
         js_code,
         intrinsics: {
-            js_error_tag: WebAssembly.JSTag
+            tag: wasmTag
         },
         './skiko.mjs': imports['./skiko.mjs'],
 
