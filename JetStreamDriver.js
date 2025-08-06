@@ -2015,7 +2015,7 @@ let BENCHMARKS = [
         },
         iterations: 15,
         worstCaseCount: 2,
-        tags: ["Wasm"],
+        tags: ["Default", "Wasm"],
     }),
     new WasmLegacyBenchmark({
         name: "tfjs-wasm",
