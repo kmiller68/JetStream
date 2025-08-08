@@ -383,7 +383,7 @@ export async function instantiate(imports={}, runInitializer=true) {
 
     const wasmFilePath = './compose-benchmarks-benchmarks.wasm';
 
-    const wasmTag = WebAssembly.JSTag ?? new WebAssembly.Tag({ parameters: ['externref'] });
+    const wasmTag = new WebAssembly.Tag({ parameters: ['externref'] });
 
     const importObject = {
         js_code,

@@ -29,6 +29,8 @@ echo "Copying generated files into build/" | tee -a "$BUILD_LOG"
 mkdir -p build/ | tee -a "$BUILD_LOG"
 cp $BUILD_SRC_DIR/compose-benchmarks-benchmarks.{wasm,uninstantiated.mjs} build/ | tee -a "$BUILD_LOG"
 git apply hook-print.patch | tee -a "$BUILD_LOG"
+# TODO: Remove once either the Kotlin toolchain or JSC fixes the issue raised in https://github.com/WebKit/JetStream/pull/84#issuecomment-3164672425
+git apply jstag-workaround.patch | tee -a "$BUILD_LOG"
 cp $BUILD_SRC_DIR/skiko.{wasm,mjs} build/ | tee -a "$BUILD_LOG"
 git apply skiko-disable-instantiate.patch | tee -a "$BUILD_LOG"
 cp $BUILD_SRC_DIR/composeResources/compose_benchmarks.benchmarks.generated.resources/drawable/example1_cat.jpg build/ | tee -a "$BUILD_LOG"
