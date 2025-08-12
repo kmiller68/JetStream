@@ -371,6 +371,29 @@ a.button {
     color: var(--text-color-subtle);
 }
 
+.benchmark a.info {
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    font-style: italic;
+    font-weight: bold;
+    border-radius: 100%;
+    background-color: var(--benchmark-heading-color);
+    color: var(--text-color-inverse) !important;
+    width: 1em;
+    height: 1em;
+    user-select: none;
+
+}
+
+.benchmark-running a.info {
+    background-color: var(--color-primary);
+}
+
+.benchmark-done a.info {
+    background-color: var(--text-color-subtle);
+}
+
 .benchmark h3 a,
 .benchmark h3 a:link,
 .benchmark h3 a:active,
@@ -428,6 +451,13 @@ a.button {
 .benchmark-done label {
     color: var(--text-color-very-subtle);
     font-weight: 400;
+}
+
+dt:target {
+    background-color: var(--color-secondary);
+    color: var(--text-color-inverse);
+    padding-left: 10px;
+    border-radius: 5px;
 }
 
 .plot svg circle {
