@@ -526,6 +526,13 @@ class Driver {
         }
     }
 
+    dumpTestList()
+    {
+        for (const benchmark of this.benchmarks) {
+            console.log(benchmark.name);
+        }
+    }
+
     async reportScoreToRunBenchmarkRunner()
     {
         if (!isInBrowser)
