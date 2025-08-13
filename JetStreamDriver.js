@@ -1121,6 +1121,69 @@ class Benchmark {
     }
 };
 
+class GroupedBenchmark extends Benchmark {
+    constructor(plan, benchmarks) {
+        super(plan);
+        assert(benchmarks.length);
+        for (const benchmark of benchmarks) {
+            // FIXME: Tags don't work for grouped tests anyway but if they did then this would be weird and probably wrong.
+            assert(benchmark.plan.tags.indexOf("Default") === -1, `Grouped benchmark sub-benchmarks shouldn't have the "Default" tag`, benchmark.tags);
+        }
+        benchmarks.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1);
+        this.benchmarks = benchmarks;
+    }
+
+    async prefetchResourcesForBrowser() {
+        for (const benchmark of this.benchmarks)
+            await benchmark.prefetchResourcesForBrowser();
+    }
+
+    async retryPrefetchResourcesForBrowser() {
+        for (const benchmark of this.benchmarks)
+            await benchmark.retryPrefetchResourcesForBrowser();
+    }
+
+    prefetchResourcesForShell() {
+        for (const benchmark of this.benchmarks)
+            benchmark.prefetchResourcesForShell();
+    }
+
+    async run() {
+        performance.mark(this.name);
+        this.startTime = performance.now();
+
+        for (const benchmark of this.benchmarks)
+            await benchmark.run();
+
+        this.endTime = performance.now();
+        performance.measure(this.name, this.name);
+
+        this.processResults();
+    }
+
+    processResults() {
+        this.results = [];
+        for (const benchmark of this.benchmarks)
+            this.results = this.results.concat(benchmark.results);
+    }
+
+    subScores() {
+        const results = {};
+
+        for (const benchmark of this.benchmarks) {
+            let scores = benchmark.subScores();
+            for (let subScore in scores) {
+                results[subScore] ??= [];
+                results[subScore].push(scores[subScore]);
+            }
+        }
+
+        for (let subScore in results)
+            results[subScore] = geomeanScore(results[subScore]);
+        return results;
+    }
+};
+
 class DefaultBenchmark extends Benchmark {
     constructor(...args) {
         super(...args);
@@ -2426,15 +2489,20 @@ const SUNSPIDER_TESTS = [
     "string-unpack-code",
     "tagcloud",
 ];
+let SUNSPIDER_BENCHMARKS = [];
 for (const test of SUNSPIDER_TESTS) {
-    BENCHMARKS.push(new DefaultBenchmark({
+    SUNSPIDER_BENCHMARKS.push(new DefaultBenchmark({
         name: `${test}-SP`,
         files: [
             `./SunSpider/${test}.js`
         ],
-        tags: ["Default", "SunSpider"],
+        tags: [],
     }));
 }
+BENCHMARKS.push(new GroupedBenchmark({
+    name: "Sunspider",
+    tags: ["Default", "SunSpider"],
+}, SUNSPIDER_BENCHMARKS))
 
 // WTB (Web Tooling Benchmark) tests
 const WTB_TESTS = [
