@@ -15,7 +15,7 @@ echo -e "Built on $(date --rfc-3339=seconds)" | tee "$BUILD_LOG"
 git clone -b ok/jetstream3_hotfix https://github.com/JetBrains/compose-multiplatform.git |& tee -a "$BUILD_LOG"
 pushd compose-multiplatform/
 git log -1 --oneline | tee -a "$BUILD_LOG"
-# FIXME: Use stable 2.3 Kotlin/Wasm toolchain, once available.
+# FIXME: Use stable 2.3 Kotlin/Wasm toolchain, once available around Sep 2025.
 git apply ../use-beta-toolchain.patch | tee -a "$BUILD_LOG"
 pushd benchmarks/multiplatform
 ./gradlew :benchmarks:wasmJsProductionExecutableCompileSync
@@ -29,7 +29,8 @@ echo "Copying generated files into build/" | tee -a "$BUILD_LOG"
 mkdir -p build/ | tee -a "$BUILD_LOG"
 cp $BUILD_SRC_DIR/compose-benchmarks-benchmarks.{wasm,uninstantiated.mjs} build/ | tee -a "$BUILD_LOG"
 git apply hook-print.patch | tee -a "$BUILD_LOG"
-# TODO: Remove once either the Kotlin toolchain or JSC fixes the issue raised in https://github.com/WebKit/JetStream/pull/84#issuecomment-3164672425
+# FIXME: Remove once the JSC fixes around JSTag have landed in Safari, see
+# https://github.com/WebKit/JetStream/pull/84#issuecomment-3164672425.
 git apply jstag-workaround.patch | tee -a "$BUILD_LOG"
 cp $BUILD_SRC_DIR/skiko.{wasm,mjs} build/ | tee -a "$BUILD_LOG"
 git apply skiko-disable-instantiate.patch | tee -a "$BUILD_LOG"
