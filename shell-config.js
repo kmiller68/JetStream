@@ -27,6 +27,7 @@ const isInBrowser = false;
 console = {
     log: globalThis?.console?.log ?? print,
     error: globalThis?.console?.error ?? print,
+    warn: globalThis?.console?.warn ?? print,
 }
 
 const isD8 = typeof Realm !== "undefined";
@@ -37,3 +38,9 @@ if (isSpiderMonkey) {
     globalThis.readFile = readRelativeToScript;
     globalThis.arguments = scriptArgs;
 }
+
+if (typeof performance == "undefined")
+    performance = {};
+
+performance.mark ??= function(){};
+performance.measure ??= function(){};

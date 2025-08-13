@@ -40,16 +40,20 @@ globalThis.dumpJSONResults ??= false;
 globalThis.testList ??= undefined;
 globalThis.startDelay ??= undefined;
 globalThis.shouldReport ??= false;
+globalThis.prefetchResources ??= true;
 
 function getIntParam(urlParams, key) {
-    if (!urlParams.has(key))
-        return undefined
     const rawValue = urlParams.get(key);
     const value = parseInt(rawValue);
     if (value <= 0)
         throw new Error(`Expected positive value for ${key}, but got ${rawValue}`);
     return value;
 }
+
+function getBoolParam(urlParams, key) {
+    const rawValue = urlParams.get(key).toLowerCase()
+    return !(rawValue === "false" || rawValue === "0")
+ }
 
 function getTestListParam(urlParams, key) {
     if (globalThis.testList?.length)
@@ -73,7 +77,12 @@ if (typeof(URLSearchParams) !== "undefined") {
         globalThis.testIterationCount = getIntParam(urlParameters, "iterationCount");
     if (urlParameters.has("worstCaseCount"))
         globalThis.testWorstCaseCount = getIntParam(urlParameters, "worstCaseCount");
+    if (urlParameters.has("prefetchResources"))
+        globalThis.prefetchResources = getBoolParam(urlParameters, "prefetchResources");
 }
+
+if (!globalThis.prefetchResources)
+    console.warn("Disabling resource prefetching!");
 
 // Used for the promise representing the current benchmark run.
 this.currentResolve = null;
@@ -86,9 +95,16 @@ function displayCategoryScores() {
     if (!categoryScores)
         return;
 
+    let scoreDetails = `<div class="benchmark benchmark-done">`;
+    for (let [category, scores] of categoryScores) {
+        scoreDetails += `<span class="result">
+                <span>${uiFriendlyScore(geomeanScore(scores))}</span>
+                <label>${category}</label>
+            </span>`;
+    }
+    scoreDetails += "</div>";
     let summaryElement = document.getElementById("result-summary");
-    for (let [category, scores] of categoryScores)
-        summaryElement.innerHTML += `<p> ${category}: ${uiFriendlyScore(geomean(scores))}</p>`
+    summaryElement.innerHTML += scoreDetails;
 
     categoryScores = null;
 }
@@ -118,7 +134,6 @@ if (isInBrowser) {
         const key = keyboardEvent.key;
         if (key === "d" || key === "D") {
             showScoreDetails = true;
-
             displayCategoryScores();
         }
     };
@@ -138,12 +153,15 @@ function mean(values) {
     return sum / values.length;
 }
 
-function geomean(values) {
+function geomeanScore(values) {
     assert(values instanceof Array);
     let product = 1;
     for (let x of values)
         product *= x;
-    return product ** (1 / values.length);
+    const score = product ** (1 / values.length);
+    // Allow 0 for uninitialized subScores().
+    assert(score >= 0, `Got invalid score: ${score}`)
+    return score;
 }
 
 function toScore(timeValue) {
@@ -166,7 +184,7 @@ function updateUI() {
 function uiFriendlyNumber(num) {
     if (Number.isInteger(num))
         return num;
-    return num.toFixed(3);
+    return num.toFixed(2);
 }
 
 function uiFriendlyScore(num) {
@@ -180,28 +198,29 @@ function uiFriendlyDuration(time) {
 // TODO: Cleanup / remove / merge. This is only used for caching loads in the
 // non-browser setting. In the browser we use exclusively `loadCache`, 
 // `loadBlob`, `doLoadBlob`, `prefetchResourcesForBrowser` etc., see below.
-const fileLoader = (function() {
-    class Loader {
-        constructor() {
-            this.requests = new Map;
-        }
-
-        // Cache / memoize previously read files, because some workloads
-        // share common code.
-        load(url) {
-            assert(!isInBrowser);
-
-            if (this.requests.has(url)) {
-                return this.requests.get(url);
-            }
-
-            const contents = readFile(url);
-            this.requests.set(url, contents);
-            return contents;
-        }
+class ShellFileLoader {
+    constructor() {
+        this.requests = new Map;
     }
-    return new Loader;
-})();
+
+    // Cache / memoize previously read files, because some workloads
+    // share common code.
+    load(url) {
+        assert(!isInBrowser);
+        if (!globalThis.prefetchResources)
+            return `load("${url}");`
+
+        if (this.requests.has(url)) {
+            return this.requests.get(url);
+        }
+
+        const contents = readFile(url);
+        this.requests.set(url, contents);
+        return contents;
+    }
+};
+
+const shellFileLoader = new ShellFileLoader();
 
 class Driver {
     constructor(benchmarks) {
@@ -211,6 +230,7 @@ class Driver {
         // Make benchmark list unique and sort it.
         this.benchmarks = Array.from(new Set(benchmarks));
         this.benchmarks.sort((a, b) => a.plan.name.toLowerCase() < b.plan.name.toLowerCase() ? 1 : -1);
+        assert(this.benchmarks.length, "No benchmarks selected");
         // TODO: Cleanup / remove / merge `blobDataCache` and `loadCache` vs.
         // the global `fileLoader` cache.
         this.blobDataCache = { };
@@ -223,21 +243,18 @@ class Driver {
 
     async start() {
         let statusElement = false;
-        let summaryElement = false;
         if (isInBrowser) {
             statusElement = document.getElementById("status");
-            summaryElement = document.getElementById("result-summary");
             statusElement.innerHTML = `<label>Running...</label>`;
         } else if (!dumpJSONResults)
             console.log("Starting JetStream3");
 
-        await updateUI();
-
+        performance.mark("update-ui-start");
         const start = performance.now();
         for (const benchmark of this.benchmarks) {
-            benchmark.updateUIBeforeRun();
-
+            await benchmark.updateUIBeforeRun();
             await updateUI();
+            performance.measure("runner update-ui", "update-ui-start");
 
             try {
                 await benchmark.run();
@@ -246,9 +263,10 @@ class Driver {
                 throw e;
             }
 
+            performance.mark("update-ui");
             benchmark.updateUIAfterRun();
 
-            if (isInBrowser) {
+            if (isInBrowser && globalThis.prefetchResources) {
                 const cache = JetStream.blobDataCache;
                 for (const file of benchmark.plan.files) {
                     const blobData = cache[file];
@@ -258,6 +276,7 @@ class Driver {
                 }
             }
         }
+        performance.measure("runner update-ui", "update-ui-start");
 
         const totalTime = performance.now() - start;
         if (measureTotalTimeAsSubtest) {
@@ -269,8 +288,11 @@ class Driver {
         }
 
         const allScores = [];
-        for (const benchmark of this.benchmarks)
-            allScores.push(benchmark.score);
+        for (const benchmark of this.benchmarks) {
+            const score = benchmark.score;
+            assert(score > 0, `Invalid ${benchmark.name} score: ${score}`);
+            allScores.push(score);
+        }
 
         categoryScores = new Map;
         for (const benchmark of this.benchmarks) {
@@ -281,23 +303,28 @@ class Driver {
         for (const benchmark of this.benchmarks) {
             for (let [category, value] of Object.entries(benchmark.subScores())) {
                 const arr = categoryScores.get(category);
+                assert(value > 0, `Invalid ${benchmark.name} ${category} score: ${value}`);
                 arr.push(value);
             }
         }
 
+        const totalScore = geomeanScore(allScores);
+        assert(totalScore > 0, `Invalid total score: ${totalScore}`);
+
         if (isInBrowser) {
-            summaryElement.classList.add('done');
-            summaryElement.innerHTML = `<div class="score">${uiFriendlyScore(geomean(allScores))}</div><label>Score</label>`;
+            const summaryElement = document.getElementById("result-summary");
+            summaryElement.classList.add("done");
+            summaryElement.innerHTML = `<div class="score">${uiFriendlyScore(totalScore)}</div>
+                    <label>Score</label>`;
             summaryElement.onclick = displayCategoryScores;
             if (showScoreDetails)
                 displayCategoryScores();
-            statusElement.innerHTML = '';
+            statusElement.innerHTML = "";
         } else if (!dumpJSONResults) {
             console.log("\n");
             for (let [category, scores] of categoryScores)
-                console.log(`${category}: ${uiFriendlyScore(geomean(scores))}`);
-
-            console.log("\nTotal Score: ", uiFriendlyScore(geomean(allScores)), "\n");
+                console.log(`${category}: ${uiFriendlyScore(geomeanScore(scores))}`);
+            console.log("\nTotal Score: ", uiFriendlyScore(totalScore), "\n");
         }
 
         this.reportScoreToRunBenchmarkRunner();
@@ -309,56 +336,6 @@ class Driver {
                 detail: this.resultsObject()
             }));
         }
-    }
-
-    runCode(string) {
-        if (!isInBrowser) {
-            const scripts = string;
-            let globalObject;
-            let realm;
-            if (isD8) {
-                realm = Realm.createAllowCrossRealmAccess();
-                globalObject = Realm.global(realm);
-                globalObject.loadString = function(s) {
-                    return Realm.eval(realm, s);
-                };
-                globalObject.readFile = read;
-            } else if (isSpiderMonkey) {
-                globalObject = newGlobal();
-                globalObject.loadString = globalObject.evaluate;
-                globalObject.readFile = globalObject.readRelativeToScript;
-            } else
-                globalObject = runString("");
-
-            globalObject.console = {
-                log: globalObject.print,
-                warn: (e) => { print("Warn: " + e); },
-                error: (e) => { print("Error: " + e); },
-                debug: (e) => { print("Debug: " + e); },
-            };
-
-            globalObject.self = globalObject;
-            globalObject.top = {
-                currentResolve,
-                currentReject
-            };
-
-            globalObject.performance ??= performance;
-            for (const script of scripts)
-                globalObject.loadString(script);
-
-            return isD8 ? realm : globalObject;
-        }
-
-        const magic = document.getElementById("magic");
-        magic.contentDocument.body.textContent = "";
-        magic.contentDocument.body.innerHTML = "<iframe id=\"magicframe\" frameborder=\"0\">";
-
-        const magicFrame = magic.contentDocument.getElementById("magicframe");
-        magicFrame.contentDocument.open();
-        magicFrame.contentDocument.write(`<!DOCTYPE html><head><title>benchmark payload</title></head><body>\n${string}</body></html>`);
-
-        return magicFrame;
     }
 
     prepareToRun() {
@@ -375,12 +352,14 @@ class Driver {
             if (isInBrowser) {
                 text +=
                     `<div class="benchmark" id="benchmark-${benchmark.name}">
-                    <h3 class="benchmark-name"><a href="in-depth.html#${benchmark.name}">${benchmark.name}</a></h3>
-                    <h4 class="score" id="${overallScoreId}">___</h4><p>`;
+                    <h3 class="benchmark-name">${benchmark.name} <a class="info" href="in-depth.html#${benchmark.name}">i</a></h3>
+                    <h4 class="score" id="${overallScoreId}">&nbsp;</h4>
+                    <h4 class="plot" id="plot-${benchmark.name}">&nbsp;</h4>
+                    <p>`;
                 for (let i = 0; i < scoreIds.length; i++) {
                     const scoreId = scoreIds[i];
                     const label = description[i];
-                    text += `<span class="result"><span id="${scoreId}">___</span><label>${label}</label></span>`
+                    text += `<span class="result"><span id="${scoreId}">&nbsp;</span><label>${label}</label></span>`
                 }
                 text += `</p></div>`;
             }
@@ -577,6 +556,140 @@ const BenchmarkState = Object.freeze({
     DONE: "DONE"
 })
 
+
+class Scripts {
+    constructor() {
+        this.scripts = [];
+        this.add(`
+            const isInBrowser = ${isInBrowser};
+            const isD8 = ${isD8};
+            if (typeof performance.mark === 'undefined') {
+                performance.mark = function(name) { return { name }};
+            }
+            if (typeof performance.measure === 'undefined') {
+                performance.measure = function() {};
+            }
+        `);
+    }
+
+    run() {
+        throw new Error("Subclasses need to implement this");
+    }
+
+    add(text) {
+        throw new Error("Subclasses need to implement this");
+    }
+
+    addWithURL(url) {
+        throw new Error("addWithURL not supported");
+    }
+
+    addDeterministicRandom() {
+        this.add(`(() => {
+            const initialSeed = 49734321;
+            let seed = initialSeed;
+
+            Math.random = () => {
+                // Robert Jenkins' 32 bit integer hash function.
+                seed = ((seed + 0x7ed55d16) + (seed << 12))  & 0xffff_ffff;
+                seed = ((seed ^ 0xc761c23c) ^ (seed >>> 19)) & 0xffff_ffff;
+                seed = ((seed + 0x165667b1) + (seed << 5))   & 0xffff_ffff;
+                seed = ((seed + 0xd3a2646c) ^ (seed << 9))   & 0xffff_ffff;
+                seed = ((seed + 0xfd7046c5) + (seed << 3))   & 0xffff_ffff;
+                seed = ((seed ^ 0xb55a4f09) ^ (seed >>> 16)) & 0xffff_ffff;
+                // Note that Math.random should return a value that is
+                // greater than or equal to 0 and less than 1. Here, we
+                // cast to uint32 first then divided by 2^32 for double.
+                return (seed >>> 0) / 0x1_0000_0000;
+            };
+
+            Math.random.__resetSeed = () => {
+                seed = initialSeed;
+            };
+        })();`);
+    }
+}
+
+class ShellScripts extends Scripts {
+    run() {
+        let globalObject;
+        let realm;
+        if (isD8) {
+            realm = Realm.createAllowCrossRealmAccess();
+            globalObject = Realm.global(realm);
+            globalObject.loadString = function(s) {
+                return Realm.eval(realm, s);
+            };
+            globalObject.readFile = read;
+        } else if (isSpiderMonkey) {
+            globalObject = newGlobal();
+            globalObject.loadString = globalObject.evaluate;
+            globalObject.readFile = globalObject.readRelativeToScript;
+        } else
+            globalObject = runString("");
+
+        globalObject.console = {
+            log: globalObject.print,
+            warn: (e) => { print("Warn: " + e); },
+            error: (e) => { print("Error: " + e); },
+            debug: (e) => { print("Debug: " + e); },
+        };
+
+        globalObject.self = globalObject;
+        globalObject.top = {
+            currentResolve,
+            currentReject
+        };
+
+        globalObject.performance ??= performance;
+        for (const script of this.scripts)
+            globalObject.loadString(script);
+
+        return isD8 ? realm : globalObject;
+    }
+
+    add(text) {
+        this.scripts.push(text);
+    }
+
+    addWithURL(url) {
+        assert(false, "Should not reach here in CLI");
+    }
+}
+
+class BrowserScripts extends Scripts {
+    constructor() {
+        super();
+        this.add("window.onerror = top.currentReject;");
+    }
+
+    run() {
+        const string = this.scripts.join("\n");
+        const magic = document.getElementById("magic");
+        magic.contentDocument.body.textContent = "";
+        magic.contentDocument.body.innerHTML = `<iframe id="magicframe" frameborder="0">`;
+
+        const magicFrame = magic.contentDocument.getElementById("magicframe");
+        magicFrame.contentDocument.open();
+        magicFrame.contentDocument.write(`<!DOCTYPE html>
+            <head>
+               <title>benchmark payload</title>
+            </head>
+            <body>${string}</body>
+        </html>`);
+        return magicFrame;
+    }
+
+
+    add(text) {
+        this.scripts.push(`<script>${text}</script>`);
+    }
+
+    addWithURL(url) {
+        this.scripts.push(`<script src="${url}"></script>`);
+    }
+}
+
 class Benchmark {
     constructor(plan)
     {
@@ -586,6 +699,7 @@ class Benchmark {
         this.isAsync = !!plan.isAsync;
         this.scripts = null;
         this.preloads = null;
+        this.results = [];
         this._state = BenchmarkState.READY;
     }
 
@@ -636,13 +750,14 @@ class Benchmark {
             top.currentResolve(results);`;
     }
 
-    processResults() {
-        throw new Error("Subclasses need to implement this");
+    processResults(results) {
+        this.results = Array.from(results);
+        return this.results;
     }
 
     get score() {
         const subScores = Object.values(this.subScores());
-        return geomean(subScores);
+        return geomeanScore(subScores);
     }
 
     subScores() {
@@ -681,84 +796,31 @@ class Benchmark {
         if (this.isDone)
             throw new Error(`Cannot run Benchmark ${this.name} twice`);
         this._state = BenchmarkState.PREPARE;
-        let code;
-        if (isInBrowser)
-            code = "";
-        else
-            code = [];
+        const scripts = isInBrowser ? new BrowserScripts() : new ShellScripts();
 
-        const addScript = (text) => {
-            if (isInBrowser)
-                code += `<script>${text}</script>`;
-            else
-                code.push(text);
-        };
-
-        const addScriptWithURL = (url) => {
-            if (isInBrowser)
-                code += `<script src="${url}"></script>`;
-            else
-                assert(false, "Should not reach here in CLI");
-        };
-
-        addScript(`
-            const isInBrowser = ${isInBrowser};
-            const isD8 = ${isD8};
-            if (typeof performance.mark === 'undefined') {
-                performance.mark = function(name) { return { name }};
-            }
-            if (typeof performance.measure === 'undefined') {
-                performance.measure = function() {};
-            }
-        `);
-
-        if (!!this.plan.deterministicRandom) {
-            addScript(`
-                 (() => {
-                    const initialSeed = 49734321;
-                    let seed = initialSeed;
-
-                    Math.random = () => {
-                        // Robert Jenkins' 32 bit integer hash function.
-                        seed = ((seed + 0x7ed55d16) + (seed << 12))  & 0xffff_ffff;
-                        seed = ((seed ^ 0xc761c23c) ^ (seed >>> 19)) & 0xffff_ffff;
-                        seed = ((seed + 0x165667b1) + (seed << 5))   & 0xffff_ffff;
-                        seed = ((seed + 0xd3a2646c) ^ (seed << 9))   & 0xffff_ffff;
-                        seed = ((seed + 0xfd7046c5) + (seed << 3))   & 0xffff_ffff;
-                        seed = ((seed ^ 0xb55a4f09) ^ (seed >>> 16)) & 0xffff_ffff;
-                        // Note that Math.random should return a value that is
-                        // greater than or equal to 0 and less than 1. Here, we
-                        // cast to uint32 first then divided by 2^32 for double.
-                        return (seed >>> 0) / 0x1_0000_0000;
-                    };
-
-                    Math.random.__resetSeed = () => {
-                        seed = initialSeed;
-                    };
-                })();
-            `);
-        }
+        if (!!this.plan.deterministicRandom)
+            scripts.addDeterministicRandom()
 
         if (this.plan.preload) {
-            let str = "";
+            let preloadCode = "";
             for (let [ variableName, blobURLOrPath ] of this.preloads)
-                str += `const ${variableName} = "${blobURLOrPath}";\n`;
-            addScript(str);
+                preloadCode += `const ${variableName} = "${blobURLOrPath}";\n`;
+            scripts.add(preloadCode);
         }
 
         const prerunCode = this.prerunCode;
         if (prerunCode)
-            addScript(prerunCode);
+            scripts.add(prerunCode);
 
         if (!isInBrowser) {
             assert(this.scripts && this.scripts.length === this.plan.files.length);
-
             for (const text of this.scripts)
-                addScript(text);
+                scripts.add(text);
         } else {
             const cache = JetStream.blobDataCache;
-            for (const file of this.plan.files)
-                addScriptWithURL(cache[file].blobURL);
+            for (const file of this.plan.files) {
+                scripts.addWithURL(globalThis.prefetchResources ? cache[file].blobURL : file);
+            }
         }
 
         const promise = new Promise((resolve, reject) => {
@@ -766,14 +828,9 @@ class Benchmark {
             currentReject = reject;
         });
 
-        if (isInBrowser) {
-            code = `
-                <script> window.onerror = top.currentReject; </script>
-                ${code}
-            `;
-        }
-        addScript(this.runnerCode);
+        scripts.add(this.runnerCode);
 
+        performance.mark(this.name);
         this.startTime = performance.now();
 
         if (RAMification)
@@ -782,7 +839,7 @@ class Benchmark {
         let magicFrame;
         try {
             this._state = BenchmarkState.RUNNING;
-            magicFrame = JetStream.runCode(code);
+            magicFrame = scripts.run();
         } catch(e) {
             this._state = BenchmarkState.ERROR;
             console.log("Error in runCode: ", e);
@@ -794,6 +851,7 @@ class Benchmark {
         const results = await promise;
 
         this.endTime = performance.now();
+        performance.measure(this.name, this.name);
 
         if (RAMification) {
             const memoryFootprint = MemoryFootprint();
@@ -811,6 +869,11 @@ class Benchmark {
     }
 
     async doLoadBlob(resource) {
+        const blobData = JetStream.blobDataCache[resource];
+        if (!globalThis.prefetchResources) {
+            blobData.blobURL = resource;
+            return blobData;
+        }
         let response;
         let tries = 3;
         while (tries--) {
@@ -827,7 +890,6 @@ class Benchmark {
             throw new Error("Fetch failed");
         }
         const blob = await response.blob();
-        const blobData = JetStream.blobDataCache[resource];
         blobData.blob = blob;
         blobData.blobURL = URL.createObjectURL(blob);
         return blobData;
@@ -960,13 +1022,13 @@ class Benchmark {
         assert(!isInBrowser);
 
         assert(this.scripts === null, "This initialization should be called only once.");
-        this.scripts = this.plan.files.map(file => fileLoader.load(file));
+        this.scripts = this.plan.files.map(file => shellFileLoader.load(file));
 
         assert(this.preloads === null, "This initialization should be called only once.");
         this.preloads = Object.entries(this.plan.preload ?? {});
     }
 
-    scoreIdentifiers() { 
+    scoreIdentifiers() {
         const ids = Object.keys(this.allScores()).map(name => this.scoreIdentifier(name));
         return ids;
     }
@@ -1008,6 +1070,36 @@ class Benchmark {
 
         for (const [name, value] of scoreEntries)
             document.getElementById(this.scoreIdentifier(name)).innerHTML = uiFriendlyScore(value);
+
+        this.renderScatterPlot();
+    }
+
+    renderScatterPlot() {
+        const plotContainer = document.getElementById(`plot-${this.name}`);
+        if (!plotContainer || !this.results || this.results.length === 0)
+            return;
+
+        const scoreElement = document.getElementById(this.scoreIdentifier("Score"));
+        const width = scoreElement.offsetWidth;
+        const height = scoreElement.offsetHeight;
+
+        const padding = 5;
+        const maxResult = Math.max(...this.results);
+        const minResult = Math.min(...this.results);
+
+        const xRatio = (width - 2 * padding) / (this.results.length - 1 || 1);
+        const yRatio = (height - 2 * padding) / (maxResult - minResult || 1);
+        const radius = Math.max(1.5, Math.min(2.5, 10 - (this.iterations / 10)));
+
+        let circlesSVG = "";
+        for (let i = 0; i < this.results.length; i++) {
+            const result = this.results[i];
+            const cx = padding + i * xRatio;
+            const cy = height - padding - (result - minResult) * yRatio;
+            const title = `Iteration ${i + 1}: ${uiFriendlyDuration(result)}`;
+            circlesSVG += `<circle cx="${cx}" cy="${cy}" r="${radius}"><title>${title}</title></circle>`;
+        }
+        plotContainer.innerHTML = `<svg width="${width}px" height="${height}px">${circlesSVG}</svg>`;
     }
 
     updateConsoleAfterRun(scoreEntries) {
@@ -1049,13 +1141,7 @@ class DefaultBenchmark extends Benchmark {
     }
 
     processResults(results) {
-        function copyArray(a) {
-            const result = [];
-            for (let x of a)
-                result.push(x);
-            return result;
-        }
-        results = copyArray(results);
+        results = super.processResults(results)
 
         this.firstIterationTime = results[0];
         this.firstIterationScore = toScore(results[0]);
@@ -1185,27 +1271,12 @@ class WasmEMCCBenchmark extends AsyncBenchmark {
                 postRun: [],
                 noInitialRun: true,
                 print: print,
-                printErr: printErr,
-                setStatus: function(text) {
-                },
-                totalDependencies: 0,
-                monitorRunDependencies: function(left) {
-                    this.totalDependencies = Math.max(this.totalDependencies, left);
-                    Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
-                },
+                printErr: printErr
             };
 
             globalObject.Module = Module;
             ${super.prerunCode};
         `;
-
-        if (isSpiderMonkey) {
-            str += `
-                // Needed because SpiderMonkey shell doesn't have a setTimeout.
-                Module.setStatus = null;
-                Module.monitorRunDependencies = null;
-            `;
-        }
 
         return str;
     }
@@ -1222,6 +1293,7 @@ class WSLBenchmark extends Benchmark {
     }
 
     processResults(results) {
+        results = super.processResults(results);
         this.stdlibTime = results[0];
         this.stdlibScore = toScore(results[0]);
         this.mainRunTime = results[1];
@@ -1279,6 +1351,7 @@ class WasmLegacyBenchmark extends Benchmark {
     }
 
     processResults(results) {
+        results = super.processResults(results);
         this.startupTime = results[0];
         this.startupScore= toScore(results[0]);
         this.runTime = results[1];
@@ -1325,14 +1398,7 @@ class WasmLegacyBenchmark extends Benchmark {
                 preRun: [],
                 postRun: [],
                 print: globalObject.print,
-                printErr: globalObject.print,
-                setStatus: function(text) {
-                },
-                totalDependencies: 0,
-                monitorRunDependencies: function(left) {
-                    this.totalDependencies = Math.max(this.totalDependencies, left);
-                    Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')' : 'All downloads complete.');
-                }
+                printErr: globalObject.print
             };
             globalObject.Module = Module;
             `;
@@ -1362,9 +1428,6 @@ class WasmLegacyBenchmark extends Benchmark {
                     throw new Error;
                 };
             };
-
-            Module.setStatus = null;
-            Module.monitorRunDependencies = null;
 
             Promise.resolve(42).then(() => {
                 try {
@@ -1910,6 +1973,15 @@ let BENCHMARKS = [
         ],
         tags: ["Default", "Generators"],
     }),
+    new DefaultBenchmark({
+        name: "threejs",
+        files: [
+            "./threejs/three.js",
+            "./threejs/benchmark.js",
+        ],
+        deterministicRandom: true,
+        tags: ["Default", "ThreeJs"],
+    }),
     // Wasm
     new WasmEMCCBenchmark({
         name: "HashSet-wasm",
@@ -2270,7 +2342,7 @@ let BENCHMARKS = [
             "./WSL/WTrapError.js",
             "./WSL/WTypeError.js",
             "./WSL/WhileLoop.js",
-            "./WSL/WrapChecker.js", 
+            "./WSL/WrapChecker.js",
             "./WSL/Test.js",
         ],
         tags: ["Default", "WSL"],
@@ -2391,7 +2463,7 @@ for (const benchmark of BENCHMARKS) {
         throw new Error(`Duplicate benchmark with name "${name}}"`);
     else
         benchmarksByName.set(name, benchmark);
-    
+
     for (const tag of benchmark.tags) {
         if (benchmarksByTag.has(tag))
             benchmarksByTag.get(tag).push(benchmark);
@@ -2401,8 +2473,7 @@ for (const benchmark of BENCHMARKS) {
 }
 
 
-function processTestList(testList)
-{
+function processTestList(testList) {
     let benchmarkNames = [];
     let benchmarks = [];
 
@@ -2411,9 +2482,10 @@ function processTestList(testList)
     else
         benchmarkNames = testList.split(/[\s,]/);
 
-    for (const name of benchmarkNames) {
+    for (let name of benchmarkNames) {
+        name = name.toLowerCase();
         if (benchmarksByTag.has(name))
-            benchmarks.push(...findBenchmarksByTag(name));
+            benchmarks = benchmarks.concat(findBenchmarksByTag(name));
         else
             benchmarks.push(findBenchmarkByName(name));
     }
