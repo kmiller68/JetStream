@@ -85,8 +85,7 @@ class CompiledApp {
 
     // Imports
     const dart2wasm = {
-            _4: (o, c) => o instanceof c,
-      _6: (o,s,v) => o[s] = v,
+            _6: (o,s,v) => o[s] = v,
       _39: x0 => x0.length,
       _41: (x0,x1) => x0[x1],
       _69: () => Symbol("jsBoxedDartObjectProperty"),
@@ -179,17 +178,6 @@ class CompiledApp {
       _178: Function.prototype.call.bind(DataView.prototype.setFloat32),
       _179: Function.prototype.call.bind(DataView.prototype.getFloat64),
       _180: Function.prototype.call.bind(DataView.prototype.setFloat64),
-      _182: () => globalThis.performance,
-      _183: () => globalThis.JSON,
-      _184: x0 => x0.measure,
-      _185: x0 => x0.mark,
-      _186: x0 => x0.clearMeasures,
-      _187: x0 => x0.clearMarks,
-      _188: (x0,x1,x2,x3) => x0.measure(x1,x2,x3),
-      _189: (x0,x1,x2) => x0.mark(x1,x2),
-      _190: x0 => x0.clearMeasures(),
-      _191: x0 => x0.clearMarks(),
-      _192: (x0,x1) => x0.parse(x1),
       _193: (ms, c) =>
       setTimeout(() => dartInstance.exports.$invokeCallback(c),ms),
       _194: (handle) => clearTimeout(handle),
@@ -217,7 +205,6 @@ class CompiledApp {
       _251: (o, i) => o[i],
       _252: f => f.dartFunction,
       _253: () => ({}),
-      _256: () => globalThis,
       _263: o => String(o),
       _265: o => {
         if (o === undefined) return 1;
@@ -239,7 +226,12 @@ class CompiledApp {
           if (o instanceof DataView) return 15;
         }
         if (o instanceof ArrayBuffer) return 16;
-        return 17;
+        // Feature check for `SharedArrayBuffer` before doing a type-check.
+        if (globalThis.SharedArrayBuffer !== undefined &&
+            o instanceof SharedArrayBuffer) {
+            return 17;
+        }
+        return 18;
       },
       _271: (jsArray, jsArrayOffset, wasmArray, wasmArrayOffset, length) => {
         const setValue = dartInstance.exports.$wasmI8ArraySet;
@@ -272,7 +264,6 @@ class CompiledApp {
       _288: x0 => x0.unicode,
       _289: x0 => x0.dotAll,
       _290: (x0,x1) => { x0.lastIndex = x1 },
-      _292: (o, p) => o[p],
       _295: x0 => x0.random(),
       _298: () => globalThis.Math,
       _299: Function.prototype.call.bind(Number.prototype.toString),
