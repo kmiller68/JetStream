@@ -2068,7 +2068,6 @@ let BENCHMARKS = [
         iterations: 15,
         worstCaseCount: 2,
         tags: ["Wasm"],
-        disabledByDefault: true,
     }),
     new WasmEMCCBenchmark({
         name: "Dart-flute-todomvc-wasm",
