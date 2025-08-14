@@ -629,7 +629,9 @@ class ShellScripts extends Scripts {
         } else
             globalObject = runString("");
 
-        globalObject.console = console;
+        // Expose console copy in the realm so we don't accidentally modify
+        // the original object.
+        globalObject.console = Object.assign({}, console);
         globalObject.self = globalObject;
         globalObject.top = {
             currentResolve,
