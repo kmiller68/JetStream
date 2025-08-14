@@ -1124,10 +1124,10 @@ class Benchmark {
 class GroupedBenchmark extends Benchmark {
     constructor(plan, benchmarks) {
         super(plan);
-        assert(benchmarks.length);
+        console.assert(benchmarks.length);
         for (const benchmark of benchmarks) {
             // FIXME: Tags don't work for grouped tests anyway but if they did then this would be weird and probably wrong.
-            assert(benchmark.plan.tags.indexOf("Default") === -1, `Grouped benchmark sub-benchmarks shouldn't have the "Default" tag`, benchmark.tags);
+            console.assert(!benchmark.hasAnyTag("Default"), `Grouped benchmark sub-benchmarks shouldn't have the "Default" tag`, benchmark.tags);
         }
         benchmarks.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1);
         this.benchmarks = benchmarks;
