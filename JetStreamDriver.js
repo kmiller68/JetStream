@@ -2101,8 +2101,8 @@ let BENCHMARKS = [
     new WasmEMCCBenchmark({
         name: "transformersjs-wasm",
         files: [
-            "./transformersjs/build/text-encoding/encoding-indexes.js",
-            "./transformersjs/build/text-encoding/encoding.js",
+            "./transformersjs/build/lib/text-encoding/encoding-indexes.js",
+            "./transformersjs/build/lib/text-encoding/encoding.js",
             "./transformersjs/benchmark.js",
         ],
         preload: {
