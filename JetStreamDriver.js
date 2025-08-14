@@ -732,10 +732,10 @@ class Benchmark {
     }
 
     get runnerCode() {
-        return `
-            let __benchmark = new Benchmark(${this.iterations});
-            let results = [];
-            let benchmarkName = "${this.name}";
+        return `{
+            const benchmark = new Benchmark(${this.iterations});
+            const results = [];
+            const benchmarkName = "${this.name}";
 
             for (let i = 0; i < ${this.iterations}; i++) {
                 ${this.preIterationCode}
@@ -743,9 +743,9 @@ class Benchmark {
                 const iterationMarkLabel = benchmarkName + "-iteration-" + i;
                 const iterationStartMark = performance.mark(iterationMarkLabel);
 
-                let start = performance.now();
-                __benchmark.runIteration();
-                let end = performance.now();
+                const start = performance.now();
+                benchmark.runIteration(i);
+                const end = performance.now();
 
                 performance.measure(iterationMarkLabel, iterationMarkLabel);
 
@@ -753,8 +753,9 @@ class Benchmark {
 
                 results.push(Math.max(1, end - start));
             }
-            __benchmark.validate?.(${this.iterations});
-            top.currentResolve(results);`;
+            benchmark.validate?.(${this.iterations});
+            top.currentResolve(results);
+        };`;
     }
 
     processResults(results) {
@@ -780,7 +781,7 @@ class Benchmark {
     get prerunCode() { return null; }
 
     get preIterationCode() {
-        let code = `__benchmark.prepareForNextIteration?.();`;
+        let code = `benchmark.prepareForNextIteration?.();`;
         if (this.plan.deterministicRandom)
             code += `Math.random.__resetSeed();`;
 
@@ -931,7 +932,7 @@ class Benchmark {
     updateCounter() {
         const counter = JetStream.counter;
         ++counter.loadedResources;
-        var statusElement = document.getElementById("status");
+        const statusElement = document.getElementById("status");
         statusElement.innerHTML = `Loading ${counter.loadedResources} of ${counter.totalResources} ...`;
     }
 
@@ -1225,10 +1226,10 @@ class AsyncBenchmark extends DefaultBenchmark {
     get runnerCode() {
         return `
         async function doRun() {
-            let __benchmark = new Benchmark();
-            await __benchmark.init?.();
-            let results = [];
-            let benchmarkName = "${this.name}";
+            const benchmark = new Benchmark(${this.iterations});
+            await benchmark.init?.();
+            const results = [];
+            const benchmarkName = "${this.name}";
 
             for (let i = 0; i < ${this.iterations}; i++) {
                 ${this.preIterationCode}
@@ -1236,9 +1237,9 @@ class AsyncBenchmark extends DefaultBenchmark {
                 const iterationMarkLabel = benchmarkName + "-iteration-" + i;
                 const iterationStartMark = performance.mark(iterationMarkLabel);
 
-                let start = performance.now();
-                await __benchmark.runIteration();
-                let end = performance.now();
+                const start = performance.now();
+                await benchmark.runIteration(i);
+                const end = performance.now();
 
                 performance.measure(iterationMarkLabel, iterationMarkLabel);
 
@@ -1246,7 +1247,7 @@ class AsyncBenchmark extends DefaultBenchmark {
 
                 results.push(Math.max(1, end - start));
             }
-            __benchmark.validate?.(${this.iterations});
+            benchmark.validate?.(${this.iterations});
             top.currentResolve(results);
         }
         doRun().catch((error) => { top.currentReject(error); });`
@@ -1308,16 +1309,16 @@ class WSLBenchmark extends Benchmark {
     }
 
     get runnerCode() {
-        return `
-            let benchmark = new Benchmark();
+        return `{
+            const benchmark = new Benchmark();
             const benchmarkName = "${this.name}";
 
-            let results = [];
+            const results = [];
             {
                 const markLabel = benchmarkName + "-stdlib";
                 const startMark = performance.mark(markLabel);
 
-                let start = performance.now();
+                const start = performance.now();
                 benchmark.buildStdlib();
                 results.push(performance.now() - start);
 
@@ -1328,7 +1329,7 @@ class WSLBenchmark extends Benchmark {
                 const markLabel = benchmarkName + "-mainRun";
                 const startMark = performance.mark(markLabel);
 
-                let start = performance.now();
+                const start = performance.now();
                 benchmark.run();
                 results.push(performance.now() - start);
 
@@ -1336,7 +1337,7 @@ class WSLBenchmark extends Benchmark {
             }
 
             top.currentResolve(results);
-            `;
+        }`;
     }
 
     subScores() {
@@ -1417,7 +1418,7 @@ class WasmLegacyBenchmark extends Benchmark {
 
         if (isInBrowser) {
             str += `
-                var xhr = new XMLHttpRequest();
+                const xhr = new XMLHttpRequest();
                 xhr.open('GET', path, true);
                 xhr.responseType = 'arraybuffer';
                 xhr.onload = function() {
