@@ -262,7 +262,7 @@ class Driver {
 
             if (isInBrowser && globalThis.prefetchResources) {
                 const cache = JetStream.blobDataCache;
-                for (const file of benchmark.plan.files) {
+                for (const file of benchmark.files) {
                     const blobData = cache[file];
                     blobData.refCount--;
                     if (!blobData.refCount)
@@ -709,6 +709,7 @@ class Benchmark {
     }
 
     get name() { return this.plan.name; }
+    get files() { return this.plan.files; }
 
     get isDone() {
         return this._state == BenchmarkState.DONE || this._state == BenchmarkState.ERROR;
@@ -1148,17 +1149,37 @@ class GroupedBenchmark extends Benchmark {
             benchmark.prefetchResourcesForShell();
     }
 
+    get files() {
+        let files = [];
+        for (const benchmark of this.benchmarks)
+            files = files.concat(benchmark.files);
+        return files;
+    }
+
     async run() {
+        this._state = BenchmarkState.PREPARE;
         performance.mark(this.name);
         this.startTime = performance.now();
 
-        for (const benchmark of this.benchmarks)
-            await benchmark.run();
+        let benchmark;
+        try {
+            this._state = BenchmarkState.RUNNING;
+            for (benchmark of this.benchmarks)
+                await benchmark.run();
+        } catch (e) {
+            this._state = BenchmarkState.ERROR;
+            console.log(`Error in runCode of grouped benchmark ${benchmark.name}: `, e);
+            console.log(e.stack);
+            throw e;
+        } finally {
+            this._state = BenchmarkState.FINALIZE;
+        }
 
         this.endTime = performance.now();
         performance.measure(this.name, this.name);
 
         this.processResults();
+        this._state = BenchmarkState.DONE;
     }
 
     processResults() {
