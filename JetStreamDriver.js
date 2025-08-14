@@ -1989,7 +1989,9 @@ let BENCHMARKS = [
             wasmBinary: "./wasm/HashSet/build/HashSet.wasm",
         },
         iterations: 50,
-        tags: ["Default", "Wasm"],
+        // No longer run by-default: We have more realistic Wasm workloads by
+        // now, and it was over-incentivizing inlining.
+        tags: ["Wasm"],
     }),
     new WasmEMCCBenchmark({
         name: "tsf-wasm",
