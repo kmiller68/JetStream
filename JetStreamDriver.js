@@ -2209,7 +2209,7 @@ let BENCHMARKS = [
         },
         async: true,
         deterministicRandom: true,
-        tags: ["Default", "Wasm"],
+        tags: ["Wasm"],
     }),
     new WasmLegacyBenchmark({
         name: "tfjs-wasm-simd",
@@ -2229,7 +2229,7 @@ let BENCHMARKS = [
         },
         async: true,
         deterministicRandom: true,
-        tags: ["Default", "Wasm"],
+        tags: ["Wasm"],
     }),
     new WasmEMCCBenchmark({
         name: "argon2-wasm",
