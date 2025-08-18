@@ -2220,9 +2220,9 @@ let BENCHMARKS = [
         preload: {
             transformersJsModule: "./transformersjs/build/transformers.js",
             
-            // TODO: Remove the duplication here and in `task-*.js` `preloadFiles`.
-            // Probably by adding a new category of files that are just provided by filename.
-            wasmBinary: "./transformersjs/build/onnxruntime-web/ort-wasm-simd-threaded.wasm",
+            onnxJsModule: "./transformersjs/build/onnxruntime-web/ort-wasm-simd-threaded.mjs",
+            onnxWasmBinary: "./transformersjs/build/onnxruntime-web/ort-wasm-simd-threaded.wasm",
+
             modelWeights: "./transformersjs/build/models/Xenova/distilbert-base-uncased-finetuned-sst-2-english/onnx/model_uint8.onnx",
             modelConfig: "./transformersjs/build/models/Xenova/distilbert-base-uncased-finetuned-sst-2-english/config.json",
             modelTokenizer: "./transformersjs/build/models/Xenova/distilbert-base-uncased-finetuned-sst-2-english/tokenizer.json",
@@ -2231,29 +2231,33 @@ let BENCHMARKS = [
         iterations: 50,
         tags: ["Default", "Wasm"],
     }),
-    // TODO: Change this to AsyncBenchmark, we don't actually need the Emscripten magic.
-    // new WasmEMCCBenchmark({
-    //     name: "transformersjs-whisper-wasm",
-    //     files: [
-    //         "./polyfills/fast-text-encoding-1.0.3/text.js",
-    //         "./transformersjs/benchmark.js",
-    //         "./transformersjs/task-whisper.js",
-    //     ],
-    //     preload: {
-    //         wasmBinary: "./transformersjs/build/onnxruntime-web/ort-wasm-simd-threaded.wasm",
-    //         modelEncoderWeights: "./transformersjs/build/models/Xenova/whisper-tiny.en/onnx/encoder_model_quantized.onnx",
-    //         modelDecoderWeights: "./transformersjs/build/models/Xenova/whisper-tiny.en/onnx/decoder_model_merged_quantized.onnx",
-    //         modelConfig: "./transformersjs/build/models/Xenova/whisper-tiny.en/config.json",
-    //         modelTokenizer: "./transformersjs/build/models/Xenova/whisper-tiny.en/tokenizer.json",
-    //         modelTokenizerConfig: "./transformersjs/build/models/Xenova/whisper-tiny.en/tokenizer_config.json",
-    //         modelPreprocessorConfig: "./transformersjs/build/models/Xenova/whisper-tiny.en/preprocessor_config.json",
-    //         modelGenerationConfig: "./transformersjs/build/models/Xenova/whisper-tiny.en/generation_config.json",
-    //         inputFile: "./transformersjs/build/inputs/jfk.raw",
-    //     },
-    //     iterations: 5,
-    //     worstCaseCount: 1,
-    //     testGroup: WasmGroup
-    // }),
+    new AsyncBenchmark({
+        name: "transformersjs-whisper-wasm",
+        files: [
+            "./polyfills/fast-text-encoding-1.0.3/text.js",
+            "./transformersjs/benchmark.js",
+            "./transformersjs/task-whisper.js",
+        ],
+        preload: {
+            transformersJsModule: "./transformersjs/build/transformers.js",
+            
+            onnxJsModule: "./transformersjs/build/onnxruntime-web/ort-wasm-simd-threaded.mjs",
+            onnxWasmBinary: "./transformersjs/build/onnxruntime-web/ort-wasm-simd-threaded.wasm",
+
+            modelEncoderWeights: "./transformersjs/build/models/Xenova/whisper-tiny.en/onnx/encoder_model_quantized.onnx",
+            modelDecoderWeights: "./transformersjs/build/models/Xenova/whisper-tiny.en/onnx/decoder_model_merged_quantized.onnx",
+            modelConfig: "./transformersjs/build/models/Xenova/whisper-tiny.en/config.json",
+            modelTokenizer: "./transformersjs/build/models/Xenova/whisper-tiny.en/tokenizer.json",
+            modelTokenizerConfig: "./transformersjs/build/models/Xenova/whisper-tiny.en/tokenizer_config.json",
+            modelPreprocessorConfig: "./transformersjs/build/models/Xenova/whisper-tiny.en/preprocessor_config.json",
+            modelGenerationConfig: "./transformersjs/build/models/Xenova/whisper-tiny.en/generation_config.json",
+
+            inputFile: "./transformersjs/build/inputs/jfk.raw",
+        },
+        iterations: 5,
+        worstCaseCount: 1,
+        tags: ["Default", "Wasm"],
+    }),
     new WasmLegacyBenchmark({
         name: "tfjs-wasm",
         files: [

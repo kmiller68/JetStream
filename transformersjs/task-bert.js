@@ -4,16 +4,6 @@
 
 // End-to-end task 1: Sentiment analysis, so NLP.
 
-globalThis.preloadFiles = function(Module) {
-  return {
-    "ort-wasm-simd-threaded.wasm": Module.wasmBinary,
-    "build/models/Xenova/distilbert-base-uncased-finetuned-sst-2-english/onnx/model_uint8.onnx": Module.modelWeights,
-    "build/models/Xenova/distilbert-base-uncased-finetuned-sst-2-english/config.json": Module.modelConfig,
-    "build/models/Xenova/distilbert-base-uncased-finetuned-sst-2-english/tokenizer.json": Module.modelTokenizer,
-    "build/models/Xenova/distilbert-base-uncased-finetuned-sst-2-english/tokenizer_config.json": Module.modelTokenizerConfig,
-  };
-}
-
 globalThis.initPipeline = async function(pipeline) {
   return await pipeline(
     'sentiment-analysis',

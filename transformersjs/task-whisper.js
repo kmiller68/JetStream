@@ -6,19 +6,6 @@
 // Based on the example https://huggingface.co/Xenova/whisper-tiny.en
 // Convert audio inputs first with `convert-audio.mjs`.
 
-globalThis.preloadFiles = function(Module) {
-  return {
-    "ort-wasm-simd-threaded.wasm": Module.wasmBinary,
-    "build/models/Xenova/whisper-tiny.en/onnx/encoder_model_quantized.onnx": Module.modelEncoderWeights,
-    "build/models/Xenova/whisper-tiny.en/onnx/decoder_model_merged_quantized.onnx": Module.modelDecoderWeights,
-    "build/models/Xenova/whisper-tiny.en/config.json": Module.modelConfig,
-    "build/models/Xenova/whisper-tiny.en/tokenizer.json": Module.modelTokenizer,
-    "build/models/Xenova/whisper-tiny.en/tokenizer_config.json": Module.modelTokenizerConfig,
-    "build/models/Xenova/whisper-tiny.en/preprocessor_config.json": Module.modelPreprocessorConfig,
-    "build/models/Xenova/whisper-tiny.en/generation_config.json": Module.modelGenerationConfig,
-  };
-}
-
 globalThis.initPipeline = async function(pipeline) {
   return await pipeline(
     'automatic-speech-recognition',
