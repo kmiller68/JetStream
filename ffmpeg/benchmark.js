@@ -50,6 +50,7 @@ const { FFmpeg } = FFmpegWASM;
 // }
 // globalThis.Worker = MyWorker;
 
+const verbose = false;
 class Benchmark {
     ffmpeg;
     lastRunOutput;
@@ -58,20 +59,24 @@ class Benchmark {
         if (!this.ffmpeg) {
             this.ffmpeg = new FFmpeg();
             this.ffmpeg.on("log", ({ type, message }) => {
-                console.log(`${type}:  ${message}`);
+                if (verbose)
+                    console.log(`${type}:  ${message}`);
             });
 
             this.ffmpeg.on("progress", ({ progress, time }) => {
-                console.log(`${progress * 100} %, time: ${time / 1000000} s`);
+                if (verbose)
+                    console.log(`${progress * 100} %, time: ${time / 1000000} s`);
             });
 
             try {
+                debugger;
                 let blobs = {
                     classWorkerURL,
                     coreURL,
                     wasmURL,
-                    // workerURL,
                 };
+                if (typeof workerURL !== "undefined")
+                    blobs.workerURL = workerURL;
                 await this.ffmpeg.load(blobs);
             } catch (e) {
                 console.log(e);
@@ -103,7 +108,7 @@ class Benchmark {
                 // // "-preset", "ultrafast",
                 // "-c:v", "libvpx",
                 // "-c:a", "libopus",
-                // "-crf", "23",
+                "-crf", "28",
                 outFileName
             ]);
         } catch (e) {
@@ -116,18 +121,17 @@ class Benchmark {
 
         this.lastRunOutput = await this.ffmpeg.readFile(outFileName);
 
-        let outerDocument = window.parent.parent.document;
-        debugger;
-        let videoElement = outerDocument.createElement('video');
-        videoElement.src = URL.createObjectURL(new Blob([this.lastRunOutput], { type: 'video/mp4' }));;
-        videoElement.controls = true;
-        videoElement.width = 640;
-        videoElement.height = 360;
-        // videoElement.autoplay = true; // Use with caution due to browser policies
-        // videoElement.muted = true; // Often required for autoplay
+        if (globalThis.addVideoElement) {
+            let outerDocument = window.parent.parent.document;
+            let videoElement = outerDocument.createElement('video');
+            videoElement.src = URL.createObjectURL(new Blob([this.lastRunOutput], { type: 'video/mp4' }));;
+            videoElement.controls = true;
+            videoElement.width = 640;
+            videoElement.height = 360;
 
-        let statusElement = outerDocument.getElementsByClassName("summary")[0];
-        statusElement.appendChild(videoElement);
+            let statusElement = outerDocument.getElementsByClassName("summary")[0];
+            statusElement.appendChild(videoElement);
+        }
 
         await this.ffmpeg.deleteFile(inFileName);
         await this.ffmpeg.deleteFile(outFileName);

@@ -1428,6 +1428,24 @@ class WSLBenchmark extends Benchmark {
     }
 };
 
+class FFmpegBenchmark extends AsyncBenchmark {
+    transcodeTime;
+    transcodeScore;
+
+    processResults(results) {
+        results = Array.from(results);
+        console.assert(results.length === 1);
+        this.transcodeTime = results[0];
+        this.transcodeScore = toScore(results[0]);
+    }
+
+    subScores() {
+        return {
+            "Transcode": this.transcodeScore,
+        };
+    }
+}
+
 class WasmLegacyBenchmark extends Benchmark {
     constructor(...args) {
         super(...args);
@@ -2507,7 +2525,7 @@ let BENCHMARKS = [
         worstCaseCount: 2,
         tags: ["Default", "Wasm", "dotnet"],
     }),
-    new AsyncBenchmark({
+    new FFmpegBenchmark({
         name: "ffmpeg-wasm",
         files: [
             "./ffmpeg/dist/ffmpeg/dist/umd/ffmpeg.js",
@@ -2515,15 +2533,16 @@ let BENCHMARKS = [
         ],
         preload: {
             classWorkerURL: "./ffmpeg/dist/ffmpeg/dist/umd/814.ffmpeg.js",
-            coreURL: "./ffmpeg/dist/core/dist/umd/ffmpeg-core.js",
-            wasmURL: "./ffmpeg/dist/core/dist/umd/ffmpeg-core.wasm",
-            // workerURL: "./ffmpeg/node_modules/@ffmpeg/core/dist/umd/ffmpeg-core.worker.js",;
-            // mp4VideoURL: "./ffmpeg/Big_Buck_Bunny_1080_10s_2MB.mp4",
+            coreURL: "./ffmpeg/dist/core-mt/dist/umd/ffmpeg-core.js",
+            wasmURL: "./ffmpeg/dist/core-mt/dist/umd/ffmpeg-core.wasm",
+            workerURL: "./ffmpeg/dist/core-mt/dist/umd/ffmpeg-core.worker.js",
+            // coreURL: "./ffmpeg/dist/core/dist/umd/ffmpeg-core.js",
+            // wasmURL: "./ffmpeg/dist/core/dist/umd/ffmpeg-core.wasm",
             inVideoURL: "./ffmpeg/Big_Buck_Bunny_360_10s_1MB.webm",
         },
         tags: ["Default", "Wasm", "WorkerTests"],
         iterations: 1,
-        worstCase: 1
+        worstCaseCount: 0,
     })
 ];
 
