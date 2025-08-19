@@ -1,0 +1,17 @@
+{
+  "scripts": {
+    "prebuild": "rm -rf dist/*",
+    "build": "webpack",
+    "build:dev": "npm run prebuild && webpack --mode development"
+  },
+  "dependencies": {
+    "@ffmpeg/core": "^0.12.10",
+    "@ffmpeg/core-mt": "^0.12.10",
+    "@ffmpeg/ffmpeg": "^0.12.15",
+    "@ffmpeg/util": "^0.12.2",
+    "webpack": "^5.101.2"
+  },
+  "devDependencies": {
+    "webpack-cli": "^6.0.1"
+  }
+}

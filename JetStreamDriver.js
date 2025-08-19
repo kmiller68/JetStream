@@ -936,6 +936,7 @@ class Benchmark {
                 this.updateCounter();
             }).catch((error) => {
                 // We'll try again later in retryPrefetchResourceForBrowser(). Don't throw an error.
+                console.log(`Prefetch for file resource: ${file} failed, retrying later`, error);
             }));
 
         if (this.plan.preload) {
@@ -947,6 +948,7 @@ class Benchmark {
                     this.preloads.push([ blobData.prop, blobData.blobURL ]);
                     this.updateCounter();
                 }).catch((error) => {
+                    console.log(`Prefetch for preload resource: ${prop} failed, retrying later`, error);
                     // We'll try again later in retryPrefetchResourceForBrowser(). Don't throw an error.
                     if (!this.failedPreloads)
                         this.failedPreloads = { };
@@ -1137,13 +1139,17 @@ class GroupedBenchmark extends Benchmark {
     }
 
     async prefetchResourcesForBrowser() {
+        let promises = []
         for (const benchmark of this.benchmarks)
-            await benchmark.prefetchResourcesForBrowser();
+            promises.push(benchmark.prefetchResourcesForBrowser());
+        await Promise.all(promises);
     }
 
     async retryPrefetchResourcesForBrowser() {
+        let promises = []
         for (const benchmark of this.benchmarks)
-            await benchmark.retryPrefetchResourcesForBrowser();
+            promises.push(benchmark.retryPefetchResourcesForBrowser());
+        await Promise.all(promises);
     }
 
     prefetchResourcesForShell() {
@@ -1261,7 +1267,7 @@ class AsyncBenchmark extends DefaultBenchmark {
             str += `
                 async function getBinary(blobURL) {
                     const response = await fetch(blobURL);
-                    return new Int8Array(await response.arrayBuffer());
+                    return new Uint8Array(await response.arrayBuffer());
                 }
 
                 async function getString(blobURL) {
@@ -1276,7 +1282,7 @@ class AsyncBenchmark extends DefaultBenchmark {
         } else {
             str += `
                 async function getBinary(path) {
-                    return new Int8Array(read(path, "binary"));
+                    return new Uint8Array(read(path, "binary"));
                 }
 
                 async function getString(path) {
@@ -2500,9 +2506,26 @@ let BENCHMARKS = [
         iterations: 15,
         worstCaseCount: 2,
         tags: ["Default", "Wasm", "dotnet"],
+    }),
+    new AsyncBenchmark({
+        name: "ffmpeg-wasm",
+        files: [
+            "./ffmpeg/dist/ffmpeg/dist/umd/ffmpeg.js",
+            "./ffmpeg/benchmark.js"
+        ],
+        preload: {
+            classWorkerURL: "./ffmpeg/dist/ffmpeg/dist/umd/814.ffmpeg.js",
+            coreURL: "./ffmpeg/dist/core/dist/umd/ffmpeg-core.js",
+            wasmURL: "./ffmpeg/dist/core/dist/umd/ffmpeg-core.wasm",
+            // workerURL: "./ffmpeg/node_modules/@ffmpeg/core/dist/umd/ffmpeg-core.worker.js",;
+            // mp4VideoURL: "./ffmpeg/Big_Buck_Bunny_1080_10s_2MB.mp4",
+            inVideoURL: "./ffmpeg/Big_Buck_Bunny_360_10s_1MB.webm",
+        },
+        tags: ["Default", "Wasm", "WorkerTests"],
+        iterations: 1,
+        worstCase: 1
     })
 ];
-
 
 // SunSpider tests
 const SUNSPIDER_TESTS = [
