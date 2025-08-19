@@ -16,20 +16,31 @@ globalThis.URL = URL;
 
 // Polyfill fetch for shell-compatibility and to cache / preload model weights etc.
 let preload = { /* Initialized in init() below due to async. */ };
+const originalFetch = globalThis.fetch ?? function(url) {
+  throw new Error("no fetch available");
+}
 globalThis.fetch = async function(url) {
   // DEBUG
-  // console.log('fetch', url);
-  if (!preload[url]) {
-    throw new Error('Unexpected fetch: ' + url);
-  }
-  return {
-    ok: true,
-    arrayBuffer: function() {
-      return preload[url].buffer;
-    },
-  };
-};
+  console.log('fetch', url);
 
+  // Redirect some paths to cached/preloaded resources.
+  if (preload[url]) {
+    return {
+      ok: true,
+      status: 200,
+      arrayBuffer() { return preload[url]; },
+      async blob() {
+        return {
+          size: preload[url].byteLength,
+          async arrayBuffer() { return preload[url]; }
+        }
+      },
+    };
+  }
+
+  // This should only be called in the browser, where fetch() is available.
+  return originalFetch(url);
+};
 // JetStream benchmark harness. Reuse for two different Transformers.js tasks.
 // Assumes `preloadFiles(module)`, `initPipeline(pipelineFromTransformersJs)`,
 // and `doTask(initializedPipeline, inputArrayBuffer)` is in the global scope.
@@ -62,8 +73,12 @@ class Benchmark {
       // TODO: Profile startup only: What is taking so much time here?
       let { env, pipeline } = this.transformersJsModule;
     
-      env.localModelPath = 'build/models/';
       env.allowRemoteModels = false;
+      env.allowLocalModels = true;
+      env.localModelPath = 'transformersjs/build/models/';
+
+      delete env.backends.onnx.webgl;
+      delete env.backends.onnx.webgpu;
     
       // Single-threaded only for now, since we cannot spawn workers in shells.
       // TODO: Implement sufficiently powerful workers in shells (or provide

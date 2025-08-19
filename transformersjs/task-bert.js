@@ -9,7 +9,7 @@ globalThis.initPipeline = async function(pipeline) {
     'sentiment-analysis',
     'Xenova/distilbert-base-uncased-finetuned-sst-2-english',
     // Use quantized models for smaller model weights.
-    { dtype: 'uint8' }
+    { dtype: 'uint8', device: 'wasm' }
   );
 }
 
@@ -23,6 +23,6 @@ globalThis.doTask = async function(pipeline) {
     throw new Error('Expected output to be an array matching the inputs, but got:', outputs);
   }
   for (let j = 0; j < inputs.length; ++j) {
-    print(`${inputs[j]} -> ${outputs[j].label} @ ${outputs[j].score}`);
+    console.log(`${inputs[j]} -> ${outputs[j].label} @ ${outputs[j].score}`);
   }
 }

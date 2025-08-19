@@ -11,12 +11,12 @@ globalThis.initPipeline = async function(pipeline) {
     'automatic-speech-recognition',
     'Xenova/whisper-tiny.en',
     // Use quantized model because of smaller weights.
-    { dtype: 'q8' }
+    { dtype: 'q8', device: 'wasm' }
   );
 }
 
 globalThis.doTask = async function(pipeline, inputFileBuffer) {
   const input = new Float32Array(inputFileBuffer);
   const output = await pipeline(input, { chunk_length_s: 10 });
-  print(output.text.trim());
+  console.log(output.text.trim());
 }
