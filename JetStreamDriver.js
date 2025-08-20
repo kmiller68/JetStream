@@ -579,6 +579,7 @@ class Scripts {
         this.add(`
             performance.mark ??= function(name) { return { name }};
             performance.measure ??= function() {};
+            performance.timeOrigin ??= performance.now();
         `);
     }
 
