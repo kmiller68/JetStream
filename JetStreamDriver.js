@@ -2401,7 +2401,7 @@ let BENCHMARKS = [
     }),
     // J2CL
     new AsyncBenchmark({
-        name: "j2cl-box2d",
+        name: "j2cl-box2d-wasm",
         files: [
             "./wasm/j2cl-box2d/benchmark.js",
             "./wasm/j2cl-box2d/build/Box2dBenchmark_j2wasm_entry.js",

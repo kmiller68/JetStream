@@ -37,6 +37,7 @@ testList = [
   "Dart-flute-wasm",
   "zlib-wasm",
   "Kotlin-compose-wasm",
+  "j2cl-box2d-wasm"
 ];
 
 // Reuse the full CLI runner, just with the subset of Wasm line items above.
