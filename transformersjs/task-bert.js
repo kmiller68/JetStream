@@ -9,7 +9,7 @@ globalThis.initPipeline = async function(pipeline) {
     'sentiment-analysis',
     'Xenova/distilbert-base-uncased-finetuned-sst-2-english',
     // Use quantized models for smaller model weights.
-    { dtype: 'uint8', device: 'wasm' }
+    { dtype: 'uint8' }
   );
 }
 
@@ -19,10 +19,17 @@ globalThis.doTask = async function(pipeline) {
     'Benchmarking is hard.',
   ];
   const outputs = await pipeline(inputs);
-  if (outputs.length !== inputs.length) {
-    throw new Error('Expected output to be an array matching the inputs, but got:', outputs);
+  return outputs;
+}
+
+globalThis.validate = function(outputs) {
+  if (outputs.length !== 2) {
+    throw new Error('Expected output to be an array matching the inputs, but got:' + outputs);
   }
-  for (let j = 0; j < inputs.length; ++j) {
-    console.log(`${inputs[j]} -> ${outputs[j].label} @ ${outputs[j].score}`);
+  if (outputs[0].label !== 'POSITIVE' || outputs[0].score < 0.9) {
+    throw new Error('Expected positive sentiment for first input, but got: ' + outputs[0]);
+  }
+  if (outputs[1].label !== 'NEGATIVE' || outputs[1].score < 0.9) {
+    throw new Error('Expected negative sentiment for second input, but got: ' + outputs[1]);
   }
 }

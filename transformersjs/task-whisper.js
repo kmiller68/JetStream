@@ -11,12 +11,18 @@ globalThis.initPipeline = async function(pipeline) {
     'automatic-speech-recognition',
     'Xenova/whisper-tiny.en',
     // Use quantized model because of smaller weights.
-    { dtype: 'q8', device: 'wasm' }
+    { dtype: 'q8' }
   );
 }
 
 globalThis.doTask = async function(pipeline, inputFileBuffer) {
   const input = new Float32Array(inputFileBuffer);
   const output = await pipeline(input);
-  console.log(output.text.trim());
+  return output.text.trim();
+}
+
+globalThis.validate = function(output) {
+  if (output !== 'Ask not what your country can do for you.') {
+    throw new Error('Wrong output, got: ' + output);
+  }
 }

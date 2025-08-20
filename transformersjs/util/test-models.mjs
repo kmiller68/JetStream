@@ -29,7 +29,9 @@ env.localModelPath = 'build/models/'
 
   for (let i = 0; i < 20; ++i) {
     start = performance.now();
-    await doTask(pipe);
+    const output = await doTask(pipe);
+    validate(output)
+    console.log('output:', output);
     console.log('doTask took ' + (performance.now() - start) + ' ms.');
   }
 }
@@ -46,7 +48,9 @@ env.localModelPath = 'build/models/'
 
   for (let i = 0; i < 5; ++i) {
     start = performance.now();
-    await doTask(pipe, inputAudioBuffer);
+    const output = await doTask(pipe, inputAudioBuffer);
+    validate(output)
+    console.log('output:', output);
     console.log('doTask took ' + (performance.now() - start) + ' ms.');
   }
 }
