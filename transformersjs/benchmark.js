@@ -21,7 +21,7 @@ const originalFetch = globalThis.fetch ?? function(url) {
 }
 globalThis.fetch = async function(url) {
   // DEBUG
-  console.log('fetch', url);
+  // console.log('fetch', url);
 
   // Redirect some paths to cached/preloaded resources.
   if (preload[url]) {
@@ -41,6 +41,7 @@ globalThis.fetch = async function(url) {
   // This should only be called in the browser, where fetch() is available.
   return originalFetch(url);
 };
+
 // JetStream benchmark harness. Reuse for two different Transformers.js tasks.
 // Assumes `preloadFiles(module)`, `initPipeline(pipelineFromTransformersJs)`,
 // and `doTask(initializedPipeline, inputArrayBuffer)` is in the global scope.
@@ -50,20 +51,23 @@ class Benchmark {
   wasmBinary;
   pipeline;
   inputFile;
+  output;
 
   async init() {
     this.transformersJsModule = await JetStream.dynamicImport(JetStream.preload.transformersJsModule);
     this.wasmBinary = await JetStream.getBinary(JetStream.preload.onnxWasmBinary);
 
-    for (const [key, url] of Object.entries(JetStream.preload)) {
-      const prefixToStrip = './transformersjs/';
-      preload[url.slice(prefixToStrip.length)] = await JetStream.getBinary(url);
+    for (const url of Object.values(JetStream.preload)) {
+      preload[url] = await JetStream.getBinary(url);
     }
     // DEBUG
-    // console.log('preload', Object.entries(preload))
+    // console.log('JetStream.preload', JetStream.preload);
+    // console.log('preload', preload);
 
     if ('inputFile' in JetStream.preload) {
       this.inputFile = (await JetStream.getBinary(JetStream.preload.inputFile)).buffer;
+      // DEBUG
+      // console.log('inputFile', this.inputFile.byteLength, 'bytes');
     }
   }
 
@@ -75,8 +79,9 @@ class Benchmark {
     
       env.allowRemoteModels = false;
       env.allowLocalModels = true;
-      env.localModelPath = 'transformersjs/build/models/';
+      env.localModelPath = './transformersjs/build/models/';
 
+      // Always select the Wasm backend, nothing else.
       delete env.backends.onnx.webgl;
       delete env.backends.onnx.webgpu;
     
@@ -85,12 +90,13 @@ class Benchmark {
       // polyfills).
       env.backends.onnx.wasm.numThreads = 1;
 
-      // Either specify path prefix, but this loads the JSEP build by default.
+      // Do not specify path prefix, because this loads the JSEP build by default.
       // TODO: Do we want the JSEP build because it's the default online, or the
       // non-asyncified one, since it's the smaller / more performant one?
       // env.backends.onnx.wasm.wasmPaths = 'build/onnxruntime-web/';
       // So instead, give the ONNX runtime files directly:
       env.backends.onnx.wasm.wasmPaths = {
+        // mjs: JetStream.preload.transformersJsModule
         mjs: './onnxruntime-web/ort-wasm-simd-threaded.mjs'
       };
       // Give it the wasmBinary directly instead of a path, such that the
@@ -102,6 +108,10 @@ class Benchmark {
       this.pipeline = await initPipeline(pipeline);
     }
     
-    await doTask(this.pipeline, this.inputFile);
+    this.output = await doTask(this.pipeline, this.inputFile);
+  }
+
+  validate() {
+    validate(this.output);
   }
 }
