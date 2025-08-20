@@ -60,9 +60,6 @@ class Benchmark {
     for (const url of Object.values(JetStream.preload)) {
       preload[url] = await JetStream.getBinary(url);
     }
-    // DEBUG
-    // console.log('JetStream.preload', JetStream.preload);
-    // console.log('preload', preload);
 
     if ('inputFile' in JetStream.preload) {
       this.inputFile = (await JetStream.getBinary(JetStream.preload.inputFile)).buffer;
@@ -96,8 +93,10 @@ class Benchmark {
       // env.backends.onnx.wasm.wasmPaths = 'build/onnxruntime-web/';
       // So instead, give the ONNX runtime files directly:
       env.backends.onnx.wasm.wasmPaths = {
-        // mjs: JetStream.preload.transformersJsModule
-        mjs: './onnxruntime-web/ort-wasm-simd-threaded.mjs'
+        // The ONNX runtime module is dynamically imported relative to the 
+        // Transformers.js module above, hence strip the prefix.
+        // With preloading, this is an (absolute) blob URL, so the replace is a nop.
+        mjs: JetStream.preload.onnxJsModule.replace('./transformersjs/build/', './')
       };
       // Give it the wasmBinary directly instead of a path, such that the
       // ONNX runtime uses asynchronous (not streaming) Wasm instantiation.

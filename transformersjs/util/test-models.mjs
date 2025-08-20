@@ -54,3 +54,4 @@ env.localModelPath = 'build/models/'
     console.log('doTask took ' + (performance.now() - start) + ' ms.');
   }
 }
+      
