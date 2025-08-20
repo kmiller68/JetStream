@@ -19,8 +19,6 @@ env.localModelPath = 'build/models/'
 // internet connection.
 // env.allowRemoteModels = false;
 
-globalThis.print = function(str) { console.log(str); }
-
 {
   console.log('Sentiment analysis / text classification with BERT model.');
   await import('../task-bert.js');
