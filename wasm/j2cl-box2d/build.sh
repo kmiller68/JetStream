@@ -28,4 +28,5 @@ cp $BUILD_OUT_DIR/Box2dBenchmark_j2wasm_entry.js build/ | tee -a "$BUILD_LOG"
 # Since these imports/builtins are never called in the workload, they should not have any effect on runtime.
 sed -i 's/imports:/"wasm:js-string":{fromCharCodeArray:unused_import,concat:unused_import,equals:unused_import,compare:unused_import,length:unused_import,charCodeAt:unused_import,substring:unused_import},imports:/g' build/Box2dBenchmark_j2wasm_entry.js
 cp $BUILD_OUT_DIR/Box2dBenchmark_j2wasm_binary.wasm build/ | tee -a "$BUILD_LOG"
+cp $BUILD_OUT_DIR/Box2dBenchmark_j2wasm_binary.binaryen.symbolmap build/ | tee -a "$BUILD_LOG"
 echo "Build success" | tee -a "$BUILD_LOG"
