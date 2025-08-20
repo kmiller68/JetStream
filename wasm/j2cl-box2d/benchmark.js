@@ -24,7 +24,7 @@ class Benchmark {
   wasmInstanceExports;
 
   async init() {
-    this.wasmBinary = await getBinary(wasmBinary);
+    this.wasmBinary = await JetStream.getBinary(JetStream.preload.wasmBinary);
   }
 
   async runIteration() {
