@@ -16,7 +16,8 @@ popd
 
 echo "Download and convert audio input(s)..." | tee -a "$BUILD_LOG"
 wget https://huggingface.co/datasets/Xenova/transformers.js-docs/resolve/main/jfk.wav | tee -a "$BUILD_LOG"
-node util/convert-audio.mjs jfk.wav build/inputs/jfk.raw | tee -a "$BUILD_LOG"
+# Shorten the audio file to one sentence in the middle, to speed up a single iteration.
+node util/convert-audio.mjs jfk.wav build/inputs/jfk.raw 52000 120000 | tee -a "$BUILD_LOG"
 rm jfk.wav
 
 echo "Download and run model(s)..." | tee -a "$BUILD_LOG"

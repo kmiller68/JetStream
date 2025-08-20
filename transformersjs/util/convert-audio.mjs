@@ -11,11 +11,13 @@
 import wavefile from 'wavefile';
 import * as fs from 'fs';
 
-if (process.argv.length < 3) {
-  throw new Error("Usage: node convert-audio.mjs input.wav output.raw");
+if (process.argv.length < 5) {
+  throw new Error("Usage: node convert-audio.mjs input.wav output.raw <start_sample> <end_sample>");
 }
 const inputFilename = process.argv[2];
 const outputFilename = process.argv[3];
+const outputStartSample = parseInt(process.argv[4]);
+const outputEndSample = parseInt(process.argv[5]);
 
 const wav = new wavefile.WaveFile(fs.readFileSync(inputFilename));
 const inputChannelCount = wav.fmt.numChannels;
@@ -44,11 +46,18 @@ if (Array.isArray(audioData)) {
   audioData = audioData[0];
 }
 
+const inputSampleCount = audioData.length;
+
+// Select samples as specified by outputStartSample and outputEndSample.
+console.assert(outputStartSample < outputEndSample, "Given start is smaller than end.");
+console.assert(outputEndSample <= audioData.length, "Given end is longer than input file.");
+audioData = audioData.slice(outputStartSample, outputEndSample);
+
 const outputSampleCount = audioData.length;
 const outputSizeBytes = audioData.byteLength;
 fs.writeFileSync(outputFilename, audioData);
 
 const durationSeconds = outputSampleCount / outputSampleRate;
 console.log(`Converted ${durationSeconds}s of audio`);
-console.log(`  from '${inputFilename}', ${inputChannelCount} channel(s), ${inputSampleRate} Hz, ${inputBitDepth} bit`);
+console.log(`  from '${inputFilename}', ${inputChannelCount} channel(s), ${inputSampleRate} Hz, ${inputBitDepth} bit, ${inputSampleCount} samples`);
 console.log(`  to   '${outputFilename}', ${outputChannelCount} channel(s), ${outputSampleRate} Hz, 32 bit float, ${outputSampleCount} samples, ${outputSizeBytes} bytes`);

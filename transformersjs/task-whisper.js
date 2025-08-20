@@ -17,6 +17,6 @@ globalThis.initPipeline = async function(pipeline) {
 
 globalThis.doTask = async function(pipeline, inputFileBuffer) {
   const input = new Float32Array(inputFileBuffer);
-  const output = await pipeline(input, { chunk_length_s: 10 });
+  const output = await pipeline(input);
   console.log(output.text.trim());
 }
