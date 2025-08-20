@@ -5,6 +5,9 @@ set -euo pipefail
 rm -rf build/
 mkdir -p build/{models,inputs,onnxruntime-web}/
 
+# Optional: clean all node packages as well.
+rm -rf util/node_modules/
+
 touch build.log
 BUILD_LOG="$(realpath build.log)"
 echo "Built on $(date -u '+%Y-%m-%dT%H:%M:%SZ')" | tee "$BUILD_LOG"
@@ -43,8 +46,5 @@ cp util/node_modules/onnxruntime-web/dist/ort-wasm-simd-threaded.{mjs,wasm} buil
 # TODO: Compress model data (and maybe Wasm modules) with zstd.
 # Either decompress with native APIs available in browsers or JS/Wasm polyfill?
 # E.g., https://github.com/101arrowz/fzstd or https://github.com/fabiospampinato/zstandard-wasm or https://github.com/donmccurdy/zstddec-wasm
-
-# Cleanup node packages.
-# rm -rf util/node_modules/
 
 echo "Building done" | tee -a "$BUILD_LOG"
