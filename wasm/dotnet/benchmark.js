@@ -130,7 +130,7 @@ class Benchmark {
 
 
         // This drives the workload size for BenchTasks half of the test.
-        this.benchTasksBatchSize = dotnetFlavor === "aot" ? 100 : 10;
+        this.benchTasksBatchSize = dotnetFlavor === "aot" ? 50 : 10;
 
         // These drive the workload size for RayTrace half of the test.
         this.hardwareConcurrency = 1;
