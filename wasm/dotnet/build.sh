@@ -14,7 +14,6 @@ echo "Built on $(date -u '+%Y-%m-%dT%H:%M:%SZ')\n" | tee -a "$BUILD_LOG"
 echo "Toolchain versions" | tee -a "$BUILD_LOG"
 dotnet --version | tee -a "$BUILD_LOG"
 
-dotnet workload install wasm-tools
 echo "Building interp..." | tee -a "$BUILD_LOG"
 dotnet publish -o ./build-interp ./src/dotnet/dotnet.csproj
 
