@@ -2147,6 +2147,7 @@ let BENCHMARKS = [
     new WasmEMCCBenchmark({
         name: "sqlite3-wasm",
         files: [
+            "./polyfills/fast-text-encoding-1.0.3/text.js",
             "./sqlite3/benchmark.js",
             "./sqlite3/build/jswasm/speedtest1.js",
         ],
@@ -2476,7 +2477,7 @@ let BENCHMARKS = [
     new WasmEMCCBenchmark({
         name: "8bitbench-wasm",
         files: [
-            "./8bitbench/build/lib/fast-text-encoding-1.0.3/text.js",
+            "./polyfills/fast-text-encoding-1.0.3/text.js",
             "./8bitbench/build/rust/pkg/emu_bench.js",
             "./8bitbench/benchmark.js",
         ],
