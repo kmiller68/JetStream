@@ -3,6 +3,7 @@ import commandLineUsage from 'command-line-usage';
 import { globSync } from 'glob';
 import zlib from 'zlib';
 import fs from 'fs';
+import path from 'path';
 
 function parseCommandLineArgs() {
     const optionDefinitions = [
@@ -46,12 +47,20 @@ function parseCommandLineArgs() {
     return options;
 }
 
+function calculateCompressionRatio(originalSize, compressedSize) {
+    return (1 - compressedSize / originalSize) * 100;
+}
+
+function calculateExpansionRatio(compressedSize, decompressedSize) {
+    return (decompressedSize / compressedSize - 1) * 100;
+}
+
 function compress(inputData) {
     const compressedData = zlib.deflateSync(inputData, { level: zlib.constants.Z_BEST_COMPRESSION });
 
     const originalSize = inputData.length;
     const compressedSize = compressedData.length;
-    const compressionRatio = (1 - compressedSize / originalSize) * 100;
+    const compressionRatio = calculateCompressionRatio(originalSize, compressedSize);
     console.log(`  Original size:   ${String(originalSize).padStart(8)} bytes`);
     console.log(`  Compressed size: ${String(compressedSize).padStart(8)} bytes`);
     console.log(`  Compression ratio:  ${compressionRatio.toFixed(2).padStart(8)}%`);
@@ -64,7 +73,7 @@ function decompress(inputData) {
 
     const compressedSize = inputData.length;
     const decompressedSize = decompressedData.length;
-    const expansionRatio = (decompressedSize / compressedSize - 1) * 100;
+    const expansionRatio = calculateExpansionRatio(compressedSize, decompressedSize);
     console.log(`  Compressed size:   ${String(compressedSize).padStart(8)} bytes`);
     console.log(`  Decompressed size: ${String(decompressedSize).padStart(8)} bytes`);
     console.log(`  Expansion ratio:      ${expansionRatio.toFixed(2).padStart(8)}%`);
@@ -72,44 +81,74 @@ function decompress(inputData) {
     return decompressedData;
 }
 
-function processFiles(options) {
+function globsToFiles(globs) {
     let files = [];
-    console.assert(options.globs.length > 0);
-    for (const glob of options.globs) {
+    console.assert(globs.length > 0);
+    for (const glob of globs) {
         const matches = globSync(glob, { nodir: true });
         files = files.concat(matches);
     }
     files = Array.from(new Set(files)).sort();
+    return files;
+}
 
-    const verb = options.decompress ? 'decompress' : 'compress';
+function processFiles(files, isDecompress, keep) {
+    const verb = isDecompress ? 'decompress' : 'compress';
     console.log(`Found ${files.length} files to ${verb}` + (files.length ? ':' : '.'));
 
-    for (const inputFile of files) {
+    // For printing overall statistics at the end.
+    let totalInputSize = 0;
+    let totalOutputSize = 0;
+
+    for (const inputFilename of files) {
         try {
-            console.log(inputFile);
+            console.log(inputFilename);
+            let outputFilename;
+            if (isDecompress) {
+                if (path.extname(inputFilename) !== '.z') {
+                    console.warn(`  Warning: Input file does not have a .z extension.`);
+                    outputFilename = `${inputFilename}.decompressed`;
+                } else {
+                    outputFilename = inputFilename.slice(0, -2);
+                }
+                console.log(`  Decompressing to: ${outputFilename}`);
+            } else {
+                outputFilename = `${inputFilename}.z`;
+            }
 
             // Copy the mode over to avoid git status entries after a roundtrip.
-            const { mode } = fs.statSync(inputFile);
-            const inputData = fs.readFileSync(inputFile);
-            const outputData = options.decompress ? decompress(inputData) : compress(inputData);
-            let outputFile;
-            if (options.decompress) {
-                outputFile = inputFile.endsWith('.z') ? inputFile.slice(0, -2) : `${inputFile}.decompressed`;
-            } else {
-                outputFile = `${inputFile}.z`;
-            }
-            fs.writeFileSync(outputFile, outputData, { mode });
+            const { mode } = fs.statSync(inputFilename);
+            const inputData = fs.readFileSync(inputFilename);
+            const outputData = isDecompress ? decompress(inputData) : compress(inputData);
+            fs.writeFileSync(outputFilename, outputData, { mode });
 
-            if (!options.keep) {
-                fs.unlinkSync(inputFile);
+            totalInputSize += inputData.length;
+            totalOutputSize += outputData.length;
+
+            if (!keep) {
+                fs.unlinkSync(inputFilename);
                 console.log(`  Deleted input file.`);
             }
         } catch (err) {
-            console.error(`Error ${verb}ing ${inputFile}:`, err);
+            console.error(`Error ${verb}ing ${inputFilename}:`, err);
+        }
+    }
+
+    if (files.length > 1) {
+        if (isDecompress) {
+            const totalExpansionRatio = calculateExpansionRatio(totalInputSize, totalOutputSize);
+            console.log(`Total compressed sizes:   ${String(totalInputSize).padStart(9)} bytes`);
+            console.log(`Total decompressed sizes: ${String(totalOutputSize).padStart(9)} bytes`);
+            console.log(`Average expansion ratio:     ${totalExpansionRatio.toFixed(2).padStart(9)}%`);
+        } else {
+            const totalCompressionRatio = calculateCompressionRatio(totalInputSize, totalOutputSize);
+            console.log(`Total original sizes:   ${String(totalInputSize).padStart(9)} bytes`);
+            console.log(`Total compressed sizes: ${String(totalOutputSize).padStart(9)} bytes`);
+            console.log(`Average compression ratio: ${totalCompressionRatio.toFixed(2).padStart(9)}%`);
         }
     }
 }
 
 const options = parseCommandLineArgs();
-processFiles(options);
-
+const files = globsToFiles(options.globs);
+processFiles(files, options.decompress, options.keep);
