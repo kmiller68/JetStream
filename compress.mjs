@@ -1,55 +1,49 @@
+import commandLineArgs from 'command-line-args';
+import commandLineUsage from 'command-line-usage';
 import { globSync } from 'glob';
 import zlib from 'zlib';
 import fs from 'fs';
 
-const isNPM = process.env.npm_config_user_agent !== undefined;
-const command = isNPM ? 'npm run compress --' : 'node compress.mjs';
+function parseCommandLineArgs() {
+    const optionDefinitions = [
+        { name: 'decompress', alias: 'd', type: Boolean, description: 'Decompress files (default: compress).' },
+        { name: 'keep', alias: 'k', type: Boolean, description: 'Keep input files after processing (default: delete).' },
+        { name: 'help', alias: 'h', type: Boolean, description: 'Print this usage guide.' },
+        { name: 'globs', type: String, multiple: true, defaultOption: true, description: 'Glob patterns of files to process.' },
+    ];
+    const options = commandLineArgs(optionDefinitions);
 
-const usage = `Usage: ${command} [options] <glob>...
+    const isNPM = process.env.npm_config_user_agent !== undefined;
+    const command = isNPM ? 'npm run compress --' : 'node compress.mjs';
+    const usage = commandLineUsage([
+        {
+            header: 'Usage',
+            content: `${command} [options] <glob>...`
+        },
+        {
+            header: 'Options',
+            optionList: optionDefinitions
+        }
+    ]);
 
-Options:
-  -d, --decompress   Decompress files (default: compress).
-  -k, --keep         Keep input files after processing (default: delete).`;
-
-const args = process.argv.slice(2);
-if (args.length === 0) {
-    console.log(usage);
-    process.exit(1);
-}
-
-const keepInputFiles = args.some(arg => arg === '-k' || arg === '--keep');
-const decompressMode = args.some(arg => arg === '-d' || arg === '--decompress');
-
-let globs = args.filter(arg => !arg.startsWith('-'));
-if (globs.length === 0) {
-    if (decompressMode) {
-        const defaultGlob = '**/*.z';
-        console.log(`No input glob pattern given, using default: ${defaultGlob}`);
-        globs = [defaultGlob];
-    } else {
-        // To prevent accidental compression, require explicit input file patterns.
+    if (options.help) {
         console.log(usage);
-        process.exit(1);
+        process.exit(0);
     }
-}
 
-let files = new Set();
-if (globs.length > 0) {
-    for (const glob of globs) {
-        try {
-            const matches = globSync(glob, { nodir: true });
-            for (const match of matches) {
-                files.add(match);
-            }
-        } catch (err) {
-            console.error(`Error processing glob: ${glob}`, err);
+    if (options.globs === undefined) {
+        if (options.decompress) {
+            const defaultGlob = '**/*.z';
+            console.log(`No input glob pattern given, using default: ${defaultGlob}`);
+            options.globs = [defaultGlob];
+        } else {
+            // For compression, require the user to specify explicit input file patterns.
+            console.error('No input glob pattern given.');
+            console.log(usage);
+            process.exit(1);
         }
     }
-}
-files = Array.from(files).sort();
-if (files.length === 0) {
-    console.log(`No files found to process with the given globs: ${globs.join(', ')}`);
-    process.exit(0);
+    return options;
 }
 
 function compress(inputData) {
@@ -78,30 +72,44 @@ function decompress(inputData) {
     return decompressedData;
 }
 
-const verb = decompressMode ? 'decompress' : 'compress';
-console.log(`Found ${files.length} files to ${verb}...`);
+function processFiles(options) {
+    let files = [];
+    console.assert(options.globs.length > 0);
+    for (const glob of options.globs) {
+        const matches = globSync(glob, { nodir: true });
+        files = files.concat(matches);
+    }
+    files = Array.from(new Set(files)).sort();
 
-for (const inputFile of files) {
-    try {
-        console.log(inputFile);
+    const verb = options.decompress ? 'decompress' : 'compress';
+    console.log(`Found ${files.length} files to ${verb}` + (files.length ? ':' : '.'));
 
-        // Copy the mode over to avoid git status entries after a roundtrip.
-        const { mode } = fs.statSync(inputFile);
-        const inputData = fs.readFileSync(inputFile);
-        const outputData = decompressMode ? decompress(inputData) : compress(inputData);
-        let outputFile;
-        if (decompressMode) {
-            outputFile = inputFile.endsWith('.z') ? inputFile.slice(0, -2) : `${inputFile}.decompressed`;
-        } else {
-            outputFile = `${inputFile}.z`;
+    for (const inputFile of files) {
+        try {
+            console.log(inputFile);
+
+            // Copy the mode over to avoid git status entries after a roundtrip.
+            const { mode } = fs.statSync(inputFile);
+            const inputData = fs.readFileSync(inputFile);
+            const outputData = options.decompress ? decompress(inputData) : compress(inputData);
+            let outputFile;
+            if (options.decompress) {
+                outputFile = inputFile.endsWith('.z') ? inputFile.slice(0, -2) : `${inputFile}.decompressed`;
+            } else {
+                outputFile = `${inputFile}.z`;
+            }
+            fs.writeFileSync(outputFile, outputData, { mode });
+
+            if (!options.keep) {
+                fs.unlinkSync(inputFile);
+                console.log(`  Deleted input file.`);
+            }
+        } catch (err) {
+            console.error(`Error ${verb}ing ${inputFile}:`, err);
         }
-        fs.writeFileSync(outputFile, outputData, { mode });
-
-        if (!keepInputFiles) {
-            fs.unlinkSync(inputFile);
-            console.log(`  Deleted input file.`);
-        }
-    } catch (err) {
-        console.error(`Error ${verb}ing ${inputFile}:`, err);
     }
 }
+
+const options = parseCommandLineArgs();
+processFiles(options);
+
