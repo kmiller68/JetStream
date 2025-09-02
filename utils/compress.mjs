@@ -14,7 +14,7 @@ function parseCommandLineArgs() {
     const options = commandLineArgs(optionDefinitions);
 
     const isNPM = process.env.npm_config_user_agent !== undefined;
-    const command = isNPM ? 'npm run compress --' : 'node compress.mjs';
+    const command = isNPM ? 'npm run compress --' : 'node utils/compress.mjs';
     const usage = commandLineUsage([
         {
             header: 'Usage',
