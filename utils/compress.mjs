@@ -113,6 +113,9 @@ function processFiles(files, isDecompress, keep) {
                 }
                 console.log(`  Decompressing to: ${outputFilename}`);
             } else {
+                if (path.extname(inputFilename) === '.z') {
+                    console.warn(`  Warning: Input file already has a .z extension.`);
+                }
                 outputFilename = `${inputFilename}.z`;
             }
 
