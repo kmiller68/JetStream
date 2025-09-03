@@ -77,6 +77,8 @@ async function runEnd2EndTest(name, params) {
 
 async function testEnd2End(params) {
     const driver = await new Builder().withCapabilities(capabilities).build();
+    const driverCapabilities = await driver.getCapabilities();
+    logInfo(`Browser: ${driverCapabilities.getBrowserName()} ${driverCapabilities.getBrowserVersion()}`);
     const urlParams = Object.assign({
             worstCaseCount: 2,
             iterationCount: 3 
