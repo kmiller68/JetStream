@@ -2225,6 +2225,7 @@ let BENCHMARKS = [
             modelTokenizerConfig: "./transformersjs/build/models/Xenova/distilbert-base-uncased-finetuned-sst-2-english/tokenizer_config.json",
         },
         iterations: 30,
+        allowUtf16: true,
         tags: ["Default", "Wasm", "transformersjs"],
     }),
     new AsyncBenchmark({
@@ -2252,6 +2253,7 @@ let BENCHMARKS = [
         },
         iterations: 5,
         worstCaseCount: 1,
+        allowUtf16: true,
         tags: ["Default", "Wasm", "transformersjs"],
     }),
     new WasmLegacyBenchmark({
