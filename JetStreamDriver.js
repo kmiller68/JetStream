@@ -2209,7 +2209,7 @@ let BENCHMARKS = [
     new AsyncBenchmark({
         name: "transformersjs-bert-wasm",
         files: [
-            "./polyfills/fast-text-encoding-1.0.3/text.js",
+            "./polyfills/fast-text-encoding/1.0.3/text.js",
             "./transformersjs/benchmark.js",
             "./transformersjs/task-bert.js",
         ],
@@ -2230,7 +2230,7 @@ let BENCHMARKS = [
     new AsyncBenchmark({
         name: "transformersjs-whisper-wasm",
         files: [
-            "./polyfills/fast-text-encoding-1.0.3/text.js",
+            "./polyfills/fast-text-encoding/1.0.3/text.js",
             "./transformersjs/benchmark.js",
             "./transformersjs/task-whisper.js",
         ],
