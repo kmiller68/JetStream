@@ -2093,18 +2093,6 @@ let BENCHMARKS = [
         tags: ["Wasm"],
     }),
     new WasmEMCCBenchmark({
-        name: "tsf-wasm",
-        files: [
-            "./wasm/TSF/build/tsf.js",
-            "./wasm/TSF/benchmark.js",
-        ],
-        preload: {
-            wasmBinary: "./wasm/TSF/build/tsf.wasm",
-        },
-        iterations: 50,
-        tags: ["Default", "Wasm"],
-    }),
-    new WasmEMCCBenchmark({
         name: "quicksort-wasm",
         files: [
             "./wasm/quicksort/build/quicksort.js",
@@ -2114,7 +2102,9 @@ let BENCHMARKS = [
             wasmBinary: "./wasm/quicksort/build/quicksort.wasm",
         },
         iterations: 50,
-        tags: ["Default", "Wasm"],
+        // No longer run by-default: We have more realistic Wasm workloads by
+        // now, and it was a small microbenchmark.
+        tags: ["Wasm"],
     }),
     new WasmEMCCBenchmark({
         name: "gcc-loops-wasm",
@@ -2124,6 +2114,20 @@ let BENCHMARKS = [
         ],
         preload: {
             wasmBinary: "./wasm/gcc-loops/build/gcc-loops.wasm",
+        },
+        iterations: 50,
+        // No longer run by-default: We have more realistic Wasm workloads by
+        // now, and it was a small microbenchmark.
+        tags: ["Wasm"],
+    }),
+    new WasmEMCCBenchmark({
+        name: "tsf-wasm",
+        files: [
+            "./wasm/TSF/build/tsf.js",
+            "./wasm/TSF/benchmark.js",
+        ],
+        preload: {
+            wasmBinary: "./wasm/TSF/build/tsf.wasm",
         },
         iterations: 50,
         tags: ["Default", "Wasm"],
