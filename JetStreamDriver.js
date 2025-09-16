@@ -31,7 +31,7 @@ const defaultIterationCount = 120;
 const defaultWorstCaseCount = 4;
 
 if (!JetStreamParams.prefetchResources)
-    console.warn("Disabling resource prefetching! All compressed files must have been decompressed using `node utils/compress.mjs -d`");
+    console.warn("Disabling resource prefetching! All compressed files must have been decompressed using `node utils/compress.mjs -d -k`");
 
 if (!isInBrowser && JetStreamParams.prefetchResources) {
     // Use the wasm compiled zlib as a polyfill when decompression stream is
@@ -158,9 +158,8 @@ function isCompressed(name) {
 }
 
 function uncompressedName(name) {
-    if (name.endsWith(".z"))
-        return name.slice(0, -2);
-    return name;
+    console.assert(isCompressed(name));
+    return name.slice(0, -2);
 }
 
 // TODO: Cleanup / remove / merge. This is only used for caching loads in the
@@ -601,7 +600,7 @@ class Scripts {
 class ShellScripts extends Scripts {
     constructor() {
         super();
-        this.prefetchedResources = [];
+        this.prefetchedResources = Object.create(null);;
     }
 
     run() {
@@ -638,12 +637,9 @@ class ShellScripts extends Scripts {
             globalObject.ShellTextDecoder = TextDecoder;
             // Store shellPrefetchedResources on ShellPrefetchedResources so that
             // getBinary and getString can find them.
-            globalObject.ShellPrefetchedResources = {};
-            for (const [name, value] of this.prefetchedResources) {
-                globalObject.ShellPrefetchedResources[name] = value;
-            }
+            globalObject.ShellPrefetchedResources = this.prefetchedResources;
         } else {
-            console.assert(this.prefetchedResources.length === 0, "Unexpected prefetched resources");
+            console.assert(Object.values(this.prefetchedResources).length === 0, "Unexpected prefetched resources");
         }
 
         globalObject.performance ??= performance;
@@ -654,7 +650,9 @@ class ShellScripts extends Scripts {
     }
 
     addPrefetchedResources(prefetchedResources) {
-        this.prefetchedResources.push(...prefetchedResources);
+        for (let [file, bytes] of Object.entries(prefetchedResources)) {
+            this.prefetchedResources[file] = bytes;
+        }
     }
 
     add(text) {
@@ -1087,11 +1085,9 @@ class Benchmark {
 
         console.assert(this.preloads === null, "This initialization should be called only once.");
         this.preloads = [];
-        this.shellPrefetchedResources = [];
+        this.shellPrefetchedResources = Object.create(null);
         if (this.plan.preload) {
-            for (let name of Object.getOwnPropertyNames(this.plan.preload)) {
-                let file = this.plan.preload[name];
-
+            for (let [name, file] of Object.entries(this.plan.preload)) {
                 const compressed = isCompressed(file);
                 if (compressed && !JetStreamParams.prefetchResources) {
                     file = uncompressedName(file);
@@ -1102,7 +1098,7 @@ class Benchmark {
                     if (compressed) {
                         bytes = zlib.decompress(bytes);
                     }
-                    this.shellPrefetchedResources.push([file, bytes]);
+                    this.shellPrefetchedResources[file] = bytes;
                 }
 
                 this.preloads.push([name, file]);
@@ -1380,14 +1376,14 @@ class AsyncBenchmark extends DefaultBenchmark {
         } else {
             str += `
                 JetStream.getBinary = async function(path) {
-                    if (ShellPrefetchedResources) {
+                    if ("ShellPrefetchedResources" in globalThis) {
                         return ShellPrefetchedResources[path];
                     }
                     return new Int8Array(read(path, "binary"));
                 };
 
                 JetStream.getString = async function(path) {
-                    if (ShellPrefetchedResources) {
+                    if ("ShellPrefetchedResources" in globalThis) {
                         return new ShellTextDecoder().decode(ShellPrefetchedResources[path]);
                     }
                     return read(path);
