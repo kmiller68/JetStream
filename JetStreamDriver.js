@@ -1978,7 +1978,7 @@ let BENCHMARKS = [
             // BUNDLE_BLOB: "./web-ssr/dist/bundle.js",
             BUNDLE_BLOB: "./web-ssr/dist/bundle.min.js",
         },
-        tags: ["web", "ssr"],
+        tags: ["Default", "web", "ssr"],
         iterations: 30,
     }),
     // Class fields
