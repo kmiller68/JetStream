@@ -190,9 +190,9 @@ class ShellFileLoader {
 
         let contents;
         if (compressed) {
-            const bytes = new Int8Array(read(url, "binary"));
-            bytes = zlib.decompress(bytes);
-            contents = new TextDecoder().decode(bytes);
+            const compressedBytes = new Int8Array(read(url, "binary"));
+            const decompressedBytes = zlib.decompress(compressedBytes);
+            contents = new TextDecoder().decode(decompressedBytes);
         } else {
             contents = readFile(url);
         }
