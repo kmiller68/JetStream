@@ -39,7 +39,7 @@ class Benchmark {
     const loadPromises = Object.entries(preload).map(
       async ([name, url]) => {
         if (name.endsWith(".wasm")) {
-          let buffer = (await JetStream.getBinary(url)).buffer;
+          const buffer = (await JetStream.getBinary(url)).buffer;
           if (!(buffer instanceof ArrayBuffer)) {
             // The returned array buffer is from a different global when
             // prefetching resources and running in the shell. This is fine,

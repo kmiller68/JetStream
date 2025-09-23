@@ -31,7 +31,7 @@ const defaultIterationCount = 120;
 const defaultWorstCaseCount = 4;
 
 if (!JetStreamParams.prefetchResources)
-    console.warn("Disabling resource prefetching! All compressed files must have been decompressed using `node utils/compress.mjs -d -k`");
+    console.warn("Disabling resource prefetching! All compressed files must have been decompressed using `npm run decompress`");
 
 if (!isInBrowser && JetStreamParams.prefetchResources) {
     // Use the wasm compiled zlib as a polyfill when decompression stream is
@@ -190,7 +190,7 @@ class ShellFileLoader {
 
         let contents;
         if (compressed) {
-            let bytes = new Int8Array(read(url, "binary"));
+            const bytes = new Int8Array(read(url, "binary"));
             bytes = zlib.decompress(bytes);
             contents = new TextDecoder().decode(bytes);
         } else {
@@ -944,7 +944,7 @@ class Benchmark {
         // If we need to decompress this, then run it through a decompression
         // stream.
         if (compressed) {
-            const stream = response.body.pipeThrough(new DecompressionStream('deflate'))
+            const stream = response.body.pipeThrough(new DecompressionStream("deflate"))
             response = new Response(stream);
         }
 
@@ -1086,23 +1086,24 @@ class Benchmark {
         console.assert(this.preloads === null, "This initialization should be called only once.");
         this.preloads = [];
         this.shellPrefetchedResources = Object.create(null);
-        if (this.plan.preload) {
-            for (let [name, file] of Object.entries(this.plan.preload)) {
-                const compressed = isCompressed(file);
-                if (compressed && !JetStreamParams.prefetchResources) {
-                    file = uncompressedName(file);
-                }
-
-                if (JetStreamParams.prefetchResources) {
-                    let bytes = new Int8Array(read(file, "binary"));
-                    if (compressed) {
-                        bytes = zlib.decompress(bytes);
-                    }
-                    this.shellPrefetchedResources[file] = bytes;
-                }
-
-                this.preloads.push([name, file]);
+        if (!this.plan.preload) {
+            return;
+        }
+        for (let [name, file] of Object.entries(this.plan.preload)) {
+            const compressed = isCompressed(file);
+            if (compressed && !JetStreamParams.prefetchResources) {
+                file = uncompressedName(file);
             }
+
+            if (JetStreamParams.prefetchResources) {
+                let bytes = new Int8Array(read(file, "binary"));
+                if (compressed) {
+                    bytes = zlib.decompress(bytes);
+                }
+                this.shellPrefetchedResources[file] = bytes;
+            }
+
+            this.preloads.push([name, file]);
         }
     }
 

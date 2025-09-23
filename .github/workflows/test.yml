@@ -40,7 +40,7 @@ jobs:
               run: npm ci
 
             - name: Decompress compressed files
-              run: node utils/compress.mjs -d -k
+              run: npm run decompress
 
             - name: Cache jsvu Binaries 
               uses: actions/cache@v4

@@ -2,7 +2,7 @@
 // DecompressionStream are not available.
 
 function module() {
-  'use strict';
+  "use strict";
 
   let zlibPromise = null;
   let zlibModule = null;
