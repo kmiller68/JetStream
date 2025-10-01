@@ -38,6 +38,9 @@ class Params {
     testWorstCaseCount = undefined;
     prefetchResources = true;
 
+    // Display group details.
+    groupDetails = false
+
     RAMification = false;
     dumpJSONResults = false;
     dumpTestList = false;
@@ -61,6 +64,7 @@ class Params {
         this.prefetchResources = this._parseBooleanParam(sourceParams, "prefetchResources");
         this.RAMification = this._parseBooleanParam(sourceParams, "RAMification");
         this.dumpJSONResults = this._parseBooleanParam(sourceParams, "dumpJSONResults");
+        this.groupDetails = this._parseBooleanParam(sourceParams, "groupDetails");
         this.dumpTestList = this._parseBooleanParam(sourceParams, "dumpTestList");
 
         this.customPreIterationCode = this._parseStringParam(sourceParams, "customPreIterationCode");
