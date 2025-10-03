@@ -25,6 +25,7 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+const defaultEmptyMap = Object.freeze({});
 
 class Params {
     // Enable a detailed developer menu to change the current Params.
@@ -44,8 +45,11 @@ class Params {
     RAMification = false;
     dumpJSONResults = false;
     dumpTestList = false;
-    testIterationCountMap = new Map();
-    testWorstCaseCountMap = new Map();
+    // Override iteration and worst-case counts per workload.
+    // Example:
+    //   testIterationCountMap = { "acorn-wtb": 5 };
+    testIterationCountMap = defaultEmptyMap;
+    testWorstCaseCountMap = defaultEmptyMap;
 
     customPreIterationCode = undefined;
     customPostIterationCode = undefined;
@@ -60,7 +64,7 @@ class Params {
     _copyFromSearchParams(sourceParams) {
         this.startAutomatically = this._parseBooleanParam(sourceParams, "startAutomatically");
         this.developerMode = this._parseBooleanParam(sourceParams, "developerMode");
-        this.shouldReport = this._parseBooleanParam(sourceParams, "report");
+        this.shouldReport = this._parseBooleanParam(sourceParams, "shouldReport");
         this.prefetchResources = this._parseBooleanParam(sourceParams, "prefetchResources");
         this.RAMification = this._parseBooleanParam(sourceParams, "RAMification");
         this.dumpJSONResults = this._parseBooleanParam(sourceParams, "dumpJSONResults");
@@ -137,6 +141,16 @@ class Params {
 
     get isDefault() {
       return this === DefaultJetStreamParams;
+    }
+
+    get nonDefaultParams() {
+        const diff = Object.create(null);
+        for (const [key, value] of Object.entries(this)) {
+            if (value !== DefaultJetStreamParams[key]) {
+                diff[key] = value;
+            }
+        }
+        return diff;
     }
 }
 
