@@ -455,7 +455,7 @@ class Driver {
         if (!isInBrowser)
             return;
 
-        if (!JetStreamParams.shouldReport)
+        if (!JetStreamParams.report)
             return;
 
         const content = this.resultsJSON();
