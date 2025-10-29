@@ -129,7 +129,7 @@ def calculate_detectable_effect(n: int, alpha: float, power: float, std: float, 
     }
 
 
-def perform_power_analysis(benchmark_runs: List[Dict], alpha: float, power: float, detectable_change: float) -> Dict:
+def perform_power_analysis(benchmark_runs: List[Dict], alpha: float, power: float, detectable_change: float, filter: str) -> Dict:
     """
     Perform power analysis for all line items and categories.
 
@@ -149,6 +149,10 @@ def perform_power_analysis(benchmark_runs: List[Dict], alpha: float, power: floa
         line_items.update(run.keys())
 
     for line_item in line_items:
+        if filter:
+            if filter not in line_item:
+                continue
+
         # Collect all categories for this line item
         categories = set()
         for run in benchmark_runs:
@@ -286,6 +290,13 @@ Examples:
         help='Desired detectable change as a multiple of the mean (default: 1.005)'
     )
 
+    parser.add_argument(
+        '--filter',
+        type=str,
+        default=None,
+        help='Line item to filter on'
+    )
+
     args = parser.parse_args()
 
     # Validate parameters
@@ -307,7 +318,7 @@ Examples:
     print(f"Loaded {len(benchmark_runs)} benchmark run(s)\n")
 
     # Perform power analysis
-    results = perform_power_analysis(benchmark_runs, args.alpha, args.power, args.detectable_change)
+    results = perform_power_analysis(benchmark_runs, args.alpha, args.power, args.detectable_change, args.filter)
 
     # Display results
     format_output(results, args.alpha, args.power)
