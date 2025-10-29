@@ -476,6 +476,13 @@ class Driver {
             for (const name in subScores) {
                 subResults[name] = {"metrics": {"Time": {"current": [toTimeValue(subScores[name])]}}};
             }
+            // const rawTimes = benchmark.rawTimes();
+            // for (const name in subScores) {
+            //     subResults[name] = {"metrics": {
+            //         "Time": { "current": [ toTimeValue(subScores[name]) ] },
+            //         "RawTimes": rawTimes[name],
+            //     } };
+            // }
             results[benchmark.name] = {
                 "metrics" : {
                     "Score" : {"current" : [benchmark.score]},
@@ -500,8 +507,13 @@ class Driver {
                 results[benchmark.name] = {
                     Score: benchmark.score,
                     ...benchmark.subScores(),
-
                 };
+                if (!benchmark.rawTimes) {
+                    throw new Error(benchmark.name);
+                }
+                let rawTimes = benchmark.rawTimes();
+                for (const category in rawTimes)
+                    results[benchmark.name]["RawTime - " + category] = rawTimes[category];
             }
         }
         return results;
@@ -516,7 +528,7 @@ class Driver {
     {
         if (JetStreamParams.dumpJSONResults) {
             console.log("\n");
-            console.log(this.resultsJSON());
+            console.log(this.resultsJSON("simple"));
             console.log("\n");
         }
     }
@@ -536,7 +548,8 @@ class Driver {
         if (!JetStreamParams.report)
             return;
 
-        const content = this.resultsJSON();
+        const content = this.resultsJSON("simple");
+        console.log("Posting: " + content);
         await fetch("/report", {
             method: "POST",
             headers: {
@@ -1402,6 +1415,20 @@ class GroupedBenchmark extends Benchmark {
             results[subTimes] = sum(results[subTimes]);
         return results;
     }
+
+    rawTimes() {
+        const results = {};
+
+        for (const benchmark of this.benchmarks) {
+            let times = benchmark.rawTimes();
+            for (let subTime in times) {
+                results[subTime] ??= [];
+                results[subTime].concat(times[subTime]);
+            }
+        }
+
+        return results;
+    }
 };
 
 class DefaultBenchmark extends Benchmark {
@@ -1435,15 +1462,19 @@ class DefaultBenchmark extends Benchmark {
             const worstCase = [];
             for (let i = 0; i < this.worstCaseCount; ++i)
                 worstCase.push(results[i]);
+            this.worstTimes = Array.from(worstCase);
             this.worstTime = mean(worstCase);
             this.worstScore = toScore(this.worstTime);
         }
-        this.averageTime = mean(results);
-        this.averageScore = toScore(this.averageTime);
+        if (this.iterations > 1) {
+            this.averageTimes = Array.from(results);
+            this.averageTime = mean(results);
+            this.averageScore = toScore(this.averageTime);
+        }
     }
 
     subScores() {
-        const scores = { "First": this.firstIterationScore }
+        const scores = { "First": this.firstIterationScore };
         if (this.worstCaseCount)
             scores["Worst"] = this.worstScore;
         if (this.iterations > 1)
@@ -1459,6 +1490,15 @@ class DefaultBenchmark extends Benchmark {
             times["Worst"] = this.worstTime;
         if (this.iterations > 1)
             times["Average"] = this.averageTime;
+        return times;
+    }
+
+    rawTimes() {
+        const times = { "First": [ this.firstIterationTime ] };
+        if (this.worstTimes)
+            times["Worst"] = this.worstTimes;
+        if (this.averageTimes)
+            times["Average"] = this.averageTimes;
         return times;
     }
 }
@@ -1646,6 +1686,13 @@ class WSLBenchmark extends Benchmark {
             "MainRun": this.mainRunScore,
         };
     }
+
+    rawTimes() {
+        return {
+            "Stdlib": [ this.stdlibTime ],
+            "MainRun": [ this.mainRunTime ],
+        };
+    }
 };
 
 class WasmLegacyBenchmark extends Benchmark {
@@ -1786,6 +1833,13 @@ class WasmLegacyBenchmark extends Benchmark {
         return {
             "Startup": this.startupTime,
             "Runtime": this.runTime,
+        };
+    }
+
+    rawTimes() {
+        return {
+            "Startup": [ this.startupTime ],
+            "Runtime": [ this.runTime ],
         };
     }
 };
@@ -2109,14 +2163,14 @@ let BENCHMARKS = [
         files: [
             "./simple/doxbee-promise.js",
         ],
-        tags: ["default",  "js", "promise", "Simple"],
+        tags: ["default",  "js", "promise", "Simple", "Doxbee"],
     }),
     new AsyncBenchmark({
         name: "doxbee-async",
         files: [
             "./simple/doxbee-async.js",
         ],
-        tags: ["default", "js", "Simple"],
+        tags: ["default", "js", "Simple", "Doxbee"],
     }),
     // SeaMonster
     new DefaultBenchmark({
