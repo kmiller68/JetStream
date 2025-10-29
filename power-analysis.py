@@ -129,7 +129,7 @@ def calculate_detectable_effect(n: int, alpha: float, power: float, std: float, 
     }
 
 
-def perform_power_analysis(benchmark_runs: List[Dict], alpha: float, power: float, detectable_change: float, filter: str) -> Dict:
+def perform_power_analysis(benchmark_runs: List[Dict], alpha: float, power: float, detectable_change: float, filter: str, category_filter: str) -> Dict:
     """
     Perform power analysis for all line items and categories.
 
@@ -157,7 +157,11 @@ def perform_power_analysis(benchmark_runs: List[Dict], alpha: float, power: floa
         categories = set()
         for run in benchmark_runs:
             if type(run[line_item]) is dict:
-                categories.update(run[line_item].keys())
+                for category in run[line_item].keys():
+                    if category_filter:
+                        if category_filter not in category:
+                            continue
+                    categories.add(category)
 
         results[line_item] = {}
 
@@ -206,12 +210,13 @@ def perform_power_analysis(benchmark_runs: List[Dict], alpha: float, power: floa
     return results
 
 
-def format_output(results: Dict, alpha: float, power: float):
+def format_output(results: Dict, alpha: float, power: float, detectable_change: float):
     """Format and print the power analysis results."""
     print("=" * 100)
     print(f"JetStream3 Benchmark Power Analysis")
     print(f"Significance Level (α): {alpha}")
     print(f"Statistical Power: {power}")
+    print(f"Detection multiple: {detectable_change}")
     print("=" * 100)
     print()
 
@@ -297,6 +302,13 @@ Examples:
         help='Line item to filter on'
     )
 
+    parser.add_argument(
+        '--category-filter',
+        type=str,
+        default=None,
+        help='Category to filter on (e.g. Average)'
+    )
+
     args = parser.parse_args()
 
     # Validate parameters
@@ -318,10 +330,10 @@ Examples:
     print(f"Loaded {len(benchmark_runs)} benchmark run(s)\n")
 
     # Perform power analysis
-    results = perform_power_analysis(benchmark_runs, args.alpha, args.power, args.detectable_change, args.filter)
+    results = perform_power_analysis(benchmark_runs, args.alpha, args.power, args.detectable_change, args.filter, args.category_filter)
 
     # Display results
-    format_output(results, args.alpha, args.power)
+    format_output(results, args.alpha, args.power, args.detectable_change)
 
 
 if __name__ == '__main__':
