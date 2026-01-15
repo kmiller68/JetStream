@@ -134,7 +134,6 @@ function shellFriendlyScore(time) {
     return `${uiFriendlyScore(time)} pts`.padStart(VALUE_PADDING);
 }
 
-
 // Files can be zlib compressed to reduce the size of the JetStream source code.
 // We don't use http compression because we support running from the shell and
 // don't want to require a complicated server setup.
@@ -317,7 +316,7 @@ class Driver {
         this.errors = [];
         // Make benchmark list unique and sort it.
         this.benchmarks = Array.from(new Set(benchmarks));
-        this.benchmarks.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1);
+        this.benchmarks.sort(Benchmark.order);
         console.assert(this.benchmarks.length, "No benchmarks selected");
     }
 
@@ -485,7 +484,7 @@ class Driver {
         if (isInBrowser)
             window.addEventListener("error", (e) => this.pushError("driver startup", e.error));
         await this.prefetchResources();
-        this.benchmarks.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1);
+        this.benchmarks.sort(Benchmark.order);
         if (isInBrowser)
             this.prepareBrowserUI();
         this.isReady = true;
@@ -1253,7 +1252,13 @@ class Benchmark {
         console.log(
             shellFriendlyLabel(`${this.name} ${name}`),
             value);
-    }    
+    }
+
+    static order(a, b) {
+        if (a.name.toLowerCase() < b.name.toLowerCase())
+            return -1;
+        return 1;
+    }
 
     renderScatterPlot() {
         const plotContainer = document.getElementById(`plot-${this.name}`);
@@ -1301,7 +1306,7 @@ class GroupedBenchmark extends Benchmark {
             // FIXME: Tags don't work for grouped tests anyway but if they did then this would be weird and probably wrong.
             console.assert(!benchmark.hasAnyTag("Default"), `Grouped benchmark sub-benchmarks shouldn't have the "Default" tag`, benchmark.tags);
         }
-        benchmarks.sort((a, b) => a.name.toLowerCase() < b.name.toLowerCase() ? 1 : -1);
+        benchmarks.sort(Benchmark.order);
         this.benchmarks = benchmarks;
     }
 
